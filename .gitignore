@@ -1,0 +1,8 @@
+﻿################################################################################
+# Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/FormCaptureLocal/.vs/FormCaptureLocal
+/FormCaptureLocal/bin/Debug/net5.0
+/FormCaptureLocal/obj
