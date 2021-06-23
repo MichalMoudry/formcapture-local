@@ -50,6 +50,12 @@ a, .btn-link {
     }
 
 /*Additional css*/
+#app {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
 #main-loading-div {
     display: flex;
     flex-direction: column;
@@ -59,4 +65,28 @@ a, .btn-link {
     min-height: 100vh;
     margin: 0 auto;
     width: 100px;
+}
+
+.index-main {
+    flex: 1;
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 98%);
+    color: white;
+}
+
+    .index-main .content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .index-main .row {
+        justify-content: center;
+    }
+
+.sidebar {
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 98%);
 }
