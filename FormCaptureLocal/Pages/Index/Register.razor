@@ -1,0 +1,59 @@
+﻿@layout IndexLayout
+@inject IJSRuntime IJSRuntime
+@page "/register"
+
+<h3><span class="oi oi-person"></span> Create an account</h3>
+
+<div class="form-card">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" @bind-value="model.Email" placeholder="Enter your email..." class="form-control" id="email" name="email" />
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" @bind-value="model.Password" placeholder="Enter your password..." class="form-control" id="password" name="password" />
+    </div>
+
+    <div class="form-group">
+        <label for="confirm-password">Confirm password:</label>
+        <input type="password" @bind-value="model.ConfirmationPassword" placeholder="Confirm your password..." class="form-control" id="confirm-password" name="confirm-password" />
+    </div>
+
+    <button @onclick="SubmitForm" class="btn btn-outline-primary" disabled="@isSubmitButtonDisabled"><span class="oi oi-check mr-2"></span>Submit</button>
+
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary @LoadingIndicatorCssClass" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger form-alert @FormAlertCssClass" role="alert">
+    Registration form wasn't properly completed. Or user is already registered.
+</div>
+
+@code
+{
+    private RegistrationModel model = new RegistrationModel();
+
+    private bool isLoadingIndicatorHidden = true;
+
+    private bool isFormAlertDisplayed = false;
+
+    private string LoadingIndicatorCssClass => isLoadingIndicatorHidden ? "d-none" : null;
+
+    private string FormAlertCssClass => isFormAlertDisplayed ? "d-block" : "d-none";
+
+    private bool isSubmitButtonDisabled = false;
+
+    private void SubmitForm()
+    {
+        isFormAlertDisplayed = false;
+        isSubmitButtonDisabled = true;
+
+
+
+        isSubmitButtonDisabled = false;
+    }
+}
