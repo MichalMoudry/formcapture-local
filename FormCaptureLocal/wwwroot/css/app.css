@@ -106,7 +106,11 @@ a, .btn-link {
 
 /*Media*/
 @media (min-width: 768px) {
-    #app {
-        flex-direction: row;
+}
+
+@media (min-width: 1015px) {
+    .form-card {
+        width: 23%;
+        max-width: 350px;
     }
 }

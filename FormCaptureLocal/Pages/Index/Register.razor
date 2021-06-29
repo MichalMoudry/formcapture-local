@@ -7,7 +7,7 @@
 <div class="form-card">
     <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" @bind-value="model.Email" placeholder="Enter your email..." class="form-control" id="email" name="email" />
+        <input type="email" @bind-value="model.User.Email" placeholder="Enter your email..." class="form-control" id="email" name="email" />
     </div>
 
     <div class="form-group">
@@ -35,7 +35,7 @@
 
 @code
 {
-    private RegistrationModel model = new RegistrationModel();
+    private RegistrationModel model = new RegistrationModel() { User = new User() };
 
     private bool isLoadingIndicatorHidden = true;
 
@@ -47,12 +47,18 @@
 
     private bool isSubmitButtonDisabled = false;
 
-    private void SubmitForm()
+    private async Task SubmitForm()
     {
         isFormAlertDisplayed = false;
         isSubmitButtonDisabled = true;
 
-
+        if (!string.IsNullOrEmpty(model.User.Email) && !string.IsNullOrEmpty(model.Password) && !string.IsNullOrEmpty(model.ConfirmationPassword) && model.Password.Equals(model.ConfirmationPassword))
+        {
+            model.User.ID = Guid.NewGuid().ToString();
+            model.User.PasswordSalt = Guid.NewGuid().ToString();
+            model.User.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", model.Password, model.User.PasswordSalt);
+            Console.WriteLine(model.User.PasswordHash);
+        }
 
         isSubmitButtonDisabled = false;
     }
