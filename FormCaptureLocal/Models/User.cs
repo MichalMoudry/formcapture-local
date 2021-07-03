@@ -1,9 +1,8 @@
-﻿using FormCaptureLocal.Models.Util;
-using System;
+﻿using System;
 
 namespace FormCaptureLocal.Models
 {
-    public class User : Model
+    public class User
     {
         public string Email { get; set; }
 
