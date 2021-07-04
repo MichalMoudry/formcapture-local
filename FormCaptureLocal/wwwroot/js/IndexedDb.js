@@ -1,6 +1,7 @@
 ﻿let db;
 let transaction;
 let objStore;
+let request;
 
 $(document).ready(function () {
     if (!window.indexedDB) {
@@ -49,7 +50,7 @@ $(document).ready(function () {
 function addUser(item) {
     transaction = db.transaction("Users", "readwrite");
     objStore = transaction.objectStore("Users");
-    let request = objStore.add(item);
+    request = objStore.add(item);
     request.onsuccess = function () {
         window.location.href = "./login";
     }
@@ -57,4 +58,21 @@ function addUser(item) {
         //$("#registration-error-display").classList.remove("d-none");
         document.getElementById("registration-error-display").classList.remove("d-none");
     }
+}
+
+async function getItem(id, objectstore) {
+    let res;
+    res = await getItemPromise(id, objectstore);
+    return res;
+}
+
+function getItemPromise(id, objectstore) {
+    return new Promise(function (resolve) {
+        transaction = db.transaction(objectstore, "readonly");
+        objStore = transaction.objectStore(objectstore);
+        request = objStore.get(id);
+        request.onsuccess = function (e) {
+            return resolve(e.target.result);
+        }
+    });
 }

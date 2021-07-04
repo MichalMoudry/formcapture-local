@@ -47,6 +47,7 @@
     private async Task SubmitForm()
     {
         isSubmitButtonDisabled = true;
+        isLoadingIndicatorHidden = false;
 
         if (!string.IsNullOrEmpty(model.User.Email) && !string.IsNullOrEmpty(model.Password) && !string.IsNullOrEmpty(model.ConfirmationPassword) && model.Password.Equals(model.ConfirmationPassword))
         {
@@ -54,5 +55,8 @@
             model.User.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", model.Password, model.User.PasswordSalt);
             await IJSRuntime.InvokeVoidAsync("addUser", model.User);
         }
+
+        isLoadingIndicatorHidden = true;
+        isSubmitButtonDisabled = false;
     }
 }

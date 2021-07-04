@@ -3,6 +3,8 @@
 @inject NavigationManager NavigationManager
 @page "/login"
 
+<h3><span class="oi oi-account-login"></span> Login</h3>
+
 <div class="form-card">
     <div class="form-group">
         <label for="email">Email:</label>
@@ -23,6 +25,10 @@
     </div>
 </div>
 
+<div class="alert alert-danger form-alert d-none mt-4 @FormAlertCssClass" role="alert">
+    @errorMessage
+</div>
+
 @code
 {
     private LoginModel loginModel = new LoginModel();
@@ -31,13 +37,45 @@
 
     private string LoadingIndicatorCssClass => isLoadingIndicatorHidden ? "d-none" : null;
 
+    private string FormAlertCssClass => isFormAlertDisplayed ? "d-block" : "d-none";
+
     private bool isSubmitButtonDisabled = false;
 
-    private void Submit()
+    private bool isFormAlertDisplayed = false;
+
+    private string errorMessage;
+
+    private async Task Submit()
     {
+        isSubmitButtonDisabled = true;
         if (!string.IsNullOrEmpty(loginModel.Email) && !string.IsNullOrEmpty(loginModel.Password))
         {
-
+            var user = await IJSRuntime.InvokeAsync<User>("getItem", loginModel.Email, "Users");
+            if (user != null)
+            {
+                isFormAlertDisplayed = false;
+                string userHash = await IJSRuntime.InvokeAsync<string>("hashString", loginModel.Password, user.PasswordSalt);
+                if (userHash.Equals(user.PasswordHash))
+                {
+                    NavigationManager.NavigateTo("/formcapture");
+                }
+                else
+                {
+                    errorMessage = "Wrong password.";
+                    isFormAlertDisplayed = true;
+                }
+            }
+            else
+            {
+                errorMessage = "No user with this email exists.";
+                isFormAlertDisplayed = true;
+            }
         }
+        else
+        {
+            errorMessage = "Login form wasn't properly completed.";
+            isFormAlertDisplayed = true;
+        }
+        isSubmitButtonDisabled = false;
     }
 }
