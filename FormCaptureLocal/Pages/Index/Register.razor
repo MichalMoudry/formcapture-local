@@ -1,5 +1,6 @@
 ﻿@layout IndexLayout
 @inject IJSRuntime IJSRuntime
+@inject NavigationManager NavigationManager
 @page "/register"
 
 <h3><span class="oi oi-person"></span> Create an account</h3>
@@ -29,7 +30,7 @@
     </div>
 </div>
 
-<div class="alert alert-danger form-alert @FormAlertCssClass" role="alert">
+<div class="alert alert-danger form-alert d-none mt-4" role="alert" id="registration-error-display">
     Registration form wasn't properly completed. Or user is already registered.
 </div>
 
@@ -39,28 +40,19 @@
 
     private bool isLoadingIndicatorHidden = true;
 
-    private bool isFormAlertDisplayed = false;
-
     private string LoadingIndicatorCssClass => isLoadingIndicatorHidden ? "d-none" : null;
-
-    private string FormAlertCssClass => isFormAlertDisplayed ? "d-block" : "d-none";
 
     private bool isSubmitButtonDisabled = false;
 
     private async Task SubmitForm()
     {
-        isFormAlertDisplayed = false;
         isSubmitButtonDisabled = true;
 
         if (!string.IsNullOrEmpty(model.User.Email) && !string.IsNullOrEmpty(model.Password) && !string.IsNullOrEmpty(model.ConfirmationPassword) && model.Password.Equals(model.ConfirmationPassword))
         {
             model.User.PasswordSalt = Guid.NewGuid().ToString();
             model.User.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", model.Password, model.User.PasswordSalt);
-            Console.WriteLine(JsonSerializer.Serialize(model.User));
-            Console.WriteLine(model.User.PasswordHash);
-            Console.WriteLine(await IJSRuntime.InvokeAsync<object>("addItem", "Users", "readwrite", model.User));
+            await IJSRuntime.InvokeVoidAsync("addUser", model.User);
         }
-
-        isSubmitButtonDisabled = false;
     }
 }

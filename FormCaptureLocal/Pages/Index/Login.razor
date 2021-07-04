@@ -1,0 +1,43 @@
+﻿@layout IndexLayout
+@inject IJSRuntime IJSRuntime
+@inject NavigationManager NavigationManager
+@page "/login"
+
+<div class="form-card">
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" @bind-value="loginModel.Email" placeholder="Enter your email..." class="form-control" id="email" name="email" />
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" @bind-value="loginModel.Password" placeholder="Enter your password..." class="form-control" id="password" name="password" />
+    </div>
+
+    <button @onclick="Submit" class="btn btn-primary" disabled="@isSubmitButtonDisabled">Submit</button>
+
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border text-primary @LoadingIndicatorCssClass" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    private LoginModel loginModel = new LoginModel();
+
+    private bool isLoadingIndicatorHidden = true;
+
+    private string LoadingIndicatorCssClass => isLoadingIndicatorHidden ? "d-none" : null;
+
+    private bool isSubmitButtonDisabled = false;
+
+    private void Submit()
+    {
+        if (!string.IsNullOrEmpty(loginModel.Email) && !string.IsNullOrEmpty(loginModel.Password))
+        {
+
+        }
+    }
+}

@@ -46,15 +46,15 @@ $(document).ready(function () {
     }
 });
 
-function addItem(objectStore, transactionType, item) {
-    transaction = db.transaction(objectStore, transactionType);
-    objStore = transaction.objectStore(objectStore);
+function addUser(item) {
+    transaction = db.transaction("Users", "readwrite");
+    objStore = transaction.objectStore("Users");
     let request = objStore.add(item);
-    let res;
     request.onsuccess = function () {
-        res = true;
+        window.location.href = "./login";
     }
     request.onerror = function () {
-        res = false;
+        //$("#registration-error-display").classList.remove("d-none");
+        document.getElementById("registration-error-display").classList.remove("d-none");
     }
 }
