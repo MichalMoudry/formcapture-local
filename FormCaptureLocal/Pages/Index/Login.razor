@@ -16,7 +16,7 @@
         <input type="password" @bind-value="loginModel.Password" placeholder="Enter your password..." class="form-control" id="password" name="password" />
     </div>
 
-    <button @onclick="Submit" class="btn btn-primary" disabled="@isSubmitButtonDisabled">Submit</button>
+    <button @onclick="Submit" class="btn btn-outline-primary" disabled="@isSubmitButtonDisabled">Submit</button>
 
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary @LoadingIndicatorCssClass" role="status">
@@ -57,7 +57,7 @@
                 string userHash = await IJSRuntime.InvokeAsync<string>("hashString", loginModel.Password, user.PasswordSalt);
                 if (userHash.Equals(user.PasswordHash))
                 {
-                    NavigationManager.NavigateTo("/formcapture");
+                    NavigationManager.NavigateTo("/formcapture/home");
                 }
                 else
                 {

@@ -1,0 +1,37 @@
+﻿@layout MainLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/templates"
+
+<h3><span class="oi oi-image mr-1"></span> Templates</h3>
+
+<hr />
+
+<div>
+    <button type="button" class="btn btn-outline-success" @onclick="NavigateToTemplateAddPage"><span class="oi oi-plus"></span> Add a new template</button>
+    <button type="button" class="btn btn-outline-primary"><span class="oi oi-sort-ascending"></span> Sort list</button>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td><b>Name</b></td>
+                <td><b>Added</b></td>
+                <td><b>Last updated</b></td>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+@code
+{
+    private void NavigateToTemplateAddPage()
+    {
+        NavigationManager.NavigateTo("/formcapture/templates/add");
+    }
+}
