@@ -57,6 +57,7 @@
                 string userHash = await IJSRuntime.InvokeAsync<string>("hashString", loginModel.Password, user.PasswordSalt);
                 if (userHash.Equals(user.PasswordHash))
                 {
+                    user.LastLogin = DateTime.Now;
                     NavigationManager.NavigateTo("/formcapture/home");
                 }
                 else
