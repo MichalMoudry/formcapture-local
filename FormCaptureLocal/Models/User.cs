@@ -2,7 +2,7 @@
 
 namespace FormCaptureLocal.Models
 {
-    public class User
+    public record User
     {
         public string Email { get; set; }
 

@@ -30,8 +30,8 @@
     </div>
 </div>
 
-<div class="alert alert-danger form-alert d-none mt-4" role="alert" id="registration-error-display">
-    Registration form wasn't properly completed. Or user is already registered.
+<div class="alert alert-danger form-alert d-none mt-4 @ErrorAlertCssClass" role="alert" id="registration-error-display">
+    @errorMessage
 </div>
 
 @code
@@ -40,9 +40,15 @@
 
     private bool isLoadingIndicatorHidden = true;
 
+    private bool isErrorAlertHidden = true;
+
     private string LoadingIndicatorCssClass => isLoadingIndicatorHidden ? "d-none" : null;
 
+    private string ErrorAlertCssClass => isErrorAlertHidden ? "d-none" : "d-block";
+
     private bool isSubmitButtonDisabled = false;
+
+    private string errorMessage;
 
     private async Task SubmitForm()
     {
@@ -53,7 +59,21 @@
         {
             model.User.PasswordSalt = Guid.NewGuid().ToString();
             model.User.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", model.Password, model.User.PasswordSalt);
-            await IJSRuntime.InvokeVoidAsync("addUser", model.User);
+            var res = await IJSRuntime.InvokeAsync<bool>("addItem", model.User, "Users");
+            if (res)
+            {
+                NavigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                errorMessage = "User is already registered.";
+                isErrorAlertHidden = false;
+            }
+        }
+        else
+        {
+            errorMessage = "Registration form wasn't properly completed.";
+            isErrorAlertHidden = false;
         }
 
         isLoadingIndicatorHidden = true;

@@ -2,6 +2,7 @@
 let transaction;
 let objStore;
 let request;
+let res;
 
 $(document).ready(function () {
     if (!window.indexedDB) {
@@ -47,23 +48,37 @@ $(document).ready(function () {
     }
 });
 
-function addUser(item) {
-    transaction = db.transaction("Users", "readwrite");
-    objStore = transaction.objectStore("Users");
-    request = objStore.add(item);
-    request.onsuccess = function () {
-        window.location.href = "./login";
-    }
-    request.onerror = function () {
-        //$("#registration-error-display").classList.remove("d-none");
-        document.getElementById("registration-error-display").classList.remove("d-none");
-    }
+async function addItem(item, objectstore) {
+    res = await addItemPromise(item, objectstore);
+    return res;
 }
 
 async function getItem(id, objectstore) {
-    let res;
     res = await getItemPromise(id, objectstore);
     return res;
+}
+
+async function putItem(object, objectstore) {
+    res = await putItemPromise(object, objectstore);
+    return res;
+}
+
+//Promises
+function addItemPromise(item, objectstore) {
+    return new Promise(function (resolve) {
+        transaction = db.transaction(objectstore, "readwrite");
+        objStore = transaction.objectStore(objectstore);
+        request = objStore.add(item);
+        request.onsuccess = function () {
+            //window.location.href = "./login";
+            return resolve(true);
+        }
+        request.onerror = function () {
+            //$("#registration-error-display").classList.remove("d-none");
+            //document.getElementById("registration-error-display").classList.remove("d-none");
+            return resolve(false);
+        }
+    });
 }
 
 function getItemPromise(id, objectstore) {
@@ -73,6 +88,20 @@ function getItemPromise(id, objectstore) {
         request = objStore.get(id);
         request.onsuccess = function (e) {
             return resolve(e.target.result);
+        }
+    });
+}
+
+function putItemPromise(object, objectstore) {
+    return new Promise(function (resolve) {
+        transaction = db.transaction(objectstore, "readwrite");
+        objStore = transaction.objectStore(objectstore);
+        request = objStore.put(object);
+        request.onsuccess = function () {
+            return resolve(true);
+        }
+        request.onerror = function () {
+            return resolve(false);
         }
     });
 }

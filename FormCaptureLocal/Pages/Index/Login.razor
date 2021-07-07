@@ -58,7 +58,17 @@
                 if (userHash.Equals(user.PasswordHash))
                 {
                     user.LastLogin = DateTime.Now;
-                    NavigationManager.NavigateTo("/formcapture/home");
+                    var updateRes = await IJSRuntime.InvokeAsync<bool>("putItem", user, "Users");
+                    if (updateRes)
+                    {
+                        UserHelper.User = user;
+                        NavigationManager.NavigateTo("/formcapture/home");
+                    }
+                    else
+                    {
+                        errorMessage = "Something went wrong during database update. Try again.";
+                        isFormAlertDisplayed = true;
+                    }
                 }
                 else
                 {
