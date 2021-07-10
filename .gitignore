@@ -6,3 +6,7 @@
 /FormCaptureLocal/.vs/FormCaptureLocal
 /FormCaptureLocal/bin/Debug/net5.0
 /FormCaptureLocal/obj
+/FormCaptureLocalTest/bin/Debug/net5.0
+/FormCaptureLocalTest/obj
+/FormCaptureLocalTests/bin/Debug/net5.0
+/FormCaptureLocalTests/obj
