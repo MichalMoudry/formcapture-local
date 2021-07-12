@@ -34,4 +34,9 @@
     {
         NavigationManager.NavigateTo("/formcapture/templates/add");
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(10);
+    }
 }

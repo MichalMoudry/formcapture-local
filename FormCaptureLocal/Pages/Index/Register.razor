@@ -21,7 +21,7 @@
         <input type="password" @bind-value="model.ConfirmationPassword" placeholder="Confirm your password..." class="form-control" id="confirm-password" name="confirm-password" />
     </div>
 
-    <button @onclick="SubmitForm" class="btn btn-outline-primary" disabled="@isSubmitButtonDisabled"><span class="oi oi-check mr-2"></span>Submit</button>
+    <button @onclick="SubmitForm" id="submitButton" class="btn btn-outline-primary" disabled="@isSubmitButtonDisabled"><span class="oi oi-check mr-2"></span>Submit</button>
 
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary @LoadingIndicatorCssClass" role="status">

@@ -153,6 +153,23 @@ a, .btn-link {
     cursor: pointer;
 }
 
+#template-canvas {
+    overflow: auto;
+    position: relative;
+    height: 52vh;
+}
+
+#template-preview-image {
+    max-width: 100%;
+}
+
+.template-field {
+    border: 1px solid #28a745;
+    position: absolute;
+    background: #2c844052;
+    border-radius: 3px;
+}
+
 /*Media*/
 @media (min-width: 768px) {
 }

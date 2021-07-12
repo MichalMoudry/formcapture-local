@@ -8,24 +8,40 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="formcapture/home" Match="NavLinkMatch.All" title="Home">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="formcapture/templates" title="Templates">
+                <span class="oi oi-image" aria-hidden="true"></span> Templates
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="formcapture/workflows" title="Workflows">
+                <span class="oi oi-project"></span> Workflows
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/profile" title="Profile">
+                <span class="oi oi-person"></span> Profile
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/settings" title="Settings">
+                <span class="oi oi-cog"></span> Settings
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="guide/index.html" title="User guide">
+                <span class="oi oi-book"></span> User guide
             </NavLink>
         </li>
     </ul>
 </div>
 
-@code {
+@code
+{
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
