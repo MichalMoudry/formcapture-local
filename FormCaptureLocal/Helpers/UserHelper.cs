@@ -4,6 +4,6 @@ namespace FormCaptureLocal.Helpers
 {
     public class UserHelper
     {
-        public static User User { get; set; }
+        public static string UserID { get; set; }
     }
 }

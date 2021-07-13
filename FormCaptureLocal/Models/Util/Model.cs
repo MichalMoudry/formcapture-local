@@ -21,10 +21,5 @@ namespace FormCaptureLocal.Models.Util
         /// Date of last update.
         /// </summary>
         public DateTime Updated { get; set; }
-
-        /// <summary>
-        /// ID of the user that created a specific instance.
-        /// </summary>
-        public string UserID { get; set; }
     }
 }

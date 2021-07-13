@@ -8,6 +8,11 @@ namespace FormCaptureLocal.Models.DbModels
 
         public string Name { get; set; }
 
+        /// <summary>
+        /// ID of the user that created a specific instance.
+        /// </summary>
+        public string UserID { get; set; }
+
         public int Xdimension { get; set; }
 
         public int Ydimension { get; set; }

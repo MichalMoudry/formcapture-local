@@ -173,7 +173,7 @@
 
 @code
 {
-    private Template template = new Template() { ID = Guid.NewGuid().ToString(), UserID = UserHelper.User.Email };
+    private Template template = new Template() { ID = Guid.NewGuid().ToString(), UserID = UserHelper.UserID };
 
     private string expectedValue;
 
@@ -224,7 +224,6 @@
                 field.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
                 field.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
                 field.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
-                field.UserID = UserHelper.User.Email;
                 await IJSRuntime.InvokeVoidAsync("addItem", field, "Fields");
             }
             var res = await IJSRuntime.InvokeAsync<bool>("addItem", template, "Templates");

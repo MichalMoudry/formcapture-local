@@ -1,6 +1,7 @@
 ﻿@layout IndexLayout
 @inject IJSRuntime IJSRuntime
 @inject NavigationManager NavigationManager
+@inject ILocalStorageService localStorage
 @page "/login"
 
 <h3><span class="oi oi-account-login"></span> Login</h3>
@@ -61,7 +62,9 @@
                     var updateRes = await IJSRuntime.InvokeAsync<bool>("putItem", user, "Users");
                     if (updateRes)
                     {
-                        UserHelper.User = user;
+                        UserHelper.UserID = user.Email;
+                        await localStorage.SetItemAsStringAsync("LastLoginID", user.Email);
+                        await localStorage.SetItemAsStringAsync("LastLoginDate", user.LastLogin.ToString());
                         NavigationManager.NavigateTo("/formcapture/home");
                     }
                     else

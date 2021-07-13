@@ -13,6 +13,11 @@ namespace FormCaptureLocal.Models.DbModels
         public string Name { get; set; }
 
         /// <summary>
+        /// ID of the user that created a specific instance.
+        /// </summary>
+        public string UserID { get; set; }
+
+        /// <summary>
         /// Optional ID of the workflow.
         /// </summary>
         public string WorkflowID { get; set; }

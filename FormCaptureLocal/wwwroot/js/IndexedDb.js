@@ -58,6 +58,11 @@ async function getItem(id, objectstore) {
     return res;
 }
 
+async function getAllItems(objectstore) {
+    res = await getAllItemsPromise(objectstore);
+    return res;
+}
+
 async function putItem(object, objectstore) {
     res = await putItemPromise(object, objectstore);
     return res;
@@ -88,6 +93,20 @@ function getItemPromise(id, objectstore) {
         request = objStore.get(id);
         request.onsuccess = function (e) {
             return resolve(e.target.result);
+        }
+    });
+}
+
+function getAllItemsPromise(objectstore) {
+    return new Promise(function (resolve) {
+        transaction = db.transaction(objectstore, "readonly");
+        objStore = transaction.objectStore(objectstore);
+        request = objStore.getAll();
+        request.onsuccess = function (e) {
+            return resolve(e.target.result);
+        }
+        request.onerror = function () {
+            return resolve(null);
         }
     });
 }

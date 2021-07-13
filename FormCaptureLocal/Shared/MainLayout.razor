@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject ILocalStorageService localStorage
 
 <div class="page">
     <div class="sidebar">
@@ -15,3 +16,11 @@
         </div>
     </div>
 </div>
+
+@code
+{ 
+    protected override async Task OnInitializedAsync()
+    {
+        UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
+    }
+}

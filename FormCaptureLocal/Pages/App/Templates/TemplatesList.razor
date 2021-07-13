@@ -9,34 +9,68 @@
 
 <div>
     <button type="button" class="btn btn-outline-success" @onclick="NavigateToTemplateAddPage"><span class="oi oi-plus"></span> Add a new template</button>
-    <button type="button" class="btn btn-outline-primary"><span class="oi oi-sort-ascending"></span> Sort list</button>
+    <button type="button" class="btn btn-outline-primary ml-2"><span class="oi oi-sort-ascending"></span> Sort list</button>
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive mt-3">
     <table class="table table-hover">
         <thead>
             <tr>
                 <td><b>Name</b></td>
                 <td><b>Added</b></td>
                 <td><b>Last updated</b></td>
+                <td><b>Delete</b></td>
             </tr>
         </thead>
 
         <tbody>
-
+            @if (templates != null)
+            {
+                @foreach (var template in templates)
+                {
+                    <tr class="pointer">
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Updated</td>
+                        <td><span class="oi oi-trash"></span></td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
+    @if (templates == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        @if (templates.Count <= 0)
+        {
+            <p>There are no templates.</p>
+        }
+    }
 </div>
 
 @code
 {
+    private List<Template> templates;
+
     private void NavigateToTemplateAddPage()
     {
         NavigationManager.NavigateTo("/formcapture/templates/add");
     }
 
+    private void Navigate(string page)
+    {
+        NavigationManager.NavigateTo(page);
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(10);
+        templates = await IJSRuntime.InvokeAsync<List<Template>>("getAllItems", "Templates");
+        if (templates != null)
+        {
+            templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
     }
 }
