@@ -51,9 +51,11 @@ a, .btn-link {
 
 /*Additional css*/
 #app {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    /*
+        position: relative;
+        display: flex;
+    */
+    flex-direction: row;
 }
 
 #main-loading-div {
@@ -167,6 +169,15 @@ a, .btn-link {
     position: absolute;
     background: #2c844052;
     border-radius: 3px;
+}
+
+#app-description {
+    font-size: 1.1rem;
+}
+
+.toast-area {
+    position: sticky;
+    bottom: 0;
 }
 
 /*Media*/

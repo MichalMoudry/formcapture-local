@@ -108,7 +108,7 @@
                         </div>
 
                         <div class="col mt-2">
-                            <button disabled="@isTestButtonDisabled" class="btn btn-warning"><span class="oi oi-beaker"></span> Test ID field</button>
+                            <button disabled="@isTestButtonDisabled" class="btn btn-warning" @onclick="TestIdFieldRecognition"><span class="oi oi-beaker"></span> Test ID field</button>
                         </div>
                     </div>
                 </div>
@@ -195,6 +195,7 @@
         var buffer = new byte[e.File.Size];
         await e.File.OpenReadStream().ReadAsync(buffer);
         template.Image = buffer;
+        template.ContentType = e.File.ContentType;
         fileContent += Convert.ToBase64String(buffer);
     }
 
@@ -285,5 +286,26 @@
     private async Task DrawField(string fieldID)
     {
         await IJSRuntime.InvokeVoidAsync("drawField", fieldID);
+    }
+
+    private async Task TestIdFieldRecognition()
+    {
+        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue))
+        {
+            isTestButtonDisabled = true;
+            var fieldProperties = await IJSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
+            var fieldPropertiesSplit = fieldProperties.Split(",");
+            identifyingField.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
+            identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
+            identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
+            identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
+            var response = await IJSRuntime.InvokeAsync<System.Text.Json.JsonElement>("recogSingleField", identifyingField, Convert.ToBase64String(template.Image), "ces", template.ContentType);
+            await IJSRuntime.InvokeVoidAsync("displayTemplateTestResult", response.EnumerateArray().FirstOrDefault().GetString().Split("/")[0], expectedValue);
+            isTestButtonDisabled = false;
+        }
+        else
+        {
+            await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+        }
     }
 }

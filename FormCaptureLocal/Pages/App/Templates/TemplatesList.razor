@@ -7,9 +7,18 @@
 
 <hr />
 
-<div>
+<div class="d-flex">
     <button type="button" class="btn btn-outline-success" @onclick="NavigateToTemplateAddPage"><span class="oi oi-plus"></span> Add a new template</button>
-    <button type="button" class="btn btn-outline-primary ml-2"><span class="oi oi-sort-ascending"></span> Sort list</button>
+    <div class="dropdown">
+        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton">
+            <span class="oi oi-sort-ascending"></span> Sort list
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
 </div>
 
 <div class="table-responsive mt-3">
@@ -40,7 +49,7 @@
     </table>
     @if (templates == null)
     {
-        <p>Loading...</p>
+        <p class="ml-3">Loading...</p>
     }
     else
     {

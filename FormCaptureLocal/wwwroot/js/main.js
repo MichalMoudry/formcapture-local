@@ -1,4 +1,6 @@
-﻿async function hashString(string, salt) {
+﻿const { createWorker } = Tesseract;
+
+async function hashString(string, salt) {
     const encoder = new TextEncoder();
     string = string + salt;
     const hash = await crypto.subtle.digest("SHA-256", encoder.encode(string));
@@ -105,11 +107,14 @@ function drawField(fieldID) {
                 }
                 else {
                     fieldRectangle = null;
-                    canvas.style.cursor = "pointer";
+                    canvas.style.cursor = "auto";
                     canvas.onclick = null;
                     canvas.onmousemove = null;
                 }
             }
+        }
+        else {
+            canvas.style.cursor = "pointer";
         }
 
         if (canvas.onmousemove == null) {
@@ -125,4 +130,47 @@ function drawField(fieldID) {
             }
         }
     }
+}
+
+async function recogSingleField(field, image, lang, contentType) {
+    // Initialize variables
+    const worker = createWorker();
+    await worker.load();
+    await worker.loadLanguage(lang);
+    await worker.initialize(lang);
+    var results = [];
+
+    // Iterate for each input image
+    const {
+        data: { text }
+    } = await worker.recognize("data:" + contentType + ";base64," + image,
+        {
+            rectangle: {
+                top: field["xposition"],
+                left: field["yposition"],
+                width: field["width"],
+                height: field["height"]
+            }
+        });
+    // Push recognition result to array in this format:
+    // [result] / [fieldID]
+    results.push(text.replace(/\s/g, "") + "/" + field["id"]);
+
+    // Finish recognition and return results
+    await worker.terminate();
+    return results;
+}
+
+function displayTemplateTestResult(recognizedValue, expectedValue) {
+    if (expectedValue == null || expectedValue == "") {
+        expectedValue = "none";
+    }
+    var message = "Identifying field test:\n\n" + "Recognized value: " + recognizedValue + "\n" + "Expected value: " + expectedValue + "\n\n" + "Are files going to be identified? ";
+    if (expectedValue == recognizedValue) {
+        message += "Yes";
+    }
+    else {
+        message += "No";
+    }
+    alert(message);
 }

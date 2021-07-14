@@ -22,5 +22,6 @@
     protected override async Task OnInitializedAsync()
     {
         UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
+        var lastLoginDate = Convert.ToDateTime(await localStorage.GetItemAsStringAsync("LastLoginDate"));
     }
 }

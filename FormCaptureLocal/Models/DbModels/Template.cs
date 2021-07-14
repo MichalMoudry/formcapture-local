@@ -4,6 +4,8 @@ namespace FormCaptureLocal.Models.DbModels
 {
     public class Template : Model
     {
+        public string ContentType { get; set; }
+
         public byte[] Image { get; set; }
 
         public string Name { get; set; }
