@@ -1,0 +1,32 @@
+﻿@layout MainLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/templates/{TemplateID}"
+
+@if (template != null)
+{
+    <h3><span class="oi oi-pencil"></span> Edit @template.Name template</h3>
+}
+else
+{
+    <h3>Loading...</h3>
+}
+
+<hr />
+
+@code
+{
+    [Parameter]
+    public string TemplateID { get; set; }
+
+    private Template template;
+
+    protected override async Task OnInitializedAsync()
+    {
+        template = await IJSRuntime.InvokeAsync<Template>("getItem", TemplateID, "Templates");
+        if (template != null)
+        {
+            Console.WriteLine(template.ContentType);
+        }
+    }
+}

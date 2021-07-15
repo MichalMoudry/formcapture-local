@@ -180,6 +180,10 @@ a, .btn-link {
     bottom: 0;
 }
 
+.tableText {
+    margin-left: .7rem;
+}
+
 /*Media*/
 @media (min-width: 768px) {
 }

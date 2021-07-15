@@ -68,19 +68,21 @@ async function putItem(object, objectstore) {
     return res;
 }
 
-//Promises
+async function deleteItem(object, objectstore) {
+    res = await deleteItemPromise(object, objectstore);
+    return res;
+}
+
+//------------------------Promises------------------------
 function addItemPromise(item, objectstore) {
     return new Promise(function (resolve) {
         transaction = db.transaction(objectstore, "readwrite");
         objStore = transaction.objectStore(objectstore);
         request = objStore.add(item);
         request.onsuccess = function () {
-            //window.location.href = "./login";
             return resolve(true);
         }
         request.onerror = function () {
-            //$("#registration-error-display").classList.remove("d-none");
-            //document.getElementById("registration-error-display").classList.remove("d-none");
             return resolve(false);
         }
     });
@@ -93,6 +95,9 @@ function getItemPromise(id, objectstore) {
         request = objStore.get(id);
         request.onsuccess = function (e) {
             return resolve(e.target.result);
+        }
+        request.onerror = function () {
+            return resolve(null);
         }
     });
 }
@@ -116,6 +121,20 @@ function putItemPromise(object, objectstore) {
         transaction = db.transaction(objectstore, "readwrite");
         objStore = transaction.objectStore(objectstore);
         request = objStore.put(object);
+        request.onsuccess = function () {
+            return resolve(true);
+        }
+        request.onerror = function () {
+            return resolve(false);
+        }
+    });
+}
+
+function deleteItemPromise(object, objectstore) {
+    return new Promise(function (resolve) {
+        transaction = db.transaction(objectstore, "readwrite");
+        objStore = transaction.objectStore(objectstore);
+        request = objStore.delete(object);
         request.onsuccess = function () {
             return resolve(true);
         }
