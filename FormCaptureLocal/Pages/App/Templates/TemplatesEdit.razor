@@ -14,6 +14,184 @@ else
 
 <hr />
 
+<div>
+    @if (template != null)
+    {
+        <label for="template-name">Template name:</label>
+        <input name="template-name" @bind-value="template.Name" placeholder="Enter a template name..." id="template-name" type="text" class="form-control" />
+    }
+    else
+    {
+        <p>Loading...</p>
+    }
+</div>
+
+<div class="row mt-3">
+    <div class="col-md">
+        <div class="card">
+            <div class="card-header">
+                <h4><span class="oi oi-image"></span> Template image</h4>
+            </div>
+
+            <div class="card-body">
+                <div id="template-canvas">
+                    <img id="template-preview-image" draggable="false" src="@fileContent" />
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <InputFile OnChange="@FileSelected" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md">
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            <h4>Fields</h4>
+                        </div>
+                        <div class="col-1">
+                            <span class="oi oi-plus pointer mt-2" @onclick="AddNewField"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div id="field-list">
+                        @if (fields != null)
+                        {
+                            @if (fields.Count > 0)
+                            {
+                                @foreach (Field field in fields)
+                                {
+                                    <div class="field-list-item mt-1 pr-3 pl-3 pt-2 pb-2">
+                                        <div class="row">
+                                            <div class="col">
+                                                <input class="field-input" @bind-value="field.Name" placeholder="Enter a field name..." />
+                                            </div>
+
+                                            <div class="col-1 pointer" @onclick="@(e => DrawField(field.ID))">
+                                                <span class="oi oi-pencil mt-2"></span>
+                                            </div>
+
+                                            <div class="col-1 pointer" @onclick="@(e => SetFieldToIdentifying(field))">
+                                                <span class="oi oi-star mt-2"></span>
+                                            </div>
+
+                                            <div class="col-1 pointer" @onclick="@(e => RemoveField(field))">
+                                                <span class="oi oi-trash mt-2"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <p class="card-text">This template has no fields.</p>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h4><span class="oi oi-star"></span> Identifying field</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="col">
+                        @if (identifyingField != null)
+                        {
+                            <div class="field-list-item">
+                                <p class="mt-3 ml-3">@identifyingField.Name</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="field-list-item">
+                                <p class="mt-3 ml-3">Select a identifying field</p>
+                            </div>
+                        }
+                    </div>
+                    <div>
+                        <div class="col mt-2">
+                            <input @bind="expectedValue" name="expected-value" id="expected-value" type="text" placeholder="Enter field's expected value..." class="form-control" />
+                        </div>
+
+                        <div class="col mt-2">
+                            <button class="btn btn-warning" disabled="@isTestButtonDisabled" @onclick="TestIdFieldRecognition"><span class="oi oi-beaker mr-1"></span> Test ID field</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--mt-3 mb-3 bottom-row-->
+<div class="mt-2 mb-2">
+    <!--@onclick="Confirm"-->
+    <button class="btn btn-success mr-2">
+        <span class="oi oi-check mr-1"></span> Edit
+    </button>
+
+    <!-- @onclick="DeleteTemplate"-->
+    <button class="btn btn-danger">
+        <span class="oi oi-trash mr-1"></span> Delete template
+    </button>
+</div>
+
+<div class="toast-area">
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="template-name-error-toast" role="alert">
+        <strong class="mr-auto">Template name error</strong>
+        <hr />
+        <p>A template must have a name.</p>
+        <button type="button" class="close" onclick="closeAlert('template-name-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="fields-error-toast" role="alert">
+        <strong class="mr-auto">Fields error</strong>
+        <hr />
+        <p>Entered fields contain an error or are missing.</p>
+        <button type="button" class="close" onclick="closeAlert('fields-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="image-error-toast" role="alert">
+        <strong class="mr-auto">Image error</strong>
+        <hr />
+        <p>A template image must be uploaded.</p>
+        <button type="button" class="close" onclick="closeAlert('image-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="id-error-toast" role="alert">
+        <strong class="mr-auto">Identifying field error</strong>
+        <hr />
+        <p>An identifying field must be selected.</p>
+        <button type="button" class="close" onclick="closeAlert('id-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="val-error-toast" role="alert">
+        <strong class="mr-auto">Expected value error</strong>
+        <hr />
+        <p>An expected value must be set.</p>
+        <button type="button" class="close" onclick="closeAlert('val-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
 @code
 {
     [Parameter]
@@ -21,12 +199,101 @@ else
 
     private Template template;
 
+    private List<Field> fields;
+
+    private Field identifyingField;
+
+    private string fileContent;
+
+    private string expectedValue;
+
+    private bool isTestButtonDisabled = false;
+
+    private void AddNewField()
+    {
+        fields.Add(new Field()
+        {
+            ID = Guid.NewGuid().ToString(),
+            Name = "New field",
+            Added = DateTime.Now,
+            Updated = DateTime.Now,
+            IsIdentifying = false,
+            TemplateID = template.ID
+        });
+    }
+
+    private void SetFieldToIdentifying(Field field)
+    {
+        if (identifyingField != null)
+        {
+            identifyingField.IsIdentifying = false;
+        }
+        field.IsIdentifying = true;
+        identifyingField = field;
+    }
+
+    private void RemoveField(Field field)
+    {
+        fields.Remove(field);
+    }
+
+    private async Task FileSelected(InputFileChangeEventArgs e)
+    {
+        if (e.FileCount > 1)
+        {
+            return;
+        }
+        fileContent = $"data:{e.File.ContentType};base64,";
+        var buffer = new byte[e.File.Size];
+        template.ContentType = e.File.ContentType;
+        await e.File.OpenReadStream().ReadAsync(buffer);
+        template.Image = buffer;
+        fileContent += Convert.ToBase64String(buffer);
+    }
+
+    private async Task DrawField(string fieldID)
+    {
+        await IJSRuntime.InvokeVoidAsync("drawField", fieldID);
+    }
+
+    private async Task TestIdFieldRecognition()
+    {
+        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue))
+        {
+            isTestButtonDisabled = true;
+            var fieldProperties = await IJSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
+            var fieldPropertiesSplit = fieldProperties.Split(",");
+            identifyingField.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
+            identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
+            identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
+            identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
+            var response = await IJSRuntime.InvokeAsync<System.Text.Json.JsonElement>("recogSingleField", identifyingField, Convert.ToBase64String(template.Image), "ces", template.ContentType);
+            await IJSRuntime.InvokeVoidAsync("displayTemplateTestResult", response.EnumerateArray().FirstOrDefault().GetString().Split("/")[0], expectedValue);
+            isTestButtonDisabled = false;
+        }
+        else
+        {
+            await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         template = await IJSRuntime.InvokeAsync<Template>("getItem", TemplateID, "Templates");
         if (template != null)
         {
-            Console.WriteLine(template.ContentType);
+            fields = await IJSRuntime.InvokeAsync<List<Field>>("getAllItems", "Fields");
+            if (fields != null)
+            {
+                fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
+                fileContent = $"data:{template.ContentType};base64,{Convert.ToBase64String(template.Image)}";
+                identifyingField = fields.SingleOrDefault(i => i.IsIdentifying);
+                if (identifyingField != null)
+                {
+                    expectedValue = identifyingField.ExpectedValue;
+                    await IJSRuntime.InvokeVoidAsync("drawFields", fields, "template-canvas");
+                }
+            }
         }
     }
 }

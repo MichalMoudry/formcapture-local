@@ -1,0 +1,38 @@
+﻿@layout MainLayout
+@inject IJSRuntime IJSRuntime
+@inject ILocalStorageService localStorage
+@page "/formcapture/settings"
+
+<h3><span class="oi oi-cog mr-1"></span> Settings</h3>
+
+<hr />
+
+<div class="settingPanel">
+    <h4>
+        <span class="oi oi-globe mr-2"></span> <span class="mt-1">Default locale</span>
+    </h4>
+    <select @bind="defaultLocale" class="form-control" title="Set default locale">
+        <option value="eng">en-US</option>
+        <option value="ces">cz-CS</option>
+    </select>
+</div>
+
+<div class="settingPanel">
+    <h4 class="mt-4">
+        <span class="oi oi-contrast mr-2"></span> Application theme
+    </h4>
+    <div class="form-group pl-4 pt-1">
+        <input type="radio" name="theme-radio" id="light-radio" class="form-check-input" />
+        <label for="light-radio" class="form-check-label">Light theme</label>
+
+        <br />
+
+        <input type="radio" name="theme-radio" id="dark-radio" class="form-check-input" />
+        <label for="dark-radio" class="form-check-label">Dark theme</label>
+    </div>
+</div>
+
+@code
+{
+    private string defaultLocale;
+}
