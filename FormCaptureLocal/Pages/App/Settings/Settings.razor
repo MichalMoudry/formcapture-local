@@ -1,4 +1,4 @@
-﻿@layout MainLayout
+﻿@layout AppLayout
 @inject IJSRuntime IJSRuntime
 @inject ILocalStorageService localStorage
 @page "/formcapture/settings"
@@ -17,22 +17,77 @@
     </select>
 </div>
 
-<div class="settingPanel">
-    <h4 class="mt-4">
+<div class="settingPanel mt-4" id="themePanel">
+    <h4>
         <span class="oi oi-contrast mr-2"></span> Application theme
     </h4>
-    <div class="form-group pl-4 pt-1">
-        <input type="radio" name="theme-radio" id="light-radio" class="form-check-input" />
-        <label for="light-radio" class="form-check-label">Light theme</label>
+    <div class="pl-4 pt-1">
+        <div class="radioContainer">
+            <input type="radio" name="theme-radio" id="light-radio" class="form-check-input" @onclick="@(e => SetAppTheme(AppTheme.Light))" checked="@isLightThemeRadioChecked" />
+            <label for="light-radio" class="form-check-label">Light theme</label>
+        </div>
 
-        <br />
+        <hr />
 
-        <input type="radio" name="theme-radio" id="dark-radio" class="form-check-input" />
-        <label for="dark-radio" class="form-check-label">Dark theme</label>
+        <div class="radioContainer">
+            <input type="radio" name="theme-radio" id="dark-radio" class="form-check-input" @onclick="@(e => SetAppTheme(AppTheme.Dark))" checked="@isDarkThemeRadioChecked" />
+            <label for="dark-radio" class="form-check-label">Dark theme</label>
+        </div>
+
+        <hr />
+
+        <div class="radioContainer">
+            <input type="radio" name="theme-radio" id="highcontrast-light-radio" class="form-check-input" @onclick="@(e => SetAppTheme(AppTheme.HighContrastLight))" checked="@isHighContrastLightRadioChecked" />
+            <label for="highcontrast-light-radio" class="form-check-label">High contrast light theme</label>
+        </div>
+
+        <hr />
+
+        <div class="radioContainer">
+            <input type="radio" name="theme-radio" id="highcontrast-dark-radio" class="form-check-input" @onclick="@(e => SetAppTheme(AppTheme.HighContrastDark))" checked="@isHighContrastDarkRadioChecked" />
+            <label for="highcontrast-dark-radio" class="form-check-label">High contrast light theme</label>
+        </div>
     </div>
 </div>
 
 @code
 {
     private string defaultLocale;
+
+    private bool isLightThemeRadioChecked = false;
+
+    private bool isDarkThemeRadioChecked = false;
+
+    private bool isHighContrastDarkRadioChecked = false;
+
+    private bool isHighContrastLightRadioChecked = false;
+
+    private async Task SetAppTheme(AppTheme theme)
+    {
+        await localStorage.SetItemAsync(Setting.ApplicationTheme.ToString(), theme.ToString());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        defaultLocale = await localStorage.GetItemAsStringAsync(Setting.DefaultLocale.ToString());
+        defaultLocale = defaultLocale.Replace("\"", "");
+        var appTheme = await localStorage.GetItemAsStringAsync(Setting.ApplicationTheme.ToString());
+        appTheme = appTheme.Replace("\"", "");
+        if (appTheme.Equals(AppTheme.Light.ToString()))
+        {
+            isLightThemeRadioChecked = true;
+        }
+        else if (appTheme.Equals(AppTheme.Dark.ToString()))
+        {
+            isDarkThemeRadioChecked = true;
+        }
+        else if (appTheme.Equals(AppTheme.HighContrastDark.ToString()))
+        {
+            isHighContrastDarkRadioChecked = true;
+        }
+        else if (appTheme.Equals(AppTheme.HighContrastLight.ToString()))
+        {
+            isHighContrastLightRadioChecked = true;
+        }
+    }
 }

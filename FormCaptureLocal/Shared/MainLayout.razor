@@ -1,27 +1,24 @@
 ﻿@inherits LayoutComponentBase
 @inject ILocalStorageService localStorage
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
-            @Body
-        </div>
-    </div>
-</div>
+@Body
 
 @code
-{ 
+{
+    //Add loading of settings from localstorage
     protected override async Task OnInitializedAsync()
     {
         UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
         var lastLoginDate = Convert.ToDateTime(await localStorage.GetItemAsStringAsync("LastLoginDate"));
+        var appTheme = await localStorage.GetItemAsStringAsync(Setting.ApplicationTheme.ToString());
+        if (string.IsNullOrEmpty(appTheme))
+        {
+            await localStorage.SetItemAsync(Setting.ApplicationTheme.ToString(), AppTheme.Light.ToString());
+        }
+        var defaultLocale = await localStorage.GetItemAsStringAsync(Setting.DefaultLocale.ToString());
+        if (string.IsNullOrEmpty(defaultLocale))
+        {
+            await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
+        }
     }
 }
