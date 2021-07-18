@@ -9,12 +9,13 @@
 
 <div class="settingPanel">
     <h4>
-        <span class="oi oi-globe mr-2"></span> <span class="mt-1">Default locale</span>
+        <span class="oi oi-globe mr-2"></span> Default locale
     </h4>
     <select @bind="defaultLocale" class="form-control" title="Set default locale">
         <option value="eng">en-US</option>
         <option value="ces">cz-CS</option>
     </select>
+    <button type="button" class="btn btn-outline-success mt-2" @onclick="SaveLocale" id="saveLocaleButton"><span class="oi oi-pencil mr-2"></span> Save setting</button>
 </div>
 
 <div class="settingPanel mt-4" id="themePanel">
@@ -50,9 +51,13 @@
     </div>
 </div>
 
+<p id="selectedTheme" class="d-none">@appTheme</p>
+
 @code
 {
     private string defaultLocale;
+
+    private string appTheme;
 
     private bool isLightThemeRadioChecked = false;
 
@@ -61,6 +66,11 @@
     private bool isHighContrastDarkRadioChecked = false;
 
     private bool isHighContrastLightRadioChecked = false;
+
+    private async Task SaveLocale()
+    {
+        await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), defaultLocale);
+    }
 
     private async Task SetAppTheme(AppTheme theme)
     {
@@ -71,7 +81,7 @@
     {
         defaultLocale = await localStorage.GetItemAsStringAsync(Setting.DefaultLocale.ToString());
         defaultLocale = defaultLocale.Replace("\"", "");
-        var appTheme = await localStorage.GetItemAsStringAsync(Setting.ApplicationTheme.ToString());
+        appTheme = await localStorage.GetItemAsStringAsync(Setting.ApplicationTheme.ToString());
         appTheme = appTheme.Replace("\"", "");
         if (appTheme.Equals(AppTheme.Light.ToString()))
         {
