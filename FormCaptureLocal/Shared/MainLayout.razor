@@ -8,7 +8,10 @@
     //Add loading of settings from localstorage
     protected override async Task OnInitializedAsync()
     {
-        UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
+        if (UserHelper.UserID == null)
+        {
+            UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
+        }
         var lastLoginDate = Convert.ToDateTime(await localStorage.GetItemAsStringAsync("LastLoginDate"));
         var appTheme = await localStorage.GetItemAsStringAsync(Setting.ApplicationTheme.ToString());
         if (string.IsNullOrEmpty(appTheme))

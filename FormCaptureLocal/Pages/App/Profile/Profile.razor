@@ -1,0 +1,79 @@
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/profile"
+
+<h3><span class="oi oi-person"></span> Profile - @UserHelper.UserID</h3>
+
+<hr />
+
+<div class="settingPanel">
+    <h4><span class="oi oi-pencil mr-2"></span> Change password</h4>
+
+    <div class="form-group">
+        <label for="old-password-input"><b>Current password</b>:</label>
+        <input type="password" name="confirm-new-password-input" id="old-password-input" @bind="oldPassword" class="form-control" placeholder="Enter current password..." />
+    </div>
+
+    <div class="form-group">
+        <label for="new-password-input"><b>New password</b>:</label>
+        <input type="password" name="new-password-input" id="new-password-input" @bind="newPassword" class="form-control" placeholder="Enter new password..." />
+    </div>
+
+    <div class="form-group">
+        <button type="button" class="btn btn-outline-success mt-2" @onclick="Confirm" id="confirmButton"><span class="oi oi-pencil mr-2"></span> Confirm password update</button>
+    </div>
+</div>
+
+<div class="toast-area mt-4">
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="password-error-toast" role="alert">
+        <strong class="mr-auto">Form error</strong>
+        <hr />
+        <p id="errorMessage">@errorMessage</p>
+        <button type="button" class="close" onclick="closeAlert('password-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+@code
+{
+    private string newPassword;
+
+    private string oldPassword;
+
+    private string errorMessage;
+
+    private async Task Confirm()
+    {
+        if (!string.IsNullOrEmpty(newPassword) && !string.IsNullOrEmpty(oldPassword))
+        {
+            var user = await IJSRuntime.InvokeAsync<User>("getItem", UserHelper.UserID, "Users");
+            string userHash = await IJSRuntime.InvokeAsync<string>("hashString", oldPassword, user.PasswordSalt);
+            if (userHash.Equals(user.PasswordHash))
+            {
+                user.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", newPassword, user.PasswordSalt);
+                var res = await IJSRuntime.InvokeAsync<bool>("putItem", user, "Users");
+                if (res)
+                {
+                    NavigationManager.NavigateTo("/logout");
+                }
+                else
+                {
+                    errorMessage = "Error occured during user password update.";
+                    await IJSRuntime.InvokeVoidAsync("displayToast", "password-error-toast");
+                }
+            }
+            else
+            {
+                errorMessage = "Current password is incorrect.";
+                await IJSRuntime.InvokeVoidAsync("displayToast", "password-error-toast");
+            }
+        }
+        else
+        {
+            errorMessage = "Form for updating password is empty.";
+            await IJSRuntime.InvokeVoidAsync("displayToast", "password-error-toast");
+        }
+    }
+}

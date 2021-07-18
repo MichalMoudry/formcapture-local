@@ -1,6 +1,4 @@
-﻿using FormCaptureLocal.Models;
-
-namespace FormCaptureLocal.Helpers
+﻿namespace FormCaptureLocal.Helpers
 {
     public class UserHelper
     {

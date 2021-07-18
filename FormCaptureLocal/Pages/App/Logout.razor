@@ -1,0 +1,12 @@
+﻿@layout MainLayout
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService localStorage
+
+@code
+{      
+    protected override async Task OnInitializedAsync()
+    {
+        await localStorage.RemoveItemAsync("LastLoginDate");
+        NavigationManager.NavigateTo("/login");
+    }
+}
