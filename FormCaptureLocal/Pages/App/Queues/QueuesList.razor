@@ -1,0 +1,41 @@
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/queues"
+
+<h3><span class="oi oi-list-rich mr-1"></span> Queues</h3>
+
+<hr />
+
+<div class="d-flex">
+    <button type="button" class="btn btn-outline-success">
+        <span class="oi oi-play-circle mr-2"></span> Start a new queue
+    </button>
+    <div class="dropdown">
+        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton">
+            <span class="oi oi-sort-ascending mr-1"></span> Sort list
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Added</td>
+                <td>Export</td>
+                <td>Delete</td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
