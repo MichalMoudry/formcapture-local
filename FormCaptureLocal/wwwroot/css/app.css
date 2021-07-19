@@ -198,6 +198,20 @@ a, .btn-link {
     width: 100%;
 }
 
+.quickPreviewImage {
+    width: 250px;
+}
+
+#queueQuickPreview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quickPreviewItem {
+    display: flex;
+    flex-direction: column;
+}
+
 /*Media*/
 @media (min-width: 768px) {
 }

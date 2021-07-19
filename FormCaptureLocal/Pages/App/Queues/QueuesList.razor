@@ -8,7 +8,7 @@
 <hr />
 
 <div class="d-flex">
-    <button type="button" class="btn btn-outline-success">
+    <button type="button" class="btn btn-outline-success" @onclick="@(e => Navigate("/formcapture/queues/start"))">
         <span class="oi oi-play-circle mr-2"></span> Start a new queue
     </button>
     <div class="dropdown">
@@ -39,3 +39,11 @@
         </tbody>
     </table>
 </div>
+
+@code
+{
+    private void Navigate(string uri)
+    {
+        NavigationManager.NavigateTo(uri);
+    }
+}

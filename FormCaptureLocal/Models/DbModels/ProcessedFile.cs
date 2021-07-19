@@ -12,6 +12,8 @@ namespace FormCaptureLocal.Models.DbModels
         /// </summary>
         public byte[] Content { get; set; }
 
+        public string ContentType { get; set; }
+
         /// <summary>
         /// Name of the processed file. Ex.: File.pdf
         /// </summary>
