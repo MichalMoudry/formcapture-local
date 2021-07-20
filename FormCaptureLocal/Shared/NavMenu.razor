@@ -1,4 +1,6 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject NavigationManager NavigationManager
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Form Capture</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -8,37 +10,42 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/home" Match="NavLinkMatch.All" title="Home">
+            <NavLink class="nav-link" href="formcapture/home" Match="NavLinkMatch.All" title="Navigate to home page" @onclick="@(e => NavLinkClicked(false))">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/queues" title="Queues">
+            <NavLink class="nav-link" href="formcapture/queues" title="Navigate to queues" @onclick="@(e => NavLinkClicked(false))">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Queues
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/templates" title="Templates">
+            <NavLink class="nav-link" href="formcapture/templates" title="Navigate to templates" @onclick="@(e => NavLinkClicked(false))">
                 <span class="oi oi-image" aria-hidden="true"></span> Templates
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/workflows" title="Workflows">
+            <NavLink class="nav-link" href="formcapture/workflows" title="Navigate to workflows" @onclick="@(e => NavLinkClicked(true))">
                 <span class="oi oi-project"></span> Workflows
             </NavLink>
         </li>
+        <li class="nav-item px-3 @TaskLinkCssClass">
+            <NavLink class="nav-link" href="/formcapture/tasks" title="Tasks">
+                <span class="oi oi-code"></span> Tasks
+            </NavLink>
+        </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/profile" title="Profile">
+            <NavLink class="nav-link" href="formcapture/profile" title="Navigate to profile" @onclick="@(e => NavLinkClicked(false))">
                 <span class="oi oi-person"></span> Profile
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/settings" title="Settings">
+            <NavLink class="nav-link" href="formcapture/settings" title="Navigate to settings" @onclick="@(e => NavLinkClicked(false))">
                 <span class="oi oi-cog"></span> Settings
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/guide" title="User guide">
+            <NavLink class="nav-link" href="formcapture/guide" title="Navigate to user guide" @onclick="@(e => NavLinkClicked(false))">
                 <span class="oi oi-book"></span> User guide
             </NavLink>
         </li>
@@ -51,8 +58,17 @@
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    private bool isTaskLinkDisplayed = false;
+
+    private string TaskLinkCssClass => isTaskLinkDisplayed ? null : "d-none";
+
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void NavLinkClicked(bool displayTaskLink)
+    {
+        isTaskLinkDisplayed = displayTaskLink;
     }
 }
