@@ -8,11 +8,11 @@
 <hr />
 
 <div class="d-flex">
-    <button type="button" class="btn btn-outline-success" @onclick="NavigateToTemplateAddPage">
+    <button type="button" class="btn btn-outline-success" @onclick="@(e => Navigate("/formcapture/templates/add"))" title="Navigate to a page for adding templates">
         <span class="oi oi-plus mr-2"></span> Add a new template
     </button>
     <div class="dropdown">
-        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton">
+        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton" title="Sort the list of templates">
             <span class="oi oi-sort-ascending mr-1"></span> Sort list
         </button>
         <div class="dropdown-menu" aria-labelledby="sortButton">
@@ -65,11 +65,6 @@
 @code
 {
     private List<Template> templates;
-
-    private void NavigateToTemplateAddPage()
-    {
-        NavigationManager.NavigateTo("/formcapture/templates/add");
-    }
 
     private void Navigate(string page)
     {

@@ -1,0 +1,111 @@
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/tasks"
+
+<h3><span class="oi oi-code"></span> Tasks</h3>
+
+<hr />
+
+<div class="d-flex">
+    <button type="button" class="btn btn-outline-success" @onclick="@(e => Navigate("/formcapture/tasks/add"))" title="Navigate to a page for adding workflow tasks">
+        <span class="oi oi-plus mr-2"></span> Add a new task
+    </button>
+    <div class="dropdown">
+        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton" title="Sort the list of workflow tasks">
+            <span class="oi oi-sort-ascending mr-1"></span> Sort list
+        </button>
+        <div class="dropdown-menu" aria-labelledby="sortButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </div>
+</div>
+
+@if (tasks == null)
+{
+    <p class="mt-3">
+        <span class="mt-2">Loading...</span>
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </p>
+}
+else
+{
+    <div class="table-responsive mt-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Added</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (WorkflowTask task in tasks)
+                {
+                    <tr class="pointer">
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))"><span class="oi oi-pencil"></span></td>
+                        <td @onclick="@(e => DeleteTask(task))"><span class="oi oi-trash"></span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<div class="toast-area mt-3">
+    <div class="alert alert-success alert-dismissible fade show d-none" id="task-deleted-toast" role="alert">
+        <strong class="mr-auto">Task deleted</strong>
+        <hr />
+        <p>Task has been successfully deleted.</p>
+        <button type="button" class="close" onclick="closeAlert('task-deleted-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+@code
+{
+    /// <summary>
+    /// Field that contains all user's tasks.
+    /// </summary>
+    private List<WorkflowTask> tasks;
+
+    private void Navigate(string page)
+    {
+        NavigationManager.NavigateTo(page);
+    }
+
+    private async Task DeleteTask(WorkflowTask task)
+    {
+        var res = await IJSRuntime.InvokeAsync<bool>("confirmDialog", $"Do you want to delete '{task.Name}' task?");
+        if (res)
+        {
+            res = await IJSRuntime.InvokeAsync<bool>("deleteItem", task.ID, "WorkflowTasks");
+            if (res)
+            {
+                tasks.Remove(task);
+                await IJSRuntime.InvokeVoidAsync("displayToast", "task-deleted-toast");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Override of OnInitializedAsync() method.
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        tasks = await IJSRuntime.InvokeAsync<List<WorkflowTask>>("getAllItems", "WorkflowTasks");
+        if (tasks != null)
+        {
+            tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
+    }
+}

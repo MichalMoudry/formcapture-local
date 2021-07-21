@@ -1,0 +1,243 @@
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/workflows/add"
+
+<h3>Create a new workflow</h3>
+
+<hr />
+
+<div class="form-group">
+    <label for="workflow-name">Workflow name:</label>
+    <input name="workflow-name" @bind-value="workflow.Name" placeholder="Enter a workflow name..." id="workflow-name" type="text" class="form-control" />
+</div>
+
+<!--Scan tasks block-->
+<div class="card workflowCard mt-4">
+    <div class="card-header">
+        <h4><span class="oi oi-document"></span> Scan tasks</h4>
+    </div>
+
+    <div class="card-body">
+        @if (groupings["scan"].Count != 0)
+        {
+            @foreach (WorkflowTaskGrouping grouping in groupings["scan"])
+            {
+                <p class="card-text">
+                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["scan"], grouping))"></span></span>
+                </p>
+            }
+        }
+        else
+        {
+            <p class="card-text">This group has no tasks yet.</p>
+        }
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("scan"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to scan task group">
+            <span class="oi oi-plus"></span> Add a task
+        </button>
+    </div>
+</div>
+
+<!--Recognition tasks block-->
+<div class="card workflowCard mt-4">
+    <div class="card-header">
+        <h4><span class="oi oi-aperture"></span> Recognition tasks</h4>
+    </div>
+
+    <div class="card-body">
+        @if (groupings["recognition"].Count != 0)
+        {
+            @foreach (WorkflowTaskGrouping grouping in groupings["recognition"])
+            {
+                <p class="card-text">
+                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["recognition"], grouping))"></span></span>
+                </p>
+            }
+        }
+        else
+        {
+            <p class="card-text">This group has no tasks yet.</p>
+        }
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("recognition"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to recognition task group">
+            <span class="oi oi-plus"></span> Add a task
+        </button>
+    </div>
+</div>
+
+<!--Verification tasks block-->
+<div class="card workflowCard mt-4">
+    <div class="card-header">
+        <h4><span class="oi oi-eye"></span> Verification tasks</h4>
+    </div>
+
+    <div class="card-body">
+        @if (groupings["verification"].Count != 0)
+        {
+            @foreach (WorkflowTaskGrouping grouping in groupings["verification"])
+            {
+                <p class="card-text">
+                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["verification"], grouping))"></span></span>
+                </p>
+            }
+        }
+        else
+        {
+            <p class="card-text">This group has no tasks yet.</p>
+        }
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("verification"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to verification task group">
+            <span class="oi oi-plus"></span> Add a task
+        </button>
+    </div>
+</div>
+
+<!--Export tasks block-->
+<div class="card workflowCard mt-4">
+    <div class="card-header">
+        <h4><span class="oi oi-expand-left"></span> Export tasks</h4>
+    </div>
+
+    <div class="card-body">
+        @if (groupings["export"].Count != 0)
+        {
+            @foreach (WorkflowTaskGrouping grouping in groupings["export"])
+            {
+                <p class="card-text">
+                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["export"], grouping))"></span></span>
+                </p>
+            }
+        }
+        else
+        {
+            <p class="card-text">This group has no tasks yet.</p>
+        }
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("export"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to export task group">
+            <span class="oi oi-plus"></span> Add a task
+        </button>
+    </div>
+</div>
+
+<div class="mt-4 mb-4">
+    <button type="button" class="btn btn-outline-success"><span class="oi oi-check"></span> Confirm</button>
+</div>
+
+<div class="toast-area">
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="workflow-error-toast" role="alert">
+        <strong class="mr-auto">Form error</strong>
+        <hr />
+        <p>A workflow must have a name.</p>
+        <button type="button" class="close" onclick="closeAlert('workflow-error-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<!--Modal for adding apps-->
+<div class="modal" id="add-tasks-dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add tasks to @currentTaskGroup task group</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                @if (tasks == null)
+                {
+                    <p>Loading...</p>
+                }
+                else
+                {
+                    @if (tasks.Count != 0)
+                    {
+                        <form>
+                            <fieldset class="form-group">
+                                @foreach (WorkflowTask task in tasks)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input" @onchange="eventArgs => { CheckboxClicked(task, eventArgs.Value); }" type="checkbox" id="@task.ID" />
+                                        <label class="form-check-label" for="@task.ID">@task.Name</label>
+                                    </div>
+                                }
+                            </fieldset>
+                        </form>
+                    }
+                    else
+                    {
+                        <p>There are no tasks. You have to create them first.</p>
+                    }
+                }
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal"><span class="oi oi-check"></span> Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="oi oi-x"></span> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code
+{
+    /// <summary>
+    /// Field that contains groupings for each workflow group.
+    /// </summary>
+    private Dictionary<string, List<WorkflowTaskGrouping>> groupings;
+
+    /// <summary>
+    /// Field that contains all user's tasks.
+    /// </summary>
+    private List<WorkflowTask> tasks;
+
+    private Workflow workflow = new Workflow() { ID = Guid.NewGuid().ToString(), UserID = UserHelper.UserID };
+
+    private string currentTaskGroup;
+
+    private List<WorkflowTask> addedTasks;
+
+    private void SetCurrentTaskGroup(string taskGroup)
+    {
+        currentTaskGroup = taskGroup;
+        addedTasks = new List<WorkflowTask>();
+    }
+
+    private void CheckboxClicked(WorkflowTask task, object value)
+    {
+        if ((bool)value)
+        {
+            addedTasks.Add(task);
+        }
+        else
+        {
+            addedTasks.Remove(task);
+        }
+    }
+
+    private void RemoveTaskFromGrouping(List<WorkflowTaskGrouping> groupings, WorkflowTaskGrouping grouping)
+    {
+        groupings.Remove(grouping);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        groupings = new Dictionary<string, List<WorkflowTaskGrouping>>();
+        groupings.Add("export", new List<WorkflowTaskGrouping>());
+        groupings.Add("scan", new List<WorkflowTaskGrouping>());
+        groupings.Add("verification", new List<WorkflowTaskGrouping>());
+        groupings.Add("recognition", new List<WorkflowTaskGrouping>());
+        await Task.Delay(1000);
+    }
+}

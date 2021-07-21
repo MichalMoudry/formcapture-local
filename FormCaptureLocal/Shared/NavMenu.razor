@@ -30,8 +30,8 @@
             </NavLink>
         </li>
         <li class="nav-item px-3 @TaskLinkCssClass">
-            <NavLink class="nav-link" href="/formcapture/tasks" title="Tasks">
-                <span class="oi oi-code"></span> Tasks
+            <NavLink class="nav-link" href="/formcapture/tasks" title="Tasks" @onclick="@(e => NavLinkClicked(true))">
+                <span class="oi oi-code"></span> Workflow tasks
             </NavLink>
         </li>
         <li class="nav-item px-3">

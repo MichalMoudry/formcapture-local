@@ -21,5 +21,7 @@ namespace FormCaptureLocal.Models.DbModels
         /// Name of the task.
         /// </summary>
         public string Name { get; set; }
+
+        public string UserID { get; set; }
     }
 }

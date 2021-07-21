@@ -212,6 +212,12 @@ a, .btn-link {
     flex-direction: column;
 }
 
+.card-text .badge-success {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
 /*Media*/
 @media (min-width: 768px) {
 }

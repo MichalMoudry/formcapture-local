@@ -1,0 +1,73 @@
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/tasks/add"
+
+<h3><span class="oi oi-plus mr-1"></span> Add a new task</h3>
+
+<hr />
+
+<div class="form-group settingPanel">
+    <label for="task-name"><b>Task name</b>:</label>
+    <input type="text" name="task-name" id="task-name" placeholder="Enter a task name..." @bind-value="workflowTask.Name" class="form-control" />
+</div>
+
+<div class="form-group settingPanel mt-4">
+    <label for="task-description"><b>Task description</b>:</label>
+    <input type="text" name="task-description" id="task-description" placeholder="Enter a task description..." @bind-value="workflowTask.Description" class="form-control" />
+</div>
+
+<div class="form-group settingPanel mt-4">
+    <label for="task-content"><b>Task content</b>: <a title="Information"><span class="oi oi-question-mark"></span></a></label>
+    <textarea @bind="taskContent" placeholder="Enter task content..." name="task-content" id="task-content" class="form-control">
+    </textarea>
+</div>
+
+<div class="form-group d-flex">
+    <button @onclick="ConfirmForm" class="btn btn-success mr-3 mt-2" title="Confirm values in the form and save the task">
+        <span class="oi oi-check"></span> Confirm
+    </button>
+    <button @onclick="TestTaskContent" class="btn btn-warning mt-2" title="Test contents of the task">
+        <span class="oi oi-beaker"></span> Test task
+    </button>
+</div>
+
+@code
+{
+    private WorkflowTask workflowTask = new WorkflowTask() { ID = Guid.NewGuid().ToString() };
+
+    /// <summary>
+    /// Page field that contains content of the task.
+    /// </summary>
+    private string taskContent;
+
+    private async void TestTaskContent()
+    {
+        if (!string.IsNullOrEmpty(taskContent))
+        {
+            var res = await IJSRuntime.InvokeAsync<bool>("executeJS", taskContent);
+        }
+    }
+
+    private async Task ConfirmForm()
+    {
+        if (!string.IsNullOrEmpty(taskContent) && !string.IsNullOrEmpty(workflowTask.Name))
+        {
+            workflowTask.Content = taskContent;
+            workflowTask.Added = DateTime.Now;
+            workflowTask.Updated = workflowTask.Added;
+            workflowTask.UserID = UserHelper.UserID;
+            var res = await IJSRuntime.InvokeAsync<bool>("addItem", workflowTask, "WorkflowTasks");
+            if (res)
+            {
+                NavigationManager.NavigateTo("/formcapture/tasks");
+            }
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        taskContent = "";
+        base.OnInitialized();
+    }
+}
