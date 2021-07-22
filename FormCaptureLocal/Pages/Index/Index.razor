@@ -1,5 +1,6 @@
 ﻿@layout IndexLayout
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<App> Localizer
 @page "/"
 
 <h1 class="mb-4">
@@ -8,12 +9,16 @@
 </h1>
 
 <p id="app-description">
-    Form Capture is an app for creating complete digitalization workflow using OCR.
+    @Localizer["AppDescription"]
 </p>
 
 <div class="container mt-3">
-    <button type="button" @onclick="@(e => Navigate("/login"))" class="btn btn-light mr-2" title="Log in"><span class="oi oi-account-login"></span> Log in</button>
-    <button type="button" @onclick="@(e => Navigate("/register"))" class="btn btn-light ml-2" title="Create an account"><span class="oi oi-person"></span> Register</button>
+    <button type="button" @onclick="@(e => Navigate("/login"))" class="btn btn-light mr-2" title="Log in">
+        <span class="oi oi-account-login mr-1"></span> @Localizer["LogIn"]
+    </button>
+    <button type="button" @onclick="@(e => Navigate("/register"))" class="btn btn-light ml-2" title="Create an account">
+        <span class="oi oi-person mr-1"></span> @Localizer["Register"]
+    </button>
 </div>
 
 @code
