@@ -40,6 +40,7 @@ else
                 <tr>
                     <td>Name</td>
                     <td>Added</td>
+                    <td>Updated</td>
                     <td>Edit</td>
                     <td>Delete</td>
                 </tr>
@@ -48,12 +49,13 @@ else
             <tbody>
                 @foreach (WorkflowTask task in tasks)
                 {
-                    <tr class="pointer">
-                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Name</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Added</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))"><span class="oi oi-pencil"></span></td>
-                        <td @onclick="@(e => DeleteTask(task))"><span class="oi oi-trash"></span></td>
-                    </tr>
+                <tr class="pointer">
+                    <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Name</td>
+                    <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Added</td>
+                    <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Updated</td>
+                    <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))"><span class="oi oi-pencil"></span></td>
+                    <td @onclick="@(e => DeleteTask(task))"><span class="oi oi-trash"></span></td>
+                </tr>
                 }
             </tbody>
         </table>
