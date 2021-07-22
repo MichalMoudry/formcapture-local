@@ -24,7 +24,9 @@
             @foreach (WorkflowTaskGrouping grouping in groupings["scan"])
             {
                 <p class="card-text">
-                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["scan"], grouping))"></span></span>
+                    <span class="badge badge-success">
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2" @onclick="@(e => RemoveTaskFromGrouping(groupings["scan"], grouping))"></span>
+                    </span>
                 </p>
             }
         }
@@ -53,7 +55,9 @@
             @foreach (WorkflowTaskGrouping grouping in groupings["recognition"])
             {
                 <p class="card-text">
-                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["recognition"], grouping))"></span></span>
+                    <span class="badge badge-success">
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2" @onclick="@(e => RemoveTaskFromGrouping(groupings["recognition"], grouping))"></span>
+                    </span>
                 </p>
             }
         }
@@ -82,7 +86,9 @@
             @foreach (WorkflowTaskGrouping grouping in groupings["verification"])
             {
                 <p class="card-text">
-                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["verification"], grouping))"></span></span>
+                    <span class="badge badge-success">
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2" @onclick="@(e => RemoveTaskFromGrouping(groupings["verification"], grouping))"></span>
+                    </span>
                 </p>
             }
         }
@@ -111,7 +117,9 @@
             @foreach (WorkflowTaskGrouping grouping in groupings["export"])
             {
                 <p class="card-text">
-                    <span class="badge badge-success">@tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x" @onclick="@(e => RemoveTaskFromGrouping(groupings["export"], grouping))"></span></span>
+                    <span class="badge badge-success">
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2" @onclick="@(e => RemoveTaskFromGrouping(groupings["export"], grouping))"></span>
+                    </span>
                 </p>
             }
         }
@@ -129,7 +137,9 @@
 </div>
 
 <div class="mt-4 mb-4">
-    <button type="button" class="btn btn-outline-success"><span class="oi oi-check"></span> Confirm</button>
+    <button type="button" class="btn btn-outline-success" @onclick="Submit">
+        <span class="oi oi-check"></span> Confirm
+    </button>
 </div>
 
 <div class="toast-area">
@@ -183,7 +193,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal"><span class="oi oi-check"></span> Confirm</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" @onclick="ConfirmModal"><span class="oi oi-check"></span> Confirm</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="oi oi-x"></span> Close</button>
             </div>
         </div>
@@ -231,6 +241,52 @@
         groupings.Remove(grouping);
     }
 
+    private async Task ConfirmModal()
+    {
+        var ids = new List<string>();
+        foreach (WorkflowTask task in addedTasks)
+        {
+            groupings[currentTaskGroup].Add(new WorkflowTaskGrouping()
+            {
+                ID = Guid.NewGuid().ToString(),
+                TaskGroupName = currentTaskGroup,
+                TaskID = task.ID,
+                Added = DateTime.Now,
+                Updated = DateTime.Now,
+                ExecutionOrderNumber = groupings[currentTaskGroup].IndexOf(groupings[currentTaskGroup].LastOrDefault()) + 1,
+                WorkflowID = workflow.ID
+            });
+            ids.Add(task.ID);
+        }
+        await IJSRuntime.InvokeVoidAsync("uncheckCheckboxes", ids);
+    }
+
+    private async Task Submit()
+    {
+        if (!string.IsNullOrEmpty(workflow.Name))
+        {
+            workflow.Added = DateTime.Now;
+            workflow.Updated = workflow.Added;
+            var addWorkflowRes = await IJSRuntime.InvokeAsync<bool>("addItem", workflow, "Workflows");
+            var addGroupingsRes = false;
+            foreach (var item in groupings)
+            {
+                foreach (var grouping in item.Value)
+                {
+                    addGroupingsRes = await IJSRuntime.InvokeAsync<bool>("addItem", grouping, "WorkflowTaskGroupings");
+                }
+            }
+            if (addWorkflowRes && addGroupingsRes)
+            {
+                NavigationManager.NavigateTo("/formcapture/workflows");
+            }
+        }
+        else
+        {
+            await IJSRuntime.InvokeVoidAsync("displayToast", "workflow-error-toast");
+        }
+    }
+
     protected override async Task OnInitializedAsync()
     {
         groupings = new Dictionary<string, List<WorkflowTaskGrouping>>();
@@ -238,6 +294,10 @@
         groupings.Add("scan", new List<WorkflowTaskGrouping>());
         groupings.Add("verification", new List<WorkflowTaskGrouping>());
         groupings.Add("recognition", new List<WorkflowTaskGrouping>());
-        await Task.Delay(1000);
+        tasks = await IJSRuntime.InvokeAsync<List<WorkflowTask>>("getAllItems", "WorkflowTasks");
+        if (tasks != null)
+        {
+            tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
     }
 }

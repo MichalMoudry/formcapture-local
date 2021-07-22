@@ -23,26 +23,59 @@
     </div>
 </div>
 
-<div class="table-responsive mt-3">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <td>Name</td>
-                <td>Added</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
-</div>
+@if (workflows == null)
+{
+    <p class="mt-3">
+        <span class="mt-2">Loading...</span>
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </p>
+}
+else
+{
+    <div class="table-responsive mt-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Added</td>
+                    <td>Updated</td>
+                    <td>Edit</td>
+                    <td>Delete</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Workflow workflow in workflows)
+                {
+                    <tr class="pointer">
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))">@workflow.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))">@workflow.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))">@workflow.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))"><span class="oi oi-pencil"></span></td>
+                        <td><span class="oi oi-trash"></span></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
 
 @code
 {
+    private List<Workflow> workflows;
+
     private void Navigate(string uri)
     {
         NavigationManager.NavigateTo(uri);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        workflows = await IJSRuntime.InvokeAsync<List<Workflow>>("getAllItems", "Workflows");
+        if (workflows != null)
+        {
+            workflows = workflows.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
     }
 }

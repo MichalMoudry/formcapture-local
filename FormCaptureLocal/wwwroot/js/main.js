@@ -7,6 +7,12 @@ async function hashString(string, salt) {
     return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
+function uncheckCheckboxes(checkboxIdArray) {
+    for (var i = 0; i < checkboxIdArray.length; i++) {
+        document.getElementById(checkboxIdArray[i]).checked = false;
+    }
+}
+
 function confirmDialog(message) {
     var res = confirm(message);
     return res;
