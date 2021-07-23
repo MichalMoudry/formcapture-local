@@ -159,6 +159,39 @@
   <data name="NavigateToQueuePageStepText" xml:space="preserve">
     <value>Navigate to queue page</value>
   </data>
+  <data name="NavMenuAccountLinkText" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="NavMenuAccountLinkTitle" xml:space="preserve">
+    <value>Navigate to account page</value>
+  </data>
+  <data name="NavMenuHomeLinkText" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="NavMenuHomeLinkTitle" xml:space="preserve">
+    <value>Navigate to home page</value>
+  </data>
+  <data name="NavMenuSettingsLinkText" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="NavMenuSettingsLinkTitle" xml:space="preserve">
+    <value>Navigate to settings page</value>
+  </data>
+  <data name="NavMenuTemplatesLinkText" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="NavMenuTemplatesLinkTitle" xml:space="preserve">
+    <value>Navigate to templates page</value>
+  </data>
+  <data name="NavMenuToggleButtonTitle" xml:space="preserve">
+    <value>Show/hide navigation menu</value>
+  </data>
+  <data name="NavMenuUserGuideLinkText" xml:space="preserve">
+    <value>User guide</value>
+  </data>
+  <data name="NavMenuUserGuideLinkTitle" xml:space="preserve">
+    <value>Navigate to user guide</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>

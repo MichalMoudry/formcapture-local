@@ -159,6 +159,39 @@
   <data name="NavigateToQueuePageStepText" xml:space="preserve">
     <value>Přejděte na stránku pro přehled zpracovaných dávek dokumentů</value>
   </data>
+  <data name="NavMenuAccountLinkText" xml:space="preserve">
+    <value>Účet</value>
+  </data>
+  <data name="NavMenuAccountLinkTitle" xml:space="preserve">
+    <value>Přejděte na stránku s vaším účtem</value>
+  </data>
+  <data name="NavMenuHomeLinkText" xml:space="preserve">
+    <value>Domů</value>
+  </data>
+  <data name="NavMenuHomeLinkTitle" xml:space="preserve">
+    <value>Přejděte na domovskou stránku</value>
+  </data>
+  <data name="NavMenuSettingsLinkText" xml:space="preserve">
+    <value>Nastavení</value>
+  </data>
+  <data name="NavMenuSettingsLinkTitle" xml:space="preserve">
+    <value>Přejděte na stránku s nastavením aplikace</value>
+  </data>
+  <data name="NavMenuTemplatesLinkText" xml:space="preserve">
+    <value>Předlohy</value>
+  </data>
+  <data name="NavMenuTemplatesLinkTitle" xml:space="preserve">
+    <value>Přejděte na stránku s předlohami dokumentů</value>
+  </data>
+  <data name="NavMenuToggleButtonTitle" xml:space="preserve">
+    <value>Zobrazte/skryjte navigační menu</value>
+  </data>
+  <data name="NavMenuUserGuideLinkText" xml:space="preserve">
+    <value>Uživ. dokumentace</value>
+  </data>
+  <data name="NavMenuUserGuideLinkTitle" xml:space="preserve">
+    <value>Přejděte na stránku s uživatelskou dokumentací</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Heslo</value>
   </data>
