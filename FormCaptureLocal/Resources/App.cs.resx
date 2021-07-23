@@ -123,11 +123,26 @@
   <data name="ConfirmPasswordLabel" xml:space="preserve">
     <value>Potvrďte heslo</value>
   </data>
+  <data name="CreateTemplateStepText" xml:space="preserve">
+    <value>Vytvořte předlohu dokumentu</value>
+  </data>
   <data name="DbError" xml:space="preserve">
     <value>Vyskytla se chyba při práci s databází. Zkuste to znovu.</value>
   </data>
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Napište svůj email...</value>
+  </data>
+  <data name="GitHubLinkText" xml:space="preserve">
+    <value>Uživatelská dokumentace na GitHubu</value>
+  </data>
+  <data name="HomeFirstParagraph" xml:space="preserve">
+    <value>Vítejte na domácí stránce aplikace Form Capture. Pro začátek je vhodné postupovat podle kroků uvedených níže nebo konzultujte uživatelskou dokumentaci (na GitHubu nebo lokální wiki).</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Domovská stránka</value>
+  </data>
+  <data name="LocalWikiLinkText" xml:space="preserve">
+    <value>Lokální uživatelská dokumentace</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Přihlášení</value>
@@ -140,6 +155,9 @@
   </data>
   <data name="LoginNoUserError" xml:space="preserve">
     <value>Žádný uživatel s tímto účtem neexistuje.</value>
+  </data>
+  <data name="NavigateToQueuePageStepText" xml:space="preserve">
+    <value>Přejděte na stránku pro přehled zpracovaných dávek dokumentů</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Heslo</value>
@@ -162,8 +180,23 @@
   <data name="RegistrationUserIsAlreadyRegisteredError" xml:space="preserve">
     <value>Tento uživatel už byl registrován.</value>
   </data>
+  <data name="SaveTemplateStepText" xml:space="preserve">
+    <value>Uložte předlohu dokumentu</value>
+  </data>
+  <data name="SetFieldsStepText" xml:space="preserve">
+    <value>Vytvořte pole na předloze</value>
+  </data>
+  <data name="SetIdFieldStepText" xml:space="preserve">
+    <value>Nastavte pole pro identifikaci dokumentu</value>
+  </data>
+  <data name="StartQueueStepText" xml:space="preserve">
+    <value>Spusťte zpracování nahraných dokumentů</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Potvrdit</value>
+  </data>
+  <data name="UploadTemplateImageStepText" xml:space="preserve">
+    <value>Nahrajte obrázek předlohy dokumentu</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>Špatné heslo.</value>

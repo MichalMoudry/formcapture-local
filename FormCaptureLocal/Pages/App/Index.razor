@@ -1,28 +1,53 @@
 ﻿@layout AppLayout
 @inject IJSRuntime IJSRuntime
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<App> Localizer
 @page "/formcapture/home"
 
-<h3><span class="oi oi-home" aria-hidden="true"></span> Home</h3>
+<h3><span class="oi oi-home" aria-hidden="true"></span> @Localizer["HomePageTitle"]</h3>
 
-<p>Welcome to Formcapture home page. To start processing documents follow these steps or consult user documentation (github wiki or local wiki):</p>
+<p>@Localizer["HomeFirstParagraph"]</p>
+
+<div class="d-flex mb-4">
+    <button class="btn btn-outline-primary mr-3">
+        @Localizer["GitHubLinkText"]
+    </button>
+    <button class="btn btn-outline-secondary">
+        @Localizer["LocalWikiLinkText"]
+    </button>
+</div>
+
 <div id="basic-steps-block">
-    <button type="button" class="btn btn-link first-level-block">1. Create a document template <span class="oi oi-chevron-right"></span></button>
+    <button type="button" class="btn btn-link first-level-block" title="@Localizer["CreateTemplateStepText"]">
+        1. @Localizer["CreateTemplateStepText"] <span class="oi oi-chevron-right"></span>
+    </button>
     <div class="col-12">
-        <button type="button" class="btn btn-link second-level-block">1.1 Upload template image <span class="oi oi-chevron-right"></span></button>
+        <button type="button" class="btn btn-link second-level-block" title="@Localizer["UploadTemplateImageStepText"]">
+            1.1 @Localizer["UploadTemplateImageStepText"] <span class="oi oi-chevron-right"></span>
+        </button>
     </div>
     <div class="col-12">
-        <button type="button" class="btn btn-link second-level-block">1.2 Create fields <span class="oi oi-chevron-right"></span></button>
+        <button type="button" class="btn btn-link second-level-block" title="@Localizer["SetFieldsStepText"]">
+            1.2 @Localizer["SetFieldsStepText"] <span class="oi oi-chevron-right"></span>
+        </button>
     </div>
     <div class="col-12">
-        <button type="button" class="btn btn-link second-level-block">1.3 Set identifying field <span class="oi oi-chevron-right"></span></button>
+        <button type="button" class="btn btn-link second-level-block" title="@Localizer["SetIdFieldStepText"]">
+            1.3 @Localizer["SetIdFieldStepText"] <span class="oi oi-chevron-right"></span>
+        </button>
     </div>
     <div class="col-12">
-        <button type="button" class="btn btn-link second-level-block">1.4 Save template <span class="oi oi-chevron-right"></span></button>
+        <button type="button" class="btn btn-link second-level-block" title="@Localizer["SaveTemplateStepText"]">
+            1.4 @Localizer["SaveTemplateStepText"] <span class="oi oi-chevron-right"></span>
+        </button>
     </div>
 
-    <button type="button" class="btn btn-link first-level-block mt-4">2. Start a queue <span class="oi oi-chevron-right"></span></button>
+    <button type="button" class="btn btn-link first-level-block mt-4" title="@Localizer["StartQueueStepText"]">
+        2. @Localizer["StartQueueStepText"] <span class="oi oi-chevron-right"></span>
+    </button>
     <div class="col-12">
-        <button type="button" class="btn btn-link second-level-block">2.1 Navigate to queue page <span class="oi oi-chevron-right"></span></button>
+        <button type="button" class="btn btn-link second-level-block" title="@Localizer["NavigateToQueuePageStepText"]">
+            2.1 @Localizer["NavigateToQueuePageStepText"] <span class="oi oi-chevron-right"></span>
+        </button>
     </div>
 </div>
