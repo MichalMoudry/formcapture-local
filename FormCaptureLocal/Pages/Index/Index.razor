@@ -13,10 +13,10 @@
 </p>
 
 <div class="container mt-3">
-    <button type="button" @onclick="@(e => Navigate("/login"))" class="btn btn-light mr-2" title="Log in">
+    <button type="button" @onclick="@(e => Navigate("/login"))" class="btn btn-light mr-2" title="@Localizer["LogIn"]">
         <span class="oi oi-account-login mr-1"></span> @Localizer["LogIn"]
     </button>
-    <button type="button" @onclick="@(e => Navigate("/register"))" class="btn btn-light ml-2" title="Create an account">
+    <button type="button" @onclick="@(e => Navigate("/register"))" class="btn btn-light ml-2" title="@Localizer["Register"]">
         <span class="oi oi-person mr-1"></span> @Localizer["Register"]
     </button>
 </div>

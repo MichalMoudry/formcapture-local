@@ -120,10 +120,52 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture je aplikace pro podporu digitalizace za pomoci OCR.</value>
   </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="DbError" xml:space="preserve">
+    <value>Vyskytla se chyba při práci s databází. Zkuste to znovu.</value>
+  </data>
+  <data name="EmailInputPlaceholder" xml:space="preserve">
+    <value>Napište svůj email...</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>Přihlášení</value>
   </data>
+  <data name="LoginEmptyFormError" xml:space="preserve">
+    <value>Přihlašovací formulář nebyl kompletně vyplněn.</value>
+  </data>
+  <data name="LoginFormSubmitButtonTitle" xml:space="preserve">
+    <value>Potvrďte přihlašovací formulář</value>
+  </data>
+  <data name="LoginNoUserError" xml:space="preserve">
+    <value>Žádný uživatel s tímto účtem neexistuje.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="PasswordInputPlaceholder" xml:space="preserve">
+    <value>Napište svoje heslo...</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Registrace</value>
+  </data>
+  <data name="RegisterFormSubmitButtonTitle" xml:space="preserve">
+    <value>Potvrďte registrační formulář</value>
+  </data>
+  <data name="RegisterPageTitle" xml:space="preserve">
+    <value>Registrace účtu</value>
+  </data>
+  <data name="RegistrationEmptyFormError" xml:space="preserve">
+    <value>Registrační formulář nebyl kompletně vyplněn.</value>
+  </data>
+  <data name="RegistrationUserIsAlreadyRegisteredError" xml:space="preserve">
+    <value>Tento uživatel už byl registrován.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Potvrdit</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Špatné heslo.</value>
   </data>
 </root>

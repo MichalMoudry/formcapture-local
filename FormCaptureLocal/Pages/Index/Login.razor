@@ -2,6 +2,7 @@
 @inject IJSRuntime IJSRuntime
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService localStorage
+@inject IStringLocalizer<App> Localizer
 @page "/login"
 
 <h3><span class="oi oi-account-login"></span> Login</h3>
@@ -9,15 +10,17 @@
 <div class="form-card">
     <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" @bind-value="loginModel.Email" placeholder="Enter your email..." class="form-control" id="email" name="email" />
+        <input type="email" @bind-value="loginModel.Email" placeholder="@Localizer["EmailInputPlaceholder"]" class="form-control" id="email" name="email" />
     </div>
 
     <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" @bind-value="loginModel.Password" placeholder="Enter your password..." class="form-control" id="password" name="password" />
+        <label for="password">@Localizer["Password"]:</label>
+        <input type="password" @bind-value="loginModel.Password" placeholder="@Localizer["PasswordInputPlaceholder"]" class="form-control" id="password" name="password" />
     </div>
 
-    <button @onclick="Submit" class="btn btn-outline-primary" disabled="@isSubmitButtonDisabled">Submit</button>
+    <button @onclick="Submit" class="btn btn-outline-primary" disabled="@isSubmitButtonDisabled" title="@Localizer["LoginFormSubmitButtonTitle"]">
+        <span class="oi oi-account-login mr-2"></span>@Localizer["Submit"]
+    </button>
 
     <div class="d-flex justify-content-center">
         <div class="spinner-border text-primary @LoadingIndicatorCssClass" role="status">
@@ -69,25 +72,25 @@
                     }
                     else
                     {
-                        errorMessage = "Something went wrong during database update. Try again.";
+                        errorMessage = Localizer["DbError"];
                         isFormAlertDisplayed = true;
                     }
                 }
                 else
                 {
-                    errorMessage = "Wrong password.";
+                    errorMessage = Localizer["WrongPassword"];
                     isFormAlertDisplayed = true;
                 }
             }
             else
             {
-                errorMessage = "No user with this email exists.";
+                errorMessage = Localizer["LoginNoUserError"];
                 isFormAlertDisplayed = true;
             }
         }
         else
         {
-            errorMessage = "Login form wasn't properly completed.";
+            errorMessage = Localizer["LoginEmptyFormError"];
             isFormAlertDisplayed = true;
         }
         isSubmitButtonDisabled = false;
