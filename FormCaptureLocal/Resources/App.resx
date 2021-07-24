@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Added" xml:space="preserve">
+    <value>Added</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture is an app for creating complete digitalization workflow using OCR.</value>
+  </data>
+  <data name="ConfirmationDialogDeleteTemplateFirstPart" xml:space="preserve">
+    <value>Do you want to delete</value>
+  </data>
+  <data name="ConfirmationDialogDeleteTemplateSecondPart" xml:space="preserve">
+    <value>template</value>
   </data>
   <data name="ConfirmPasswordLabel" xml:space="preserve">
     <value>Confirm password</value>
@@ -128,6 +137,9 @@
   </data>
   <data name="DbError" xml:space="preserve">
     <value>Something went wrong during database operation. Try again.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Enter your email...</value>
@@ -140,6 +152,12 @@
   </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="LastUpdated" xml:space="preserve">
+    <value>Last updated</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
   </data>
   <data name="LocalWikiLinkText" xml:space="preserve">
     <value>Local user documentation</value>
@@ -155,6 +173,9 @@
   </data>
   <data name="LoginNoUserError" xml:space="preserve">
     <value>No user with this email exists.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NavigateToQueuePageStepText" xml:space="preserve">
     <value>Navigate to queue page</value>
@@ -222,11 +243,44 @@
   <data name="SetIdFieldStepText" xml:space="preserve">
     <value>Set field for identifying document</value>
   </data>
+  <data name="SortButtonSortByDateText" xml:space="preserve">
+    <value>Sort by date added</value>
+  </data>
+  <data name="SortButtonSortByLastUpdatedText" xml:space="preserve">
+    <value>Sort by last updated date</value>
+  </data>
+  <data name="SortButtonSortByNameText" xml:space="preserve">
+    <value>Sort by name</value>
+  </data>
+  <data name="SortButtonText" xml:space="preserve">
+    <value>Sort list</value>
+  </data>
+  <data name="SortButtonTitle" xml:space="preserve">
+    <value>Sort the list displayed below</value>
+  </data>
   <data name="StartQueueStepText" xml:space="preserve">
     <value>Start a document queue</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="TemplatesListPageAddButtonText" xml:space="preserve">
+    <value>Add a new template</value>
+  </data>
+  <data name="TemplatesListPageAddButtonTitle" xml:space="preserve">
+    <value>Navigate to a page for adding templates</value>
+  </data>
+  <data name="TemplatesListPageNoTemplatesText" xml:space="preserve">
+    <value>There are no templates.</value>
+  </data>
+  <data name="TemplatesListPageSortEmptyTemplatesError" xml:space="preserve">
+    <value>There are no templates to sort</value>
+  </data>
+  <data name="TemplatesListPageSortNullTemplatesError" xml:space="preserve">
+    <value>Templates must be loaded</value>
+  </data>
+  <data name="TemplatesListPageTitle" xml:space="preserve">
+    <value>Templates</value>
   </data>
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Upload template image</value>
