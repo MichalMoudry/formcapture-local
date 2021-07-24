@@ -1,7 +1,10 @@
 ﻿using Blazored.LocalStorage;
 using Bunit;
+using FormCaptureLocal;
 using FormCaptureLocal.Models.Util.Enums;
 using FormCaptureLocal.Pages.App.Settings;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +18,8 @@ namespace FormCaptureLocalTests
         public async Task ChangeLocaleSettingTest()
         {
             using var context = new TestContext();
+            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
             context.AddBlazoredLocalStorage();
             var localStorage = context.Services.GetService<ILocalStorageService>();
             await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
@@ -33,6 +38,8 @@ namespace FormCaptureLocalTests
         public async Task ChangeThemeSettingTest()
         {
             using var context = new TestContext();
+            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
             context.AddBlazoredLocalStorage();
             var localStorage = context.Services.GetService<ILocalStorageService>();
             await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
@@ -61,6 +68,8 @@ namespace FormCaptureLocalTests
         public async Task LoadThemeSettingTest()
         {
             using var context = new TestContext();
+            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
             context.AddBlazoredLocalStorage();
             var localStorage = context.Services.GetService<ILocalStorageService>();
             await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
