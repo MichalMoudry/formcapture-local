@@ -138,6 +138,10 @@ function drawField(fieldID) {
     }
 }
 
+function removeField(fieldID) {
+    document.getElementById(fieldID).remove();
+}
+
 async function recogSingleField(field, image, lang, contentType) {
     // Initialize variables
     const worker = createWorker();

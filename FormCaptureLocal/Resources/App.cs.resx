@@ -144,6 +144,15 @@
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Napište svůj email...</value>
   </data>
+  <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
+    <value>Napište očekávanou hodnotu pole</value>
+  </data>
+  <data name="FieldInputPlaceholder" xml:space="preserve">
+    <value>Napište název pole</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Pole</value>
+  </data>
   <data name="GitHubLinkText" xml:space="preserve">
     <value>Uživatelská dokumentace na GitHubu</value>
   </data>
@@ -152,6 +161,9 @@
   </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Domovská stránka</value>
+  </data>
+  <data name="IdFieldHeader" xml:space="preserve">
+    <value>Pole pro identifikaci</value>
   </data>
   <data name="LastUpdated" xml:space="preserve">
     <value>Poslední aktualizace</value>
@@ -237,6 +249,9 @@
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Uložte předlohu dokumentu</value>
   </data>
+  <data name="SelectIdFieldMessage" xml:space="preserve">
+    <value>Vyberte pole pro identifikaci</value>
+  </data>
   <data name="SetFieldsStepText" xml:space="preserve">
     <value>Vytvořte pole na předloze</value>
   </data>
@@ -264,6 +279,24 @@
   <data name="Submit" xml:space="preserve">
     <value>Potvrdit</value>
   </data>
+  <data name="TemplateImageHeader" xml:space="preserve">
+    <value>Obrázek předlohy</value>
+  </data>
+  <data name="TemplateNameInputLabel" xml:space="preserve">
+    <value>Název předlohy</value>
+  </data>
+  <data name="TemplateNameInputPlaceholder" xml:space="preserve">
+    <value>Napište název předlohy</value>
+  </data>
+  <data name="TemplatesAddPageNoFieldsMessage" xml:space="preserve">
+    <value>Tato předloha zatím nemá žádné pole</value>
+  </data>
+  <data name="TemplatesAddPageSubmitButtonTitle" xml:space="preserve">
+    <value>Potvrzení přidání této předlohy</value>
+  </data>
+  <data name="TemplatesAddPageTitle" xml:space="preserve">
+    <value>Přidání nové předlohy</value>
+  </data>
   <data name="TemplatesListPageAddButtonText" xml:space="preserve">
     <value>Přidat novou předlohu</value>
   </data>
@@ -281,6 +314,9 @@
   </data>
   <data name="TemplatesListPageTitle" xml:space="preserve">
     <value>Předlohy dokumentů</value>
+  </data>
+  <data name="TestIdFieldButtonText" xml:space="preserve">
+    <value>Otestovat pole pro identifikaci</value>
   </data>
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Nahrajte obrázek předlohy dokumentu</value>

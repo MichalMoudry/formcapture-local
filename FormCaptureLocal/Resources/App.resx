@@ -144,6 +144,15 @@
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Enter your email...</value>
   </data>
+  <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
+    <value>Enter field's expected value</value>
+  </data>
+  <data name="FieldInputPlaceholder" xml:space="preserve">
+    <value>Enter a field name</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Fields</value>
+  </data>
   <data name="GitHubLinkText" xml:space="preserve">
     <value>User documentation on GitHub wiki</value>
   </data>
@@ -152,6 +161,9 @@
   </data>
   <data name="HomePageTitle" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="IdFieldHeader" xml:space="preserve">
+    <value>Field for identifiaction</value>
   </data>
   <data name="LastUpdated" xml:space="preserve">
     <value>Last updated</value>
@@ -237,6 +249,9 @@
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Save template</value>
   </data>
+  <data name="SelectIdFieldMessage" xml:space="preserve">
+    <value>Select a identifying field</value>
+  </data>
   <data name="SetFieldsStepText" xml:space="preserve">
     <value>Create fields on the template</value>
   </data>
@@ -264,6 +279,24 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="TemplateImageHeader" xml:space="preserve">
+    <value>Template image</value>
+  </data>
+  <data name="TemplateNameInputLabel" xml:space="preserve">
+    <value>Template name</value>
+  </data>
+  <data name="TemplateNameInputPlaceholder" xml:space="preserve">
+    <value>Enter a template name</value>
+  </data>
+  <data name="TemplatesAddPageNoFieldsMessage" xml:space="preserve">
+    <value>This template has no fields</value>
+  </data>
+  <data name="TemplatesAddPageSubmitButtonTitle" xml:space="preserve">
+    <value>Confirm addition of this template</value>
+  </data>
+  <data name="TemplatesAddPageTitle" xml:space="preserve">
+    <value>Add a new template</value>
+  </data>
   <data name="TemplatesListPageAddButtonText" xml:space="preserve">
     <value>Add a new template</value>
   </data>
@@ -281,6 +314,9 @@
   </data>
   <data name="TemplatesListPageTitle" xml:space="preserve">
     <value>Templates</value>
+  </data>
+  <data name="TestIdFieldButtonText" xml:space="preserve">
+    <value>Test ID field</value>
   </data>
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Upload template image</value>
