@@ -195,6 +195,12 @@
   <data name="NavigateToQueuePageStepText" xml:space="preserve">
     <value>Přejděte na stránku pro přehled zpracovaných dávek dokumentů</value>
   </data>
+  <data name="NavMenuAboutLinkText" xml:space="preserve">
+    <value>O aplikaci</value>
+  </data>
+  <data name="NavMenuAboutLinkTitle" xml:space="preserve">
+    <value>Přejít na stránku s informacemi o aplikaci</value>
+  </data>
   <data name="NavMenuAccountLinkText" xml:space="preserve">
     <value>Účet</value>
   </data>
@@ -260,6 +266,30 @@
   </data>
   <data name="SetIdFieldStepText" xml:space="preserve">
     <value>Nastavte pole pro identifikaci dokumentu</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingDarkThemeLabel" xml:space="preserve">
+    <value>Tmavý motiv</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingHighContrastDarkThemeLabel" xml:space="preserve">
+    <value>Vysoko kontrastní tmavý motiv</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingHighContrastLightThemeLabel" xml:space="preserve">
+    <value>Vysoko kontrastní světlý motiv</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingLightThemeLabel" xml:space="preserve">
+    <value>Světlý motiv</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingTitle" xml:space="preserve">
+    <value>Motiv aplikace</value>
+  </data>
+  <data name="SettingsPageDefaultLocaleSettingTitle" xml:space="preserve">
+    <value>Výchozí jazyk pro zpracování dokumentů</value>
+  </data>
+  <data name="SettingsPageSaveSettingButtonText" xml:space="preserve">
+    <value>Uložit nastavení</value>
+  </data>
+  <data name="SettingsPageTitle" xml:space="preserve">
+    <value>Nastavení</value>
   </data>
   <data name="SortButtonSortByDateText" xml:space="preserve">
     <value>Seřadit podle data přidání</value>

@@ -195,6 +195,12 @@
   <data name="NavigateToQueuePageStepText" xml:space="preserve">
     <value>Navigate to queue page</value>
   </data>
+  <data name="NavMenuAboutLinkText" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="NavMenuAboutLinkTitle" xml:space="preserve">
+    <value>Navigate to about page</value>
+  </data>
   <data name="NavMenuAccountLinkText" xml:space="preserve">
     <value>Account</value>
   </data>
@@ -252,6 +258,9 @@
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Save template</value>
   </data>
+  <data name="SelectIdFieldControlTitle" xml:space="preserve">
+    <value>Select identifying field</value>
+  </data>
   <data name="SelectIdFieldMessage" xml:space="preserve">
     <value>Select a identifying field</value>
   </data>
@@ -260,6 +269,30 @@
   </data>
   <data name="SetIdFieldStepText" xml:space="preserve">
     <value>Set field for identifying document</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingDarkThemeLabel" xml:space="preserve">
+    <value>Dark theme</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingHighContrastDarkThemeLabel" xml:space="preserve">
+    <value>High contrast dark theme</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingHighContrastLightThemeLabel" xml:space="preserve">
+    <value>High contrast light theme</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingLightThemeLabel" xml:space="preserve">
+    <value>Light theme</value>
+  </data>
+  <data name="SettingsPageAppThemeSettingTitle" xml:space="preserve">
+    <value>Application theme</value>
+  </data>
+  <data name="SettingsPageDefaultLocaleSettingTitle" xml:space="preserve">
+    <value>Default locale for processing documents</value>
+  </data>
+  <data name="SettingsPageSaveSettingButtonText" xml:space="preserve">
+    <value>Save setting</value>
+  </data>
+  <data name="SettingsPageTitle" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="SortButtonSortByDateText" xml:space="preserve">
     <value>Sort by date added</value>
