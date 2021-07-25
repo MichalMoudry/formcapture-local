@@ -24,7 +24,14 @@
 
             <div class="card-body">
                 <div id="template-canvas">
-                    <img id="template-preview-image" draggable="false" src="@fileContent" alt="@Localizer["TemplateImageHeader"]" />
+                    @if (!string.IsNullOrEmpty(fileContent))
+                    {
+                        <img id="template-preview-image" draggable="false" src="@fileContent" alt="@Localizer["TemplateImageHeader"]" />
+                    }
+                    else
+                    {
+                        <p>@Localizer["TemplatesAddPageUploadImageText"]</p>
+                    }
                 </div>
             </div>
 
@@ -86,18 +93,13 @@
 
                 <div class="card-body">
                     <div class="col">
-                        @if (identifyingField != null)
-                        {
-                            <div class="field-list-item">
-                                <p class="mt-3 ml-3">@identifyingField.Name</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="field-list-item">
-                                <p class="mt-3 ml-3">@Localizer["SelectIdFieldMessage"]</p>
-                            </div>
-                        }
+                        <select class="form-control" @bind="identifyingFieldId">
+                            <option value="none">@Localizer["SelectIdFieldMessage"]</option>
+                            @foreach (var field in fields)
+                            {
+                                <option value="@field.ID">@field.Name</option>
+                            }
+                        </select>
                     </div>
                     <div>
                         <div class="col mt-2">
@@ -123,48 +125,48 @@
     </button>
 </div>
 
-<div class="toast-area">
+<div class="toast-area mt-3">
     <div class="alert alert-danger alert-dismissible fade show d-none" id="template-name-error-toast" role="alert">
-        <strong class="mr-auto">Template name error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageTemplateNameErrorTitle"]</strong>
         <hr />
-        <p>A template must have a name.</p>
-        <button type="button" class="close" onclick="closeAlert('template-name-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageTemplateNameErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('template-name-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="fields-error-toast" role="alert">
-        <strong class="mr-auto">Fields error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageFieldsErrorTitle"]</strong>
         <hr />
-        <p>Entered fields contain an error or are missing.</p>
-        <button type="button" class="close" onclick="closeAlert('fields-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageFieldsErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('fields-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="image-error-toast" role="alert">
-        <strong class="mr-auto">Image error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageImageErrorTitle"]</strong>
         <hr />
-        <p>A template image must be uploaded.</p>
-        <button type="button" class="close" onclick="closeAlert('image-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageImageErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('image-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="id-error-toast" role="alert">
-        <strong class="mr-auto">Identifying field error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageIdFieldErrorTitle"]</strong>
         <hr />
-        <p>An identifying field must be selected.</p>
-        <button type="button" class="close" onclick="closeAlert('id-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageIdFieldErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('id-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="val-error-toast" role="alert">
-        <strong class="mr-auto">Expected value error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageExpectedValueErrorTitle"]</strong>
         <hr />
-        <p>An expected value must be set.</p>
-        <button type="button" class="close" onclick="closeAlert('val-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageExpectedValueErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('val-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -179,6 +181,8 @@
     private List<Field> fields = new List<Field>();
 
     private Field identifyingField;
+
+    private string identifyingFieldId;
 
     private bool isTestButtonDisabled = false;
 
@@ -267,7 +271,6 @@
         });
     }
 
-    //Delete this method
     private void SetFieldToIdentifying(Field field)
     {
         if (identifyingField != null)
@@ -278,8 +281,9 @@
         identifyingField = field;
     }
 
-    private void RemoveField(Field field)
+    private async Task RemoveField(Field field)
     {
+        await IJSRuntime.InvokeVoidAsync("removeField", field.ID);
         fields.Remove(field);
     }
 
@@ -290,6 +294,7 @@
 
     private async Task TestIdFieldRecognition()
     {
+        SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue))
         {
             isTestButtonDisabled = true;

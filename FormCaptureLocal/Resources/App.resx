@@ -123,6 +123,9 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture is an app for creating complete digitalization workflow using OCR.</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="ConfirmationDialogDeleteTemplateFirstPart" xml:space="preserve">
     <value>Do you want to delete</value>
   </data>
@@ -288,14 +291,47 @@
   <data name="TemplateNameInputPlaceholder" xml:space="preserve">
     <value>Enter a template name</value>
   </data>
+  <data name="TemplatesAddPageExpectedValueErrorText" xml:space="preserve">
+    <value>An expected value must be set</value>
+  </data>
+  <data name="TemplatesAddPageExpectedValueErrorTitle" xml:space="preserve">
+    <value>Expected value if identifying field error</value>
+  </data>
+  <data name="TemplatesAddPageFieldsErrorText" xml:space="preserve">
+    <value>Entered fields contain an error or are missing</value>
+  </data>
+  <data name="TemplatesAddPageFieldsErrorTitle" xml:space="preserve">
+    <value>Fields error</value>
+  </data>
+  <data name="TemplatesAddPageIdFieldErrorText" xml:space="preserve">
+    <value>An identifying field must be selected</value>
+  </data>
+  <data name="TemplatesAddPageIdFieldErrorTitle" xml:space="preserve">
+    <value>Identifying field error</value>
+  </data>
+  <data name="TemplatesAddPageImageErrorText" xml:space="preserve">
+    <value>A template image must be uploaded</value>
+  </data>
+  <data name="TemplatesAddPageImageErrorTitle" xml:space="preserve">
+    <value>Image error</value>
+  </data>
   <data name="TemplatesAddPageNoFieldsMessage" xml:space="preserve">
     <value>This template has no fields</value>
   </data>
   <data name="TemplatesAddPageSubmitButtonTitle" xml:space="preserve">
     <value>Confirm addition of this template</value>
   </data>
+  <data name="TemplatesAddPageTemplateNameErrorText" xml:space="preserve">
+    <value>A template must have a name</value>
+  </data>
+  <data name="TemplatesAddPageTemplateNameErrorTitle" xml:space="preserve">
+    <value>Template name error</value>
+  </data>
   <data name="TemplatesAddPageTitle" xml:space="preserve">
     <value>Add a new template</value>
+  </data>
+  <data name="TemplatesAddPageUploadImageText" xml:space="preserve">
+    <value>Upload template image</value>
   </data>
   <data name="TemplatesListPageAddButtonText" xml:space="preserve">
     <value>Add a new template</value>

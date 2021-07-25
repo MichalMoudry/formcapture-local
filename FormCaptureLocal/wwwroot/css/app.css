@@ -157,7 +157,7 @@ a, .btn-link {
 #template-canvas {
     overflow: auto;
     position: relative;
-    height: 52vh;
+    height: 50vh;
 }
 
 #template-preview-image {

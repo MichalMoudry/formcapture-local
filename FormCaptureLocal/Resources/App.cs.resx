@@ -123,6 +123,9 @@
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture je aplikace pro podporu digitalizace za pomoci OCR.</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
   <data name="ConfirmationDialogDeleteTemplateFirstPart" xml:space="preserve">
     <value>Chcete smazat</value>
   </data>
@@ -288,14 +291,47 @@
   <data name="TemplateNameInputPlaceholder" xml:space="preserve">
     <value>Napište název předlohy</value>
   </data>
+  <data name="TemplatesAddPageExpectedValueErrorText" xml:space="preserve">
+    <value>Očekávaná hodnota pole pro identifikaci musí být určena</value>
+  </data>
+  <data name="TemplatesAddPageExpectedValueErrorTitle" xml:space="preserve">
+    <value>Chyba v očekávané hodnotě pole pro identifikaci</value>
+  </data>
+  <data name="TemplatesAddPageFieldsErrorText" xml:space="preserve">
+    <value>Vytvořené pole obsahují chybu nebo vůbec neexistují</value>
+  </data>
+  <data name="TemplatesAddPageFieldsErrorTitle" xml:space="preserve">
+    <value>Chyba v polech předlohy</value>
+  </data>
+  <data name="TemplatesAddPageIdFieldErrorText" xml:space="preserve">
+    <value>Pole pro identifikaci musí být určeno</value>
+  </data>
+  <data name="TemplatesAddPageIdFieldErrorTitle" xml:space="preserve">
+    <value>Chyba v poli pro identifikaci</value>
+  </data>
+  <data name="TemplatesAddPageImageErrorText" xml:space="preserve">
+    <value>Obraz předlohy musí být nahrán</value>
+  </data>
+  <data name="TemplatesAddPageImageErrorTitle" xml:space="preserve">
+    <value>Chyba v nahraném obrazu předlohy</value>
+  </data>
   <data name="TemplatesAddPageNoFieldsMessage" xml:space="preserve">
     <value>Tato předloha zatím nemá žádné pole</value>
   </data>
   <data name="TemplatesAddPageSubmitButtonTitle" xml:space="preserve">
     <value>Potvrzení přidání této předlohy</value>
   </data>
+  <data name="TemplatesAddPageTemplateNameErrorText" xml:space="preserve">
+    <value>Předloha musí mít název</value>
+  </data>
+  <data name="TemplatesAddPageTemplateNameErrorTitle" xml:space="preserve">
+    <value>Chyba v názvu předlohy</value>
+  </data>
   <data name="TemplatesAddPageTitle" xml:space="preserve">
     <value>Přidání nové předlohy</value>
+  </data>
+  <data name="TemplatesAddPageUploadImageText" xml:space="preserve">
+    <value>Nahrajte obrázek předlohy</value>
   </data>
   <data name="TemplatesListPageAddButtonText" xml:space="preserve">
     <value>Přidat novou předlohu</value>
