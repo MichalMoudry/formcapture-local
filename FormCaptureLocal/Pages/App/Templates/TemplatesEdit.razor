@@ -1,6 +1,7 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject IStringLocalizer<App> Localizer
 @page "/formcapture/templates/{TemplateID}"
 
 @if (template != null)
@@ -104,18 +105,16 @@ else
 
                 <div class="card-body">
                     <div class="col">
-                        @if (identifyingField != null)
-                        {
-                            <div class="field-list-item">
-                                <p class="mt-3 ml-3">@identifyingField.Name</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="field-list-item">
-                                <p class="mt-3 ml-3">Select a identifying field</p>
-                            </div>
-                        }
+                        <select class="form-control" @bind="identifyingFieldId" title="@Localizer["SelectIdFieldControlTitle"]">
+                            <option value="none">@Localizer["SelectIdFieldMessage"]</option>
+                            @if (fields != null)
+                            {
+                                @foreach (var field in fields)
+                                {
+                                    <option value="@field.ID">@field.Name</option>
+                                }
+                            }
+                        </select>
                     </div>
                     <div>
                         <div class="col mt-2">
@@ -139,8 +138,7 @@ else
         <span class="oi oi-check mr-1"></span> Edit
     </button>
 
-    <!-- @onclick="DeleteTemplate"-->
-    <button class="btn btn-danger">
+    <button class="btn btn-danger" @onclick="DeleteTemplate">
         <span class="oi oi-trash mr-1"></span> Delete template
     </button>
 </div>
@@ -209,6 +207,8 @@ else
 
     private bool isTestButtonDisabled = false;
 
+    private string identifyingFieldId;
+
     private void AddNewField()
     {
         fields.Add(new Field()
@@ -256,8 +256,30 @@ else
         await IJSRuntime.InvokeVoidAsync("drawField", fieldID);
     }
 
+    private async Task DeleteTemplate()
+    {
+        var res = await IJSRuntime.InvokeAsync<bool>("confirmDialog", $"{Localizer["ConfirmationDialogDeleteTemplateFirstPart"]} '{template.Name}' {Localizer["ConfirmationDialogDeleteTemplateSecondPart"]}?");
+        if (res && template != null)
+        {
+            foreach (var field in fields)
+            {
+                res = await IJSRuntime.InvokeAsync<bool>("deleteItem", field.ID, "Fields");
+                if (!res)
+                {
+                    throw new Exception($"Error occured during field deletion. Field ID: {field.ID}.");
+                }
+            }
+            res = await IJSRuntime.InvokeAsync<bool>("deleteItem", template.ID, "Templates");
+            if (res)
+            {
+                NavigationManager.NavigateTo("/formcapture/templates");
+            }
+        }
+    }
+
     private async Task TestIdFieldRecognition()
     {
+        SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue))
         {
             isTestButtonDisabled = true;
@@ -288,6 +310,7 @@ else
                 fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
                 fileContent = $"data:{template.ContentType};base64,{Convert.ToBase64String(template.Image)}";
                 identifyingField = fields.SingleOrDefault(i => i.IsIdentifying);
+                identifyingFieldId = identifyingField.ID;
                 if (identifyingField != null)
                 {
                     expectedValue = identifyingField.ExpectedValue;

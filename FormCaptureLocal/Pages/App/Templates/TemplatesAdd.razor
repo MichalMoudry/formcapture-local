@@ -204,6 +204,18 @@
 
     private async Task Confirm()
     {
+        if (identifyingFieldId != null)
+        {
+            if (!identifyingFieldId.Equals("none"))
+            {
+                SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
+            }
+            else
+            {
+                await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+                return;
+            }
+        }
         if (!string.IsNullOrEmpty(template.Name) && template.Image != null && identifyingField != null && !string.IsNullOrEmpty(expectedValue))
         {
             template.Added = DateTime.Now;

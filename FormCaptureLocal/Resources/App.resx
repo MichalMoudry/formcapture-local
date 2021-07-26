@@ -156,6 +156,9 @@
   <data name="Fields" xml:space="preserve">
     <value>Fields</value>
   </data>
+  <data name="FormError" xml:space="preserve">
+    <value>Form error</value>
+  </data>
   <data name="GitHubLinkText" xml:space="preserve">
     <value>User documentation on GitHub wiki</value>
   </data>
@@ -239,6 +242,33 @@
   </data>
   <data name="PasswordInputPlaceholder" xml:space="preserve">
     <value>Enter your password...</value>
+  </data>
+  <data name="ProfilePageChangeCurrentPassword" xml:space="preserve">
+    <value>Current password</value>
+  </data>
+  <data name="ProfilePageChangeCurrentPasswordInputPlaceholder" xml:space="preserve">
+    <value>Enter current password</value>
+  </data>
+  <data name="ProfilePageChangeNewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ProfilePageChangeNewPasswordInputPlaceholder" xml:space="preserve">
+    <value>Enter new password</value>
+  </data>
+  <data name="ProfilePageChangePasswordSettingTitle" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="ProfilePageConfirmPasswordChangeButtonText" xml:space="preserve">
+    <value>Confirm password update</value>
+  </data>
+  <data name="ProfilePageEmptyUpdatePasswordFormErrorMessage" xml:space="preserve">
+    <value>Form for updating password is empty</value>
+  </data>
+  <data name="ProfilePageTitle" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage" xml:space="preserve">
+    <value>Current password is incorrect</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>

@@ -156,6 +156,9 @@
   <data name="Fields" xml:space="preserve">
     <value>Pole</value>
   </data>
+  <data name="FormError" xml:space="preserve">
+    <value>Chyba ve formuláři</value>
+  </data>
   <data name="GitHubLinkText" xml:space="preserve">
     <value>Uživatelská dokumentace na GitHubu</value>
   </data>
@@ -239,6 +242,33 @@
   </data>
   <data name="PasswordInputPlaceholder" xml:space="preserve">
     <value>Napište svoje heslo...</value>
+  </data>
+  <data name="ProfilePageChangeCurrentPassword" xml:space="preserve">
+    <value>Stávající heslo</value>
+  </data>
+  <data name="ProfilePageChangeCurrentPasswordInputPlaceholder" xml:space="preserve">
+    <value>Napište svoje stávající heslo</value>
+  </data>
+  <data name="ProfilePageChangeNewPassword" xml:space="preserve">
+    <value>Nové heslo</value>
+  </data>
+  <data name="ProfilePageChangeNewPasswordInputPlaceholder" xml:space="preserve">
+    <value>Napište nové heslo</value>
+  </data>
+  <data name="ProfilePageChangePasswordSettingTitle" xml:space="preserve">
+    <value>Změna hesla</value>
+  </data>
+  <data name="ProfilePageConfirmPasswordChangeButtonText" xml:space="preserve">
+    <value>Potvrdit aktualizaci hesla</value>
+  </data>
+  <data name="ProfilePageEmptyUpdatePasswordFormErrorMessage" xml:space="preserve">
+    <value>Formulář pro aktualizaci hesla je prázdný</value>
+  </data>
+  <data name="ProfilePageTitle" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage" xml:space="preserve">
+    <value>Stávající heslo je nesprávné</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registrace</value>
