@@ -6,11 +6,11 @@
 
 @if (template != null)
 {
-    <h3><span class="oi oi-pencil"></span> Edit @template.Name template</h3>
+    <h3><span class="oi oi-pencil"></span> @Localizer["Edit"] @template.Name @Localizer["TemplatesEditPageTitlePart2"]</h3>
 }
 else
 {
-    <h3>Loading...</h3>
+    <h3>@Localizer["Loading"]...</h3>
 }
 
 <hr />
@@ -18,12 +18,12 @@ else
 <div>
     @if (template != null)
     {
-        <label for="template-name">Template name:</label>
-        <input name="template-name" @bind-value="template.Name" placeholder="Enter a template name..." id="template-name" type="text" class="form-control" />
+    <label for="template-name">@Localizer["TemplateNameInputLabel"]:</label>
+        <input name="template-name" @bind-value="template.Name" placeholder="@Localizer["TemplateNameInputPlaceholder"]..." id="template-name" type="text" class="form-control" />
     }
     else
     {
-        <p>Loading...</p>
+        <p>@Localizer["Loading"]...</p>
     }
 </div>
 
@@ -31,12 +31,19 @@ else
     <div class="col-md">
         <div class="card">
             <div class="card-header">
-                <h4><span class="oi oi-image"></span> Template image</h4>
+                <h4><span class="oi oi-image"></span> @Localizer["TemplateImageHeader"]</h4>
             </div>
 
             <div class="card-body">
                 <div id="template-canvas">
-                    <img id="template-preview-image" draggable="false" src="@fileContent" />
+                    @if (!string.IsNullOrEmpty(fileContent))
+                    {
+                        <img id="template-preview-image" draggable="false" src="@fileContent" alt="@Localizer["TemplateImageHeader"]" />
+                    }
+                    else
+                    {
+                        <p>@Localizer["Loading"]</p>
+                    }
                 </div>
             </div>
 
@@ -52,7 +59,7 @@ else
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h4>Fields</h4>
+                            <h4>@Localizer["Fields"]</h4>
                         </div>
                         <div class="col-1">
                             <span class="oi oi-plus pointer mt-2" @onclick="AddNewField"></span>
@@ -71,15 +78,11 @@ else
                                     <div class="field-list-item mt-1 pr-3 pl-3 pt-2 pb-2">
                                         <div class="row">
                                             <div class="col">
-                                                <input class="field-input" @bind-value="field.Name" placeholder="Enter a field name..." />
+                                                <input class="field-input" @bind-value="field.Name" placeholder="@Localizer["FieldInputPlaceholder"]..." />
                                             </div>
 
                                             <div class="col-1 pointer" @onclick="@(e => DrawField(field.ID))">
                                                 <span class="oi oi-pencil mt-2"></span>
-                                            </div>
-
-                                            <div class="col-1 pointer" @onclick="@(e => SetFieldToIdentifying(field))">
-                                                <span class="oi oi-star mt-2"></span>
                                             </div>
 
                                             <div class="col-1 pointer" @onclick="@(e => RemoveField(field))">
@@ -91,7 +94,7 @@ else
                             }
                             else
                             {
-                                <p class="card-text">This template has no fields.</p>
+                                <p class="card-text">@Localizer["TemplatesAddPageNoFieldsMessage"].</p>
                             }
                         }
                     </div>
@@ -100,7 +103,7 @@ else
 
             <div class="card mt-3">
                 <div class="card-header">
-                    <h4><span class="oi oi-star"></span> Identifying field</h4>
+                    <h4><span class="oi oi-star"></span> @Localizer["IdFieldHeader"]</h4>
                 </div>
 
                 <div class="card-body">
@@ -118,11 +121,13 @@ else
                     </div>
                     <div>
                         <div class="col mt-2">
-                            <input @bind="expectedValue" name="expected-value" id="expected-value" type="text" placeholder="Enter field's expected value..." class="form-control" />
+                            <input @bind="expectedValue" name="expected-value" id="expected-value" type="text" placeholder="@Localizer["ExpectedValueInputPlaceholder"]..." class="form-control" />
                         </div>
 
                         <div class="col mt-2">
-                            <button class="btn btn-warning" disabled="@isTestButtonDisabled" @onclick="TestIdFieldRecognition"><span class="oi oi-beaker mr-1"></span> Test ID field</button>
+                            <button class="btn btn-warning" disabled="@isTestButtonDisabled" @onclick="TestIdFieldRecognition" title="@Localizer["TestIdFieldButtonText"]">
+                                <span class="oi oi-beaker mr-1"></span> @Localizer["TestIdFieldButtonText"]
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -134,57 +139,57 @@ else
 <!--mt-3 mb-3 bottom-row-->
 <div class="mt-2 mb-2">
     <!--@onclick="Confirm"-->
-    <button class="btn btn-success mr-2">
-        <span class="oi oi-check mr-1"></span> Edit
+    <button class="btn btn-success mr-2" title="@Localizer["TemplatesEditPageEditButtonTitle"]">
+        <span class="oi oi-check mr-1"></span> @Localizer["Edit"]
     </button>
 
-    <button class="btn btn-danger" @onclick="DeleteTemplate">
-        <span class="oi oi-trash mr-1"></span> Delete template
+    <button class="btn btn-danger" @onclick="DeleteTemplate" title="@Localizer["Delete"] @Localizer["TemplatesEditPageTitlePart2"]">
+        <span class="oi oi-trash mr-1"></span> @Localizer["Delete"] @Localizer["TemplatesEditPageTitlePart2"]
     </button>
 </div>
 
-<div class="toast-area">
+<div class="toast-area mt-3">
     <div class="alert alert-danger alert-dismissible fade show d-none" id="template-name-error-toast" role="alert">
-        <strong class="mr-auto">Template name error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageTemplateNameErrorTitle"]</strong>
         <hr />
-        <p>A template must have a name.</p>
-        <button type="button" class="close" onclick="closeAlert('template-name-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageTemplateNameErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('template-name-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="fields-error-toast" role="alert">
-        <strong class="mr-auto">Fields error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageFieldsErrorTitle"]</strong>
         <hr />
-        <p>Entered fields contain an error or are missing.</p>
-        <button type="button" class="close" onclick="closeAlert('fields-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageFieldsErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('fields-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="image-error-toast" role="alert">
-        <strong class="mr-auto">Image error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageImageErrorTitle"]</strong>
         <hr />
-        <p>A template image must be uploaded.</p>
-        <button type="button" class="close" onclick="closeAlert('image-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageImageErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('image-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="id-error-toast" role="alert">
-        <strong class="mr-auto">Identifying field error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageIdFieldErrorTitle"]</strong>
         <hr />
-        <p>An identifying field must be selected.</p>
-        <button type="button" class="close" onclick="closeAlert('id-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageIdFieldErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('id-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
     <div class="alert alert-danger alert-dismissible fade show d-none" id="val-error-toast" role="alert">
-        <strong class="mr-auto">Expected value error</strong>
+        <strong class="mr-auto">@Localizer["TemplatesAddPageExpectedValueErrorTitle"]</strong>
         <hr />
-        <p>An expected value must be set.</p>
-        <button type="button" class="close" onclick="closeAlert('val-error-toast');" aria-label="Close">
+        <p>@Localizer["TemplatesAddPageExpectedValueErrorText"].</p>
+        <button type="button" class="close" onclick="closeAlert('val-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

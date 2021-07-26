@@ -144,6 +144,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Smazat</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Upravit</value>
+  </data>
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Napište svůj email...</value>
   </data>
@@ -342,6 +345,36 @@
   <data name="Submit" xml:space="preserve">
     <value>Potvrdit</value>
   </data>
+  <data name="TaskContentInputLabel" xml:space="preserve">
+    <value>Obsah úlohy</value>
+  </data>
+  <data name="TaskDescriptionInputLabel" xml:space="preserve">
+    <value>Popis úlohy</value>
+  </data>
+  <data name="TaskDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Napište popis úlohy</value>
+  </data>
+  <data name="TaskNameInputLabel" xml:space="preserve">
+    <value>Název úlohy</value>
+  </data>
+  <data name="TaskNameInputPlaceholder" xml:space="preserve">
+    <value>Napište název úlohy</value>
+  </data>
+  <data name="TasksAddPageSubmitButtonTitle" xml:space="preserve">
+    <value>Potvrdit úlohy ve formuláři a úložit úlohu</value>
+  </data>
+  <data name="TasksAddPageTestTaskButtonText" xml:space="preserve">
+    <value>Otestovat úlohu</value>
+  </data>
+  <data name="TasksAddPageTestTaskButtonTitle" xml:space="preserve">
+    <value>Otestovat obsah úlohy</value>
+  </data>
+  <data name="TasksAddPageTitle" xml:space="preserve">
+    <value>Přidat novou úlohu</value>
+  </data>
+  <data name="TasksAddPageWhatIsContentLinkText" xml:space="preserve">
+    <value>Co je obsah úlohy</value>
+  </data>
   <data name="TemplateImageHeader" xml:space="preserve">
     <value>Obrázek předlohy</value>
   </data>
@@ -392,6 +425,12 @@
   </data>
   <data name="TemplatesAddPageUploadImageText" xml:space="preserve">
     <value>Nahrajte obrázek předlohy</value>
+  </data>
+  <data name="TemplatesEditPageEditButtonTitle" xml:space="preserve">
+    <value>Potvrdit úpravy této předlohy</value>
+  </data>
+  <data name="TemplatesEditPageTitlePart2" xml:space="preserve">
+    <value>předlohu</value>
   </data>
   <data name="TemplatesListPageAddButtonText" xml:space="preserve">
     <value>Přidat novou předlohu</value>

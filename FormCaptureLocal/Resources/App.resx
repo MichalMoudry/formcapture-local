@@ -144,6 +144,9 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Enter your email...</value>
   </data>
@@ -345,6 +348,36 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="TaskContentInputLabel" xml:space="preserve">
+    <value>Task content</value>
+  </data>
+  <data name="TaskDescriptionInputLabel" xml:space="preserve">
+    <value>Task description</value>
+  </data>
+  <data name="TaskDescriptionInputPlaceholder" xml:space="preserve">
+    <value>Enter a task description</value>
+  </data>
+  <data name="TaskNameInputLabel" xml:space="preserve">
+    <value>Task name</value>
+  </data>
+  <data name="TaskNameInputPlaceholder" xml:space="preserve">
+    <value>Enter a task name</value>
+  </data>
+  <data name="TasksAddPageSubmitButtonTitle" xml:space="preserve">
+    <value>Confirm values in the form and save the task</value>
+  </data>
+  <data name="TasksAddPageTestTaskButtonText" xml:space="preserve">
+    <value>Test task</value>
+  </data>
+  <data name="TasksAddPageTestTaskButtonTitle" xml:space="preserve">
+    <value>Test contents of the task</value>
+  </data>
+  <data name="TasksAddPageTitle" xml:space="preserve">
+    <value>Add a new task</value>
+  </data>
+  <data name="TasksAddPageWhatIsContentLinkText" xml:space="preserve">
+    <value>What is task content</value>
+  </data>
   <data name="TemplateImageHeader" xml:space="preserve">
     <value>Template image</value>
   </data>
@@ -395,6 +428,12 @@
   </data>
   <data name="TemplatesAddPageUploadImageText" xml:space="preserve">
     <value>Upload template image</value>
+  </data>
+  <data name="TemplatesEditPageEditButtonTitle" xml:space="preserve">
+    <value>Confirm edit of this template</value>
+  </data>
+  <data name="TemplatesEditPageTitlePart2" xml:space="preserve">
+    <value>template</value>
   </data>
   <data name="TemplatesListPageAddButtonText" xml:space="preserve">
     <value>Add a new template</value>
