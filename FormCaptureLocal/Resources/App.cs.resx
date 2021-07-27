@@ -387,6 +387,21 @@
   <data name="TasksAddPageWhatIsContentLinkText" xml:space="preserve">
     <value>Co je obsah úlohy</value>
   </data>
+  <data name="TasksListPageAddButtonText" xml:space="preserve">
+    <value>Přidat novou úlohu</value>
+  </data>
+  <data name="TasksListPageAddButtonTitle" xml:space="preserve">
+    <value>Přejít na stránku pro vytváření nových úloh</value>
+  </data>
+  <data name="TasksListPageTaskDeletedMessage" xml:space="preserve">
+    <value>Úloha byla úspěšně smazána</value>
+  </data>
+  <data name="TasksListPageTaskDeletedMessageTitle" xml:space="preserve">
+    <value>Úloha smazána</value>
+  </data>
+  <data name="TasksListPageTitle" xml:space="preserve">
+    <value>Úlohy</value>
+  </data>
   <data name="TemplateImageHeader" xml:space="preserve">
     <value>Obrázek předlohy</value>
   </data>

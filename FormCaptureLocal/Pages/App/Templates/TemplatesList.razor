@@ -37,6 +37,7 @@
                 <td><b>@Localizer["Name"]</b></td>
                 <td><b>@Localizer["Added"]</b></td>
                 <td><b>@Localizer["LastUpdated"]</b></td>
+                <td><b>@Localizer["Edit"]</b></td>
                 <td><b>@Localizer["Delete"]</b></td>
             </tr>
         </thead>
@@ -50,6 +51,7 @@
                         <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Name</td>
                         <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Added</td>
                         <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{template.ID}"))"><span class="oi oi-pencil"></span></td>
                         <td @onclick="@(e => DeleteTemplate(template))"><span class="oi oi-trash"></span></td>
                     </tr>
                 }
@@ -71,10 +73,10 @@
 
 <div class="toast-area">
     <div class="alert alert-danger alert-dismissible fade show d-none" id="error-toast" role="alert">
-        <strong class="mr-auto">Error</strong>
+        <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p class="errorMessage">@errorMessage</p>
-        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close">
+        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

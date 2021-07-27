@@ -1,24 +1,31 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject IStringLocalizer<App> Localizer
 @page "/formcapture/tasks"
 
-<h3><span class="oi oi-code"></span> Tasks</h3>
+<h3><span class="oi oi-code"></span> @Localizer["TasksListPageTitle"]</h3>
 
 <hr />
 
 <div class="d-flex">
-    <button type="button" class="btn btn-outline-success" @onclick="@(e => Navigate("/formcapture/tasks/add"))" title="Navigate to a page for adding workflow tasks">
-        <span class="oi oi-plus mr-2"></span> Add a new task
+    <button type="button" class="btn btn-outline-success" @onclick="@(e => Navigate("/formcapture/tasks/add"))" title="@Localizer["TasksListPageAddButtonTitle"]">
+        <span class="oi oi-plus mr-2"></span> @Localizer["TasksListPageAddButtonText"]
     </button>
     <div class="dropdown">
-        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton" title="Sort the list of workflow tasks">
-            <span class="oi oi-sort-ascending mr-1"></span> Sort list
+        <button type="button" class="btn btn-outline-primary ml-2 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="sortButton" title="@Localizer["SortButtonTitle"]">
+            <span class="oi oi-sort-ascending mr-1"></span> @Localizer["SortButtonText"]
         </button>
         <div class="dropdown-menu" aria-labelledby="sortButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item" href="/formcapture/tasks/#" title="@Localizer["SortButtonSortByNameText"]" @onclick="@(e => SortList("name"))">
+                @Localizer["SortButtonSortByNameText"]
+            </a>
+            <a class="dropdown-item" href="/formcapture/tasks/#" title="@Localizer["SortButtonSortByDateText"]" @onclick="@(e => SortList("added"))">
+                @Localizer["SortButtonSortByDateText"]
+            </a>
+            <a class="dropdown-item" href="/formcapture/tasks/#" title="@Localizer["SortButtonSortByLastUpdatedText"]" @onclick="@(e => SortList("updated"))">
+                @Localizer["SortButtonSortByLastUpdatedText"]
+            </a>
         </div>
     </div>
 </div>
@@ -26,9 +33,9 @@
 @if (tasks == null)
 {
     <p class="mt-3">
-        <span class="mt-2">Loading...</span>
+        <span class="mt-2">@Localizer["Loading"]...</span>
         <div class="spinner-border text-primary" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">@Localizer["Loading"]...</span>
         </div>
     </p>
 }
@@ -38,11 +45,11 @@ else
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>Added</td>
-                    <td>Updated</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
+                    <td><b>@Localizer["Name"]</b></td>
+                    <td><b>@Localizer["Added"]</b></td>
+                    <td><b>@Localizer["LastUpdated"]</b></td>
+                    <td><b>@Localizer["Edit"]</b></td>
+                    <td><b>@Localizer["Delete"]</b></td>
                 </tr>
             </thead>
 
@@ -64,10 +71,19 @@ else
 
 <div class="toast-area mt-3">
     <div class="alert alert-success alert-dismissible fade show d-none" id="task-deleted-toast" role="alert">
-        <strong class="mr-auto">Task deleted</strong>
+        <strong class="mr-auto">@Localizer["TasksListPageTaskDeletedMessageTitle"]</strong>
         <hr />
-        <p>Task has been successfully deleted.</p>
+        <p>@Localizer["TasksListPageTaskDeletedMessage"].</p>
         <button type="button" class="close" onclick="closeAlert('task-deleted-toast');" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="error-toast" role="alert">
+        <strong class="mr-auto">@Localizer["Error"]</strong>
+        <hr />
+        <p class="errorMessage">@errorMessage</p>
+        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -79,6 +95,8 @@ else
     /// Field that contains all user's tasks.
     /// </summary>
     private List<WorkflowTask> tasks;
+
+    private string errorMessage;
 
     private void Navigate(string page)
     {
@@ -96,6 +114,38 @@ else
                 tasks.Remove(task);
                 await IJSRuntime.InvokeVoidAsync("displayToast", "task-deleted-toast");
             }
+        }
+    }
+
+    private async Task SortList(string attribute)
+    {
+        if (tasks != null)
+        {
+            if (tasks.Count > 0)
+            {
+                if (attribute.Equals("name"))
+                {
+                    tasks = tasks.OrderBy(i => i.Name).ToList();
+                }
+                else if (attribute.Equals("added"))
+                {
+                    tasks = tasks.OrderBy(i => i.Added).ToList();
+                }
+                else if (attribute.Equals("updated"))
+                {
+                    tasks = tasks.OrderBy(i => i.Updated).ToList();
+                }
+            }
+            else
+            {
+                errorMessage = $"{Localizer["TemplatesListPageSortEmptyTemplatesError"]}.";
+                await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            }
+        }
+        else
+        {
+            errorMessage = $"{Localizer["TemplatesListPageSortNullTemplatesError"]}.";
+            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
         }
     }
 

@@ -390,6 +390,21 @@
   <data name="TasksAddPageWhatIsContentLinkText" xml:space="preserve">
     <value>What is task content</value>
   </data>
+  <data name="TasksListPageAddButtonText" xml:space="preserve">
+    <value>Add a new task</value>
+  </data>
+  <data name="TasksListPageAddButtonTitle" xml:space="preserve">
+    <value>Navigate to a page for adding tasks</value>
+  </data>
+  <data name="TasksListPageTaskDeletedMessage" xml:space="preserve">
+    <value>Task has been successfully deleted</value>
+  </data>
+  <data name="TasksListPageTaskDeletedMessageTitle" xml:space="preserve">
+    <value>Task deleted</value>
+  </data>
+  <data name="TasksListPageTitle" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
   <data name="TemplateImageHeader" xml:space="preserve">
     <value>Template image</value>
   </data>
