@@ -228,6 +228,9 @@
   <data name="NavMenuSettingsLinkTitle" xml:space="preserve">
     <value>Navigate to settings page</value>
   </data>
+  <data name="NavMenuTasksLinkTitle" xml:space="preserve">
+    <value>Navigate to tasks page</value>
+  </data>
   <data name="NavMenuTemplatesLinkText" xml:space="preserve">
     <value>Templates</value>
   </data>
@@ -242,6 +245,9 @@
   </data>
   <data name="NavMenuUserGuideLinkTitle" xml:space="preserve">
     <value>Navigate to user guide</value>
+  </data>
+  <data name="NavMenuWorkflowLinkTitle" xml:space="preserve">
+    <value>Navigate to workflows page</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -485,6 +491,21 @@
   </data>
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Upload template image</value>
+  </data>
+  <data name="WorkflowsListPageAddButtonText" xml:space="preserve">
+    <value>Add a new workflow</value>
+  </data>
+  <data name="WorkflowsListPageAddButtonTitle" xml:space="preserve">
+    <value>Navigate to a page for adding workflows</value>
+  </data>
+  <data name="WorkflowsListPageTitle" xml:space="preserve">
+    <value>Workflows</value>
+  </data>
+  <data name="WorkflowsListPageWorkflowDeleteMessage" xml:space="preserve">
+    <value>Workflow has been successfully deleted</value>
+  </data>
+  <data name="WorkflowsListPageWorkflowDeleteMessageTitle" xml:space="preserve">
+    <value>Workflow deleted</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>Wrong password.</value>

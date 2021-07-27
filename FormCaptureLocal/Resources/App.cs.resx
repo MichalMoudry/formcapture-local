@@ -214,25 +214,28 @@
     <value>Účet</value>
   </data>
   <data name="NavMenuAccountLinkTitle" xml:space="preserve">
-    <value>Přejděte na stránku s vaším účtem</value>
+    <value>Přejít na stránku s vaším účtem</value>
   </data>
   <data name="NavMenuHomeLinkText" xml:space="preserve">
     <value>Domů</value>
   </data>
   <data name="NavMenuHomeLinkTitle" xml:space="preserve">
-    <value>Přejděte na domovskou stránku</value>
+    <value>Přejít na domovskou stránku</value>
   </data>
   <data name="NavMenuSettingsLinkText" xml:space="preserve">
     <value>Nastavení</value>
   </data>
   <data name="NavMenuSettingsLinkTitle" xml:space="preserve">
-    <value>Přejděte na stránku s nastavením aplikace</value>
+    <value>Přejít na stránku s nastavením aplikace</value>
+  </data>
+  <data name="NavMenuTasksLinkTitle" xml:space="preserve">
+    <value>Přejít na stránku s úlohami</value>
   </data>
   <data name="NavMenuTemplatesLinkText" xml:space="preserve">
     <value>Předlohy</value>
   </data>
   <data name="NavMenuTemplatesLinkTitle" xml:space="preserve">
-    <value>Přejděte na stránku s předlohami dokumentů</value>
+    <value>Přejít na stránku s předlohami dokumentů</value>
   </data>
   <data name="NavMenuToggleButtonTitle" xml:space="preserve">
     <value>Zobrazte/skryjte navigační menu</value>
@@ -241,7 +244,10 @@
     <value>Uživ. dokumentace</value>
   </data>
   <data name="NavMenuUserGuideLinkTitle" xml:space="preserve">
-    <value>Přejděte na stránku s uživatelskou dokumentací</value>
+    <value>Přejít na stránku s uživatelskou dokumentací</value>
+  </data>
+  <data name="NavMenuWorkflowLinkTitle" xml:space="preserve">
+    <value>Přejít na stránku s postupy</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Heslo</value>
@@ -482,6 +488,21 @@
   </data>
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Nahrajte obrázek předlohy dokumentu</value>
+  </data>
+  <data name="WorkflowsListPageAddButtonText" xml:space="preserve">
+    <value>Přidat nový postup</value>
+  </data>
+  <data name="WorkflowsListPageAddButtonTitle" xml:space="preserve">
+    <value>Přejít na stránku pro přidávání nových postupů</value>
+  </data>
+  <data name="WorkflowsListPageTitle" xml:space="preserve">
+    <value>Postupy</value>
+  </data>
+  <data name="WorkflowsListPageWorkflowDeleteMessage" xml:space="preserve">
+    <value>Postup byl úspěšně odstraněn</value>
+  </data>
+  <data name="WorkflowsListPageWorkflowDeleteMessageTitle" xml:space="preserve">
+    <value>Postup odstraněn</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>Špatné heslo.</value>

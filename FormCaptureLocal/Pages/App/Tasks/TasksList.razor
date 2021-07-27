@@ -157,7 +157,7 @@ else
         tasks = await IJSRuntime.InvokeAsync<List<WorkflowTask>>("getAllItems", "WorkflowTasks");
         if (tasks != null)
         {
-            tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+            tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).OrderBy(i => i.Added).ToList();
         }
     }
 }
