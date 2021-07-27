@@ -20,7 +20,7 @@
 
 <div class="form-group settingPanel mt-4">
     <label for="task-content"><b>@Localizer["TaskContentInputLabel"]</b>:</label>
-    <textarea @bind="taskContent" placeholder="Enter task content..." name="task-content" id="task-content" class="form-control mb-2">
+    <textarea @bind="taskContent" placeholder="@Localizer["TaskContentInputPlaceholder"]..." name="task-content" id="task-content" class="form-control mb-2">
     </textarea>
     <a href="#" title="@Localizer["TasksAddPageWhatIsContentLinkText"]?" target="_blank">@Localizer["TasksAddPageWhatIsContentLinkText"]?</a>
 </div>
@@ -63,7 +63,7 @@
             var res = await IJSRuntime.InvokeAsync<bool>("executeJS", taskContent);
             if (res)
             {
-                errorMessage = "";
+                //errorMessage = "";
             }
         }
         else

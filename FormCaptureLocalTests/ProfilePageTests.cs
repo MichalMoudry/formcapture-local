@@ -13,12 +13,15 @@ namespace FormCaptureLocalTests
         public void EmptyNewPasswordFormTest()
         {
             using var context = new TestContext();
+            //Add services to context
             context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
             context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
             var profileComponent = context.RenderComponent<Profile>();
+            //Get localizer
+            var localizer = context.Services.GetService<IStringLocalizer<App>>();
             context.JSInterop.SetupVoid("displayToast", "password-error-toast");
             profileComponent.Find("#confirmButton").Click();
-            profileComponent.Find("#errorMessage").TextContent.MarkupMatches("Form for updating password is empty.");
+            profileComponent.Find("#errorMessage").TextContent.MarkupMatches($"{localizer["ProfilePageEmptyUpdatePasswordFormErrorMessage"]}.");
         }
     }
 }

@@ -354,6 +354,9 @@
   <data name="TaskContentInputLabel" xml:space="preserve">
     <value>Task content</value>
   </data>
+  <data name="TaskContentInputPlaceholder" xml:space="preserve">
+    <value>Enter task content</value>
+  </data>
   <data name="TaskDescriptionInputLabel" xml:space="preserve">
     <value>Task description</value>
   </data>

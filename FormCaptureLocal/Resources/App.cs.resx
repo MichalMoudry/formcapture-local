@@ -351,6 +351,9 @@
   <data name="TaskContentInputLabel" xml:space="preserve">
     <value>Obsah úlohy</value>
   </data>
+  <data name="TaskContentInputPlaceholder" xml:space="preserve">
+    <value>Napište obsah úlohy</value>
+  </data>
   <data name="TaskDescriptionInputLabel" xml:space="preserve">
     <value>Popis úlohy</value>
   </data>
