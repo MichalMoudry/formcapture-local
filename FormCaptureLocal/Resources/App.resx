@@ -150,6 +150,9 @@
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Enter your email...</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
     <value>Enter field's expected value</value>
   </data>
@@ -362,6 +365,12 @@
   </data>
   <data name="TaskNameInputPlaceholder" xml:space="preserve">
     <value>Enter a task name</value>
+  </data>
+  <data name="TasksAddPageEmptyTaskContentErrorMessage" xml:space="preserve">
+    <value>Content of the task is empty</value>
+  </data>
+  <data name="TasksAddPageEmptyTaskNameErrorMessage" xml:space="preserve">
+    <value>Name of the task is empty</value>
   </data>
   <data name="TasksAddPageSubmitButtonTitle" xml:space="preserve">
     <value>Confirm values in the form and save the task</value>
