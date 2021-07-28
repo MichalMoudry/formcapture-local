@@ -1,21 +1,22 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject IStringLocalizer<App> Localizer
 @page "/formcapture/workflows/add"
 
-<h3>Create a new workflow</h3>
+<h3><span class="oi oi-plus"></span> @Localizer["WorkflowsAddPageTitle"]</h3>
 
 <hr />
 
 <div class="form-group">
-    <label for="workflow-name">Workflow name:</label>
-    <input name="workflow-name" @bind-value="workflow.Name" placeholder="Enter a workflow name..." id="workflow-name" type="text" class="form-control" />
+    <label for="workflow-name">@Localizer["WorkflowNameInputLabel"]:</label>
+    <input name="workflow-name" @bind-value="workflow.Name" placeholder="@Localizer["WorkflowNameInputPlaceholder"]..." id="workflow-name" type="text" class="form-control" />
 </div>
 
 <!--Scan tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-document"></span> Scan tasks</h4>
+        <h4><span class="oi oi-document"></span> @Localizer["ScanTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -32,13 +33,13 @@
         }
         else
         {
-            <p class="card-text">This group has no tasks yet.</p>
+            <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
         }
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("scan"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to scan task group">
-            <span class="oi oi-plus"></span> Add a task
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("scan"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsScanTasksAddButtonTitle"]">
+            <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
 </div>
@@ -46,7 +47,7 @@
 <!--Recognition tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-aperture"></span> Recognition tasks</h4>
+        <h4><span class="oi oi-aperture"></span> @Localizer["RecognitionTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -63,13 +64,13 @@
         }
         else
         {
-            <p class="card-text">This group has no tasks yet.</p>
+    <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
         }
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("recognition"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to recognition task group">
-            <span class="oi oi-plus"></span> Add a task
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("recognition"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsRecognitionTasksAddButtonTitle"]">
+            <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
 </div>
@@ -77,7 +78,7 @@
 <!--Verification tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-eye"></span> Verification tasks</h4>
+        <h4><span class="oi oi-eye"></span> @Localizer["VerificationTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -94,13 +95,13 @@
         }
         else
         {
-            <p class="card-text">This group has no tasks yet.</p>
+            <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
         }
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("verification"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to verification task group">
-            <span class="oi oi-plus"></span> Add a task
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("verification"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsVerificationTasksAddButtonTitle"]">
+            <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
 </div>
@@ -108,7 +109,7 @@
 <!--Export tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-expand-left"></span> Export tasks</h4>
+        <h4><span class="oi oi-expand-left"></span> @Localizer["ExportTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -125,26 +126,26 @@
         }
         else
         {
-            <p class="card-text">This group has no tasks yet.</p>
+            <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
         }
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("export"))" data-toggle="modal" data-target="#add-tasks-dialog" title="Add a new task to export task group">
-            <span class="oi oi-plus"></span> Add a task
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("export"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsExportTasksAddButtonTitle"]">
+            <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
 </div>
 
 <div class="mt-4 mb-4">
-    <button type="button" class="btn btn-outline-success" @onclick="Submit">
-        <span class="oi oi-check"></span> Confirm
+    <button type="button" class="btn btn-outline-success" @onclick="Submit" title="@Localizer["WorkflowsAddSubmitButtonTitle"]">
+        <span class="oi oi-check"></span> @Localizer["Submit"]
     </button>
 </div>
 
 <div class="toast-area">
     <div class="alert alert-danger alert-dismissible fade show d-none" id="workflow-error-toast" role="alert">
-        <strong class="mr-auto">Form error</strong>
+        <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p>A workflow must have a name.</p>
         <button type="button" class="close" onclick="closeAlert('workflow-error-toast');" aria-label="Close">
@@ -158,7 +159,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add tasks to @currentTaskGroup task group</h4>
+                <h4 class="modal-title">@Localizer["AddTasksToGroupModalTitlePart1"] @currentTaskGroup @Localizer["AddTasksToGroupModalTitlePart2"]</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -167,7 +168,7 @@
             <div class="modal-body">
                 @if (tasks == null)
                 {
-                    <p>Loading...</p>
+                    <p>@Localizer["Loading"]...</p>
                 }
                 else
                 {
@@ -177,9 +178,9 @@
                             <fieldset class="form-group">
                                 @foreach (WorkflowTask task in tasks)
                                 {
-                                    <div class="form-check">
+                                    <div class="form-check mt-2">
                                         <input class="form-check-input" @onchange="eventArgs => { CheckboxClicked(task, eventArgs.Value); }" type="checkbox" id="@task.ID" />
-                                        <label class="form-check-label" for="@task.ID">@task.Name</label>
+                                        <label class="form-check-label pointer w-100" for="@task.ID">@task.Name</label>
                                     </div>
                                 }
                             </fieldset>
@@ -187,14 +188,20 @@
                     }
                     else
                     {
-                        <p>There are no tasks. You have to create them first.</p>
+                        <p>
+                            @Localizer["AddTasksToGroupModalNoTasksMessage"] <a href="/formcapture/tasks/add" title="@Localizer["AddTaskLinkTitle"]"><span class="oi oi-external-link"></span> @Localizer["AddTaskLinkTitle"]</a>
+                        </p>
                     }
                 }
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" @onclick="ConfirmModal"><span class="oi oi-check"></span> Confirm</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="oi oi-x"></span> Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" @onclick="ConfirmModal" title="@Localizer["Submit"]">
+                    <span class="oi oi-check mr-1"></span> @Localizer["Submit"]
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="CloseModal" title="@Localizer["Close"]">
+                    <span class="oi oi-x mr-1"></span> @Localizer["Close"]
+                </button>
             </div>
         </div>
     </div>
@@ -256,6 +263,16 @@
                 ExecutionOrderNumber = groupings[currentTaskGroup].IndexOf(groupings[currentTaskGroup].LastOrDefault()) + 1,
                 WorkflowID = workflow.ID
             });
+            ids.Add(task.ID);
+        }
+        await IJSRuntime.InvokeVoidAsync("uncheckCheckboxes", ids);
+    }
+
+    private async Task CloseModal()
+    {
+        var ids = new List<string>();
+        foreach (WorkflowTask task in addedTasks)
+        {
             ids.Add(task.ID);
         }
         await IJSRuntime.InvokeVoidAsync("uncheckCheckboxes", ids);

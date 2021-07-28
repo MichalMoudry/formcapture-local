@@ -120,6 +120,18 @@
   <data name="Added" xml:space="preserve">
     <value>Přidáno</value>
   </data>
+  <data name="AddTaskLinkTitle" xml:space="preserve">
+    <value>Přejít na stránku pro přidávání úloh</value>
+  </data>
+  <data name="AddTasksToGroupModalNoTasksMessage" xml:space="preserve">
+    <value>Zatím neexistují žádné úlohy. Musíte je nejdříve vytvořit.</value>
+  </data>
+  <data name="AddTasksToGroupModalTitlePart1" xml:space="preserve">
+    <value>Přidat úlohy do</value>
+  </data>
+  <data name="AddTasksToGroupModalTitlePart2" xml:space="preserve">
+    <value>skupiny</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture je aplikace pro podporu digitalizace za pomoci OCR.</value>
   </data>
@@ -155,6 +167,9 @@
   </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
     <value>Napište očekávanou hodnotu pole</value>
+  </data>
+  <data name="ExportTasksCardHeader" xml:space="preserve">
+    <value>Exportovací úlohy</value>
   </data>
   <data name="FieldInputPlaceholder" xml:space="preserve">
     <value>Napište název pole</value>
@@ -282,6 +297,9 @@
   <data name="ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage" xml:space="preserve">
     <value>Stávající heslo je nesprávné</value>
   </data>
+  <data name="RecognitionTasksCardHeader" xml:space="preserve">
+    <value>Rozpoznávací úlohy</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Registrace</value>
   </data>
@@ -299,6 +317,9 @@
   </data>
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Uložte předlohu dokumentu</value>
+  </data>
+  <data name="ScanTasksCardHeader" xml:space="preserve">
+    <value>Skenovací úlohy</value>
   </data>
   <data name="SelectIdFieldMessage" xml:space="preserve">
     <value>Vyberte pole pro identifikaci</value>
@@ -365,6 +386,9 @@
   </data>
   <data name="TaskDescriptionInputPlaceholder" xml:space="preserve">
     <value>Napište popis úlohy</value>
+  </data>
+  <data name="TaskGroupNoTasksMessage" xml:space="preserve">
+    <value>Tato skupina zatím nemá žádné úlohy</value>
   </data>
   <data name="TaskNameInputLabel" xml:space="preserve">
     <value>Název úlohy</value>
@@ -489,6 +513,27 @@
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Nahrajte obrázek předlohy dokumentu</value>
   </data>
+  <data name="VerificationTasksCardHeader" xml:space="preserve">
+    <value>Ověřovací úlohy</value>
+  </data>
+  <data name="WorkflowNameInputLabel" xml:space="preserve">
+    <value>Název postupu</value>
+  </data>
+  <data name="WorkflowNameInputPlaceholder" xml:space="preserve">
+    <value>Napište název postupu</value>
+  </data>
+  <data name="WorkflowsAddButtonText" xml:space="preserve">
+    <value>Přidat úlohu</value>
+  </data>
+  <data name="WorkflowsAddPageTitle" xml:space="preserve">
+    <value>Přidání nového postupu</value>
+  </data>
+  <data name="WorkflowsAddSubmitButtonTitle" xml:space="preserve">
+    <value>Potvrdit uložení tohoto postupu a jeho úloh</value>
+  </data>
+  <data name="WorkflowsExportTasksAddButtonTitle" xml:space="preserve">
+    <value>Přidat úlohu do skupiny exportovacích úloh</value>
+  </data>
   <data name="WorkflowsListPageAddButtonText" xml:space="preserve">
     <value>Přidat nový postup</value>
   </data>
@@ -503,6 +548,12 @@
   </data>
   <data name="WorkflowsListPageWorkflowDeleteMessageTitle" xml:space="preserve">
     <value>Postup odstraněn</value>
+  </data>
+  <data name="WorkflowsRecognitionTasksAddButtonTitle" xml:space="preserve">
+    <value>Přidat úlohu do skupiny rozpoznávacích úloh</value>
+  </data>
+  <data name="WorkflowsScanTasksAddButtonTitle" xml:space="preserve">
+    <value>Přidat úlohu do skupiny skenovacích úloh</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>Špatné heslo.</value>

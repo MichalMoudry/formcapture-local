@@ -68,6 +68,7 @@ function drawFields(fields, targetID) {
             fieldRectangle = document.createElement("div");
             fieldRectangle.classList.add("template-field");
             fieldRectangle.id = fields[i]["id"];
+            fieldRectangle.title = fieldRectangle.id;
             xposition = fields[i]["xposition"] + "px";
             yposition = fields[i]["yposition"] + "px";
             width = fields[i]["width"] + "px";

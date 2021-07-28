@@ -114,7 +114,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        workflowTask = await IJSRuntime.InvokeAsync<WorkflowTask>("getItem", TaskID, "WorkflowTasks");
+        try
+        {
+            workflowTask = await IJSRuntime.InvokeAsync<WorkflowTask>("getItem", TaskID, "WorkflowTasks");
+        }
+        catch (Exception)
+        {
+            NavigationManager.NavigateTo("/NotFound");
+        }
         if (workflowTask != null)
         {
             taskName = workflowTask.Name;

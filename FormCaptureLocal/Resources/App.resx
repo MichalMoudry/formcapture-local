@@ -120,6 +120,18 @@
   <data name="Added" xml:space="preserve">
     <value>Added</value>
   </data>
+  <data name="AddTaskLinkTitle" xml:space="preserve">
+    <value>Navigate to the page for adding tasks</value>
+  </data>
+  <data name="AddTasksToGroupModalNoTasksMessage" xml:space="preserve">
+    <value>There are no tasks. You have to create them first.</value>
+  </data>
+  <data name="AddTasksToGroupModalTitlePart1" xml:space="preserve">
+    <value>Add tasks to</value>
+  </data>
+  <data name="AddTasksToGroupModalTitlePart2" xml:space="preserve">
+    <value>task group</value>
+  </data>
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture is an app for creating complete digitalization workflow using OCR.</value>
   </data>
@@ -155,6 +167,9 @@
   </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
     <value>Enter field's expected value</value>
+  </data>
+  <data name="ExportTasksCardHeader" xml:space="preserve">
+    <value>Export tasks</value>
   </data>
   <data name="FieldInputPlaceholder" xml:space="preserve">
     <value>Enter a field name</value>
@@ -282,6 +297,9 @@
   <data name="ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage" xml:space="preserve">
     <value>Current password is incorrect</value>
   </data>
+  <data name="RecognitionTasksCardHeader" xml:space="preserve">
+    <value>Recognition tasks</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
@@ -299,6 +317,9 @@
   </data>
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Save template</value>
+  </data>
+  <data name="ScanTasksCardHeader" xml:space="preserve">
+    <value>Scan tasks</value>
   </data>
   <data name="SelectIdFieldControlTitle" xml:space="preserve">
     <value>Select identifying field</value>
@@ -368,6 +389,9 @@
   </data>
   <data name="TaskDescriptionInputPlaceholder" xml:space="preserve">
     <value>Enter a task description</value>
+  </data>
+  <data name="TaskGroupNoTasksMessage" xml:space="preserve">
+    <value>This group has no tasks yet</value>
   </data>
   <data name="TaskNameInputLabel" xml:space="preserve">
     <value>Task name</value>
@@ -492,6 +516,27 @@
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Upload template image</value>
   </data>
+  <data name="VerificationTasksCardHeader" xml:space="preserve">
+    <value>Verification tasks</value>
+  </data>
+  <data name="WorkflowNameInputLabel" xml:space="preserve">
+    <value>Workflow name</value>
+  </data>
+  <data name="WorkflowNameInputPlaceholder" xml:space="preserve">
+    <value>Enter a workflow name</value>
+  </data>
+  <data name="WorkflowsAddButtonText" xml:space="preserve">
+    <value>Add a task</value>
+  </data>
+  <data name="WorkflowsAddPageTitle" xml:space="preserve">
+    <value>Create a new workflow</value>
+  </data>
+  <data name="WorkflowsAddSubmitButtonTitle" xml:space="preserve">
+    <value>Submit this workflow and its tasks</value>
+  </data>
+  <data name="WorkflowsExportTasksAddButtonTitle" xml:space="preserve">
+    <value>Add a new task to export task group</value>
+  </data>
   <data name="WorkflowsListPageAddButtonText" xml:space="preserve">
     <value>Add a new workflow</value>
   </data>
@@ -506,6 +551,15 @@
   </data>
   <data name="WorkflowsListPageWorkflowDeleteMessageTitle" xml:space="preserve">
     <value>Workflow deleted</value>
+  </data>
+  <data name="WorkflowsRecognitionTasksAddButtonTitle" xml:space="preserve">
+    <value>Add a new task to recognition task group</value>
+  </data>
+  <data name="WorkflowsScanTasksAddButtonTitle" xml:space="preserve">
+    <value>Add a new task to scan task group</value>
+  </data>
+  <data name="WorkflowsVerificationTasksAddButtonTitle" xml:space="preserve">
+    <value>Add a new task to verification task group</value>
   </data>
   <data name="WrongPassword" xml:space="preserve">
     <value>Wrong password.</value>
