@@ -312,6 +312,12 @@
   <data name="Queues" xml:space="preserve">
     <value>Queues</value>
   </data>
+  <data name="QueuesListStartQueueButtonText" xml:space="preserve">
+    <value>Start a new queue</value>
+  </data>
+  <data name="QueueStartPageNoFileErrorMessage" xml:space="preserve">
+    <value>At least one file must be uploaded</value>
+  </data>
   <data name="QueueStartPageQueuePreviewTitle" xml:space="preserve">
     <value>Queue preview</value>
   </data>
@@ -392,6 +398,9 @@
   </data>
   <data name="SettingsPageDefaultLocaleSettingTitle" xml:space="preserve">
     <value>Default locale for processing documents</value>
+  </data>
+  <data name="SettingsPageLocaleSavedMessage" xml:space="preserve">
+    <value>Default locale has been successfully saved</value>
   </data>
   <data name="SettingsPageSaveSettingButtonText" xml:space="preserve">
     <value>Save setting</value>
@@ -561,6 +570,9 @@
   <data name="VerificationTasksCardHeader" xml:space="preserve">
     <value>Verification tasks</value>
   </data>
+  <data name="WorkflowNameEmptyInputErrorMessage" xml:space="preserve">
+    <value>A workflow must have a name</value>
+  </data>
   <data name="WorkflowNameInputLabel" xml:space="preserve">
     <value>Workflow name</value>
   </data>
@@ -575,6 +587,9 @@
   </data>
   <data name="WorkflowsAddSubmitButtonTitle" xml:space="preserve">
     <value>Submit this workflow and its tasks</value>
+  </data>
+  <data name="WorkflowsEditPageTitle" xml:space="preserve">
+    <value>Edit workflow</value>
   </data>
   <data name="WorkflowsExportTasksAddButtonTitle" xml:space="preserve">
     <value>Add a new task to export task group</value>

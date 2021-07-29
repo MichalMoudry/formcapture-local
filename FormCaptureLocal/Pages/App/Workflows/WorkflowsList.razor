@@ -56,10 +56,10 @@ else
                 @foreach (Workflow workflow in workflows)
                 {
                     <tr class="pointer">
-                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))">@workflow.Name</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))">@workflow.Added</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))">@workflow.Updated</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/workflows/{workflow.ID}/edit"))"><span class="oi oi-pencil"></span></td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))">@workflow.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))">@workflow.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))">@workflow.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))"><span class="oi oi-pencil"></span></td>
                         <td><span class="oi oi-trash"></span></td>
                     </tr>
                 }

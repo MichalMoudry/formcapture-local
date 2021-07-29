@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
+@inject ILocalStorageService localStorage
 @page "/formcapture/queues/start"
 
 <h3><span class="oi oi-play-circle"></span> @Localizer["QueueStartPageTitle"]</h3>
@@ -74,7 +75,7 @@
     {
         if (e.FileCount == 0)
         {
-            errorMessage = "At least one file must be uploaded.";
+            errorMessage = $"{Localizer["QueueStartPageNoFileErrorMessage"]}.";
             await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
             return;
         }
@@ -92,5 +93,11 @@
     private void RemoveFile(ProcessedFile file)
     {
         processedFiles.Remove(file);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        defaultLocale = await localStorage.GetItemAsStringAsync(Setting.DefaultLocale.ToString());
+        defaultLocale = defaultLocale.Replace("\"", "");
     }
 }

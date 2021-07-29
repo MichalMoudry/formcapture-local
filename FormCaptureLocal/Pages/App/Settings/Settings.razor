@@ -16,9 +16,12 @@
         <option value="eng">en-US</option>
         <option value="ces">cz-CS</option>
     </select>
-    <button type="button" class="btn btn-outline-success mt-3" @onclick="SaveLocale" id="saveLocaleButton" title="@Localizer["SettingsPageSaveSettingButtonText"]">
-        <span class="oi oi-pencil mr-2"></span> @Localizer["SettingsPageSaveSettingButtonText"]
-    </button>
+    <div class="d-flex">
+        <button type="button" class="btn btn-outline-success mt-3" @onclick="SaveLocale" id="saveLocaleButton" title="@Localizer["SettingsPageSaveSettingButtonText"]">
+            <span class="oi oi-pencil mr-2"></span> @Localizer["SettingsPageSaveSettingButtonText"]
+        </button>
+        <p class="@LocaleSettingMessageCssClass mb-0 mt-4 ml-3">@Localizer["SettingsPageLocaleSavedMessage"]</p>
+    </div>
 </div>
 
 <div class="settingPanel mt-4" id="themePanel">
@@ -70,9 +73,21 @@
 
     private bool isHighContrastLightRadioChecked = false;
 
+    private bool isLocaleSettingMessageDisplayed = false;
+
+    private string LocaleSettingMessageCssClass => isLocaleSettingMessageDisplayed ? "d-block" : "d-none";
+
     private async Task SaveLocale()
     {
-        await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), defaultLocale);
+        try
+        {
+            await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), defaultLocale);
+            isLocaleSettingMessageDisplayed = true;
+        }
+        catch (Exception)
+        {
+            isLocaleSettingMessageDisplayed = false;
+        }
     }
 
     private async Task SetAppTheme(AppTheme theme)

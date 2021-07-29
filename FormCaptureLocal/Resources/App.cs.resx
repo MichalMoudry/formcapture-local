@@ -312,6 +312,12 @@
   <data name="Queues" xml:space="preserve">
     <value>Zpracování dokumentů</value>
   </data>
+  <data name="QueuesListStartQueueButtonText" xml:space="preserve">
+    <value>Spustit zpracování dokumentů</value>
+  </data>
+  <data name="QueueStartPageNoFileErrorMessage" xml:space="preserve">
+    <value>Musíte nahrát alespoň jeden soubor</value>
+  </data>
   <data name="QueueStartPageQueuePreviewTitle" xml:space="preserve">
     <value>Přehled nahraných dokumentů</value>
   </data>
@@ -389,6 +395,9 @@
   </data>
   <data name="SettingsPageDefaultLocaleSettingTitle" xml:space="preserve">
     <value>Výchozí jazyk pro zpracování dokumentů</value>
+  </data>
+  <data name="SettingsPageLocaleSavedMessage" xml:space="preserve">
+    <value>Výchozí jazyk byl úspěšně uložen</value>
   </data>
   <data name="SettingsPageSaveSettingButtonText" xml:space="preserve">
     <value>Uložit nastavení</value>
@@ -558,6 +567,9 @@
   <data name="VerificationTasksCardHeader" xml:space="preserve">
     <value>Ověřovací úlohy</value>
   </data>
+  <data name="WorkflowNameEmptyInputErrorMessage" xml:space="preserve">
+    <value>Postup musí mít název</value>
+  </data>
   <data name="WorkflowNameInputLabel" xml:space="preserve">
     <value>Název postupu</value>
   </data>
@@ -572,6 +584,9 @@
   </data>
   <data name="WorkflowsAddSubmitButtonTitle" xml:space="preserve">
     <value>Potvrdit uložení tohoto postupu a jeho úloh</value>
+  </data>
+  <data name="WorkflowsEditPageTitle" xml:space="preserve">
+    <value>Upravit postup</value>
   </data>
   <data name="WorkflowsExportTasksAddButtonTitle" xml:space="preserve">
     <value>Přidat úlohu do skupiny exportovacích úloh</value>
