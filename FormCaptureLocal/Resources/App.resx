@@ -192,6 +192,12 @@
   <data name="IdFieldHeader" xml:space="preserve">
     <value>Field for identifiaction</value>
   </data>
+  <data name="InputFileMultipleFilesTitle" xml:space="preserve">
+    <value>Select files to process</value>
+  </data>
+  <data name="InputFileSingleFilesTitle" xml:space="preserve">
+    <value>Select a single file</value>
+  </data>
   <data name="LastUpdated" xml:space="preserve">
     <value>Last updated</value>
   </data>
@@ -237,6 +243,9 @@
   <data name="NavMenuHomeLinkTitle" xml:space="preserve">
     <value>Navigate to home page</value>
   </data>
+  <data name="NavMenuQueuesLinkTitle" xml:space="preserve">
+    <value>Navigate to queues page</value>
+  </data>
   <data name="NavMenuSettingsLinkText" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -263,6 +272,9 @@
   </data>
   <data name="NavMenuWorkflowLinkTitle" xml:space="preserve">
     <value>Navigate to workflows page</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Optional</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -297,6 +309,27 @@
   <data name="ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage" xml:space="preserve">
     <value>Current password is incorrect</value>
   </data>
+  <data name="Queues" xml:space="preserve">
+    <value>Queues</value>
+  </data>
+  <data name="QueueStartPageQueuePreviewTitle" xml:space="preserve">
+    <value>Queue preview</value>
+  </data>
+  <data name="QueueStartPageSubmitButtonText" xml:space="preserve">
+    <value>Start the queue</value>
+  </data>
+  <data name="QueueStartPageTitle" xml:space="preserve">
+    <value>Start a new queue</value>
+  </data>
+  <data name="QueueStartPageUploadFilesTitle" xml:space="preserve">
+    <value>Upload files</value>
+  </data>
+  <data name="QueueStartSelectLocaleTitle" xml:space="preserve">
+    <value>Set locale for processing documents</value>
+  </data>
+  <data name="QueueStartSelectWorkflowTitle" xml:space="preserve">
+    <value>Set workflow</value>
+  </data>
   <data name="RecognitionTasksCardHeader" xml:space="preserve">
     <value>Recognition tasks</value>
   </data>
@@ -314,6 +347,12 @@
   </data>
   <data name="RegistrationUserIsAlreadyRegisteredError" xml:space="preserve">
     <value>User is already registered.</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RemoveImage" xml:space="preserve">
+    <value>Remove this image</value>
   </data>
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Save template</value>
@@ -347,6 +386,9 @@
   </data>
   <data name="SettingsPageAppThemeSettingTitle" xml:space="preserve">
     <value>Application theme</value>
+  </data>
+  <data name="SettingsPageDefaultLocaleSelectTitle" xml:space="preserve">
+    <value>Set default locale</value>
   </data>
   <data name="SettingsPageDefaultLocaleSettingTitle" xml:space="preserve">
     <value>Default locale for processing documents</value>

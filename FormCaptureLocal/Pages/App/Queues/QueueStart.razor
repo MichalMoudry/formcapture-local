@@ -1,27 +1,28 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject IStringLocalizer<App> Localizer
 @page "/formcapture/queues/start"
 
-<h3><span class="oi oi-play-circle"></span> Start a new queue</h3>
+<h3><span class="oi oi-play-circle"></span> @Localizer["QueueStartPageTitle"]</h3>
 
 <hr />
 
 <!--File upload-->
 <div class="settingPanel">
-    <h4><span class="oi oi-data-transfer-upload"></span> Upload files</h4>
-    <InputFile multiple OnChange="@FileSelected" title="Select files to process" />
+    <h4><span class="oi oi-data-transfer-upload"></span> @Localizer["QueueStartPageUploadFilesTitle"]</h4>
+    <InputFile multiple OnChange="@FileSelected" title="@Localizer["InputFileMultipleFilesTitle"]" />
     <!--Files quick preview-->
-    @if (true)
+    @if (processedFiles.Count > 0)
     {
-        <h5 class="mt-3"><span class="oi oi-eye"></span> Queue preview</h5>
+        <h5 class="mt-3"><span class="oi oi-eye"></span> @Localizer["QueueStartPageQueuePreviewTitle"]</h5>
         <div id="queueQuickPreview" class="mt-1">
             @foreach (var file in processedFiles)
             {
                 <div class="quickPreviewItem mr-3">
                     <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" class="quickPreviewImage" draggable="false" />
-                    <button type="button" class="btn btn-outline-danger removeImageButton" aria-label="Close" title="Remove '@file.Name' image" @onclick="@(e => RemoveFile(file))">
-                        <span class="oi oi-trash"></span> Remove
+                    <button type="button" class="btn btn-outline-danger removeImageButton" aria-label="Close" title="@Localizer["RemoveImage"]" @onclick="@(e => RemoveFile(file))">
+                        <span class="oi oi-trash"></span> @Localizer["Remove"]
                     </button>
                 </div>
             }
@@ -31,25 +32,25 @@
 
 <!--Worflow selection-->
 <div class="settingPanel mt-4">
-    <h4><span class="oi oi-project"></span> <b>Optional</b>: Select workflow</h4>
+    <h4><span class="oi oi-project"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectWorkflowTitle"]</h4>
 </div>
 
 <!--Locale selection-->
 <div class="settingPanel mt-4">
-    <h4><span class="oi oi-globe"></span> <b>Optional</b>: Select locale</h4>
-    <select @bind="defaultLocale" class="form-control" title="Set default locale">
+    <h4><span class="oi oi-globe"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectLocaleTitle"]</h4>
+    <select @bind="defaultLocale" class="form-control" title="@Localizer["SettingsPageDefaultLocaleSelectTitle"]">
         <option value="eng">en-US</option>
         <option value="ces">cz-CS</option>
     </select>
 </div>
 
-<button class="btn btn-outline-success mt-3 mb-3">
-    <span class="oi oi-check"></span> Start the queue
+<button class="btn btn-outline-success mt-4 mb-4" title="@Localizer["QueueStartPageSubmitButtonText"]">
+    <span class="oi oi-check"></span> @Localizer["QueueStartPageSubmitButtonText"]
 </button>
 
 <div class="toast-area">
     <div class="alert alert-danger alert-dismissible fade show d-none" id="error-toast" role="alert">
-        <strong class="mr-auto">Error</strong>
+        <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p class="errorMessage">@errorMessage</p>
         <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close">

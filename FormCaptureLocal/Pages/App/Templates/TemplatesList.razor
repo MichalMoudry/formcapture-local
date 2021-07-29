@@ -48,10 +48,10 @@
                 @foreach (var template in templates)
                 {
                     <tr class="pointer">
-                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Name</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Added</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Updated</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{template.ID}"))"><span class="oi oi-pencil"></span></td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/edit/{template.ID}"))"><span class="oi oi-pencil"></span></td>
                         <td @onclick="@(e => DeleteTemplate(template))"><span class="oi oi-trash"></span></td>
                     </tr>
                 }

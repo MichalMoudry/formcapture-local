@@ -121,6 +121,7 @@ else
         catch (Exception)
         {
             NavigationManager.NavigateTo("/NotFound");
+            return;
         }
         if (workflowTask != null)
         {

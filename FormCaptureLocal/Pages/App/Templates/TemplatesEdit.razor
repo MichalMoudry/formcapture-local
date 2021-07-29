@@ -2,7 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
-@page "/formcapture/templates/{TemplateID}"
+@page "/formcapture/templates/edit/{TemplateID}"
 
 @if (template != null)
 {
@@ -48,7 +48,7 @@ else
             </div>
 
             <div class="card-footer">
-                <InputFile OnChange="@FileSelected" />
+                <InputFile OnChange="@FileSelected" title="@Localizer["InputFileSingleFilesTitle"]" />
             </div>
         </div>
     </div>
@@ -306,7 +306,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        template = await IJSRuntime.InvokeAsync<Template>("getItem", TemplateID, "Templates");
+        try
+        {
+            template = await IJSRuntime.InvokeAsync<Template>("getItem", TemplateID, "Templates");
+        }
+        catch (Exception)
+        {
+            NavigationManager.NavigateTo($"/formcapture/templates/{TemplateID}/notfound");
+            return;
+        }
         if (template != null)
         {
             fields = await IJSRuntime.InvokeAsync<List<Field>>("getAllItems", "Fields");
