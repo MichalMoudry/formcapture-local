@@ -1,11 +1,21 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+@font-face {
+    font-family: "Fluent UI Glyphs";
+    src: url("/font/fluentui.ttf") format("truetype");
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 a, .btn-link {
     color: #0366d6;
+}
+
+.fluentUiGlyph {
+    font-family: "Fluent UI Glyphs";
+    font-size: 1.5rem;
 }
 
 .btn-primary {
