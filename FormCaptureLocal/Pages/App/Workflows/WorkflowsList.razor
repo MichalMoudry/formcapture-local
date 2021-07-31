@@ -59,8 +59,8 @@ else
                         <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))">@workflow.Name</td>
                         <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))">@workflow.Added</td>
                         <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))">@workflow.Updated</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))"><span class="oi oi-pencil"></span></td>
-                        <td><span class="oi oi-trash"></span></td>
+                        <td @onclick="@(e => Navigate($"/formcapture/workflows/edit/{workflow.ID}"))" class="hoverElement"><span class="fluentUiGlyph tableFluentGlyph">&#xE9C3;</span></td>
+                        <td class="hoverElement"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
                     </tr>
                 }
             </tbody>

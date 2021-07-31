@@ -4,14 +4,14 @@
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/profile"
 
-<h3><span class="oi oi-person"></span> @Localizer["ProfilePageTitle"] - @UserHelper.UserID</h3>
+<h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEAFD;</span> @Localizer["ProfilePageTitle"] - @UserHelper.UserID</h3>
 
 <hr />
 
 <div class="settingPanel">
-    <h4><span class="oi oi-pencil mr-2"></span> @Localizer["ProfilePageChangePasswordSettingTitle"]</h4>
+    <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph h4FluentEditGlyph mr-2">&#xE9C3;</span> @Localizer["ProfilePageChangePasswordSettingTitle"]</h4>
 
-    <div class="form-group">
+    <div class="form-group mt-4">
         <label for="old-password-input"><b>@Localizer["ProfilePageChangeCurrentPassword"]</b>:</label>
         <input type="password" name="old-password-input" id="old-password-input" @bind="oldPassword" class="form-control" placeholder="@Localizer["ProfilePageChangeCurrentPasswordInputPlaceholder"]..." />
     </div>
@@ -21,11 +21,9 @@
         <input type="password" name="new-password-input" id="new-password-input" @bind="newPassword" class="form-control" placeholder="@Localizer["ProfilePageChangeNewPasswordInputPlaceholder"]..." />
     </div>
 
-    <div class="form-group">
-        <button type="button" class="btn btn-outline-success mt-2" @onclick="Confirm" id="confirmButton" title="@Localizer["ProfilePageConfirmPasswordChangeButtonText"]">
-            <span class="oi oi-pencil mr-2"></span> @Localizer["ProfilePageConfirmPasswordChangeButtonText"]
-        </button>
-    </div>
+    <button type="button" class="btn btn-outline-success" @onclick="Confirm" id="confirmButton" title="@Localizer["ProfilePageConfirmPasswordChangeButtonText"]">
+        <span class="oi oi-pencil mr-1"></span> @Localizer["ProfilePageConfirmPasswordChangeButtonText"]
+    </button>
 </div>
 
 <div class="toast-area mt-4">

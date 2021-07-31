@@ -366,11 +366,8 @@
   <data name="ScanTasksCardHeader" xml:space="preserve">
     <value>Scan tasks</value>
   </data>
-  <data name="SelectIdFieldControlTitle" xml:space="preserve">
-    <value>Select identifying field</value>
-  </data>
   <data name="SelectIdFieldMessage" xml:space="preserve">
-    <value>Select a identifying field</value>
+    <value>Select an identifying field</value>
   </data>
   <data name="SetFieldsStepText" xml:space="preserve">
     <value>Create fields on the template</value>

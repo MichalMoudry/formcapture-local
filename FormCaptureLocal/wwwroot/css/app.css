@@ -13,11 +13,6 @@ a, .btn-link {
     color: #0366d6;
 }
 
-.fluentUiGlyph {
-    font-family: "Fluent UI Glyphs";
-    font-size: 1.5rem;
-}
-
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -230,6 +225,51 @@ a, .btn-link {
     width: 100%;
     padding: 1rem;
     font-size: 1rem;
+}
+
+.table td {
+    vertical-align: middle !important;
+}
+
+.hoverElement:hover {
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/*Glyph styles*/
+.fluentUiGlyph {
+    font-family: "Fluent UI Glyphs";
+    font-size: 1.5rem;
+}
+
+.navMenuFluentUiGlyph {
+    margin-left: -3px;
+    margin-right: 12px;
+}
+
+.h3FluentGlyph {
+    font-size: 2.5rem !important;
+    margin-left: -5px;
+    margin-top: -8px !important;
+}
+
+.h4FluentGlyph {
+    font-size: 2rem !important;
+}
+
+.h4FluentEditGlyph {
+    margin-top: -7px !important;
+}
+
+.tableFluentGlyph {
+    float: left;
+    margin-top: -5px;
+}
+
+.buttonFluentGlyph {
+    float: left;
+    font-size: 18px !important;
+    margin-top: -3px;
 }
 
 /*Media*/

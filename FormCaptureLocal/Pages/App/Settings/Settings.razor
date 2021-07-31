@@ -4,13 +4,13 @@
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/settings"
 
-<h3><span class="oi oi-cog mr-1"></span> @Localizer["SettingsPageTitle"]</h3>
+<h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEB5D;</span> @Localizer["SettingsPageTitle"]</h3>
 
 <hr />
 
 <div class="settingPanel">
     <h4>
-        <span class="oi oi-globe mr-2"></span> @Localizer["SettingsPageDefaultLocaleSettingTitle"]
+        <span class="oi oi-globe mr-1"></span> @Localizer["SettingsPageDefaultLocaleSettingTitle"]
     </h4>
     <select @bind="defaultLocale" class="form-control" title="@Localizer["SettingsPageDefaultLocaleSelectTitle"]">
         <option value="eng">en-US</option>
@@ -18,15 +18,15 @@
     </select>
     <div class="d-flex">
         <button type="button" class="btn btn-outline-success mt-3" @onclick="SaveLocale" id="saveLocaleButton" title="@Localizer["SettingsPageSaveSettingButtonText"]">
-            <span class="oi oi-pencil mr-2"></span> @Localizer["SettingsPageSaveSettingButtonText"]
+            <span class="oi oi-pencil mr-1"></span> @Localizer["SettingsPageSaveSettingButtonText"]
         </button>
-        <p class="@LocaleSettingMessageCssClass mb-0 mt-4 ml-3">@Localizer["SettingsPageLocaleSavedMessage"]</p>
+        <p class="@LocaleSettingMessageCssClass mb-0 mt-4 ml-3 text-success">@Localizer["SettingsPageLocaleSavedMessage"]</p>
     </div>
 </div>
 
 <div class="settingPanel mt-4" id="themePanel">
     <h4>
-        <span class="oi oi-contrast mr-2"></span> @Localizer["SettingsPageAppThemeSettingTitle"]
+        <span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xE9C0;</span> @Localizer["SettingsPageAppThemeSettingTitle"]
     </h4>
     <div class="pl-4 pt-1">
         <div class="radioContainer">
