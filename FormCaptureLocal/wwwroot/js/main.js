@@ -1,4 +1,11 @@
-﻿const { createWorker } = Tesseract;
+﻿$(document).ready(function () {
+    var theme = localStorage.getItem("ApplicationTheme");
+    if (theme === '"Dark"') {
+        $("#lightTheme").remove();
+    }
+});
+
+const { createWorker } = Tesseract;
 
 async function hashString(string, salt) {
     const encoder = new TextEncoder();
