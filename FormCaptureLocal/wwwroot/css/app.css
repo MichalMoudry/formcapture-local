@@ -1,0 +1,231 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+@font-face {
+    font-family: "Fluent UI Glyphs";
+    src: url("/font/fluentui.ttf") format("truetype");
+}
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.content {
+    padding-top: 1.1rem;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+/*Additional css*/
+#app {
+    /*
+        position: relative;
+        display: flex;
+    */
+    flex-direction: row;
+}
+
+#main-loading-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0 auto;
+    width: 100px;
+}
+
+.index-main {
+    flex: 1;
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 98%);
+    color: white;
+}
+
+    .index-main .content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .index-main .row {
+        justify-content: center;
+    }
+
+.sidebar {
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 98%) !important;
+}
+
+.spinner-border {
+    margin-top: 1rem;
+}
+
+.nav-item a {
+    color: white !important;
+}
+
+#field-list {
+    overflow: auto;
+    height: 30vh;
+}
+
+.second-level-block {
+    margin-top: .6rem;
+    margin-left: 15px;
+}
+
+#basic-steps-block span {
+    margin-top: 3px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+#template-canvas {
+    overflow: auto;
+    position: relative;
+    height: 50vh;
+}
+
+#template-preview-image {
+    max-width: 100%;
+}
+
+#app-description {
+    font-size: 1.1rem;
+}
+
+.toast-area {
+    position: sticky;
+    bottom: 0;
+}
+
+.tableText {
+    margin-left: .7rem;
+}
+
+#themePanel hr {
+    margin-left: -1.2rem;
+}
+
+.radioContainer label {
+    width: 100%;
+}
+
+.quickPreviewImage {
+    width: 250px;
+}
+
+#queueQuickPreview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quickPreviewItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text .badge-success {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+.table td {
+    vertical-align: middle !important;
+}
+
+/*Glyph styles*/
+.fluentUiGlyph {
+    font-family: "Fluent UI Glyphs";
+    font-size: 1.5rem;
+}
+
+.navMenuFluentUiGlyph {
+    margin-left: -3px;
+    margin-right: 12px;
+}
+
+.h3FluentGlyph {
+    font-size: 2.5rem !important;
+    margin-left: -5px;
+    margin-top: -8px !important;
+}
+
+.h4FluentGlyph {
+    font-size: 2rem !important;
+}
+
+.h4FluentEditGlyph {
+    margin-top: -7px !important;
+}
+
+.tableFluentGlyph {
+    float: left;
+    margin-top: -5px;
+}
+
+.buttonFluentGlyph {
+    float: left;
+    font-size: 18px !important;
+    margin-top: -3px;
+}
+
+.workflowPagesH4Glyph {
+    margin-left: -5px;
+}
+
+/*Media*/
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1015px) {
+    .form-card {
+        width: 23%;
+        max-width: 350px;
+    }
+}

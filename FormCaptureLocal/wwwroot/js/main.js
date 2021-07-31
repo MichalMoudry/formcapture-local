@@ -1,7 +1,10 @@
 ﻿$(document).ready(function () {
     var theme = localStorage.getItem("ApplicationTheme");
-    if (theme === '"Dark"') {
-        $("#lightTheme").remove();
+    if (theme === '"Light"') {
+        $('head').append('<link rel="stylesheet" href="css/app-light.css">');
+    }
+    else if (theme === '"Dark"') {
+        $('head').append('<link rel="stylesheet" href="css/app-dark.css">');
     }
 });
 
@@ -147,7 +150,10 @@ function drawField(fieldID) {
 }
 
 function removeField(fieldID) {
-    document.getElementById(fieldID).remove();
+    var field = document.getElementById(fieldID);
+    if (field != null) {
+        document.getElementById(fieldID).remove();
+    }
 }
 
 async function recogSingleField(field, image, lang, contentType) {

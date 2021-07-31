@@ -4,7 +4,7 @@
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/workflows/add"
 
-<h3><span class="oi oi-plus"></span> @Localizer["WorkflowsAddPageTitle"]</h3>
+<h3><span class="oi oi-plus mr-1"></span> @Localizer["WorkflowsAddPageTitle"]</h3>
 
 <hr />
 
@@ -16,7 +16,7 @@
 <!--Scan tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-document"></span> @Localizer["ScanTasksCardHeader"]</h4>
+        <h4><span class="fluentUiGlyph tableFluentGlyph workflowPagesH4Glyph h4FluentGlyph mr-2">&#xEA00;</span> @Localizer["ScanTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -47,7 +47,7 @@
 <!--Recognition tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-aperture"></span> @Localizer["RecognitionTasksCardHeader"]</h4>
+        <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph workflowPagesH4Glyph mr-2">&#xEB4E;</span> @Localizer["RecognitionTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -78,7 +78,7 @@
 <!--Verification tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-eye"></span> @Localizer["VerificationTasksCardHeader"]</h4>
+        <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph workflowPagesH4Glyph mr-2">&#xE969;</span> @Localizer["VerificationTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -109,7 +109,7 @@
 <!--Export tasks block-->
 <div class="card workflowCard mt-4">
     <div class="card-header">
-        <h4><span class="oi oi-expand-left"></span> @Localizer["ExportTasksCardHeader"]</h4>
+        <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph workflowPagesH4Glyph mr-2">&#xE9B9;</span> @Localizer["ExportTasksCardHeader"]</h4>
     </div>
 
     <div class="card-body">
@@ -148,7 +148,7 @@
         <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p>@Localizer["WorkflowNameEmptyInputErrorMessage"].</p>
-        <button type="button" class="close" onclick="closeAlert('workflow-error-toast');" aria-label="Close">
+        <button type="button" class="close" onclick="closeAlert('workflow-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

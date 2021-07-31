@@ -4,7 +4,7 @@
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/templates/add"
 
-<h3><span class="oi oi-plus"></span> @Localizer["TemplatesAddPageTitle"]</h3>
+<h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA84;</span> @Localizer["TemplatesAddPageTitle"]</h3>
 
 <hr />
 
@@ -19,7 +19,7 @@
     <div class="col-md">
         <div class="card">
             <div class="card-header">
-                <h4><span class="oi oi-image"></span> @Localizer["TemplateImageHeader"]</h4>
+                <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xEA83;</span> @Localizer["TemplateImageHeader"]</h4>
             </div>
 
             <div class="card-body">
@@ -47,7 +47,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h4>@Localizer["Fields"]</h4>
+                            <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xE914;</span> @Localizer["Fields"]</h4>
                         </div>
                         <div class="col-1">
                             <span class="oi oi-plus pointer mt-2" @onclick="AddNewField"></span>
@@ -67,12 +67,12 @@
                                             <input class="field-input" @bind-value="field.Name" placeholder="@Localizer["FieldInputPlaceholder"]..." />
                                         </div>
 
-                                        <div class="col-1 pointer fieldItemButton" @onclick="@(e => DrawField(field.ID))">
-                                            <span class="oi oi-pencil mt-2"></span>
+                                        <div class="col-1 pointer hoverElement text-center rounded" @onclick="@(e => DrawField(field.ID))">
+                                            <span class="fluentUiGlyph">&#xE9C3;</span>
                                         </div>
 
-                                        <div class="col-1 pointer fieldItemButton" @onclick="@(e => RemoveField(field))">
-                                            <span class="oi oi-trash mt-2"></span>
+                                        <div class="col-1 pointer hoverElement text-center rounded" @onclick="@(e => RemoveField(field))">
+                                            <span class="fluentUiGlyph">&#xE9ED;</span>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
 
             <div class="card mt-3">
                 <div class="card-header">
-                    <h4><span class="oi oi-star"></span> @Localizer["IdFieldHeader"]</h4>
+                    <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xEB3B;</span> @Localizer["IdFieldHeader"]</h4>
                 </div>
 
                 <div class="card-body">
