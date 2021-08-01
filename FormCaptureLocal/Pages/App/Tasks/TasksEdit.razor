@@ -7,7 +7,7 @@
 
 @if (workflowTask != null)
 {
-    <h3><span class="oi oi-pencil mr-1"></span> @Localizer["Edit"] '@taskName'</h3>
+    <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA39;</span> @Localizer["Edit"] '@taskName'</h3>
 }
 else
 {
@@ -33,7 +33,7 @@ else
 </div>
 
 <div class="form-group settingPanel mt-4">
-    <label for="task-content"><b>@Localizer["TaskContentInputLabel"]</b>: <a title="Information"><span class="oi oi-question-mark"></span></a></label>
+    <label for="task-content"><b>@Localizer["TaskContentInputLabel"]</b>:</label>
     <textarea @bind="taskContent" placeholder="@Localizer["TaskContentInputPlaceholder"]..." name="task-content" id="task-content" class="form-control mb-2">
     </textarea>
     <a href="#" title="@Localizer["TasksAddPageWhatIsContentLinkText"]?" target="_blank">@Localizer["TasksAddPageWhatIsContentLinkText"]?</a>
@@ -41,10 +41,10 @@ else
 
 <div class="form-group d-flex">
     <button @onclick="ConfirmForm" class="btn btn-success mr-3 mt-2" title="@Localizer["TasksAddPageSubmitButtonTitle"]" id="submitButton">
-        <span class="oi oi-check"></span> @Localizer["Submit"]
+        <span class="oi oi-check mr-1"></span> @Localizer["Submit"]
     </button>
     <button @onclick="TestTaskContent" class="btn btn-warning mt-2" title="@Localizer["TasksAddPageTestTaskButtonTitle"]" id="testButton">
-        <span class="oi oi-beaker"></span> @Localizer["TasksAddPageTestTaskButtonText"]
+        <span class="oi oi-beaker mr-1"></span> @Localizer["TasksAddPageTestTaskButtonText"]
     </button>
 </div>
 

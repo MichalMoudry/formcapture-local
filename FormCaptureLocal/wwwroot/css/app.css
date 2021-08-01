@@ -179,6 +179,10 @@ a, .btn-link {
     vertical-align: middle !important;
 }
 
+#task-content {
+    min-height: 10rem;
+}
+
 /*Glyph styles*/
 .fluentUiGlyph {
     font-family: "Fluent UI Glyphs";
