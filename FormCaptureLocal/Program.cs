@@ -14,9 +14,9 @@ namespace FormCaptureLocal
             builder.RootComponents.Add<App>("#app");
 
             //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddBlazoredLocalStorage();
-            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-            builder.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
+            _ = builder.Services.AddBlazoredLocalStorage();
+            _ = builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            _ = builder.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
 
             await builder.Build().RunAsync();
         }

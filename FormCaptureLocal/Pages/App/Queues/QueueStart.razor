@@ -34,6 +34,16 @@
 <!--Worflow selection-->
 <div class="settingPanel mt-4">
     <h4><span class="oi oi-project"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectWorkflowTitle"]</h4>
+    <select class="form-control" title="@Localizer["QueueStartPageWorkflowSelectTitle"]" @bind="workflowID">
+        <option value="">@Localizer["QueueStartPageWorkflowSelectTitle"]</option>
+        @if (workflows != null)
+        {
+            @foreach (var workflow in workflows)
+            {
+                <option value="@workflow.ID">@workflow.Name</option>
+            }
+        }
+    </select>
 </div>
 
 <!--Locale selection-->
@@ -45,7 +55,7 @@
     </select>
 </div>
 
-<button class="btn btn-outline-success mt-4 mb-4" title="@Localizer["QueueStartPageSubmitButtonText"]">
+<button class="btn btn-outline-success mt-4 mb-4" title="@Localizer["QueueStartPageSubmitButtonText"]" @onclick="Submit">
     <span class="oi oi-check"></span> @Localizer["QueueStartPageSubmitButtonText"]
 </button>
 
@@ -65,12 +75,36 @@
     //A workflow must be selected.
     private string errorMessage;
 
+    /// <summary>
+    /// Default locale of document processing.
+    /// </summary>
     private string defaultLocale;
 
+    /// <summary>
+    /// ID of optional workflow for document processing.
+    /// </summary>
+    private string workflowID;
+
+    /// <summary>
+    /// Queue that will be processed.
+    /// </summary>
     private Queue queue = new Queue() { ID = Guid.NewGuid().ToString() };
 
+    /// <summary>
+    /// List of processed files (see: <see cref="ProcessedFile"/> class).
+    /// </summary>
     private List<ProcessedFile> processedFiles = new List<ProcessedFile>();
 
+    /// <summary>
+    /// List of workflows from which user can optionaly select one.
+    /// </summary>
+    private List<Workflow> workflows;
+
+    /// <summary>
+    /// Event handler for @onchange event of InputFile component.
+    /// </summary>
+    /// <param name="e">InputFile @onchange event parameters.</param>
+    /// <returns>Task.</returns>
     private async Task FileSelected(InputFileChangeEventArgs e)
     {
         if (e.FileCount == 0)
@@ -90,14 +124,44 @@
         }
     }
 
+    /// <summary>
+    /// Event handler for button, that is used to remove file from queue.
+    /// </summary>
+    /// <param name="file">File that will be removed.</param>
     private void RemoveFile(ProcessedFile file)
     {
         processedFiles.Remove(file);
+    }
+
+    /// <summary>
+    /// Event handler for submit button.
+    /// </summary>
+    private async Task Submit()
+    {
+        Console.WriteLine($"{defaultLocale} - {workflowID}");
+        if (!string.IsNullOrEmpty(workflowID))
+        {
+            queue.WorkflowID = workflowID;
+        }
+        if (!string.IsNullOrEmpty(defaultLocale) && processedFiles.Count > 0)
+        {
+
+        }
+        else if (processedFiles.Count == 0)
+        {
+            errorMessage = $"{Localizer["QueueStartPageNoFileErrorMessage"]}.";
+            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+        }
     }
 
     protected override async Task OnInitializedAsync()
     {
         defaultLocale = await localStorage.GetItemAsStringAsync(Setting.DefaultLocale.ToString());
         defaultLocale = defaultLocale.Replace("\"", "");
+        workflows = await IJSRuntime.InvokeAsync<List<Workflow>>("getAllItems", "Workflows");
+        if (workflows != null)
+        {
+            workflows = workflows.Where(i => i.UserID.Equals(UserHelper.UserID)).OrderBy(i => i.Added).ToList();
+        }
     }
 }

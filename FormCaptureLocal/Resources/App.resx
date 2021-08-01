@@ -330,6 +330,9 @@
   <data name="QueueStartPageUploadFilesTitle" xml:space="preserve">
     <value>Upload files</value>
   </data>
+  <data name="QueueStartPageWorkflowSelectTitle" xml:space="preserve">
+    <value>Select optional workflow for processed files</value>
+  </data>
   <data name="QueueStartSelectLocaleTitle" xml:space="preserve">
     <value>Set locale for processing documents</value>
   </data>

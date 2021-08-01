@@ -330,6 +330,9 @@
   <data name="QueueStartPageUploadFilesTitle" xml:space="preserve">
     <value>Nahrát soubory</value>
   </data>
+  <data name="QueueStartPageWorkflowSelectTitle" xml:space="preserve">
+    <value>Vyberte postup pro zpracované dokumenty</value>
+  </data>
   <data name="QueueStartSelectLocaleTitle" xml:space="preserve">
     <value>Vyberte jazyk pro zpracování dokumentů</value>
   </data>
