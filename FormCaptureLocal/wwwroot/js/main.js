@@ -94,6 +94,7 @@ function drawFields(fields, targetID) {
     }
 }
 
+//TODO: fix field drawing
 function drawField(fieldID) {
     var existingField = document.getElementById(fieldID);
     if (existingField != null) {

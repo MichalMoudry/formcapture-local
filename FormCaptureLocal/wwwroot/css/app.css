@@ -125,9 +125,11 @@ a, .btn-link {
 }
 
 #template-canvas {
-    overflow: auto;
+    /*
+        overflow: auto;
     position: relative;
     height: 50vh;
+    */
 }
 
 #template-preview-image {
@@ -202,6 +204,7 @@ a, .btn-link {
 
 .h4FluentGlyph {
     font-size: 2rem !important;
+    margin-top: -5px;
 }
 
 .h4FluentEditGlyph {
@@ -210,7 +213,6 @@ a, .btn-link {
 
 .tableFluentGlyph {
     float: left;
-    margin-top: -5px;
 }
 
 .buttonFluentGlyph {
