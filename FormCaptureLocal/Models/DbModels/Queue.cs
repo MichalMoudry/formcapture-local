@@ -1,4 +1,5 @@
 ﻿using FormCaptureLocal.Models.Util;
+using FormCaptureLocal.Models.Util.Enums;
 
 namespace FormCaptureLocal.Models.DbModels
 {
@@ -21,5 +22,10 @@ namespace FormCaptureLocal.Models.DbModels
         /// Optional ID of the workflow.
         /// </summary>
         public string WorkflowID { get; set; }
+
+        /// <summary>
+        /// Last task executed on a specific queue.
+        /// </summary>
+        public QueueTask QueueTask { get; set; }
     }
 }

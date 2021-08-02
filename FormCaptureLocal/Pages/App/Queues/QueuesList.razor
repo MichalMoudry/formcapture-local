@@ -30,26 +30,82 @@
     </div>
 </div>
 
+<h4 class="mt-3">Unfinished queues</h4>
 <div class="table-responsive mt-3">
-    <table class="table table-hover">
+    <table class="table">
         <thead>
             <tr>
                 <td><b>@Localizer["Name"]</b></td>
                 <td><b>@Localizer["Added"]</b></td>
                 <td><b>@Localizer["LastUpdated"]</b></td>
-                <td><b>@Localizer["Edit"]</b></td>
+                <td><b>@Localizer["NextTask"]</b></td>
                 <td><b>@Localizer["Delete"]</b></td>
             </tr>
         </thead>
         <tbody>
+            @if (queues != null)
+            {
+                @foreach (var queue in queues)
+                {
+                    <tr>
+                        <td>@queue.Name</td>
+                        <td>@queue.Added</td>
+                        <td>@queue.Updated</td>
+                        <td class="hoverElement pointer">
+                            @Localizer[$"{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}Noun"] <span class="oi oi-chevron-right ml-1"></span>
+                        </td>
+                        <td class="hoverElement pointer"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
+    @if (queues == null)
+    {
+        <p class="tableText">@Localizer["Loading"]...</p>
+    }
+    else
+    {
+        @if (queues.Count <= 0)
+        {
+            <p class="tableText">@Localizer["QueuesListPageNoQueuesText"]</p>
+        }
+    }
 </div>
+
+<h4>Finished queues</h4>
 
 @code
 {
+    /// <summary>
+    /// List of user's queues.
+    /// </summary>
+    private List<Queue> queues;
+
+    /// <summary>
+    /// Array with values of <see cref="QueueTask"/> enum.
+    /// </summary>
+    private Array queueTaskValues;
+
+    /// <summary>
+    /// Method for navigating to a specified URI.
+    /// </summary>
+    /// <param name="uri">URI.</param>
     private void Navigate(string uri)
     {
         NavigationManager.NavigateTo(uri);
+    }
+
+    /// <summary>
+    /// Override of OnInitializedAsync() method.
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        queueTaskValues = Enum.GetValues(typeof(QueueTask));
+        queues = await IJSRuntime.InvokeAsync<List<Queue>>("getAllItems", "Queues");
+        if (queues != null)
+        {
+            queues = queues.Where(i => i.UserID.Equals(UserHelper.UserID) && !i.QueueTask.Equals(QueueTask.Finished)).ToList();
+        }
     }
 }

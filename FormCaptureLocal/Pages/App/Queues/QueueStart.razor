@@ -5,13 +5,19 @@
 @inject ILocalStorageService localStorage
 @page "/formcapture/queues/start"
 
-<h3><span class="oi oi-play-circle"></span> @Localizer["QueueStartPageTitle"]</h3>
+<h3><span class="oi oi-play-circle mr-1"></span> @Localizer["QueueStartPageTitle"]</h3>
 
 <hr />
 
-<!--File upload-->
+<!--Queue name-->
 <div class="settingPanel">
-    <h4><span class="oi oi-data-transfer-upload"></span> @Localizer["QueueStartPageUploadFilesTitle"]</h4>
+    <label for="queue-name"><b>@Localizer["QueueNameInputLabel"]</b>:</label>
+    <input type="text" name="queue-name" id="queue-name" placeholder="@Localizer["QueueNameInputPlaceholder"]..." @bind-value="queue.Name" class="form-control" />
+</div>
+
+<!--File upload-->
+<div class="settingPanel mt-4">
+    <h4><span class="oi oi-data-transfer-upload mr-1"></span> @Localizer["QueueStartPageUploadFilesTitle"]</h4>
     <InputFile multiple OnChange="@FileSelected" title="@Localizer["InputFileMultipleFilesTitle"]" />
     <!--Files quick preview-->
     @if (processedFiles.Count > 0)
@@ -33,7 +39,7 @@
 
 <!--Worflow selection-->
 <div class="settingPanel mt-4">
-    <h4><span class="oi oi-project"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectWorkflowTitle"]</h4>
+    <h4><span class="oi oi-project mr-1"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectWorkflowTitle"]</h4>
     <select class="form-control" title="@Localizer["QueueStartPageWorkflowSelectTitle"]" @bind="workflowID">
         <option value="">@Localizer["QueueStartPageWorkflowSelectTitle"]</option>
         @if (workflows != null)
@@ -48,7 +54,7 @@
 
 <!--Locale selection-->
 <div class="settingPanel mt-4">
-    <h4><span class="oi oi-globe"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectLocaleTitle"]</h4>
+    <h4><span class="oi oi-globe mr-1"></span> <b>@Localizer["Optional"]</b>: @Localizer["QueueStartSelectLocaleTitle"]</h4>
     <select @bind="defaultLocale" class="form-control" title="@Localizer["SettingsPageDefaultLocaleSelectTitle"]">
         <option value="eng">en-US</option>
         <option value="ces">cz-CS</option>
@@ -64,7 +70,7 @@
         <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p class="errorMessage">@errorMessage</p>
-        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close">
+        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -138,14 +144,30 @@
     /// </summary>
     private async Task Submit()
     {
-        Console.WriteLine($"{defaultLocale} - {workflowID}");
         if (!string.IsNullOrEmpty(workflowID))
         {
             queue.WorkflowID = workflowID;
         }
-        if (!string.IsNullOrEmpty(defaultLocale) && processedFiles.Count > 0)
+        if (!string.IsNullOrEmpty(defaultLocale) && processedFiles.Count > 0 && !string.IsNullOrEmpty(queue.Name))
         {
-
+            queue.UserID = UserHelper.UserID;
+            queue.Added = DateTime.Now;
+            queue.Updated = DateTime.Now;
+            var addQueueRes = await IJSRuntime.InvokeAsync<bool>("addItem", queue, "Queues");
+            bool addProcessedFilesRes = false;
+            foreach (var file in processedFiles)
+            {
+                addProcessedFilesRes = await IJSRuntime.InvokeAsync<bool>("addItem", file, "ProcessedFiles");
+            }
+            if (addProcessedFilesRes && addQueueRes)
+            {
+                Console.WriteLine("Queue started!");
+            }
+        }
+        else if (string.IsNullOrEmpty(queue.Name))
+        {
+            errorMessage = $"{Localizer["QueueStartPageEmptyQueueNameErrorMesssage"]}.";
+            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
         }
         else if (processedFiles.Count == 0)
         {

@@ -63,7 +63,8 @@
             var res = await IJSRuntime.InvokeAsync<bool>("executeJS", taskContent);
             if (res)
             {
-                //errorMessage = "";
+                errorMessage = Localizer["TestJsErrorMessage"];
+                await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
             }
         }
         else

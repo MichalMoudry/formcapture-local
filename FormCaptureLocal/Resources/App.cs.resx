@@ -273,6 +273,9 @@
   <data name="NavMenuWorkflowLinkTitle" xml:space="preserve">
     <value>Přejít na stránku s postupy</value>
   </data>
+  <data name="NextTask" xml:space="preserve">
+    <value>Další úloha</value>
+  </data>
   <data name="Optional" xml:space="preserve">
     <value>Dobrovolné</value>
   </data>
@@ -309,11 +312,23 @@
   <data name="ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage" xml:space="preserve">
     <value>Stávající heslo je nesprávné</value>
   </data>
+  <data name="QueueNameInputLabel" xml:space="preserve">
+    <value>Název zpracování dokumentů</value>
+  </data>
+  <data name="QueueNameInputPlaceholder" xml:space="preserve">
+    <value>Napište název zpracování (např. objednávky 1)...</value>
+  </data>
   <data name="Queues" xml:space="preserve">
     <value>Zpracování dokumentů</value>
   </data>
+  <data name="QueuesListPageNoQueuesText" xml:space="preserve">
+    <value>Zatím nebyly zpracované žádné dokumenty.</value>
+  </data>
   <data name="QueuesListStartQueueButtonText" xml:space="preserve">
     <value>Spustit zpracování dokumentů</value>
+  </data>
+  <data name="QueueStartPageEmptyQueueNameErrorMesssage" xml:space="preserve">
+    <value>Název zpracování dokumentů je prázdný</value>
   </data>
   <data name="QueueStartPageNoFileErrorMessage" xml:space="preserve">
     <value>Musíte nahrát alespoň jeden soubor</value>
@@ -365,6 +380,9 @@
   </data>
   <data name="SaveTemplateStepText" xml:space="preserve">
     <value>Uložte předlohu dokumentu</value>
+  </data>
+  <data name="ScanNoun" xml:space="preserve">
+    <value>Skenování</value>
   </data>
   <data name="ScanTasksCardHeader" xml:space="preserve">
     <value>Skenovací úlohy</value>
@@ -563,6 +581,9 @@
   </data>
   <data name="TestIdFieldButtonText" xml:space="preserve">
     <value>Otestovat pole pro identifikaci</value>
+  </data>
+  <data name="TestJsErrorMessage" xml:space="preserve">
+    <value>Spuštění obsahu úlohy selhalo</value>
   </data>
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Nahrajte obrázek předlohy dokumentu</value>
