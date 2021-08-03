@@ -1,6 +1,8 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/templates/edit/{TemplateID}"
 
@@ -18,7 +20,7 @@ else
 <div>
     @if (template != null)
     {
-    <label for="template-name">@Localizer["TemplateNameInputLabel"]:</label>
+        <label for="template-name">@Localizer["TemplateNameInputLabel"]:</label>
         <input name="template-name" @bind-value="template.Name" placeholder="@Localizer["TemplateNameInputPlaceholder"]..." id="template-name" type="text" class="form-control" />
     }
     else
@@ -262,18 +264,18 @@ else
 
     private async Task DeleteTemplate()
     {
-        var res = await IJSRuntime.InvokeAsync<bool>("confirmDialog", $"{Localizer["ConfirmationDialogDeleteTemplateFirstPart"]} '{template.Name}' {Localizer["ConfirmationDialogDeleteTemplateSecondPart"]}?");
+        var res = await AlertService.DisplayConfirmDialog($"{Localizer["ConfirmationDialogDeleteTemplateFirstPart"]} '{template.Name}' {Localizer["ConfirmationDialogDeleteTemplateSecondPart"]}?");
         if (res && template != null)
         {
             foreach (var field in fields)
             {
-                res = await IJSRuntime.InvokeAsync<bool>("deleteItem", field.ID, "Fields");
+                res = await DataAccess.DeleteItem(field.ID, ObjectStores.Fields.ToString());
                 if (!res)
                 {
                     throw new Exception($"Error occured during field deletion. Field ID: {field.ID}.");
                 }
             }
-            res = await IJSRuntime.InvokeAsync<bool>("deleteItem", template.ID, "Templates");
+            res = await DataAccess.DeleteItem(template.ID, ObjectStores.Templates.ToString());
             if (res)
             {
                 NavigationManager.NavigateTo("/formcapture/templates");
@@ -299,7 +301,7 @@ else
         }
         else
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+            await AlertService.DisplayToast("id-error-toast");
         }
     }
 
@@ -307,7 +309,7 @@ else
     {
         try
         {
-            template = await IJSRuntime.InvokeAsync<Template>("getItem", TemplateID, "Templates");
+            template = await DataAccess.GetItem<Template>(TemplateID, ObjectStores.Templates.ToString());
         }
         catch (Exception)
         {
@@ -316,7 +318,7 @@ else
         }
         if (template != null)
         {
-            fields = await IJSRuntime.InvokeAsync<List<Field>>("getAllItems", "Fields");
+            fields = await DataAccess.GetItemsAsList<Field>(ObjectStores.Fields.ToString());
             if (fields != null)
             {
                 fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();

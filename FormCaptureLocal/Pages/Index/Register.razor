@@ -1,6 +1,7 @@
 ﻿@layout IndexLayout
 @inject IJSRuntime IJSRuntime
 @inject NavigationManager NavigationManager
+@inject DataAccess DataAccess
 @inject IStringLocalizer<App> Localizer
 @page "/register"
 
@@ -62,7 +63,7 @@
         {
             model.User.PasswordSalt = Guid.NewGuid().ToString();
             model.User.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", model.Password, model.User.PasswordSalt);
-            var res = await IJSRuntime.InvokeAsync<bool>("addItem", model.User, "Users");
+            var res = await DataAccess.AddItem(model.User, ObjectStores.Users.ToString());
             if (res)
             {
                 NavigationManager.NavigateTo("/login");

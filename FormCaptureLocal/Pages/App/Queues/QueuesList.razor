@@ -1,6 +1,6 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
+@inject DataAccess DataAccess
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/queues"
 
@@ -117,7 +117,7 @@
     protected override async Task OnInitializedAsync()
     {
         queueTaskValues = Enum.GetValues(typeof(QueueTask));
-        queues = await IJSRuntime.InvokeAsync<List<Queue>>("getAllItems", "Queues");
+        queues = await DataAccess.GetItemsAsList<Queue>(ObjectStores.Queues.ToString());
         if (queues != null)
         {
             queues = queues.Where(i => i.UserID.Equals(UserHelper.UserID) && !i.QueueTask.Equals(QueueTask.Finished) && !i.QueueTask.Equals(QueueTask.IdentificationError) && !i.QueueTask.Equals(QueueTask.ValidationError)).ToList();

@@ -1,6 +1,8 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/workflows/add"
 
@@ -64,7 +66,7 @@
         }
         else
         {
-    <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
+            <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
         }
     </div>
 
@@ -284,13 +286,13 @@
         {
             workflow.Added = DateTime.Now;
             workflow.Updated = workflow.Added;
-            var addWorkflowRes = await IJSRuntime.InvokeAsync<bool>("addItem", workflow, "Workflows");
+            var addWorkflowRes = await DataAccess.AddItem(workflow, ObjectStores.Workflows.ToString());
             var addGroupingsRes = false;
             foreach (var item in groupings)
             {
                 foreach (var grouping in item.Value)
                 {
-                    addGroupingsRes = await IJSRuntime.InvokeAsync<bool>("addItem", grouping, "WorkflowTaskGroupings");
+                    addGroupingsRes = await DataAccess.AddItem(grouping, ObjectStores.WorkflowTaskGroupings.ToString());
                 }
             }
             if (addWorkflowRes && addGroupingsRes)
@@ -300,7 +302,7 @@
         }
         else
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "workflow-error-toast");
+            await AlertService.DisplayToast("workflow-error-toast");
         }
     }
 
@@ -311,7 +313,7 @@
         groupings.Add("scan", new List<WorkflowTaskGrouping>());
         groupings.Add("verification", new List<WorkflowTaskGrouping>());
         groupings.Add("recognition", new List<WorkflowTaskGrouping>());
-        tasks = await IJSRuntime.InvokeAsync<List<WorkflowTask>>("getAllItems", "WorkflowTasks");
+        tasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
         if (tasks != null)
         {
             tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();

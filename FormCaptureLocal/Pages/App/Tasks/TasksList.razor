@@ -1,7 +1,8 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @page "/formcapture/tasks"
 
 <h3><span class="oi oi-code mr-1"></span> @Localizer["TasksListPageTitle"]</h3>
@@ -96,8 +97,15 @@ else
     /// </summary>
     private List<WorkflowTask> tasks;
 
+    /// <summary>
+    /// Field for setting or getting values of error messages.
+    /// </summary>
     private string errorMessage;
 
+    /// <summary>
+    /// Method for navigating to a specified URI.
+    /// </summary>
+    /// <param name="page">Page URI.</param>
     private void Navigate(string page)
     {
         NavigationManager.NavigateTo(page);
@@ -105,14 +113,14 @@ else
 
     private async Task DeleteTask(WorkflowTask task)
     {
-        var res = await IJSRuntime.InvokeAsync<bool>("confirmDialog", $"Do you want to delete '{task.Name}' task?");
+        var res = await AlertService.DisplayConfirmDialog($"Do you want to delete '{task.Name}' task?");
         if (res)
         {
-            res = await IJSRuntime.InvokeAsync<bool>("deleteItem", task.ID, "WorkflowTasks");
+            res = await DataAccess.DeleteItem(task.ID, ObjectStores.WorkflowTasks.ToString());
             if (res)
             {
                 tasks.Remove(task);
-                await IJSRuntime.InvokeVoidAsync("displayToast", "task-deleted-toast");
+                await AlertService.DisplayToast("task-deleted-toast");
             }
         }
     }
@@ -139,13 +147,13 @@ else
             else
             {
                 errorMessage = $"{Localizer["TemplatesListPageSortEmptyTemplatesError"]}.";
-                await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+                await AlertService.DisplayToast("error-toast");
             }
         }
         else
         {
             errorMessage = $"{Localizer["TemplatesListPageSortNullTemplatesError"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
     }
 
@@ -154,7 +162,7 @@ else
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        tasks = await IJSRuntime.InvokeAsync<List<WorkflowTask>>("getAllItems", "WorkflowTasks");
+        tasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
         if (tasks != null)
         {
             tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).OrderBy(i => i.Added).ToList();

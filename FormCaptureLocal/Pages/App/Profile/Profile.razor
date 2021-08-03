@@ -1,5 +1,7 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/profile"
@@ -43,18 +45,21 @@
 
     private string oldPassword;
 
+    /// <summary>
+    /// Field for setting or getting values of error messages.
+    /// </summary>
     private string errorMessage;
 
     private async Task Confirm()
     {
         if (!string.IsNullOrEmpty(newPassword) && !string.IsNullOrEmpty(oldPassword))
         {
-            var user = await IJSRuntime.InvokeAsync<User>("getItem", UserHelper.UserID, "Users");
+            var user = await DataAccess.GetItem<User>(UserHelper.UserID, ObjectStores.Users.ToString());
             string userHash = await IJSRuntime.InvokeAsync<string>("hashString", oldPassword, user.PasswordSalt);
             if (userHash.Equals(user.PasswordHash))
             {
                 user.PasswordHash = await IJSRuntime.InvokeAsync<string>("hashString", newPassword, user.PasswordSalt);
-                var res = await IJSRuntime.InvokeAsync<bool>("putItem", user, "Users");
+                var res = await DataAccess.UpdateItem(user, ObjectStores.Users.ToString());
                 if (res)
                 {
                     NavigationManager.NavigateTo("/logout");
@@ -62,19 +67,19 @@
                 else
                 {
                     errorMessage = $"{Localizer["DbError"]}.";
-                    await IJSRuntime.InvokeVoidAsync("displayToast", "password-error-toast");
+                    await AlertService.DisplayToast("password-error-toast");
                 }
             }
             else
             {
                 errorMessage = $"{Localizer["ProfilePageUpdatePasswordFormIncorrectPasswordErrorMessage"]}.";
-                await IJSRuntime.InvokeVoidAsync("displayToast", "password-error-toast");
+                await AlertService.DisplayToast("password-error-toast");
             }
         }
         else
         {
             errorMessage = $"{Localizer["ProfilePageEmptyUpdatePasswordFormErrorMessage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "password-error-toast");
+            await AlertService.DisplayToast("password-error-toast");
         }
     }
 }

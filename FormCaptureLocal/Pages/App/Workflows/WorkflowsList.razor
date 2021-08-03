@@ -1,6 +1,7 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/workflows"
 
@@ -121,19 +122,19 @@ else
             else
             {
                 errorMessage = $"{Localizer["TemplatesListPageSortEmptyTemplatesError"]}.";
-                await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+                await AlertService.DisplayToast("error-toast");
             }
         }
         else
         {
             errorMessage = $"{Localizer["TemplatesListPageSortNullTemplatesError"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        workflows = await IJSRuntime.InvokeAsync<List<Workflow>>("getAllItems", "Workflows");
+        workflows = await DataAccess.GetItemsAsList<Workflow>(ObjectStores.Workflows.ToString());
         if (workflows != null)
         {
             workflows = workflows.Where(i => i.UserID.Equals(UserHelper.UserID)).OrderBy(i => i.Added).ToList();

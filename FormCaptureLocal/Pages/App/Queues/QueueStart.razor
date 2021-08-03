@@ -1,6 +1,7 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
 @inject ILocalStorageService localStorage
 @page "/formcapture/queues/start"
@@ -119,7 +120,7 @@
         if (e.FileCount == 0)
         {
             errorMessage = $"{Localizer["QueueStartPageNoFileErrorMessage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
             return;
         }
         ProcessedFile tempFile;
@@ -165,13 +166,13 @@
             //If parse fails use english locale.
             else
             {
-                queue.Locale = Locale.eng;      
+                queue.Locale = Locale.eng;
             }
-            var addQueueRes = await IJSRuntime.InvokeAsync<bool>("addItem", queue, "Queues");
+            var addQueueRes = await DataAccess.AddItem(queue, ObjectStores.Queues.ToString());
             bool addProcessedFilesRes = false;
             foreach (var file in processedFiles)
             {
-                addProcessedFilesRes = await IJSRuntime.InvokeAsync<bool>("addItem", file, "ProcessedFiles");
+                addProcessedFilesRes = await DataAccess.AddItem(file, ObjectStores.ProcessedFiles.ToString());
             }
             if (addProcessedFilesRes && addQueueRes)
             {
@@ -181,12 +182,12 @@
         else if (string.IsNullOrEmpty(queue.Name))
         {
             errorMessage = $"{Localizer["QueueStartPageEmptyQueueNameErrorMesssage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
         else if (processedFiles.Count == 0)
         {
             errorMessage = $"{Localizer["QueueStartPageNoFileErrorMessage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
     }
 
@@ -194,7 +195,7 @@
     {
         defaultLocale = await localStorage.GetItemAsStringAsync(Setting.DefaultLocale.ToString());
         defaultLocale = defaultLocale.Replace("\"", "");
-        workflows = await IJSRuntime.InvokeAsync<List<Workflow>>("getAllItems", "Workflows");
+        workflows = await DataAccess.GetItemsAsList<Workflow>(ObjectStores.Workflows.ToString());
         if (workflows != null)
         {
             workflows = workflows.Where(i => i.UserID.Equals(UserHelper.UserID)).OrderBy(i => i.Added).ToList();

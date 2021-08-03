@@ -1,9 +1,10 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/workflows/edit/{workflowID}"
-
 <!--Page header-->
 @if (workflow != null)
 {
@@ -324,33 +325,33 @@ else
         if (!string.IsNullOrEmpty(workflow.Name))
         {
             workflow.Updated = DateTime.Now;
-            var editWorkflowRes = await IJSRuntime.InvokeAsync<bool>("putItem", workflow, "Workflows");
+            var editWorkflowRes = await DataAccess.UpdateItem(workflow, ObjectStores.Workflows.ToString());
             var addGroupingsRes = false;
             var deleteGroupingsRes = false;
             //Add all new groupings
             foreach (var grouping in groupingsToAdd)
             {
-                addGroupingsRes = await IJSRuntime.InvokeAsync<bool>("addItem", grouping, "WorkflowTaskGroupings");
+                addGroupingsRes = await DataAccess.AddItem(grouping, ObjectStores.WorkflowTaskGroupings.ToString());
             }
             //Delete groupings selected by the user
             foreach (var grouping in groupingsToDelete)
             {
-                deleteGroupingsRes = await IJSRuntime.InvokeAsync<bool>("deleteItem", grouping.ID, "WorkflowTaskGroupings");
+                deleteGroupingsRes = await DataAccess.DeleteItem(grouping.ID, ObjectStores.WorkflowTaskGroupings.ToString());
             }
-            if (editWorkflowRes && addGroupingsRes)
+            if (editWorkflowRes)
             {
                 NavigationManager.NavigateTo("/formcapture/workflows");
             }
             else
             {
                 errorMessage = Localizer["DbError"];
-                await IJSRuntime.InvokeVoidAsync("displayToast", "workflow-error-toast");
+                await AlertService.DisplayToast("workflow-error-toast");
             }
         }
         else
         {
             errorMessage = Localizer["WorkflowNameEmptyInputErrorMessage"];
-            await IJSRuntime.InvokeVoidAsync("displayToast", "workflow-error-toast");
+            await AlertService.DisplayToast("workflow-error-toast");
         }
     }
 
@@ -358,15 +359,15 @@ else
     {
         try
         {
-            workflow = await IJSRuntime.InvokeAsync<Workflow>("getItem", WorkflowID, "Workflows");
+            workflow = await DataAccess.GetItem<Workflow>(WorkflowID, ObjectStores.Workflows.ToString());
         }
         catch (Exception)
         {
             NavigationManager.NavigateTo("/NotFound");
             return;
         }
-        tasks = await IJSRuntime.InvokeAsync<List<WorkflowTask>>("getAllItems", "WorkflowTasks");
-        var groupingsList = await IJSRuntime.InvokeAsync<List<WorkflowTaskGrouping>>("getAllItems", "WorkflowTaskGroupings");
+        tasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
+        var groupingsList = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
         if (tasks != null && groupingsList != null && workflow != null)
         {
             groupingsList = groupingsList.Where(i => i.WorkflowID.Equals(WorkflowID)).ToList();

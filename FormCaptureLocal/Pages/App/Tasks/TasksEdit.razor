@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
+@inject DataAccess DataAccess
 @page "/formcapture/tasks/edit/{taskID}"
 
 
@@ -94,7 +95,7 @@ else
         {
             workflowTask.Content = taskContent;
             workflowTask.Updated = DateTime.Now;
-            var res = await IJSRuntime.InvokeAsync<bool>("putItem", workflowTask, "WorkflowTasks");
+            var res = await DataAccess.UpdateItem(workflowTask, ObjectStores.WorkflowTasks.ToString());
             if (res)
             {
                 NavigationManager.NavigateTo("/formcapture/tasks");
@@ -116,7 +117,7 @@ else
     {
         try
         {
-            workflowTask = await IJSRuntime.InvokeAsync<WorkflowTask>("getItem", TaskID, "WorkflowTasks");
+            workflowTask = await DataAccess.GetItem<WorkflowTask>(TaskID, ObjectStores.WorkflowTasks.ToString());
         }
         catch (Exception)
         {

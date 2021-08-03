@@ -1,7 +1,9 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
+@inject DataAccess DataAccess
+@inject AlertService AlertService
+@inject IJSRuntime IJSRuntime
 @page "/formcapture/templates/add"
 
 <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA84;</span> @Localizer["TemplatesAddPageTitle"]</h3>
@@ -212,7 +214,7 @@
             }
             else
             {
-                await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+                await AlertService.DisplayToast("id-error-toast");
                 return;
             }
         }
@@ -240,9 +242,9 @@
                 field.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
                 field.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
                 field.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
-                await IJSRuntime.InvokeVoidAsync("addItem", field, "Fields");
+                await DataAccess.AddItem(field, ObjectStores.Fields.ToString());
             }
-            var res = await IJSRuntime.InvokeAsync<bool>("addItem", template, "Templates");
+            var res = await DataAccess.AddItem(template, ObjectStores.Templates.ToString());
             if (res)
             {
                 NavigationManager.NavigateTo("/formcapture/templates");
@@ -250,23 +252,23 @@
         }
         else if (fields.Count <= 0)
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "fields-error-toast");
+            await AlertService.DisplayToast("fields-error-toast");
         }
         else if (string.IsNullOrEmpty(template.Name))
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "template-name-error-toast");
+            await AlertService.DisplayToast("template-name-error-toast");
         }
         else if (template.Image == null)
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "image-error-toast");
+            await AlertService.DisplayToast("image-error-toast");
         }
         else if (identifyingField == null)
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+            await AlertService.DisplayToast("id-error-toast");
         }
         else if (string.IsNullOrEmpty(expectedValue))
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "val-error-toast");
+            await AlertService.DisplayToast("val-error-toast");
         }
     }
 
@@ -322,7 +324,7 @@
         }
         else
         {
-            await IJSRuntime.InvokeVoidAsync("displayToast", "id-error-toast");
+            await AlertService.DisplayToast("id-error-toast");
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
+@inject DataAccess DataAccess
+@inject AlertService AlertService
 @page "/formcapture/templates"
 
 <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA83;</span> @Localizer["TemplatesListPageTitle"]</h3>
@@ -86,8 +87,15 @@
 {
     private List<Template> templates;
 
+    /// <summary>
+    /// Field for setting or getting values of error messages.
+    /// </summary>
     private string errorMessage;
 
+    /// <summary>
+    /// Method for navigating to a specified URI.
+    /// </summary>
+    /// <param name="page">Page URI.</param>
     private void Navigate(string page)
     {
         NavigationManager.NavigateTo(page);
@@ -95,7 +103,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        templates = await IJSRuntime.InvokeAsync<List<Template>>("getAllItems", "Templates");
+        templates = await DataAccess.GetItemsAsList<Template>(ObjectStores.Templates.ToString());
         if (templates != null)
         {
             templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).OrderBy(i => i.Added).ToList();
@@ -124,31 +132,31 @@
             else
             {
                 errorMessage = $"{Localizer["TemplatesListPageSortEmptyTemplatesError"]}.";
-                await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+                await AlertService.DisplayToast("error-toast");
             }
         }
         else
         {
             errorMessage = $"{Localizer["TemplatesListPageSortNullTemplatesError"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
     }
 
     private async Task DeleteTemplate(Template template)
     {
-        var res = await IJSRuntime.InvokeAsync<bool>("confirmDialog", $"{Localizer["ConfirmationDialogDeleteTemplateFirstPart"]} '{template.Name}' {Localizer["ConfirmationDialogDeleteTemplateSecondPart"]}?");
+        var res = await AlertService.DisplayConfirmDialog($"{Localizer["ConfirmationDialogDeleteTemplateFirstPart"]} '{template.Name}' {Localizer["ConfirmationDialogDeleteTemplateSecondPart"]}?");
         if (res && template != null)
         {
-            var fields = await IJSRuntime.InvokeAsync<List<Field>>("getAllItems", "Fields");
+            var fields = await DataAccess.GetItemsAsList<Field>(ObjectStores.Fields.ToString());
             foreach (var field in fields.Where(i => i.TemplateID.Equals(template.ID)))
             {
-                res = await IJSRuntime.InvokeAsync<bool>("deleteItem", field.ID, "Fields");
+                res = await DataAccess.DeleteItem(field.ID, ObjectStores.Fields.ToString());
                 if (!res)
                 {
                     throw new Exception($"Error occured during field deletion. Field ID: {field.ID}.");
                 }
             }
-            res = await IJSRuntime.InvokeAsync<bool>("deleteItem", template.ID, "Templates");
+            res = await DataAccess.DeleteItem(template.ID, ObjectStores.Templates.ToString());
             if (res)
             {
                 templates.Remove(template);

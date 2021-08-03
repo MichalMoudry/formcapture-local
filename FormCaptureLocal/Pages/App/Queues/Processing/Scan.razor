@@ -1,7 +1,7 @@
 ﻿@layout AppLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
+@inject DataAccess DataAccess
 @page "/formcapture/queues/{queueID}/scan"
 
 <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA01;</span>  @Localizer["ScanNoun"]</h3>
@@ -33,7 +33,7 @@
     {
         try
         {
-            queue = await IJSRuntime.InvokeAsync<Queue>("getItem", QueueID, "Queues");
+            queue = await DataAccess.GetItem<Queue>(QueueID, ObjectStores.Queues.ToString());
         }
         catch (Exception)
         {
