@@ -8,10 +8,18 @@ namespace FormCaptureLocal.Models.DbModels
     public class ProcessedFile : Model
     {
         /// <summary>
+        /// Content of the file, but converted to black and white for better recognition results.
+        /// </summary>
+        public byte[] BlackAndWhiteContent { get; set; }
+
+        /// <summary>
         /// Content of the file.
         /// </summary>
         public byte[] Content { get; set; }
 
+        /// <summary>
+        /// String value indicating type of the uploaded content.
+        /// </summary>
         public string ContentType { get; set; }
 
         /// <summary>

@@ -51,7 +51,7 @@
                         <td>@queue.Name</td>
                         <td>@queue.Added</td>
                         <td>@queue.Updated</td>
-                        <td class="hoverElement pointer">
+                        <td class="hoverElement pointer" @onclick="@(e => Navigate($"/formcapture/queues/{queue.ID}/{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}"))">
                             @Localizer[$"{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}Noun"] <span class="oi oi-chevron-right ml-1"></span>
                         </td>
                         <td class="hoverElement pointer"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
@@ -78,12 +78,27 @@
 @code
 {
     /// <summary>
-    /// List of user's queues.
+    /// List of user's in-progress queues.
     /// </summary>
     private List<Queue> queues;
 
     /// <summary>
-    /// Array with values of <see cref="QueueTask"/> enum.
+    /// List of user's finished queues.
+    /// </summary>
+    private List<Queue> finishedQueues;
+
+    /// <summary>
+    /// List of user's queues with identification errors.
+    /// </summary>
+    private List<Queue> idErrorQueues;
+
+    /// <summary>
+    /// List of user's queues with validation errors.
+    /// </summary>
+    private List<Queue> validationErrorQueues;
+
+    /// <summary>
+    /// Array with values of <see cref="QueueTask" /> enum.
     /// </summary>
     private Array queueTaskValues;
 
@@ -105,7 +120,7 @@
         queues = await IJSRuntime.InvokeAsync<List<Queue>>("getAllItems", "Queues");
         if (queues != null)
         {
-            queues = queues.Where(i => i.UserID.Equals(UserHelper.UserID) && !i.QueueTask.Equals(QueueTask.Finished)).ToList();
+            queues = queues.Where(i => i.UserID.Equals(UserHelper.UserID) && !i.QueueTask.Equals(QueueTask.Finished) && !i.QueueTask.Equals(QueueTask.IdentificationError) && !i.QueueTask.Equals(QueueTask.ValidationError)).ToList();
         }
     }
 }

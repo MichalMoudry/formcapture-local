@@ -9,9 +9,19 @@ namespace FormCaptureLocal.Models.DbModels
     public class Queue : Model
     {
         /// <summary>
+        /// Locale used for processing documents in a queue.
+        /// </summary>
+        public Locale Locale { get; set; }
+
+        /// <summary>
         /// Name of the queue for easier identification by the user.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Last task executed on a specific queue.
+        /// </summary>
+        public QueueTask QueueTask { get; set; }
 
         /// <summary>
         /// ID of the user that created a specific instance.
@@ -24,8 +34,8 @@ namespace FormCaptureLocal.Models.DbModels
         public string WorkflowID { get; set; }
 
         /// <summary>
-        /// Last task executed on a specific queue.
+        /// Value indicating if queue is supposed to be processed automaticly or with user intervention.
         /// </summary>
-        public QueueTask QueueTask { get; set; }
+        public bool IsAutomatic { get; set; }
     }
 }

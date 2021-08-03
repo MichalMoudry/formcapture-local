@@ -4,6 +4,7 @@
 @inject IStringLocalizer<App> Localizer
 @page "/formcapture/workflows/edit/{workflowID}"
 
+<!--Page header-->
 @if (workflow != null)
 {
     <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA39;</span> @Localizer["WorkflowsEditPageTitle"] '@workflow.Name'</h3>
@@ -13,6 +14,7 @@ else
     <h3>@Localizer["Loading"]...</h3>
 }
 
+<!--Workflow name input-->
 <div class="form-group">
     <label for="workflow-name">@Localizer["WorkflowNameInputLabel"]:</label>
     @if (workflow != null)

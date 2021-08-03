@@ -1,5 +1,48 @@
-﻿<h3>Scan</h3>
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IJSRuntime IJSRuntime
+@inject IStringLocalizer<App> Localizer
+@page "/formcapture/queues/{queueID}/scan"
 
-@code {
+<h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA01;</span>  @Localizer["ScanNoun"]</h3>
 
+<hr />
+
+@code
+{
+    /// <summary>
+    /// ID of a queue that is going to be processed.
+    /// </summary>
+    [Parameter]
+    public string QueueID { get; set; }
+
+    /// <summary>
+    /// Queue that is being processed.
+    /// </summary>
+    private Queue queue;
+
+    /// <summary>
+    /// List of processed files (see: <see cref="ProcessedFile"/> class).
+    /// </summary>
+    private List<ProcessedFile> processedFiles;
+
+    /// <summary>
+    /// Override of OnInitializedAsync() component method.
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            queue = await IJSRuntime.InvokeAsync<Queue>("getItem", QueueID, "Queues");
+        }
+        catch (Exception)
+        {
+            NavigationManager.NavigateTo("/NotFound");
+            return;
+        }
+        if (queue != null)
+        {
+            Console.WriteLine(queue.Name);
+        }
+    }
 }

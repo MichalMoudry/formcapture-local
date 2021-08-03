@@ -79,6 +79,9 @@
 @code
 {
     //A workflow must be selected.
+    /// <summary>
+    /// Field for setting or getting values of error messages.
+    /// </summary>
     private string errorMessage;
 
     /// <summary>
@@ -153,6 +156,17 @@
             queue.UserID = UserHelper.UserID;
             queue.Added = DateTime.Now;
             queue.Updated = DateTime.Now;
+            //Try parse locale from select.
+            var localeParseResult = Enum.TryParse(defaultLocale, out Locale locale);
+            if (localeParseResult)
+            {
+                queue.Locale = locale;
+            }
+            //If parse fails use english locale.
+            else
+            {
+                queue.Locale = Locale.eng;      
+            }
             var addQueueRes = await IJSRuntime.InvokeAsync<bool>("addItem", queue, "Queues");
             bool addProcessedFilesRes = false;
             foreach (var file in processedFiles)
@@ -161,7 +175,7 @@
             }
             if (addProcessedFilesRes && addQueueRes)
             {
-                Console.WriteLine("Queue started!");
+                NavigationManager.NavigateTo($"/formcapture/queues/{queue.ID}/scan");
             }
         }
         else if (string.IsNullOrEmpty(queue.Name))
