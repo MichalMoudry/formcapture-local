@@ -6,6 +6,9 @@
     else if (theme === '"Dark"') {
         $('head').append('<link rel="stylesheet" href="css/app-dark.css">');
     }
+    else {
+        $('head').append('<link rel="stylesheet" href="css/app-light.css">');
+    }
 });
 
 const { createWorker } = Tesseract;
