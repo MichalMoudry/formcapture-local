@@ -185,12 +185,6 @@ a, .btn-link {
     min-height: 10rem;
 }
 
-.settingPanel {
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
-}
-
 /*Glyph styles*/
 .fluentUiGlyph {
     font-family: "Fluent UI Glyphs";
