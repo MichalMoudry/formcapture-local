@@ -2,7 +2,10 @@
 
 namespace FormCaptureLocal.Models.DbModels
 {
-    public class Workflow : Model
+    /// <summary>
+    /// Represents a workflow that can be executed during each step of document processing.
+    /// </summary>
+    public class Workflow : Entity
     {
         /// <summary>
         /// Name of the workflow.

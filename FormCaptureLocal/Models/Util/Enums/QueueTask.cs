@@ -8,7 +8,7 @@
         Recognition,
         Verification,
         Export,
-        ValidationError,
+        VerificationError,
         IdentificationError,
         Finished
     }

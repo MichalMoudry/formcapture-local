@@ -2,12 +2,24 @@
 
 namespace FormCaptureLocal.Models.DbModels
 {
-    public class Template : Model
+    /// <summary>
+    /// Represents a template of a file that will be processed.
+    /// </summary>
+    public class Template : Entity
     {
+        /// <summary>
+        /// Type of the uploaded content.
+        /// </summary>
         public string ContentType { get; set; }
 
+        /// <summary>
+        /// Image data as byte array.
+        /// </summary>
         public byte[] Image { get; set; }
 
+        /// <summary>
+        /// Name of the template.
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
@@ -15,8 +27,14 @@ namespace FormCaptureLocal.Models.DbModels
         /// </summary>
         public string UserID { get; set; }
 
+        /// <summary>
+        /// X dimension of the uploaded file.
+        /// </summary>
         public int Xdimension { get; set; }
 
+        /// <summary>
+        /// Y dimension of the uploaded file.
+        /// </summary>
         public int Ydimension { get; set; }
     }
 }

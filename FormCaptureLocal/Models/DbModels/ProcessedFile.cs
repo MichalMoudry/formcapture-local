@@ -5,7 +5,7 @@ namespace FormCaptureLocal.Models.DbModels
     /// <summary>
     /// Class that represents a single file that is processed by the system.
     /// </summary>
-    public class ProcessedFile : Model
+    public class ProcessedFile : Entity
     {
         /// <summary>
         /// Content of the file, but converted to black and white for better recognition results.
@@ -41,5 +41,15 @@ namespace FormCaptureLocal.Models.DbModels
         /// File type of the processed file.
         /// </summary>
         public string Type { get; set; }
+
+        /// <summary>
+        /// X dimension of the uploaded file.
+        /// </summary>
+        public int Xdimension { get; set; }
+
+        /// <summary>
+        /// Y dimension of the uploaded file.
+        /// </summary>
+        public int Ydimension { get; set; }
     }
 }

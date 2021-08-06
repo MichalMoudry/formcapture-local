@@ -5,7 +5,7 @@ namespace FormCaptureLocal.Models.DbModels
     /// <summary>
     /// Class that represents a singular task within the system.
     /// </summary>
-    public class WorkflowTask : Model
+    public class WorkflowTask : Entity
     {
         /// <summary>
         /// Content of the task as base64.
@@ -22,6 +22,9 @@ namespace FormCaptureLocal.Models.DbModels
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// ID of the user that created a specific instance.
+        /// </summary>
         public string UserID { get; set; }
     }
 }

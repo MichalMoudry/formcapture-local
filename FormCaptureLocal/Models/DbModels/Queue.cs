@@ -6,7 +6,7 @@ namespace FormCaptureLocal.Models.DbModels
     /// <summary>
     /// Queue class represents queue of processed batches.
     /// </summary>
-    public class Queue : Model
+    public class Queue : Entity
     {
         /// <summary>
         /// Locale used for processing documents in a queue.

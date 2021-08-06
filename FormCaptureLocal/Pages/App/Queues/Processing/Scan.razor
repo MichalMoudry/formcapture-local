@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IStringLocalizer<App> Localizer
 @inject DataAccess DataAccess
+@inject IJSRuntime IJSRuntime
 @page "/formcapture/queues/{queueID}/scan"
 
 <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA01;</span>  @Localizer["ScanNoun"]</h3>
@@ -27,6 +28,11 @@
     private List<ProcessedFile> processedFiles;
 
     /// <summary>
+    /// List of workflow tasks made by the user for scan portion of document processing.
+    /// </summary>
+    private List<WorkflowTask> customTasks;
+
+    /// <summary>
     /// Override of OnInitializedAsync() component method.
     /// </summary>
     protected override async Task OnInitializedAsync()
@@ -42,7 +48,28 @@
         }
         if (queue != null)
         {
-            Console.WriteLine(queue.Name);
+            //Get processed files
+            processedFiles = await DataAccess.GetItemsAsList<ProcessedFile>(ObjectStores.ProcessedFiles.ToString());
+            if (processedFiles != null)
+            {
+                processedFiles = processedFiles.Where(i => i.QueueID.Equals(QueueID)).ToList();
+                foreach (var file in processedFiles)
+                {
+                    //Console.WriteLine($"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
+                    Console.WriteLine(await IJSRuntime.InvokeAsync<object>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}"));
+                }
+                //Get workflow-task groupings
+                var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
+                //Filter workflow-task groupings that are not part of selected workflow and are not for scan
+                workflowTaskGroupings = workflowTaskGroupings
+                    .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals("scan"))
+                    .OrderBy(i => i.ExecutionOrderNumber)
+                    .ToList();
+                foreach (var grouping in workflowTaskGroupings)
+                {
+                    Console.WriteLine(grouping.TaskID);
+                }
+            }
         }
     }
 }

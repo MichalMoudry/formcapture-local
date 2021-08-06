@@ -130,6 +130,9 @@ a, .btn-link {
     position: relative;
     height: 50vh;
     */
+    overflow: auto;
+    position: relative;
+    height: 50vh;
 }
 
 #template-preview-image {

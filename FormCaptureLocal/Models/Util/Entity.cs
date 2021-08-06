@@ -3,9 +3,9 @@
 namespace FormCaptureLocal.Models.Util
 {
     /// <summary>
-    /// An abstract class that is a parent class of model classes.
+    /// An abstract class that is a parent class of entity classes.
     /// </summary>
-    public abstract class Model
+    public abstract class Entity
     {
         /// <summary>
         /// Date of row creation.

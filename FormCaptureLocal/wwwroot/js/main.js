@@ -253,3 +253,15 @@ function switchTheme(newTheme) {
         main.classList.add(newTheme);
     }
 }
+
+function convertImageToGreyScale(imageData) {
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    var image = new Image();
+    image.src = imageData;
+    canvas.width = image.width;
+    canvas.height = image.height;
+    context.filter = "grayscale(100%)";
+    context.drawImage(image, 0, 0);
+    return canvas.toDataURL();
+}
