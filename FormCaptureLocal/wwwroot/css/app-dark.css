@@ -1,15 +1,19 @@
-﻿body, select, .main .top-row, .form-card {
+﻿body, select, .main .top-row, .form-card, .card-body, .modal-body, .modal-content {
     background: #22272e !important;
     color: white !important;
 }
 
-.form-card {
+.form-card, .card-header, .card-footer, .modal-header, .modal-footer {
     background: #2d333b !important;
     color: white !important;
 }
 
 hr {
     background: white;
+}
+
+.modal-header .close span {
+    color: white;
 }
 
 .form-card {

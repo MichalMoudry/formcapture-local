@@ -30,50 +30,70 @@
     </div>
 </div>
 
-<h4 class="mt-4">Unfinished queues</h4>
-<div class="table-responsive mt-3">
-    <table class="table">
-        <thead>
-            <tr>
-                <td><b>@Localizer["Name"]</b></td>
-                <td><b>@Localizer["Added"]</b></td>
-                <td><b>@Localizer["LastUpdated"]</b></td>
-                <td><b>@Localizer["NextTask"]</b></td>
-                <td><b>@Localizer["Delete"]</b></td>
-            </tr>
-        </thead>
-        <tbody>
-            @if (queues != null)
-            {
-                @foreach (var queue in queues)
-                {
+<hr />
+
+<!--Tabs list-->
+<ul class="nav nav-tabs mt-4" id="queueTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="unfinishedQueues-tab" data-bs-toggle="tab" data-bs-target="#unfinishedQueues" type="button" role="tab" aria-controls="unfinishedQueues" aria-selected="true">Unfinished queues</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="finishedQueues-tab" data-bs-toggle="tab" data-bs-target="#finishedQueues" type="button" role="tab" aria-controls="finishedQueues" aria-selected="false">Profile</button>
+    </li>
+</ul>
+
+<div class="tab-content" id="queueTabContent">
+    <!--Unfinished queues tab-->
+    <div class="tab-pane fade show active pt-3" id="unfinishedQueues" role="tabpanel" aria-labelledby="unfinishedQueues-tab">
+        <h4>Unfinished queues</h4>
+        <div class="table-responsive mt-3">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@queue.Name</td>
-                        <td>@queue.Added</td>
-                        <td>@queue.Updated</td>
-                        <td class="hoverElement pointer" @onclick="@(e => Navigate($"/formcapture/queues/{queue.ID}/{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}"))">
-                            @Localizer[$"{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}Noun"] <span class="oi oi-chevron-right ml-1"></span>
-                        </td>
-                        <td class="hoverElement pointer"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
+                        <td><b>@Localizer["Name"]</b></td>
+                        <td><b>@Localizer["Added"]</b></td>
+                        <td><b>@Localizer["LastUpdated"]</b></td>
+                        <td><b>@Localizer["NextTask"]</b></td>
+                        <td><b>@Localizer["Delete"]</b></td>
                     </tr>
+                </thead>
+                <tbody>
+                    @if (queues != null)
+                    {
+                        @foreach (var queue in queues)
+                        {
+                            <tr>
+                                <td>@queue.Name</td>
+                                <td>@queue.Added</td>
+                                <td>@queue.Updated</td>
+                                <td class="hoverElement pointer" @onclick="@(e => Navigate($"/formcapture/queues/{queue.ID}/{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}"))">
+                                    @Localizer[$"{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}Noun"] <span class="oi oi-chevron-right ml-1"></span>
+                                </td>
+                                <td class="hoverElement pointer"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            @if (queues == null)
+            {
+                <p class="tableText">@Localizer["Loading"]...</p>
+            }
+            else
+            {
+                @if (queues.Count <= 0)
+                {
+                    <p class="tableText">@Localizer["QueuesListPageNoQueuesText"]</p>
                 }
             }
-        </tbody>
-    </table>
-    @if (queues == null)
-    {
-        <p class="tableText">@Localizer["Loading"]...</p>
-    }
-    else
-    {
-        @if (queues.Count <= 0)
-        {
-            <p class="tableText">@Localizer["QueuesListPageNoQueuesText"]</p>
-        }
-    }
-</div>
+        </div>
+    </div>
 
-<h4>Finished queues</h4>
+    <!--Finished queues tab-->
+    <div class="tab-pane fade pt-3" id="finishedQueues" role="tabpanel" aria-labelledby="finishedQueues-tab">
+        <h4>Finished queues</h4>
+    </div>
+</div>
 
 @code
 {

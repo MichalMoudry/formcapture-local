@@ -254,6 +254,16 @@ function switchTheme(newTheme) {
     }
 }
 
+function fillProcessedFileProperties(files) {
+    var image;
+    files.forEach((element) => {
+        image = document.getElementById(element["name"]);
+        element["xdimension"] = image.naturalWidth;
+        element["ydimension"] = image.naturalHeight;
+    });
+    return files;
+}
+
 function convertImageToGreyScale(imageData) {
     var canvas = document.createElement("canvas");
     var context = canvas.getContext("2d");

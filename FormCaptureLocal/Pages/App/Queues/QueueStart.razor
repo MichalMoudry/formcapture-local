@@ -4,6 +4,7 @@
 @inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
 @inject ILocalStorageService localStorage
+@inject IJSRuntime IJSRuntime
 @page "/formcapture/queues/start"
 
 <h3><span class="oi oi-play-circle mr-1"></span> @Localizer["QueueStartPageTitle"]</h3>
@@ -35,7 +36,7 @@
             @foreach (var file in processedFiles)
             {
                 <div class="quickPreviewItem mr-3">
-                    <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" class="quickPreviewImage" draggable="false" />
+                    <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" id="@file.Name" class="quickPreviewImage" draggable="false" />
                     <button type="button" class="btn btn-outline-danger removeImageButton" aria-label="Close" title="@Localizer["RemoveImage"]" @onclick="@(e => RemoveFile(file))">
                         <span class="oi oi-trash"></span> @Localizer["Remove"]
                     </button>
@@ -43,6 +44,7 @@
             }
         </div>
     }
+    <p class="mt-2 mb- @FileLoadingIndicatorCssClass">@Localizer["Loading"]...</p>
 </div>
 
 <!--Worflow selection-->
@@ -118,6 +120,16 @@
     private List<Workflow> workflows;
 
     /// <summary>
+    /// Field for displaying/hiding file loading indicator.
+    /// </summary>
+    private bool isFileLoadingIndicatorDisplayed = false;
+
+    /// <summary>
+    /// Field containing CSS class for hiding/displaying file loading indicator.
+    /// </summary>
+    private string FileLoadingIndicatorCssClass => isFileLoadingIndicatorDisplayed ? "d-block" : "d-none";
+
+    /// <summary>
     /// Event handler for @onchange event of InputFile component.
     /// </summary>
     /// <param name="e">InputFile @onchange event parameters.</param>
@@ -130,6 +142,7 @@
             await AlertService.DisplayToast("error-toast");
             return;
         }
+        isFileLoadingIndicatorDisplayed = true;
         ProcessedFile tempFile;
         byte[] buffer;
         foreach (var file in e.GetMultipleFiles())
@@ -139,6 +152,7 @@
             tempFile = new ProcessedFile() { ID = Guid.NewGuid().ToString(), QueueID = queue.ID, Content = buffer, ContentType = file.ContentType, Type = file.ContentType, Name = file.Name, Added = DateTime.Now, Updated = DateTime.Now };
             processedFiles.Add(tempFile);
         }
+        isFileLoadingIndicatorDisplayed = false;
     }
 
     /// <summary>
@@ -155,7 +169,6 @@
     /// </summary>
     private async Task Submit()
     {
-        Console.WriteLine(queue.IsAutomatic);
         if (!string.IsNullOrEmpty(workflowID))
         {
             queue.WorkflowID = workflowID;
@@ -178,7 +191,9 @@
             }
             var addQueueRes = await DataAccess.AddItem(queue, ObjectStores.Queues.ToString());
             bool addProcessedFilesRes = false;
-            foreach (var file in processedFiles)
+            //Obtain additional information of each processed file.
+            var newProcessedFiles = await IJSRuntime.InvokeAsync<List<ProcessedFile>>("fillProcessedFileProperties", processedFiles);
+            foreach (var file in newProcessedFiles)
             {
                 addProcessedFilesRes = await DataAccess.AddItem(file, ObjectStores.ProcessedFiles.ToString());
             }
