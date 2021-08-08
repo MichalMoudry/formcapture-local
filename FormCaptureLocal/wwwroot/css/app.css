@@ -102,8 +102,12 @@ a, .btn-link {
     margin-top: 1rem;
 }
 
-.nav-item a {
+.sidebar .nav-item a {
     color: white !important;
+}
+
+.nav-tabs .active {
+    font-weight: bold;
 }
 
 #field-list {
@@ -188,10 +192,19 @@ a, .btn-link {
     min-height: 10rem;
 }
 
+.jumbotron {
+    box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+}
+
 /*Glyph styles*/
 .fluentUiGlyph {
     font-family: "Fluent UI Glyphs";
     font-size: 1.5rem;
+}
+
+.jumbotron .fluentUiGlyph {
+    font-family: "Fluent UI Glyphs";
+    font-size: inherit;
 }
 
 .navMenuFluentUiGlyph {

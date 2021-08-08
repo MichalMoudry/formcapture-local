@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject DataAccess DataAccess
 @inject IStringLocalizer<App> Localizer
+@inject IJSRuntime IJSRuntime
 @page "/formcapture/queues"
 
 <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEB4E;</span> @Localizer["Queues"]</h3>
@@ -33,19 +34,20 @@
 <hr />
 
 <!--Tabs list-->
-<ul class="nav nav-tabs mt-4" id="queueTab" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="unfinishedQueues-tab" data-bs-toggle="tab" data-bs-target="#unfinishedQueues" type="button" role="tab" aria-controls="unfinishedQueues" aria-selected="true">Unfinished queues</button>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#tab-01">Unfinished queues</a>
     </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="finishedQueues-tab" data-bs-toggle="tab" data-bs-target="#finishedQueues" type="button" role="tab" aria-controls="finishedQueues" aria-selected="false">Profile</button>
+
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#tab-02">Finished queues</a>
     </li>
 </ul>
 
-<div class="tab-content" id="queueTabContent">
+
+<div class="tab-content" id="myTabContent">
     <!--Unfinished queues tab-->
-    <div class="tab-pane fade show active pt-3" id="unfinishedQueues" role="tabpanel" aria-labelledby="unfinishedQueues-tab">
-        <h4>Unfinished queues</h4>
+    <div class="tab-pane fade show active" id="tab-01">
         <div class="table-responsive mt-3">
             <table class="table">
                 <thead>
@@ -89,10 +91,11 @@
         </div>
     </div>
 
-    <!--Finished queues tab-->
-    <div class="tab-pane fade pt-3" id="finishedQueues" role="tabpanel" aria-labelledby="finishedQueues-tab">
+    <!--Finished queues-->
+    <div class="tab-pane fade" id="tab-02">
         <h4>Finished queues</h4>
     </div>
+
 </div>
 
 @code

@@ -5,9 +5,29 @@
 @inject IJSRuntime IJSRuntime
 @page "/formcapture/queues/{queueID}/scan"
 
-<h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA01;</span>  @Localizer["ScanNoun"]</h3>
+@if (queue != null)
+{
+    @if (queue.IsAutomatic)
+    {
 
-<hr />
+    }
+    else
+    {
+        <div class="jumbotron">
+            <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["ScanNoun"]</h4>
+            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <hr class="my-4">
+            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <a class="btn btn-outline-primary btn-lg" href="#" role="button">Launch scan task</a>
+        </div>
+
+        <img src="@test" />
+    }
+}
+else
+{
+    <h4>@Localizer["Loading"]...</h4>
+}
 
 @code
 {
@@ -31,6 +51,8 @@
     /// List of workflow tasks made by the user for scan portion of document processing.
     /// </summary>
     private List<WorkflowTask> customTasks;
+
+    string test;
 
     /// <summary>
     /// Override of OnInitializedAsync() component method.
@@ -56,7 +78,7 @@
                 foreach (var file in processedFiles)
                 {
                     //Console.WriteLine($"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
-                    Console.WriteLine(await IJSRuntime.InvokeAsync<object>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}"));
+                    test = await IJSRuntime.InvokeAsync<string>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}", file.Xdimension, file.Ydimension);
                 }
                 //Get workflow-task groupings
                 var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
@@ -65,9 +87,13 @@
                     .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals("scan"))
                     .OrderBy(i => i.ExecutionOrderNumber)
                     .ToList();
-                foreach (var grouping in workflowTaskGroupings)
+                if (queue.IsAutomatic)
                 {
-                    Console.WriteLine(grouping.TaskID);
+
+                }
+                else
+                {
+
                 }
             }
         }

@@ -264,13 +264,13 @@ function fillProcessedFileProperties(files) {
     return files;
 }
 
-function convertImageToGreyScale(imageData) {
+function convertImageToGreyScale(imageData, canvasWidth, canvasHeight) {
     var canvas = document.createElement("canvas");
-    var context = canvas.getContext("2d");
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
     var image = new Image();
     image.src = imageData;
-    canvas.width = image.width;
-    canvas.height = image.height;
+    var context = canvas.getContext("2d");
     context.filter = "grayscale(100%)";
     context.drawImage(image, 0, 0);
     return canvas.toDataURL();
