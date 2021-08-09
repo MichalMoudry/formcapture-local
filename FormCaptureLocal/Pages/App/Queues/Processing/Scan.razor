@@ -5,29 +5,28 @@
 @inject IJSRuntime IJSRuntime
 @page "/formcapture/queues/{queueID}/scan"
 
-@if (queue != null)
-{
-    @if (queue.IsAutomatic)
+<div class="jumbotron">
+    <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["ScanNoun"]</h4>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    @if (queue != null)
     {
+        @if (queue.IsAutomatic)
+        {
 
+        }
+        else
+        {
+
+        }
     }
     else
     {
-        <div class="jumbotron">
-            <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["ScanNoun"]</h4>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-outline-primary btn-lg" href="#" role="button">Launch scan task</a>
-        </div>
-
-        <img src="@test" />
+        <h4>@Localizer["Loading"]...</h4>
     }
-}
-else
-{
-    <h4>@Localizer["Loading"]...</h4>
-}
+    <a class="btn btn-outline-primary btn-lg" href="#" role="button">Launch scan task</a>
+</div>
 
 @code
 {
@@ -52,8 +51,6 @@ else
     /// </summary>
     private List<WorkflowTask> customTasks;
 
-    string test;
-
     /// <summary>
     /// Override of OnInitializedAsync() component method.
     /// </summary>
@@ -75,11 +72,16 @@ else
             if (processedFiles != null)
             {
                 processedFiles = processedFiles.Where(i => i.QueueID.Equals(QueueID)).ToList();
+                string unparsedBlackAndWhiteContent;
+                var newProcessedFiles = new List<ProcessedFile>();
                 foreach (var file in processedFiles)
                 {
                     //Console.WriteLine($"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
-                    test = await IJSRuntime.InvokeAsync<string>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}", file.Xdimension, file.Ydimension);
+                    unparsedBlackAndWhiteContent = await IJSRuntime.InvokeAsync<string>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
+                    newProcessedFiles.Add(file);
+                    //file.BlackAndWhiteContent = Convert.FromBase64String();
                 }
+                processedFiles = newProcessedFiles;
                 //Get workflow-task groupings
                 var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
                 //Filter workflow-task groupings that are not part of selected workflow and are not for scan

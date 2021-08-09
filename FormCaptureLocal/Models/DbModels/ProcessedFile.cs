@@ -41,15 +41,5 @@ namespace FormCaptureLocal.Models.DbModels
         /// File type of the processed file.
         /// </summary>
         public string Type { get; set; }
-
-        /// <summary>
-        /// X dimension of the uploaded file.
-        /// </summary>
-        public int Xdimension { get; set; }
-
-        /// <summary>
-        /// Y dimension of the uploaded file.
-        /// </summary>
-        public int Ydimension { get; set; }
     }
 }

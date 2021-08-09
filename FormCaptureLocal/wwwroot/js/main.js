@@ -254,24 +254,23 @@ function switchTheme(newTheme) {
     }
 }
 
-function fillProcessedFileProperties(files) {
-    var image;
-    files.forEach((element) => {
-        image = document.getElementById(element["name"]);
-        element["xdimension"] = image.naturalWidth;
-        element["ydimension"] = image.naturalHeight;
-    });
-    return files;
+async function convertImageToGreyScale(imageData) {
+    //var res = await convertImagePromise(imageData);
+    return await convertImagePromise(imageData);
 }
 
-function convertImageToGreyScale(imageData, canvasWidth, canvasHeight) {
-    var canvas = document.createElement("canvas");
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    var image = new Image();
-    image.src = imageData;
-    var context = canvas.getContext("2d");
-    context.filter = "grayscale(100%)";
-    context.drawImage(image, 0, 0);
-    return canvas.toDataURL();
+function convertImagePromise(imageData) {
+    return new Promise(function (resolve) {
+        const image = new Image();
+        image.onload = function () {
+            var canvas = document.createElement("canvas");
+            var context = canvas.getContext("2d");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            context.filter = "grayscale(100%)";
+            context.drawImage(image, 0, 0);
+            return resolve(canvas.toDataURL());
+        }
+        image.src = imageData;
+    });
 }

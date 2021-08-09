@@ -36,7 +36,7 @@
             @foreach (var file in processedFiles)
             {
                 <div class="quickPreviewItem mr-3">
-                    <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" id="@file.Name" class="quickPreviewImage" draggable="false" />
+                    <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" id="@file.ID" class="quickPreviewImage" draggable="false" />
                     <button type="button" class="btn btn-outline-danger removeImageButton" aria-label="Close" title="@Localizer["RemoveImage"]" @onclick="@(e => RemoveFile(file))">
                         <span class="oi oi-trash"></span> @Localizer["Remove"]
                     </button>
@@ -191,9 +191,7 @@
             }
             var addQueueRes = await DataAccess.AddItem(queue, ObjectStores.Queues.ToString());
             bool addProcessedFilesRes = false;
-            //Obtain additional information of each processed file.
-            var newProcessedFiles = await IJSRuntime.InvokeAsync<List<ProcessedFile>>("fillProcessedFileProperties", processedFiles);
-            foreach (var file in newProcessedFiles)
+            foreach (var file in processedFiles)
             {
                 addProcessedFilesRes = await DataAccess.AddItem(file, ObjectStores.ProcessedFiles.ToString());
             }
