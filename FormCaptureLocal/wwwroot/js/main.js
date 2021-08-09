@@ -255,8 +255,8 @@ function switchTheme(newTheme) {
 }
 
 async function convertImageToGreyScale(imageData) {
-    //var res = await convertImagePromise(imageData);
-    return await convertImagePromise(imageData);
+    var res = await convertImagePromise(imageData);
+    return res;
 }
 
 function convertImagePromise(imageData) {

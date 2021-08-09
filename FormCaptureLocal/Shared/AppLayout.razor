@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject ILocalStorageService localStorage
+@inject LoadingService LoadingService
 @layout MainLayout
 
 <div class="page">
@@ -20,6 +21,8 @@
 
 @code
 {
+    private string LocaleSettingMessageCssClass => LoadingService.IsFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender)
