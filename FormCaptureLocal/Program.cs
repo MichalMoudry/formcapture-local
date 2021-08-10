@@ -19,8 +19,7 @@ namespace FormCaptureLocal
                 .AddLocalization(options => options.ResourcesPath = "Resources")
                 .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
                 .AddSingleton<DataAccess>()
-                .AddSingleton<AlertService>()
-                .AddSingleton<LoadingService>();
+                .AddSingleton<AlertService>();
 
             await builder.Build().RunAsync();
         }

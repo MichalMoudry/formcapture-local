@@ -63,7 +63,7 @@ a, .btn-link {
     flex-direction: row;
 }
 
-#main-loading-div {
+.main-loading-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,6 +72,16 @@ a, .btn-link {
     min-height: 100vh;
     margin: 0 auto;
     width: 100px;
+}
+
+#fullPageLoadingScreen {
+    background: #000000c2;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    Z-INDEX: 1;
 }
 
 .index-main {

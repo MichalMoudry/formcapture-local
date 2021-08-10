@@ -18,14 +18,22 @@
         }
         else
         {
-
+            <a class="btn btn-outline-primary btn-lg" href="#" role="button">Launch scan task</a>
         }
     }
     else
     {
         <h4>@Localizer["Loading"]...</h4>
     }
-    <a class="btn btn-outline-primary btn-lg" href="#" role="button">Launch scan task</a>
+</div>
+
+<div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
+    <div class="d-flex justify-content-center main-loading-div">
+        Loading...
+        <div class="spinner-border mt-4" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
 </div>
 
 @code
@@ -52,10 +60,38 @@
     private List<WorkflowTask> customTasks;
 
     /// <summary>
+    /// Private field indicating if full page loading screen is displayed.
+    /// </summary>
+    private bool isFullPageLoadingScreenDisplayed;
+
+    /// <summary>
+    /// Private filed for seting and geting value of a CSS class for displaying/hiding fullpage loading screen.
+    /// </summary>
+    private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
+
+    /// <summary>
+    /// Method for processing files. Currently includes only conversion of content to black and white.
+    /// </summary>
+    private async Task ProcessFiles()
+    {
+        string unparsedBlackAndWhiteContent;
+        var newProcessedFiles = new List<ProcessedFile>();
+        foreach (var file in processedFiles)
+        {
+            //Console.WriteLine($"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
+            unparsedBlackAndWhiteContent = await IJSRuntime.InvokeAsync<string>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
+            newProcessedFiles.Add(file);
+            //file.BlackAndWhiteContent = Convert.FromBase64String();
+        }
+        processedFiles = newProcessedFiles;
+    }
+
+    /// <summary>
     /// Override of OnInitializedAsync() component method.
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
+        isFullPageLoadingScreenDisplayed = true;
         try
         {
             queue = await DataAccess.GetItem<Queue>(QueueID, ObjectStores.Queues.ToString());
@@ -72,32 +108,24 @@
             if (processedFiles != null)
             {
                 processedFiles = processedFiles.Where(i => i.QueueID.Equals(QueueID)).ToList();
-                string unparsedBlackAndWhiteContent;
-                var newProcessedFiles = new List<ProcessedFile>();
-                foreach (var file in processedFiles)
+                //If workflow id is set retrieve groupings
+                if (!string.IsNullOrEmpty(queue.WorkflowID))
                 {
-                    //Console.WriteLine($"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
-                    unparsedBlackAndWhiteContent = await IJSRuntime.InvokeAsync<string>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
-                    newProcessedFiles.Add(file);
-                    //file.BlackAndWhiteContent = Convert.FromBase64String();
+                    //Get workflow-task groupings
+                    var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
+                    //Filter workflow-task groupings that are not part of selected workflow and are not for scan
+                    workflowTaskGroupings = workflowTaskGroupings
+                        .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals("scan"))
+                        .OrderBy(i => i.ExecutionOrderNumber)
+                        .ToList();
+                    customTasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.Workflows.ToString());
                 }
-                processedFiles = newProcessedFiles;
-                //Get workflow-task groupings
-                var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
-                //Filter workflow-task groupings that are not part of selected workflow and are not for scan
-                workflowTaskGroupings = workflowTaskGroupings
-                    .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals("scan"))
-                    .OrderBy(i => i.ExecutionOrderNumber)
-                    .ToList();
                 if (queue.IsAutomatic)
                 {
-
-                }
-                else
-                {
-
+                    await ProcessFiles();
                 }
             }
         }
+        isFullPageLoadingScreenDisplayed = false;
     }
 }
