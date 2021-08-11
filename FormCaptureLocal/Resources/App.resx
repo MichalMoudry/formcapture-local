@@ -189,6 +189,9 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="IdentificationTasksCardHeader" xml:space="preserve">
+    <value>Identification tasks</value>
+  </data>
   <data name="IdFieldHeader" xml:space="preserve">
     <value>Field for identifiaction</value>
   </data>
@@ -614,6 +617,9 @@
   </data>
   <data name="WorkflowsExportTasksAddButtonTitle" xml:space="preserve">
     <value>Add a new task to export task group</value>
+  </data>
+  <data name="WorkflowsIdentificationTasksAddButtonTitle" xml:space="preserve">
+    <value>Add a new task to identification task group</value>
   </data>
   <data name="WorkflowsListPageAddButtonText" xml:space="preserve">
     <value>Add a new workflow</value>

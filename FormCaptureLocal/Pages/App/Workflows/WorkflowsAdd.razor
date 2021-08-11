@@ -22,13 +22,13 @@
     </div>
 
     <div class="card-body">
-        @if (groupings["scan"].Count != 0)
+        @if (groupings[$"{QueueTask.Scan}"].Count != 0)
         {
-            @foreach (WorkflowTaskGrouping grouping in groupings["scan"])
+            @foreach (var grouping in groupings[$"{QueueTask.Scan}"])
             {
                 <p class="card-text">
                     <span class="badge badge-success">
-                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings["scan"], grouping))"></span>
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings[$"{QueueTask.Scan}"], grouping))"></span>
                     </span>
                 </p>
             }
@@ -40,7 +40,38 @@
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("scan"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsScanTasksAddButtonTitle"]">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup($"{QueueTask.Scan}"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsScanTasksAddButtonTitle"]">
+            <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
+        </button>
+    </div>
+</div>
+
+<!--Identification tasks block-->
+<div class="card workflowCard mt-4">
+    <div class="card-header">
+        <h4><span class="fluentUiGlyph tableFluentGlyph workflowPagesH4Glyph h4FluentGlyph mr-2">&#xEA1E;</span> @Localizer["IdentificationTasksCardHeader"]</h4>
+    </div>
+
+    <div class="card-body">
+        @if (groupings[$"{QueueTask.Identification}"].Count > 0)
+        {
+            @foreach (var grouping in groupings[$"{QueueTask.Identification}"])
+            {
+                <p class="card-text">
+                    <span class="badge badge-success">
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings[$"{QueueTask.Identification}"], grouping))"></span>
+                    </span>
+                </p>
+            }
+        }
+        else
+        {
+            <p class="card-text">@Localizer["TaskGroupNoTasksMessage"].</p>
+        }
+    </div>
+
+    <div class="card-footer">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup($"{QueueTask.Identification}"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsIdentificationTasksAddButtonTitle"]">
             <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
@@ -53,13 +84,13 @@
     </div>
 
     <div class="card-body">
-        @if (groupings["recognition"].Count != 0)
+        @if (groupings[$"{QueueTask.Recognition}"].Count != 0)
         {
-            @foreach (WorkflowTaskGrouping grouping in groupings["recognition"])
+            @foreach (var grouping in groupings[$"{QueueTask.Recognition}"])
             {
                 <p class="card-text">
                     <span class="badge badge-success">
-                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings["recognition"], grouping))"></span>
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings[$"{QueueTask.Recognition}"], grouping))"></span>
                     </span>
                 </p>
             }
@@ -71,7 +102,7 @@
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("recognition"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsRecognitionTasksAddButtonTitle"]">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup($"{QueueTask.Recognition}"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsRecognitionTasksAddButtonTitle"]">
             <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
@@ -84,13 +115,13 @@
     </div>
 
     <div class="card-body">
-        @if (groupings["verification"].Count != 0)
+        @if (groupings[$"{QueueTask.Verification}"].Count != 0)
         {
-            @foreach (WorkflowTaskGrouping grouping in groupings["verification"])
+            @foreach (var grouping in groupings[$"{QueueTask.Verification}"])
             {
                 <p class="card-text">
                     <span class="badge badge-success">
-                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings["verification"], grouping))"></span>
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings[$"{QueueTask.Verification}"], grouping))"></span>
                     </span>
                 </p>
             }
@@ -102,7 +133,7 @@
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("verification"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsVerificationTasksAddButtonTitle"]">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup($"{QueueTask.Verification}"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsVerificationTasksAddButtonTitle"]">
             <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
@@ -115,13 +146,13 @@
     </div>
 
     <div class="card-body">
-        @if (groupings["export"].Count != 0)
+        @if (groupings[$"{QueueTask.Export}"].Count != 0)
         {
-            @foreach (WorkflowTaskGrouping grouping in groupings["export"])
+            @foreach (var grouping in groupings[$"{QueueTask.Export}"])
             {
                 <p class="card-text">
                     <span class="badge badge-success">
-                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings["export"], grouping))"></span>
+                        @tasks.SingleOrDefault(i => i.ID.Equals(grouping.TaskID)).Name <span class="oi oi-circle-x ml-2 pointer" @onclick="@(e => RemoveTaskFromGrouping(groupings[$"{QueueTask.Export}"], grouping))"></span>
                     </span>
                 </p>
             }
@@ -133,7 +164,7 @@
     </div>
 
     <div class="card-footer">
-        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup("export"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsExportTasksAddButtonTitle"]">
+        <button class="btn btn-outline-primary" @onclick="@(e => SetCurrentTaskGroup($"{QueueTask.Export}"))" data-toggle="modal" data-target="#add-tasks-dialog" title="@Localizer["WorkflowsExportTasksAddButtonTitle"]">
             <span class="oi oi-plus"></span> @Localizer["WorkflowsAddButtonText"]
         </button>
     </div>
@@ -286,7 +317,7 @@
 
     private async Task Submit()
     {
-        if (!string.IsNullOrEmpty(workflow.Name) && (groupings["scan"].Count > 0 || groupings["scan"].Count > 0))
+        if (!string.IsNullOrEmpty(workflow.Name) && (groupings[$"{QueueTask.Scan}"].Count > 0 || groupings["scan"].Count > 0))
         {
             workflow.Added = DateTime.Now;
             workflow.Updated = workflow.Added;
@@ -313,10 +344,11 @@
     protected override async Task OnInitializedAsync()
     {
         groupings = new Dictionary<string, List<WorkflowTaskGrouping>>();
-        groupings.Add("export", new List<WorkflowTaskGrouping>());
-        groupings.Add("scan", new List<WorkflowTaskGrouping>());
-        groupings.Add("verification", new List<WorkflowTaskGrouping>());
-        groupings.Add("recognition", new List<WorkflowTaskGrouping>());
+        groupings.Add(QueueTask.Export.ToString(), new List<WorkflowTaskGrouping>());
+        groupings.Add(QueueTask.Scan.ToString(), new List<WorkflowTaskGrouping>());
+        groupings.Add(QueueTask.Verification.ToString(), new List<WorkflowTaskGrouping>());
+        groupings.Add(QueueTask.Recognition.ToString(), new List<WorkflowTaskGrouping>());
+        groupings.Add(QueueTask.Identification.ToString(), new List<WorkflowTaskGrouping>());
         tasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
         if (tasks != null)
         {

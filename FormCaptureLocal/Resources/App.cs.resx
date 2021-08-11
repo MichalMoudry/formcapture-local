@@ -189,6 +189,9 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>Domovská stránka</value>
   </data>
+  <data name="IdentificationTasksCardHeader" xml:space="preserve">
+    <value>Identifikační úlohy</value>
+  </data>
   <data name="IdFieldHeader" xml:space="preserve">
     <value>Pole pro identifikaci</value>
   </data>
@@ -614,6 +617,9 @@
   </data>
   <data name="WorkflowsExportTasksAddButtonTitle" xml:space="preserve">
     <value>Přidat úlohu do skupiny exportovacích úloh</value>
+  </data>
+  <data name="WorkflowsIdentificationTasksAddButtonTitle" xml:space="preserve">
+    <value>Přidat úlohu do skupiny identifikačních úloh</value>
   </data>
   <data name="WorkflowsListPageAddButtonText" xml:space="preserve">
     <value>Přidat nový postup</value>
