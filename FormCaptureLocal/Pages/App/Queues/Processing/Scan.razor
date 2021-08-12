@@ -57,7 +57,7 @@
     /// <summary>
     /// List of workflow tasks made by the user for scan portion of document processing.
     /// </summary>
-    private List<WorkflowTask> customTasks;
+    private List<WorkflowTask> customTasks = new List<WorkflowTask>();
 
     /// <summary>
     /// Private field indicating if full page loading screen is displayed.
@@ -87,6 +87,22 @@
     }
 
     /// <summary>
+    /// Method for executing custom tasks written in JS.
+    /// </summary>
+    private async Task ExecuteCustomTasks()
+    {
+        //If there are custom tasks => execute them
+        if (customTasks.Count > 0)
+        {
+            //Execute each custom task
+            foreach (var task in customTasks)
+            {
+                _ = await IJSRuntime.InvokeAsync<bool>("executeJS", task.Content);
+            }
+        }
+    }
+
+    /// <summary>
     /// Override of OnInitializedAsync() component method.
     /// </summary>
     protected override async Task OnInitializedAsync()
@@ -108,21 +124,34 @@
             if (processedFiles != null)
             {
                 processedFiles = processedFiles.Where(i => i.QueueID.Equals(QueueID)).ToList();
-                //If workflow id is set retrieve groupings
+                //If workflow id is set retrieve groupings and potential tasks
                 if (!string.IsNullOrEmpty(queue.WorkflowID))
                 {
                     //Get workflow-task groupings
                     var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
                     //Filter workflow-task groupings that are not part of selected workflow and are not for scan
                     workflowTaskGroupings = workflowTaskGroupings
-                        .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals("scan"))
+                        .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals($"{QueueTask.Scan}"))
                         .OrderBy(i => i.ExecutionOrderNumber)
                         .ToList();
-                    customTasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.Workflows.ToString());
+                    //Workflow does not need to have any tasks => check needed
+                    if (workflowTaskGroupings.Count > 0)
+                    {
+                        //Get all tasks
+                        var allTasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
+                        foreach (var grouping in workflowTaskGroupings)
+                        {
+                            //Add task that corresponds with TaskID in the grouping
+                            customTasks.Add(allTasks.Single(i => i.ID.Equals(grouping.TaskID)));
+                        }
+                    }
                 }
                 if (queue.IsAutomatic)
                 {
+                    //Process files
                     await ProcessFiles();
+                    //Execute tasks
+                    await ExecuteCustomTasks();
                 }
             }
         }
