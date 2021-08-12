@@ -2,6 +2,7 @@
 using FormCaptureLocal;
 using FormCaptureLocal.Models.DbModels;
 using FormCaptureLocal.Pages.App.Templates;
+using FormCaptureLocal.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace FormCaptureLocalTests
         {
             using var context = new TestContext();
             //Add services to context
-            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
-            context.JSInterop.Setup<List<Template>>("getAllItems", "Templates");
-            context.JSInterop.SetupVoid("displayToast", "error-toast");
+            _ = context.Services.AddLocalization(options => options.ResourcesPath = "Resources")
+                            .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
+                            .AddSingleton<DataAccess>()
+                            .AddSingleton<AlertService>();
+            _ = context.JSInterop.Setup<List<Template>>("getAllItems", "Templates");
+            _ = context.JSInterop.SetupVoid("displayToast", "error-toast");
             var templatesListComponent = context.RenderComponent<TemplatesList>();
             var templatesCount = templatesListComponent.FindAll(".pointer").Count;
             //Get localizer

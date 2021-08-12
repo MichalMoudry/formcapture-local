@@ -3,6 +3,7 @@
 @inject IJSRuntime IJSRuntime
 @inject IStringLocalizer<App> Localizer
 @inject DataAccess DataAccess
+@inject AlertService AlertService
 @page "/formcapture/tasks/edit/{taskID}"
 
 
@@ -65,10 +66,16 @@ else
     [Parameter]
     public string TaskID { get; set; }
 
+    /// <summary>
+    /// Workflow task that will be edited.
+    /// </summary>
     private WorkflowTask workflowTask;
 
     private string errorMessage;
 
+    /// <summary>
+    /// Name of the edited task.
+    /// </summary>
     private string taskName;
 
     /// <summary>
@@ -85,7 +92,7 @@ else
         else
         {
             errorMessage = $"{Localizer["TasksAddPageEmptyTaskContentErrorMessage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
     }
 
@@ -104,12 +111,12 @@ else
         else if (string.IsNullOrEmpty(workflowTask.Name))
         {
             errorMessage = $"{Localizer["TasksAddPageEmptyTaskNameErrorMessage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
         else if (string.IsNullOrEmpty(taskContent))
         {
             errorMessage = $"{Localizer["TasksAddPageEmptyTaskContentErrorMessage"]}.";
-            await IJSRuntime.InvokeVoidAsync("displayToast", "error-toast");
+            await AlertService.DisplayToast("error-toast");
         }
     }
 
