@@ -7,18 +7,39 @@
 
 <div class="jumbotron">
     <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["ScanNoun"]</h4>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">@Localizer["ScanPageLead1Text"]:</p>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-primary">@Localizer["ScanPageFirstOperationDescription"]</li>
+        @if (customTasks != null)
+        {
+            @if (customTasks.Count > 0)
+            {
+                @foreach (var task in customTasks)
+	            {
+		             <li class="list-group-item list-group-item-primary">@task.Name</li>
+	            }
+            }
+        }
+    </ul>
+    <p class="lead mt-3">@Localizer["ScanPageLead2Text"].</p>
     @if (queue != null)
     {
-        @if (queue.IsAutomatic)
+        @if (!queue.IsAutomatic)
         {
-
-        }
-        else
-        {
-            <a class="btn btn-outline-primary btn-lg" href="#" role="button">Launch scan task</a>
+            <hr class="my-4">
+            <p><b>@Localizer["ProcessedFiles"]</b>:</p>
+            <ul class="list-group">
+                @if (processedFiles != null)
+                {
+                    @foreach (var file in processedFiles)
+                    {
+                        <li class="list-group-item list-group-item-info">@file.Name</li>
+                    }
+                }
+            </ul>
+            <a class="btn btn-outline-primary btn-lg mt-4" href="#" role="button" title="@Localizer["ScanPageLaunchTaskButtonText"]">
+                <span class="oi oi-play-circle mr-2"></span> @Localizer["ScanPageLaunchTaskButtonText"]
+            </a>
         }
     }
     else
@@ -29,9 +50,9 @@
 
 <div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
     <div class="d-flex justify-content-center main-loading-div">
-        Loading...
+        @Localizer["Loading"]...
         <div class="spinner-border mt-4" role="status">
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">@Localizer["Loading"]...</span>
         </div>
     </div>
 </div>

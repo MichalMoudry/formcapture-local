@@ -288,6 +288,9 @@
   <data name="PasswordInputPlaceholder" xml:space="preserve">
     <value>Enter your password...</value>
   </data>
+  <data name="ProcessedFiles" xml:space="preserve">
+    <value>Processed files</value>
+  </data>
   <data name="ProfilePageChangeCurrentPassword" xml:space="preserve">
     <value>Current password</value>
   </data>
@@ -386,6 +389,18 @@
   </data>
   <data name="ScanNoun" xml:space="preserve">
     <value>Scan</value>
+  </data>
+  <data name="ScanPageFirstOperationDescription" xml:space="preserve">
+    <value>Conversion of content to B&amp;W</value>
+  </data>
+  <data name="ScanPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Launch scan task</value>
+  </data>
+  <data name="ScanPageLead1Text" xml:space="preserve">
+    <value>During scanning phase of processing, these operations are executed</value>
+  </data>
+  <data name="ScanPageLead2Text" xml:space="preserve">
+    <value>To launch scan task, please click on the button below</value>
   </data>
   <data name="ScanTasksCardHeader" xml:space="preserve">
     <value>Scan tasks</value>

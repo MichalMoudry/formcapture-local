@@ -288,6 +288,9 @@
   <data name="PasswordInputPlaceholder" xml:space="preserve">
     <value>Napište svoje heslo...</value>
   </data>
+  <data name="ProcessedFiles" xml:space="preserve">
+    <value>Zpracované dokumenty</value>
+  </data>
   <data name="ProfilePageChangeCurrentPassword" xml:space="preserve">
     <value>Stávající heslo</value>
   </data>
@@ -386,6 +389,18 @@
   </data>
   <data name="ScanNoun" xml:space="preserve">
     <value>Skenování</value>
+  </data>
+  <data name="ScanPageFirstOperationDescription" xml:space="preserve">
+    <value>Převedení obsahu do černobílé podoby</value>
+  </data>
+  <data name="ScanPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Spustit skenování</value>
+  </data>
+  <data name="ScanPageLead1Text" xml:space="preserve">
+    <value>Během skenovací fáze zpracovávání dokumentů budou provedeny následující operace</value>
+  </data>
+  <data name="ScanPageLead2Text" xml:space="preserve">
+    <value>Pro spuštění skenovací úlohy musíte kliknout na tlačítko níže</value>
   </data>
   <data name="ScanTasksCardHeader" xml:space="preserve">
     <value>Skenovací úlohy</value>
