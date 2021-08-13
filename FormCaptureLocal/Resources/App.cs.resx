@@ -189,6 +189,9 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>Domovská stránka</value>
   </data>
+  <data name="IdentificationNoun" xml:space="preserve">
+    <value>Identifikace</value>
+  </data>
   <data name="IdentificationTasksCardHeader" xml:space="preserve">
     <value>Identifikační úlohy</value>
   </data>
@@ -389,6 +392,12 @@
   </data>
   <data name="ScanNoun" xml:space="preserve">
     <value>Skenování</value>
+  </data>
+  <data name="ScanPageAtLeastOneFileMessage" xml:space="preserve">
+    <value>Pro zpracování je třeba mít alespoň jeden soubor</value>
+  </data>
+  <data name="ScanPageAtLeastOneFileMessageTitle" xml:space="preserve">
+    <value>Nemůžete smazat poslední soubor</value>
   </data>
   <data name="ScanPageFirstOperationDescription" xml:space="preserve">
     <value>Převedení obsahu do černobílé podoby</value>

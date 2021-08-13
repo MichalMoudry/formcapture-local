@@ -1,0 +1,41 @@
+﻿@layout AppLayout
+@inject NavigationManager NavigationManager
+@inject IStringLocalizer<App> Localizer
+@inject DataAccess DataAccess
+@inject IJSRuntime IJSRuntime
+@page "/formcapture/queues/{queueID}/identification"
+
+<h3>Identification</h3>
+
+@code {
+    /// <summary>
+    /// ID of a queue that is going to be processed.
+    /// </summary>
+    [Parameter]
+    public string QueueID { get; set; }
+
+    /// <summary>
+    /// Queue that is being processed.
+    /// </summary>
+    private Queue queue;
+
+    /// <summary>
+    /// List of processed files (see: <see cref="ProcessedFile"/> class).
+    /// </summary>
+    private List<ProcessedFile> processedFiles;
+
+    /// <summary>
+    /// List of workflow tasks made by the user for scan portion of document processing.
+    /// </summary>
+    private List<WorkflowTask> customTasks = new List<WorkflowTask>();
+
+    /// <summary>
+    /// Private field indicating if full page loading screen is displayed.
+    /// </summary>
+    private bool isFullPageLoadingScreenDisplayed;
+
+    /// <summary>
+    /// Private filed for seting and geting value of a CSS class for displaying/hiding fullpage loading screen.
+    /// </summary>
+    private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
+}

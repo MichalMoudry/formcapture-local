@@ -189,6 +189,9 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="IdentificationNoun" xml:space="preserve">
+    <value>Identification</value>
+  </data>
   <data name="IdentificationTasksCardHeader" xml:space="preserve">
     <value>Identification tasks</value>
   </data>
@@ -389,6 +392,12 @@
   </data>
   <data name="ScanNoun" xml:space="preserve">
     <value>Scan</value>
+  </data>
+  <data name="ScanPageAtLeastOneFileMessage" xml:space="preserve">
+    <value>Queue should have at least one file to process</value>
+  </data>
+  <data name="ScanPageAtLeastOneFileMessageTitle" xml:space="preserve">
+    <value>You can't delete the last file in the queue</value>
   </data>
   <data name="ScanPageFirstOperationDescription" xml:space="preserve">
     <value>Conversion of content to B&amp;W</value>

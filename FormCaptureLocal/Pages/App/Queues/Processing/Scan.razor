@@ -3,6 +3,7 @@
 @inject IStringLocalizer<App> Localizer
 @inject DataAccess DataAccess
 @inject IJSRuntime IJSRuntime
+@inject AlertService AlertService
 @page "/formcapture/queues/{queueID}/scan"
 
 <div class="jumbotron">
@@ -10,14 +11,17 @@
     <p class="lead">@Localizer["ScanPageLead1Text"]:</p>
     <ul class="list-group">
         <li class="list-group-item list-group-item-primary">@Localizer["ScanPageFirstOperationDescription"]</li>
-        @if (customTasks != null)
+        @if (queue != null)
         {
-            @if (customTasks.Count > 0)
+            @if (customTasks != null && !queue.IsAutomatic)
             {
-                @foreach (var task in customTasks)
-	            {
-		             <li class="list-group-item list-group-item-primary">@task.Name</li>
-	            }
+                @if (customTasks.Count > 0)
+                {
+                    @foreach (var task in customTasks)
+                    {
+                        <li class="list-group-item list-group-item-primary">@task.Name</li>
+                    }
+                }
             }
         }
     </ul>
@@ -33,7 +37,14 @@
                 {
                     @foreach (var file in processedFiles)
                     {
-                        <li class="list-group-item list-group-item-info">@file.Name</li>
+                        <li class="list-group-item list-group-item-info">
+                            <span>@file.Name</span>
+                            <span class="float-right">
+                                <button type="button" class="close" aria-label="Remove file" title="@Localizer["RemoveImage"]" @onclick="@(e => RemoveFile(file))">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </span>
+                        </li>
                     }
                 }
             </ul>
@@ -48,6 +59,19 @@
     }
 </div>
 
+<!--Toast area-->
+<div class="toast-area mt-3">
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="no-files-error-toast" role="alert">
+        <strong class="mr-auto">@Localizer["ScanPageAtLeastOneFileMessageTitle"]</strong>
+        <hr />
+        <p>@Localizer["ScanPageAtLeastOneFileMessage"].</p>
+        <button type="button" class="close" onclick="closeAlert('no-files-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+<!--Full page loading screen-->
 <div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
     <div class="d-flex justify-content-center main-loading-div">
         @Localizer["Loading"]...
@@ -101,8 +125,8 @@
         {
             //Console.WriteLine($"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
             unparsedBlackAndWhiteContent = await IJSRuntime.InvokeAsync<string>("convertImageToGreyScale", $"data:{file.ContentType};base64,{Convert.ToBase64String(file.Content)}");
+            file.BlackAndWhiteContent = Convert.FromBase64String(unparsedBlackAndWhiteContent.Split("base64,")[1]);
             newProcessedFiles.Add(file);
-            //file.BlackAndWhiteContent = Convert.FromBase64String();
         }
         processedFiles = newProcessedFiles;
     }
@@ -120,6 +144,35 @@
             {
                 _ = await IJSRuntime.InvokeAsync<bool>("executeJS", task.Content);
             }
+        }
+    }
+
+    /// <summary>
+    /// Method for updating required entites in a database.
+    /// </summary>
+    private async Task UpdateEntites()
+    {
+        foreach (var file in processedFiles)
+        {
+            _ = await DataAccess.UpdateItem(file, ObjectStores.ProcessedFiles.ToString());
+        }
+        queue.QueueTask = QueueTask.Scan;
+        _ = await DataAccess.UpdateItem(queue, ObjectStores.Queues.ToString());
+    }
+
+    /// <summary>
+    /// Method for removing file from queue of processed files.
+    /// </summary>
+    /// <param name="file">File to remove.</param>
+    private async Task RemoveFile(ProcessedFile file)
+    {
+        if (processedFiles.Count > 1)
+        {
+            processedFiles.Remove(file);
+        }
+        else
+        {
+            await AlertService.DisplayToast("no-files-error-toast");
         }
     }
 
@@ -173,6 +226,9 @@
                     await ProcessFiles();
                     //Execute tasks
                     await ExecuteCustomTasks();
+                    //Update files
+                    await UpdateEntites();
+                    NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/identification");
                 }
             }
         }
