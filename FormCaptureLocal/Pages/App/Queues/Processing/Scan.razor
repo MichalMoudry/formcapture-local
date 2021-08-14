@@ -48,9 +48,10 @@
                     }
                 }
             </ul>
-            <a class="btn btn-outline-primary btn-lg mt-4" href="#" role="button" title="@Localizer["ScanPageLaunchTaskButtonText"]">
+            <hr class="my-4" />
+            <button class="btn btn-outline-primary btn-lg btn-block" role="button" title="@Localizer["ScanPageLaunchTaskButtonText"]" @onclick="Submit">
                 <span class="oi oi-play-circle mr-2"></span> @Localizer["ScanPageLaunchTaskButtonText"]
-            </a>
+            </button>
         }
     }
     else
@@ -169,11 +170,28 @@
         if (processedFiles.Count > 1)
         {
             processedFiles.Remove(file);
+            _ = await DataAccess.DeleteItem(file.ID, ObjectStores.ProcessedFiles.ToString());
         }
         else
         {
             await AlertService.DisplayToast("no-files-error-toast");
         }
+    }
+
+    /// <summary>
+    /// Event handler for submit button on this page.
+    /// </summary>
+    private async Task Submit()
+    {
+        isFullPageLoadingScreenDisplayed = true;
+        //Process files
+        await ProcessFiles();
+        //Execute tasks
+        await ExecuteCustomTasks();
+        //Update files
+        await UpdateEntites();
+        isFullPageLoadingScreenDisplayed = false;
+        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/identification");
     }
 
     /// <summary>
