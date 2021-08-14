@@ -13,6 +13,10 @@ a, .btn-link {
     color: #0366d6;
 }
 
+#index-page-app-logo {
+    width: 6rem;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
