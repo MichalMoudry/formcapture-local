@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FormCaptureLocal\FormCaptureLocal.csproj" />
+    <ProjectReference Include="..\..\src\FormCaptureLocal\FormCaptureLocal.csproj" />
   </ItemGroup>
 
 </Project>
