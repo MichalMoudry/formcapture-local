@@ -63,8 +63,8 @@ else
                         <div class="col">
                             <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xE914;</span> @Localizer["Fields"]</h4>
                         </div>
-                        <div class="col-1">
-                            <span class="oi oi-plus pointer mt-2" @onclick="AddNewField"></span>
+                        <div class="pointer hoverElement text-center rounded w-10" @onclick="AddNewField">
+                            <span class="oi oi-plus pointer mt-2"></span>
                         </div>
                     </div>
                 </div>
@@ -83,11 +83,11 @@ else
                                                 <input class="field-input" @bind-value="field.Name" placeholder="@Localizer["FieldInputPlaceholder"]..." />
                                             </div>
 
-                                            <div class="col-1 pointer hoverElement text-center rounded" @onclick="@(e => DrawField(field.ID))">
+                                            <div class="pointer hoverElement text-center rounded w-10" @onclick="@(e => DrawField(field.ID))">
                                                 <span class="fluentUiGlyph">&#xE9C3;</span>
                                             </div>
 
-                                            <div class="col-1 pointer hoverElement text-center rounded" @onclick="@(e => RemoveField(field))">
+                                            <div class="pointer hoverElement text-center rounded w-10" @onclick="@(e => RemoveField(field))">
                                                 <span class="fluentUiGlyph">&#xE9ED;</span>
                                             </div>
                                         </div>
