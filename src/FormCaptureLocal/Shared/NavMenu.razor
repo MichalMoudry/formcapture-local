@@ -2,7 +2,10 @@
 @inject IStringLocalizer<App> Localizer
 
 <div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="formcapture/home" title="@Localizer["NavMenuHomeLinkTitle"]">Form Capture</a>
+    <a class="navbar-brand" href="formcapture/home" title="@Localizer["NavMenuHomeLinkTitle"]">
+        <img src="/formcapture-icon.svg" alt="Form Capture logo" height="33" class="d-inline-block align-text-top float-left">
+        <span class="float-right ml-2 mt-1">Form Capture</span>
+    </a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu" title="@Localizer["NavMenuToggleButtonTitle"]">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,7 +54,7 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="about" title="@Localizer["NavMenuAboutLinkTitle"]">
+            <NavLink class="nav-link" href="formcapture/about" title="@Localizer["NavMenuAboutLinkTitle"]">
                 <span class="fluentUiGlyph navMenuFluentUiGlyph">&#xEA8D;</span> @Localizer["NavMenuAboutLinkText"]
             </NavLink>
         </li>

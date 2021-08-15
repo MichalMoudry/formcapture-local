@@ -66,8 +66,8 @@
                         {
                             <tr>
                                 <td>@queue.Name</td>
-                                <td>@queue.Added</td>
-                                <td>@queue.Updated</td>
+                                <td>@queue.Added.ToShortDateString()</td>
+                                <td>@queue.Updated.ToShortDateString()</td>
                                 <td class="hoverElement pointer" @onclick="@(e => Navigate($"/formcapture/queues/{queue.ID}/{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}"))">
                                     @Localizer[$"{queueTaskValues.GetValue(((int)queue.QueueTask) + 1)}Noun"] <span class="oi oi-chevron-right ml-1"></span>
                                 </td>
