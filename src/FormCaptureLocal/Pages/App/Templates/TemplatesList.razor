@@ -50,8 +50,8 @@
                 {
                     <tr class="pointer">
                         <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Name</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Added</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Added.ToShortDateString()</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Updated.ToShortDateString()</td>
                         <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/edit/{template.ID}"))" class="hoverElement"><span class="fluentUiGlyph tableFluentGlyph">&#xE9C3;</span></td>
                         <td @onclick="@(e => DeleteTemplate(template))" class="hoverElement"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
                     </tr>

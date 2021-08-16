@@ -19,7 +19,8 @@ namespace FormCaptureLocal
                 .AddLocalization(options => options.ResourcesPath = "Resources")
                 .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
                 .AddSingleton<DataAccess>()
-                .AddSingleton<AlertService>();
+                .AddSingleton<AlertService>()
+                .AddSingleton<TesseractService>();
 
             await builder.Build().RunAsync();
         }

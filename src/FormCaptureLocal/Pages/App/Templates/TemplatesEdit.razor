@@ -4,6 +4,7 @@
 @inject DataAccess DataAccess
 @inject AlertService AlertService
 @inject IStringLocalizer<App> Localizer
+@inject TesseractService TesseractService
 @page "/formcapture/templates/edit/{TemplateID}"
 
 @if (template != null)
@@ -295,7 +296,7 @@ else
             identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
             identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
             identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
-            var response = await IJSRuntime.InvokeAsync<System.Text.Json.JsonElement>("recogSingleField", identifyingField, Convert.ToBase64String(template.Image), "ces", template.ContentType);
+            var response = await TesseractService.SinglefieldRecognition(identifyingField, template.Image, "ces", template.ContentType);
             await IJSRuntime.InvokeVoidAsync("displayTemplateTestResult", response.EnumerateArray().FirstOrDefault().GetString().Split("/")[0], expectedValue);
             isTestButtonDisabled = false;
         }

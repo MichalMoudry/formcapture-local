@@ -59,8 +59,8 @@ else
                 {
                     <tr class="pointer">
                         <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Name</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Added</td>
-                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Added.ToShortDateString()</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))">@task.Updated.ToShortDateString()</td>
                         <td @onclick="@(e => Navigate($"/formcapture/tasks/edit/{task.ID}"))" class="hoverElement"><span class="fluentUiGlyph tableFluentGlyph">&#xE9C3;</span></td>
                         <td @onclick="@(e => DeleteTask(task))" class="hoverElement"><span class="fluentUiGlyph tableFluentGlyph">&#xE9ED;</span></td>
                     </tr>

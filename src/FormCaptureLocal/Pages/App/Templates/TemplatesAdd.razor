@@ -4,6 +4,7 @@
 @inject DataAccess DataAccess
 @inject AlertService AlertService
 @inject IJSRuntime IJSRuntime
+@inject TesseractService TesseractService
 @page "/formcapture/templates/add"
 
 <h3><span class="fluentUiGlyph tableFluentGlyph h3FluentGlyph mr-2">&#xEA84;</span> @Localizer["TemplatesAddPageTitle"]</h3>
@@ -280,7 +281,8 @@
             Added = DateTime.Now,
             Updated = DateTime.Now,
             IsIdentifying = false,
-            TemplateID = template.ID
+            TemplateID = template.ID,
+            UserID = UserHelper.UserID
         });
     }
 
@@ -317,7 +319,7 @@
             identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
             identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
             identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
-            var response = await IJSRuntime.InvokeAsync<System.Text.Json.JsonElement>("recogSingleField", identifyingField, Convert.ToBase64String(template.Image), "ces", template.ContentType);
+            var response = await TesseractService.SinglefieldRecognition(identifyingField, template.Image, "ces", template.ContentType);
             await IJSRuntime.InvokeVoidAsync("displayTemplateTestResult", response.EnumerateArray().FirstOrDefault().GetString().Split("/")[0], expectedValue);
             isTestButtonDisabled = false;
         }

@@ -11,7 +11,7 @@ namespace FormCaptureLocal.Models.DbModels
         /// <summary>
         /// Locale used for processing documents in a queue.
         /// </summary>
-        public Locale Locale { get; set; }
+        public string Locale { get; set; }
 
         /// <summary>
         /// Name of the queue for easier identification by the user.

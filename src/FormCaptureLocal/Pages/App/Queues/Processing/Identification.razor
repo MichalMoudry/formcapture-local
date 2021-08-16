@@ -3,9 +3,20 @@
 @inject IStringLocalizer<App> Localizer
 @inject DataAccess DataAccess
 @inject IJSRuntime IJSRuntime
+@inject TesseractService TesseractService
 @page "/formcapture/queues/{queueID}/identification"
 
 <h3>Identification</h3>
+
+<!--Full page loading screen-->
+<div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
+    <div class="d-flex justify-content-center main-loading-div">
+        @Localizer["Loading"]...
+        <div class="spinner-border mt-4" role="status">
+            <span class="sr-only">@Localizer["Loading"]...</span>
+        </div>
+    </div>
+</div>
 
 @code {
     /// <summary>
@@ -30,6 +41,11 @@
     private List<WorkflowTask> customTasks = new List<WorkflowTask>();
 
     /// <summary>
+    /// List of field designated for document identification.
+    /// </summary>
+    private List<Field> idFields;
+
+    /// <summary>
     /// Private field indicating if full page loading screen is displayed.
     /// </summary>
     private bool isFullPageLoadingScreenDisplayed;
@@ -38,4 +54,98 @@
     /// Private filed for seting and geting value of a CSS class for displaying/hiding fullpage loading screen.
     /// </summary>
     private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
+
+    /// <summary>
+    /// Method for executing custom tasks written in JS.
+    /// </summary>
+    private async Task ExecuteCustomTasks()
+    {
+        //If there are custom tasks => execute them
+        if (customTasks.Count > 0)
+        {
+            //Execute each custom task
+            foreach (var task in customTasks)
+            {
+                _ = await IJSRuntime.InvokeAsync<bool>("executeJS", task.Content);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Method for identifying processed documents
+    /// </summary>
+    private async Task IdentifyDocuments()
+    {
+        foreach (var field in idFields)
+        {
+            Console.WriteLine($"{field.ID} - {field.Name} - {field.IsIdentifying}");
+        }
+        var idResults = await TesseractService.MultifieldRecognition(idFields, processedFiles, queue.Locale, processedFiles.Select(i => i.Type).ToList());
+        Field idField;
+        foreach (var result in idResults)
+        {
+            idField = idFields.Single(i => i.ID.Equals(result[1]));
+            if (idField.ExpectedValue.Equals(result[0]))
+            {
+                processedFiles[Convert.ToInt32(result[2])].TemplateID = idField.TemplateID;
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isFullPageLoadingScreenDisplayed = true;
+        try
+        {
+            queue = await DataAccess.GetItem<Queue>(QueueID, ObjectStores.Queues.ToString());
+        }
+        catch (Exception)
+        {
+            NavigationManager.NavigateTo("/NotFound");
+            return;
+        }
+        if (queue != null)
+        {
+            //Get processed files
+            processedFiles = await DataAccess.GetItemsAsList<ProcessedFile>(ObjectStores.ProcessedFiles.ToString());
+            if (processedFiles != null)
+            {
+                processedFiles = processedFiles.Where(i => i.QueueID.Equals(QueueID)).ToList();
+                //If workflow id is set retrieve groupings and potential tasks
+                if (!string.IsNullOrEmpty(queue.WorkflowID))
+                {
+                    //Get workflow-task groupings
+                    var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
+                    //Filter workflow-task groupings that are not part of selected workflow and are not for scan
+                    workflowTaskGroupings = workflowTaskGroupings
+                        .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals($"{QueueTask.Scan}"))
+                        .OrderBy(i => i.ExecutionOrderNumber)
+                        .ToList();
+                    //Workflow does not need to have any tasks => check needed
+                    if (workflowTaskGroupings.Count > 0)
+                    {
+                        //Get all tasks
+                        var allTasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
+                        foreach (var grouping in workflowTaskGroupings)
+                        {
+                            //Add task that corresponds with TaskID in the grouping
+                            customTasks.Add(allTasks.Single(i => i.ID.Equals(grouping.TaskID)));
+                        }
+                    }
+                }
+                //Get ID fields
+                idFields = await DataAccess.GetItemsAsList<Field>(ObjectStores.Fields.ToString());
+                if (idFields != null)
+                {
+                    idFields = idFields.Where(i => i.IsIdentifying.Equals(true) && i.UserID.Equals(UserHelper.UserID)).ToList();
+                    if (queue.IsAutomatic)
+                    {
+                        //Execute identification of documents
+                        await IdentifyDocuments();
+                    }
+                }
+            }
+        }
+        isFullPageLoadingScreenDisplayed = false;
+    }
 }

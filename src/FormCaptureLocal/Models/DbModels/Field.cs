@@ -33,6 +33,11 @@ namespace FormCaptureLocal.Models.DbModels
         public string TemplateID { get; set; }
 
         /// <summary>
+        /// ID of the user that created a specific instance.
+        /// </summary>
+        public string UserID { get; set; }
+
+        /// <summary>
         /// Width of the field (in px).
         /// </summary>
         public int Width { get; set; }

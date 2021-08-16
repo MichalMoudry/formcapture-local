@@ -342,6 +342,9 @@
   <data name="QueueStartPageNoFileErrorMessage" xml:space="preserve">
     <value>Musíte nahrát alespoň jeden soubor</value>
   </data>
+  <data name="QueueStartPageNoTemplatesErrorMessage" xml:space="preserve">
+    <value>Pro zpracování dokumentů je třeba vytvořit alepoň jednu předlohu dokumentu</value>
+  </data>
   <data name="QueueStartPageQueuePreviewTitle" xml:space="preserve">
     <value>Přehled nahraných dokumentů</value>
   </data>

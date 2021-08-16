@@ -342,6 +342,9 @@
   <data name="QueueStartPageNoFileErrorMessage" xml:space="preserve">
     <value>At least one file must be uploaded</value>
   </data>
+  <data name="QueueStartPageNoTemplatesErrorMessage" xml:space="preserve">
+    <value>To start a queue, you need to create at least one template</value>
+  </data>
   <data name="QueueStartPageQueuePreviewTitle" xml:space="preserve">
     <value>Queue preview</value>
   </data>
