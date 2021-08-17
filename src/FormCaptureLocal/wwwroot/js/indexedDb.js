@@ -95,7 +95,7 @@ function getItemPromise(id, objectstore) {
         request = objStore.get(id);
         request.onsuccess = function (e) {
             if (e.target.result === undefined) {
-                return resolve(false);
+                return resolve(null);
             }
             else {
                 return resolve(e.target.result);
@@ -114,7 +114,7 @@ function getAllItemsPromise(objectstore) {
         request = objStore.getAll();
         request.onsuccess = function (e) {
             if (e.target.result === undefined) {
-                return resolve(false);
+                return resolve(null);
             }
             else {
                 return resolve(e.target.result);

@@ -391,27 +391,26 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
+        workflow = await DataAccess.GetItem<Workflow>(WorkflowID, ObjectStores.Workflows.ToString());
+        if (workflow != null)
         {
-            workflow = await DataAccess.GetItem<Workflow>(WorkflowID, ObjectStores.Workflows.ToString());
+            tasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
+            var groupingsList = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
+            if (tasks != null && groupingsList != null && workflow != null)
+            {
+                groupingsList = groupingsList.Where(i => i.WorkflowID.Equals(WorkflowID)).ToList();
+                tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+                groupings = new Dictionary<string, List<WorkflowTaskGrouping>>();
+                groupings.Add($"{QueueTask.Scan}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Scan}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
+                groupings.Add($"{QueueTask.Identification}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Identification}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
+                groupings.Add($"{QueueTask.Recognition}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Recognition}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
+                groupings.Add($"{QueueTask.Verification}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Verification}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
+                groupings.Add($"{QueueTask.Export}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Export}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
+            }
         }
-        catch (Exception)
+        else
         {
             NavigationManager.NavigateTo("/NotFound");
-            return;
-        }
-        tasks = await DataAccess.GetItemsAsList<WorkflowTask>(ObjectStores.WorkflowTasks.ToString());
-        var groupingsList = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
-        if (tasks != null && groupingsList != null && workflow != null)
-        {
-            groupingsList = groupingsList.Where(i => i.WorkflowID.Equals(WorkflowID)).ToList();
-            tasks = tasks.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
-            groupings = new Dictionary<string, List<WorkflowTaskGrouping>>();
-            groupings.Add($"{QueueTask.Scan}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Scan}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
-            groupings.Add($"{QueueTask.Identification}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Identification}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
-            groupings.Add($"{QueueTask.Recognition}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Recognition}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
-            groupings.Add($"{QueueTask.Verification}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Verification}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
-            groupings.Add($"{QueueTask.Export}", groupingsList.Where(i => i.TaskGroupName.Equals($"{QueueTask.Export}")).OrderBy(i => i.ExecutionOrderNumber).ToList());
         }
     }
 }

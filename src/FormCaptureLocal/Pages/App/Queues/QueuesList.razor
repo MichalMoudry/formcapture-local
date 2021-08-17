@@ -144,7 +144,7 @@
         if (queues != null)
         {
             queues = queues
-                .Where(i => i.UserID.Equals(UserHelper.UserID) && !i.QueueTask.Equals(QueueTask.Finished) && !i.QueueTask.Equals(QueueTask.IdentificationError) && !i.QueueTask.Equals(QueueTask.VerificationError))
+                .Where(i => i.UserID.Equals(UserHelper.UserID) && !i.QueueTask.Equals(QueueTask.Finished) && !i.QueueTask.Equals(QueueTask.IdentificationError) && !i.QueueTask.Equals(QueueTask.VerificationError) && !i.QueueTask.Equals(QueueTask.Deprecated))
                 .OrderBy(i => i.Added)
                 .ToList();
         }

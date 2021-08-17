@@ -199,11 +199,20 @@ else
 
 @code
 {
+    /// <summary>
+    /// Property containing ID of a template, that was passed as a parameter.
+    /// </summary>
     [Parameter]
     public string TemplateID { get; set; }
 
+    /// <summary>
+    /// Field containing instance of <see cref="Template"/> class with matching ID.
+    /// </summary>
     private Template template;
 
+    /// <summary>
+    /// List of template's fields.
+    /// </summary>
     private List<Field> fields;
 
     private Field identifyingField;
@@ -216,12 +225,15 @@ else
 
     private string identifyingFieldId;
 
+    /// <summary>
+    /// Method for adding a new field to the template.
+    /// </summary>
     private void AddNewField()
     {
         fields.Add(new Field()
         {
             ID = Guid.NewGuid().ToString(),
-            Name = "New field",
+            Name = "",
             Added = DateTime.Now,
             Updated = DateTime.Now,
             IsIdentifying = false,
@@ -239,6 +251,10 @@ else
         identifyingField = field;
     }
 
+    /// <summary>
+    /// Method for removing a specific field from template's fields.
+    /// </summary>
+    /// <param name="field">Field that will be removed.</param>
     private void RemoveField(Field field)
     {
         fields.Remove(field);
@@ -258,11 +274,18 @@ else
         fileContent += Convert.ToBase64String(buffer);
     }
 
+    /// <summary>
+    /// Method for drawing a field on template's image.
+    /// </summary>
+    /// <param name="fieldID">Field ID.</param>
     private async Task DrawField(string fieldID)
     {
         await IJSRuntime.InvokeVoidAsync("drawField", fieldID);
     }
 
+    /// <summary>
+    /// Method for deleting template and its fields.
+    /// </summary>
     private async Task DeleteTemplate()
     {
         var res = await AlertService.DisplayConfirmDialog($"{Localizer["ConfirmationDialogDeleteTemplateFirstPart"]} '{template.Name}' {Localizer["ConfirmationDialogDeleteTemplateSecondPart"]}?");
@@ -284,6 +307,9 @@ else
         }
     }
 
+    /// <summary>
+    /// Method for testing file recognition through ID field.
+    /// </summary>
     private async Task TestIdFieldRecognition()
     {
         SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
@@ -308,15 +334,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            template = await DataAccess.GetItem<Template>(TemplateID, ObjectStores.Templates.ToString());
-        }
-        catch (Exception)
-        {
-            NavigationManager.NavigateTo($"/formcapture/templates/{TemplateID}/notfound");
-            return;
-        }
+        template = await DataAccess.GetItem<Template>(TemplateID, ObjectStores.Templates.ToString());
         if (template != null)
         {
             fields = await DataAccess.GetItemsAsList<Field>(ObjectStores.Fields.ToString());
@@ -332,6 +350,10 @@ else
                     await IJSRuntime.InvokeVoidAsync("drawFields", fields, "template-canvas");
                 }
             }
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/formcapture/templates/{TemplateID}/notfound");
         }
     }
 }

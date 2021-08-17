@@ -6,7 +6,9 @@
 @inject TesseractService TesseractService
 @page "/formcapture/queues/{queueID}/identification"
 
-<h3>Identification</h3>
+<div class="jumbotron">
+    <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["IdentificationNoun"]</h4>
+</div>
 
 <!--Full page loading screen-->
 <div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
@@ -95,15 +97,7 @@
     protected override async Task OnInitializedAsync()
     {
         isFullPageLoadingScreenDisplayed = true;
-        try
-        {
-            queue = await DataAccess.GetItem<Queue>(QueueID, ObjectStores.Queues.ToString());
-        }
-        catch (Exception)
-        {
-            NavigationManager.NavigateTo("/NotFound");
-            return;
-        }
+        queue = await DataAccess.GetItem<Queue>(QueueID, ObjectStores.Queues.ToString());
         if (queue != null)
         {
             //Get processed files
@@ -145,6 +139,10 @@
                     }
                 }
             }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/NotFound");
         }
         isFullPageLoadingScreenDisplayed = false;
     }

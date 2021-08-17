@@ -10,6 +10,7 @@
         Export,
         VerificationError,
         IdentificationError,
-        Finished
+        Finished,
+        Deprecated
     }
 }

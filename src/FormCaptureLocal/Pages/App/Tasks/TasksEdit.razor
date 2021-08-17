@@ -122,19 +122,15 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            workflowTask = await DataAccess.GetItem<WorkflowTask>(TaskID, ObjectStores.WorkflowTasks.ToString());
-        }
-        catch (Exception)
-        {
-            NavigationManager.NavigateTo("/NotFound");
-            return;
-        }
+        workflowTask = await DataAccess.GetItem<WorkflowTask>(TaskID, ObjectStores.WorkflowTasks.ToString());
         if (workflowTask != null)
         {
             taskName = workflowTask.Name;
             taskContent = workflowTask.Content;
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/NotFound");
         }
     }
 }
