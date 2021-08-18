@@ -10,7 +10,7 @@
     <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["ScanNoun"]</h4>
     <p class="lead">@Localizer["ScanPageLead1Text"]:</p>
     <ul class="list-group">
-        <li class="list-group-item list-group-item-primary">@Localizer["ScanPageFirstOperationDescription"]</li>
+        <li class="list-group-item list-group-item-primary">1. @Localizer["ScanPageFirstOperationDescription"]</li>
         @if (queue != null)
         {
             @if (customTasks != null && !queue.IsAutomatic)
@@ -19,7 +19,7 @@
                 {
                     @foreach (var task in customTasks)
                     {
-                        <li class="list-group-item list-group-item-primary">@task.Name</li>
+                        <li class="list-group-item list-group-item-primary">@(customTasks.IndexOf(task) + 2). @task.Name - @task.Description</li>
                     }
                 }
             }

@@ -192,6 +192,18 @@
   <data name="IdentificationNoun" xml:space="preserve">
     <value>Identification</value>
   </data>
+  <data name="IdentificationPageFirstOperationDescription" xml:space="preserve">
+    <value>Identification of processed files</value>
+  </data>
+  <data name="IdentificationPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Launch identification task</value>
+  </data>
+  <data name="IdentificationPageLead1Text" xml:space="preserve">
+    <value>During identification phase of processing, these operations are executed</value>
+  </data>
+  <data name="IdentificationPageLead2Text" xml:space="preserve">
+    <value>To launch identification task, please click on the button below</value>
+  </data>
   <data name="IdentificationTasksCardHeader" xml:space="preserve">
     <value>Identification tasks</value>
   </data>

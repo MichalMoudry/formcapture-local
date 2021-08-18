@@ -4,10 +4,73 @@
 @inject DataAccess DataAccess
 @inject IJSRuntime IJSRuntime
 @inject TesseractService TesseractService
+@inject AlertService AlertService
 @page "/formcapture/queues/{queueID}/identification"
 
 <div class="jumbotron">
     <h4 class="display-4"><span class="fluentUiGlyph">&#xEA01;</span>  @Localizer["IdentificationNoun"]</h4>
+    <p class="lead">@Localizer["IdentificationPageLead1Text"]:</p>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-primary">1. @Localizer["IdentificationPageFirstOperationDescription"]</li>
+        @if (queue != null)
+        {
+            @if (customTasks != null && !queue.IsAutomatic)
+            {
+                @if (customTasks.Count > 0)
+                {
+                    @foreach (var task in customTasks)
+                    {
+                        <li class="list-group-item list-group-item-primary">@(customTasks.IndexOf(task) + 2). @task.Name - @task.Description</li>
+                    }
+                }
+            }
+        }
+    </ul>
+    <p class="lead mt-3">@Localizer["IdentificationPageLead2Text"].</p>
+    @if (queue != null)
+    {
+        @if (!queue.IsAutomatic)
+        {
+            <hr class="my-4">
+            <p><b>@Localizer["ProcessedFiles"]</b>:</p>
+            <ul class="list-group">
+                @if (processedFiles != null)
+                {
+                    @foreach (var file in processedFiles)
+                    {
+                        <li class="list-group-item list-group-item-info">
+                            <span>@file.Name</span>
+                            <span class="float-right">
+                                <button type="button" class="close" aria-label="Remove file" title="@Localizer["RemoveImage"]" @onclick="@(e => RemoveFile(file))">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </span>
+                        </li>
+                    }
+                }
+            </ul>
+            <hr class="my-4" />
+            <button class="btn btn-outline-primary btn-lg btn-block" role="button" title="@Localizer["IdentificationPageLaunchTaskButtonText"]" @onclick="Submit">
+                <span class="oi oi-play-circle mr-2"></span> @Localizer["IdentificationPageLaunchTaskButtonText"]
+            </button>
+        }
+    }
+    else
+    {
+        <h4>@Localizer["Loading"]...</h4>
+    }
+</div>
+
+<!--Toast area-->
+<div class="toast-area mt-3">
+    <div class="alert alert-danger alert-dismissible fade show d-none" id="no-files-error-toast" role="alert">
+        <strong class="mr-auto">@Localizer["ScanPageAtLeastOneFileMessageTitle"]</strong>
+        <hr />
+        <p>@Localizer["ScanPageAtLeastOneFileMessage"].</p>
+        <button type="button" class="close" onclick="closeAlert('no-files-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </div>
 
 <!--Full page loading screen-->
@@ -58,6 +121,52 @@
     private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
 
     /// <summary>
+    /// Method for removing file from queue of processed files.
+    /// </summary>
+    /// <param name="file">File to remove.</param>
+    private async Task RemoveFile(ProcessedFile file)
+    {
+        if (processedFiles.Count > 1)
+        {
+            processedFiles.Remove(file);
+            _ = await DataAccess.DeleteItem(file.ID, ObjectStores.ProcessedFiles.ToString());
+        }
+        else
+        {
+            await AlertService.DisplayToast("no-files-error-toast");
+        }
+    }
+
+    /// <summary>
+    /// Method for updating required entites in a database.
+    /// </summary>
+    private async Task UpdateEntites()
+    {
+        foreach (var file in processedFiles)
+        {
+            _ = await DataAccess.UpdateItem(file, ObjectStores.ProcessedFiles.ToString());
+        }
+        queue.QueueTask = QueueTask.Identification;
+        _ = await DataAccess.UpdateItem(queue, ObjectStores.Queues.ToString());
+    }
+
+    /// <summary>
+    /// Event handler for submit button on this page.
+    /// </summary>
+    private async Task Submit()
+    {
+        isFullPageLoadingScreenDisplayed = true;
+        //Process files
+        await IdentifyDocuments();
+        //Execute tasks
+        await ExecuteCustomTasks();
+        //Update files
+        await UpdateEntites();
+        isFullPageLoadingScreenDisplayed = false;
+        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
+    }
+
+    /// <summary>
     /// Method for executing custom tasks written in JS.
     /// </summary>
     private async Task ExecuteCustomTasks()
@@ -78,10 +187,6 @@
     /// </summary>
     private async Task IdentifyDocuments()
     {
-        foreach (var field in idFields)
-        {
-            Console.WriteLine($"{field.ID} - {field.Name} - {field.IsIdentifying}");
-        }
         var idResults = await TesseractService.MultifieldRecognition(idFields, processedFiles, queue.Locale, processedFiles.Select(i => i.Type).ToList());
         Field idField;
         foreach (var result in idResults)
@@ -136,6 +241,9 @@
                     {
                         //Execute identification of documents
                         await IdentifyDocuments();
+                        //Update files
+                        await UpdateEntites();
+                        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
                     }
                 }
             }

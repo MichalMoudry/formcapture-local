@@ -192,6 +192,18 @@
   <data name="IdentificationNoun" xml:space="preserve">
     <value>Identifikace</value>
   </data>
+  <data name="IdentificationPageFirstOperationDescription" xml:space="preserve">
+    <value>Identifikace zpracovaných dokumentů</value>
+  </data>
+  <data name="IdentificationPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Spustit identifikační úlohu</value>
+  </data>
+  <data name="IdentificationPageLead1Text" xml:space="preserve">
+    <value>Během identifikační fáze zpracovávání dokumentů budou provedeny následující operace</value>
+  </data>
+  <data name="IdentificationPageLead2Text" xml:space="preserve">
+    <value>Pro spuštění identifikační úlohy musíte kliknout na tlačítko níže</value>
+  </data>
   <data name="IdentificationTasksCardHeader" xml:space="preserve">
     <value>Identifikační úlohy</value>
   </data>
