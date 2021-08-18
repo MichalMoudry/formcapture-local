@@ -13,11 +13,6 @@ namespace FormCaptureLocal.Models.DbModels
         public string FieldID { get; set; }
 
         /// <summary>
-        /// Name of the field, that this value is connected to.
-        /// </summary>
-        public string FieldName { get; set; }
-
-        /// <summary>
         /// ID of the file that this value is recognized on.
         /// </summary>
         public string FileID { get; set; }

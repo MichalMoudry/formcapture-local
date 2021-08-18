@@ -5,11 +5,11 @@
 @inject IJSRuntime IJSRuntime
 @inject TesseractService TesseractService
 @inject AlertService AlertService
-@page "/formcapture/queues/{queueID}/identification"
+@page "/formcapture/queues/{queueID}/recognition"
 
 <div class="jumbotron">
-    <h4 class="display-4"><span class="fluentUiGlyph">&#xEA1E;</span>  @Localizer["IdentificationNoun"]</h4>
-    <p class="lead">@Localizer["IdentificationPageLead1Text"]:</p>
+    <h4 class="display-4"><span class="fluentUiGlyph">&#xEB4E;</span>  @Localizer["RecognitionNoun"]</h4>
+    <p class="lead">@Localizer["RecognitionPageLead1Text"]:</p>
     <ul class="list-group">
         <li class="list-group-item list-group-item-primary">1. @Localizer["IdentificationPageFirstOperationDescription"]</li>
         @if (queue != null)
@@ -26,27 +26,15 @@
             }
         }
     </ul>
-    <p class="lead mt-3">@Localizer["IdentificationPageLead2Text"].</p>
     @if (queue != null)
     {
         @if (!queue.IsAutomatic)
         {
-            <hr class="my-4">
-            <p><b>@Localizer["ProcessedFiles"]</b>:</p>
-            <ul class="list-group">
-                @if (processedFiles != null)
-                {
-                    @foreach (var file in processedFiles)
-                    {
-                        <li class="list-group-item list-group-item-info">
-                            <span>@file.Name</span>
-                        </li>
-                    }
-                }
-            </ul>
             <hr class="my-4" />
-            <button class="btn btn-outline-primary btn-lg btn-block" role="button" title="@Localizer["IdentificationPageLaunchTaskButtonText"]" @onclick="Submit">
-                <span class="oi oi-play-circle mr-2"></span> @Localizer["IdentificationPageLaunchTaskButtonText"]
+            <p class="lead mt-3">@Localizer["RecognitionPageLead2Text"].</p>
+            <hr class="my-4" />
+            <button class="btn btn-outline-primary btn-lg btn-block" role="button" title="@Localizer["RecognitionPageLaunchTaskButtonText"]" @onclick="Submit">
+                <span class="oi oi-play-circle mr-2"></span> @Localizer["RecognitionPageLaunchTaskButtonText"]
             </button>
         }
     }
@@ -66,7 +54,8 @@
     </div>
 </div>
 
-@code {
+@code
+{
     /// <summary>
     /// ID of a queue that is going to be processed.
     /// </summary>
@@ -89,9 +78,14 @@
     private List<WorkflowTask> customTasks = new List<WorkflowTask>();
 
     /// <summary>
-    /// List of fields designated for document identification.
+    /// List of fields.
     /// </summary>
-    private List<Field> idFields;
+    private List<Field> fields;
+
+    /// <summary>
+    /// List of <see cref="FieldValue"/> instances.
+    /// </summary>
+    private List<FieldValue> fieldValues = new List<FieldValue>();
 
     /// <summary>
     /// Private field indicating if full page loading screen is displayed.
@@ -104,37 +98,9 @@
     private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
 
     /// <summary>
-    /// Method for updating required entites in a database.
-    /// </summary>
-    private async Task UpdateEntites()
-    {
-        foreach (var file in processedFiles)
-        {
-            _ = await DataAccess.UpdateItem(file, ObjectStores.ProcessedFiles.ToString());
-        }
-        queue.QueueTask = QueueTask.Identification;
-        _ = await DataAccess.UpdateItem(queue, ObjectStores.Queues.ToString());
-    }
-
-    /// <summary>
-    /// Event handler for submit button on this page.
-    /// </summary>
-    private async Task Submit()
-    {
-        isFullPageLoadingScreenDisplayed = true;
-        //Process files
-        await IdentifyDocuments();
-        //Execute tasks
-        await ExecuteCustomTasks();
-        //Update files
-        await UpdateEntites();
-        isFullPageLoadingScreenDisplayed = false;
-        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
-    }
-
-    /// <summary>
     /// Method for executing custom tasks written in JS.
     /// </summary>
+    /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
     private async Task ExecuteCustomTasks()
     {
         //If there are custom tasks => execute them
@@ -149,18 +115,51 @@
     }
 
     /// <summary>
-    /// Method for identifying processed documents
+    /// Event handler for submit button on this page.
     /// </summary>
-    private async Task IdentifyDocuments()
+    /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
+    private async Task Submit()
     {
-        var idResults = await TesseractService.MultifieldRecognition(idFields, processedFiles, queue.Locale, processedFiles.Select(i => i.Type).ToList());
-        Field idField;
-        foreach (var result in idResults)
+        isFullPageLoadingScreenDisplayed = true;
+        //Execute recognition of documents
+        await Recognize();
+        //Execute tasks
+        await ExecuteCustomTasks();
+        //Update files
+        //await UpdateEntites();
+        isFullPageLoadingScreenDisplayed = false;
+        foreach (var value in fieldValues)
         {
-            idField = idFields.Single(i => i.ID.Equals(result[1]));
-            if (idField.ExpectedValue.Equals(result[0]))
+            Console.WriteLine($"{processedFiles.Single(i => i.ID.Equals(value.FileID)).Name} - {fields.Single(i => i.ID.Equals(value.FieldID)).Name} - {value.Value}");
+        }
+        //NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/verification");
+    }
+
+    /// <summary>
+    /// Method for executing recognition on processed documents.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
+    private async Task Recognize()
+    {
+        List<string[]> results;
+        foreach (var file in processedFiles)
+        {
+            //Run recognition for identified files
+            if (file.TemplateID != null)
             {
-                processedFiles[Convert.ToInt32(result[2])].TemplateID = idField.TemplateID;
+                results = await TesseractService.SingleFileMultipleFieldsRecognition(fields.Where(i => i.TemplateID.Equals(file.TemplateID) && !i.IsIdentifying).ToList(), file.Content, queue.Locale, file.ContentType);
+                foreach (var res in results)
+                {
+                    fieldValues.Add(new FieldValue()
+                    {
+                        ID = Guid.NewGuid().ToString(),
+                        FileID = file.ID,
+                        FieldID = res[1],
+                        Value = res[0],
+                        Added = DateTime.Now,
+                        Updated = DateTime.Now
+                    });
+                }
             }
         }
     }
@@ -183,7 +182,7 @@
                     var workflowTaskGroupings = await DataAccess.GetItemsAsList<WorkflowTaskGrouping>(ObjectStores.WorkflowTaskGroupings.ToString());
                     //Filter workflow-task groupings that are not part of selected workflow and are not for scan
                     workflowTaskGroupings = workflowTaskGroupings
-                        .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals($"{QueueTask.Identification}"))
+                        .Where(i => i.WorkflowID.Equals(queue.WorkflowID) && i.TaskGroupName.Equals($"{QueueTask.Recognition}"))
                         .OrderBy(i => i.ExecutionOrderNumber)
                         .ToList();
                     //Workflow does not need to have any tasks => check needed
@@ -199,19 +198,19 @@
                     }
                 }
                 //Get ID fields
-                idFields = await DataAccess.GetItemsAsList<Field>(ObjectStores.Fields.ToString());
-                if (idFields != null)
+                fields = await DataAccess.GetItemsAsList<Field>(ObjectStores.Fields.ToString());
+                if (fields != null)
                 {
-                    idFields = idFields.Where(i => i.IsIdentifying.Equals(true) && i.UserID.Equals(UserHelper.UserID)).ToList();
+                    fields = fields.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
                     if (queue.IsAutomatic)
                     {
-                        //Execute identification of documents
-                        await IdentifyDocuments();
+                        //Execute recognition of documents
+                        await Recognize();
                         //Execute tasks
                         await ExecuteCustomTasks();
                         //Update files
-                        await UpdateEntites();
-                        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
+                        //await UpdateEntites();
+                        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/verification");
                     }
                 }
             }

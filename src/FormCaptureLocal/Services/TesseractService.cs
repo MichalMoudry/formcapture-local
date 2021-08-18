@@ -1,10 +1,10 @@
-﻿using Microsoft.JSInterop;
+﻿using FormCaptureLocal.Models.DbModels;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using FormCaptureLocal.Models.DbModels;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FormCaptureLocal.Services
 {
@@ -56,5 +56,25 @@ namespace FormCaptureLocal.Services
             byte[] content,
             string locale,
             string contentType) => await _jSRuntime.InvokeAsync<JsonElement>("recogSingleField", field, Convert.ToBase64String(content), locale, contentType);
+
+        /// <summary>
+        /// Method for executing recognition on single file and with multiple fields.
+        /// </summary>
+        /// <param name="fields">List of fields that will be used during recognition.</param>
+        /// <param name="content">Content that will be used during recognition.</param>
+        /// <param name="locale">Locale of recognition.</param>
+        /// <param name="contentType">Content type of inserted content.</param>
+        /// <returns>String arrays that contain recognition result.</returns>
+        public async Task<List<string[]>> SingleFileMultipleFieldsRecognition(List<Field> fields, byte[] content, string locale, string contentType)
+        {
+            var response = await _jSRuntime.InvokeAsync<JsonElement>("singleFileMultipleFieldsRecog", fields, Convert.ToBase64String(content), locale, contentType);
+            var reponseList = response.EnumerateArray().ToList();
+            var results = new List<string[]>();
+            foreach (var listItem in reponseList)
+            {
+                results.Add(listItem.ToString().Split("/"));
+            }
+            return results;
+        }
     }
 }

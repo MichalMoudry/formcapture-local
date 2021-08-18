@@ -378,6 +378,18 @@
   <data name="QueueStartSelectWorkflowTitle" xml:space="preserve">
     <value>Vyberte postup úloh</value>
   </data>
+  <data name="RecognitionNoun" xml:space="preserve">
+    <value>Rozpoznávání</value>
+  </data>
+  <data name="RecognitionPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Spustit rozpoznávací úlohu</value>
+  </data>
+  <data name="RecognitionPageLead1Text" xml:space="preserve">
+    <value>Během rozpoznávací fáze zpracovávání dokumentů budou provedeny následující operace</value>
+  </data>
+  <data name="RecognitionPageLead2Text" xml:space="preserve">
+    <value>Pro spuštění rozpoznávací úlohy musíte kliknout na tlačítko níže</value>
+  </data>
   <data name="RecognitionTasksCardHeader" xml:space="preserve">
     <value>Rozpoznávací úlohy</value>
   </data>

@@ -378,6 +378,18 @@
   <data name="QueueStartSelectWorkflowTitle" xml:space="preserve">
     <value>Set workflow</value>
   </data>
+  <data name="RecognitionNoun" xml:space="preserve">
+    <value>Recognition</value>
+  </data>
+  <data name="RecognitionPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Launch recognition task</value>
+  </data>
+  <data name="RecognitionPageLead1Text" xml:space="preserve">
+    <value>During recognition phase of processing, these operations are executed</value>
+  </data>
+  <data name="RecognitionPageLead2Text" xml:space="preserve">
+    <value>To launch recognition task, please click on the button below</value>
+  </data>
   <data name="RecognitionTasksCardHeader" xml:space="preserve">
     <value>Recognition tasks</value>
   </data>

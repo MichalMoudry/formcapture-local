@@ -229,6 +229,37 @@ async function recog(fields, images, lang, contentTypes) {
     return results;
 }
 
+async function singleFileMultipleFieldsRecog(fields, image, lang, contentType) {
+    // Initialize variables
+    const worker = createWorker();
+    await worker.load();
+    await worker.loadLanguage(lang);
+    await worker.initialize(lang);
+    var results = [];
+
+    // Iterate for each field
+    for (var x = 0; x < fields.length; x++) {
+        const {
+            data: { text }
+        } = await worker.recognize("data:" + contentType + ";base64," + image,
+            {
+                rectangle: {
+                    top: fields[x]["xposition"],
+                    left: fields[x]["yposition"],
+                    width: fields[x]["width"],
+                    height: fields[x]["height"]
+                }
+            });
+        // Push recognition result to array in this format:
+        // [result] / [fieldID]
+        results.push(text.replace(/\s/g, "") + "/" + fields[x]["id"]);
+    }
+
+    // Finish recognition and return results
+    await worker.terminate();
+    return results;
+}
+
 function displayTemplateTestResult(recognizedValue, expectedValue) {
     if (expectedValue == null || expectedValue == "") {
         expectedValue = "none";
