@@ -125,14 +125,23 @@
         await Recognize();
         //Execute tasks
         await ExecuteCustomTasks();
-        //Update files
-        //await UpdateEntites();
+        //Update entites
+        await UpdateEntities();
         isFullPageLoadingScreenDisplayed = false;
+        NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/verification");
+    }
+
+    /// <summary>
+    /// Method for updating required entities in a database.
+    /// </summary>
+    private async Task UpdateEntities()
+    {
         foreach (var value in fieldValues)
         {
-            Console.WriteLine($"{processedFiles.Single(i => i.ID.Equals(value.FileID)).Name} - {fields.Single(i => i.ID.Equals(value.FieldID)).Name} - {value.Value}");
+            _ = await DataAccess.AddItem(value, ObjectStores.FieldValues.ToString());
         }
-        //NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/verification");
+        queue.QueueTask = QueueTask.Recognition;
+        _ = await DataAccess.UpdateItem(queue, ObjectStores.Queues.ToString());
     }
 
     /// <summary>
@@ -208,8 +217,8 @@
                         await Recognize();
                         //Execute tasks
                         await ExecuteCustomTasks();
-                        //Update files
-                        //await UpdateEntites();
+                        //Update entities
+                        await UpdateEntities();
                         NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/verification");
                     }
                 }

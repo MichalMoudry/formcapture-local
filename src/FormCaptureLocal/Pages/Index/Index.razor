@@ -13,31 +13,21 @@
 </p>
 
 <div class="container mt-3">
+    <!--Login button-->
     <button type="button" @onclick="@(e => Navigate("/login"))" class="btn btn-light mr-2" title="@Localizer["LogIn"]">
         <span class="oi oi-account-login mr-1"></span> @Localizer["LogIn"]
     </button>
+    <!--Register button-->
     <button type="button" @onclick="@(e => Navigate("/register"))" class="btn btn-light ml-2" title="@Localizer["Register"]">
         <span class="oi oi-person mr-1"></span> @Localizer["Register"]
     </button>
-    <!--
-        &#xEA80; - Home
-        &#xEB4E; - Queues
-        &#xEA83; - Templates
-        &#xEA84; - Templates add
-        &#xE952; - Test icon
-        &#xE961; - User docs
-        &#xE9A1; - Check icon
-        &#xE9C3; - Edit icon
-        &#xE9ED; - Delete icon
-        &#xEA8D; - Info
-        &#xEA93; - Tasks?
-        &#xEAD6; - Hamburger
-        &#xEAFD; - Account
-        &#xEB4C; - Plus?
-        &#xEB3B; - ID field icon
-        &#xEB5D; - Settings
-        &#xE9A8; - Arrow right
-    -->
+</div>
+
+<div class="mt-3">
+    <!--About button-->
+    <button type="button" @onclick="@(e => Navigate("/formcapture/about"))" class="btn btn-light mr-2" title="@Localizer["NavMenuAboutLinkText"]">
+        <span class="fluentUiGlyph mr-1" id="indexAboutButtonIcon">&#xEA8D;</span> @Localizer["NavMenuAboutLinkText"]
+    </button>
 </div>
 
 @code

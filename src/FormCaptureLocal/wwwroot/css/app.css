@@ -161,6 +161,18 @@ a, .btn-link {
     font-size: 1.1rem;
 }
 
+#indexAboutButtonIcon {
+    font-size: 1rem;
+}
+
+#aboutContent .h3FluentGlyph {
+    margin-top: -10px !important;
+}
+
+#aboutContent {
+    text-align: left;
+}
+
 .toast-area {
     position: sticky;
     bottom: 0;
@@ -260,6 +272,11 @@ a, .btn-link {
 }
 
 /*Media*/
+/*Small devices*/
+@media (min-width: 576px) {
+}
+
+/*Medium devices - tablets*/
 @media (min-width: 768px) {
     .form-card {
         width: 35%;
@@ -267,7 +284,8 @@ a, .btn-link {
     }
 }
 
-@media (min-width: 1015px) {
+/*Large devices*/
+@media (min-width: 992px) {
     .form-card {
         width: 23%;
         max-width: 350px;

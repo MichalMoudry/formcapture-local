@@ -51,6 +51,8 @@
 
 .settingPanel {
     padding: 1rem;
+    background: white;
+    color: black;
     border-radius: 5px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 }

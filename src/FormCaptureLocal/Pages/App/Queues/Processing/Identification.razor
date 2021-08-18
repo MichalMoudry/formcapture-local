@@ -104,9 +104,9 @@
     private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
 
     /// <summary>
-    /// Method for updating required entites in a database.
+    /// Method for updating required entities in a database.
     /// </summary>
-    private async Task UpdateEntites()
+    private async Task UpdateEntities()
     {
         foreach (var file in processedFiles)
         {
@@ -127,7 +127,7 @@
         //Execute tasks
         await ExecuteCustomTasks();
         //Update files
-        await UpdateEntites();
+        await UpdateEntities();
         isFullPageLoadingScreenDisplayed = false;
         NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
     }
@@ -210,7 +210,7 @@
                         //Execute tasks
                         await ExecuteCustomTasks();
                         //Update files
-                        await UpdateEntites();
+                        await UpdateEntities();
                         NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
                     }
                 }
