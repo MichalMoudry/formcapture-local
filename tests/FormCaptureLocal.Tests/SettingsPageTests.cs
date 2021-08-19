@@ -10,7 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace FormCaptureLocalTests
+namespace FormCaptureLocal.Tests
 {
     public class SettingsPageTests
     {
@@ -18,8 +18,8 @@ namespace FormCaptureLocalTests
         public async Task ChangeLocaleSettingTest()
         {
             using var context = new TestContext();
-            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
+            _ = context.Services.AddLocalization(options => options.ResourcesPath = "Resources")
+                                .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
             context.AddBlazoredLocalStorage();
             var localStorage = context.Services.GetService<ILocalStorageService>();
             await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
@@ -38,9 +38,9 @@ namespace FormCaptureLocalTests
         public async Task ChangeThemeSettingTest()
         {
             using var context = new TestContext();
-            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
-            context.AddBlazoredLocalStorage();
+            _ = context.Services.AddLocalization(options => options.ResourcesPath = "Resources")
+                                .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
+            _ = context.AddBlazoredLocalStorage();
             var localStorage = context.Services.GetService<ILocalStorageService>();
             await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
             await localStorage.SetItemAsync(Setting.ApplicationTheme.ToString(), AppTheme.Light.ToString());
@@ -68,9 +68,9 @@ namespace FormCaptureLocalTests
         public async Task LoadThemeSettingTest()
         {
             using var context = new TestContext();
-            context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-            context.Services.AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
-            context.AddBlazoredLocalStorage();
+            _ = context.Services.AddLocalization(options => options.ResourcesPath = "Resources")
+                            .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
+            _ = context.AddBlazoredLocalStorage();
             var localStorage = context.Services.GetService<ILocalStorageService>();
             await localStorage.SetItemAsync(Setting.DefaultLocale.ToString(), Locale.eng.ToString());
             await localStorage.SetItemAsync(Setting.ApplicationTheme.ToString(), AppTheme.Light.ToString());

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using Xunit;
 
-namespace FormCaptureLocalTests
+namespace FormCaptureLocal.Tests
 {
     public class TemplatesListPageTests
     {

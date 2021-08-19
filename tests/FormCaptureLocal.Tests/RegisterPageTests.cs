@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Xunit;
 
-namespace FormCaptureLocalTests
+namespace FormCaptureLocal.Tests
 {
     public class RegisterPageTests
     {

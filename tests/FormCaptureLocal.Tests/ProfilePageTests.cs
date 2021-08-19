@@ -8,8 +8,14 @@ using Xunit;
 
 namespace FormCaptureLocalTests
 {
+    /// <summary>
+    /// Profile page tests.
+    /// </summary>
     public class ProfilePageTests
     {
+        /// <summary>
+        /// Test if empty password error message is displayed correctly.
+        /// </summary>
         [Fact]
         public void EmptyNewPasswordFormTest()
         {

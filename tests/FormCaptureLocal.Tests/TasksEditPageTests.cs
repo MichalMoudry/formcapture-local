@@ -1,12 +1,13 @@
 ﻿using Bunit;
 using FormCaptureLocal;
+using FormCaptureLocal.Models.DbModels;
 using FormCaptureLocal.Pages.App.Tasks;
 using FormCaptureLocal.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Xunit;
 
-namespace FormCaptureLocalTests
+namespace FormCaptureLocal.Tests
 {
     public class TasksEditPageTests
     {
@@ -23,6 +24,7 @@ namespace FormCaptureLocalTests
                 .AddSingleton<DataAccess>()
                 .AddSingleton<AlertService>();
             _ = context.JSInterop.SetupVoid("displayToast", "error-toast");
+            _ = context.JSInterop.Setup<WorkflowTask>("getItem", null, "WorkflowTasks");
             //Get localizer
             var localizer = context.Services.GetService<IStringLocalizer<App>>();
             //Render component

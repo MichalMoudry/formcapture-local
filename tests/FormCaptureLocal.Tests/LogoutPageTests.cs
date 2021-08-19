@@ -5,7 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace FormCaptureLocalTests
+namespace FormCaptureLocal.Tests
 {
     public class LogoutPageTests
     {
