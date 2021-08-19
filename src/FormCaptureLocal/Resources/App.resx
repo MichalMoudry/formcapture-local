@@ -642,6 +642,27 @@
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Upload template image</value>
   </data>
+  <data name="VerificationNoun" xml:space="preserve">
+    <value>Verification</value>
+  </data>
+  <data name="VerificationPageFirstOperationDescription" xml:space="preserve">
+    <value>Save changes to queue made during this phase</value>
+  </data>
+  <data name="VerificationPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Finish verification task</value>
+  </data>
+  <data name="VerificationPageLead1Text" xml:space="preserve">
+    <value>Results from identification phase</value>
+  </data>
+  <data name="VerificationPageLead2Text" xml:space="preserve">
+    <value>Results from recognition phase</value>
+  </data>
+  <data name="VerificationPageLead3Text" xml:space="preserve">
+    <value>During recognition phase of processing, these operations are executed:</value>
+  </data>
+  <data name="VerificationPageLead4Text" xml:space="preserve">
+    <value>To finish verification task, please click on the button below</value>
+  </data>
   <data name="VerificationTasksCardHeader" xml:space="preserve">
     <value>Verification tasks</value>
   </data>

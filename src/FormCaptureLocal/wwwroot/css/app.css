@@ -237,6 +237,10 @@ a, .btn-link {
     font-size: inherit;
 }
 
+.jumbotron h4 .fluentUiGlyph {
+    margin-left: -8px;
+}
+
 .navMenuFluentUiGlyph {
     margin-left: -3px;
     margin-right: 12px;

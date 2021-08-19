@@ -642,6 +642,27 @@
   <data name="UploadTemplateImageStepText" xml:space="preserve">
     <value>Nahrajte obrázek předlohy dokumentu</value>
   </data>
+  <data name="VerificationNoun" xml:space="preserve">
+    <value>Verifikace</value>
+  </data>
+  <data name="VerificationPageFirstOperationDescription" xml:space="preserve">
+    <value>Uložení změn provedených v této fázi</value>
+  </data>
+  <data name="VerificationPageLaunchTaskButtonText" xml:space="preserve">
+    <value>Dokončit verifikační úlohu</value>
+  </data>
+  <data name="VerificationPageLead1Text" xml:space="preserve">
+    <value>Výsledky z identifikační fáze</value>
+  </data>
+  <data name="VerificationPageLead2Text" xml:space="preserve">
+    <value>Výsledky z rozpoznávací fáze</value>
+  </data>
+  <data name="VerificationPageLead3Text" xml:space="preserve">
+    <value>Během verifikační fáze zpracovávání dokumentů budou provedeny následující operace</value>
+  </data>
+  <data name="VerificationPageLead4Text" xml:space="preserve">
+    <value>Pro dokončení verifikační úlohy musíte kliknout na tlačítko níže</value>
+  </data>
   <data name="VerificationTasksCardHeader" xml:space="preserve">
     <value>Ověřovací úlohy</value>
   </data>

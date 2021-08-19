@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     var theme = localStorage.getItem("ApplicationTheme");
     if (theme === '"Light"') {
         $('head').append('<link rel="stylesheet" href="css/app-light.css">');
