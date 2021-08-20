@@ -58,7 +58,9 @@
 }
 
 .verificationIdResult {
-    background: black;
+    background: #00000094;
     color: white;
     width: 250px;
+    float: left;
+    margin-top: -47px;
 }

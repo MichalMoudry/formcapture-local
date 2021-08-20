@@ -645,6 +645,9 @@
   <data name="VerificationNoun" xml:space="preserve">
     <value>Verifikace</value>
   </data>
+  <data name="VerificationPageEnterNewValuePlaceholder" xml:space="preserve">
+    <value>Napište novou hodnotu pole</value>
+  </data>
   <data name="VerificationPageFirstOperationDescription" xml:space="preserve">
     <value>Uložení změn provedených v této fázi</value>
   </data>
@@ -662,6 +665,9 @@
   </data>
   <data name="VerificationPageLead4Text" xml:space="preserve">
     <value>Pro dokončení verifikační úlohy musíte kliknout na tlačítko níže</value>
+  </data>
+  <data name="VerificationPageRecognitionResultsDescription" xml:space="preserve">
+    <value>V této sekci můžete dohlížet na rozpoznané výsledky, také je můžete upravovat, pokud by došlo k nějaké chybě nebo nesprávnému rozpoznání</value>
   </data>
   <data name="VerificationTasksCardHeader" xml:space="preserve">
     <value>Ověřovací úlohy</value>

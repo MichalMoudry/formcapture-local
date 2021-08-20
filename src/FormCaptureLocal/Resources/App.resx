@@ -645,6 +645,9 @@
   <data name="VerificationNoun" xml:space="preserve">
     <value>Verification</value>
   </data>
+  <data name="VerificationPageEnterNewValuePlaceholder" xml:space="preserve">
+    <value>Enter new value for the field</value>
+  </data>
   <data name="VerificationPageFirstOperationDescription" xml:space="preserve">
     <value>Save changes to queue made during this phase</value>
   </data>
@@ -662,6 +665,9 @@
   </data>
   <data name="VerificationPageLead4Text" xml:space="preserve">
     <value>To finish verification task, please click on the button below</value>
+  </data>
+  <data name="VerificationPageRecognitionResultsDescription" xml:space="preserve">
+    <value>Here you can oversee recognized results, also you can edit them, if by any chance error or misrecognition occurred</value>
   </data>
   <data name="VerificationTasksCardHeader" xml:space="preserve">
     <value>Verification tasks</value>

@@ -9,30 +9,46 @@
 
 <div class="jumbotron">
     <h4 class="display-4"><span class="fluentUiGlyph">&#xE969;</span>  @Localizer["VerificationNoun"]</h4>
+    <hr class="my-4" />
 
     <!--Identification results-->
-    <p class="lead"><span class="fluentUiGlyph mr-1">&#xEA1E;</span>  @Localizer["VerificationPageLead1Text"]:</p>
-    @if (processedFiles != null && templates != null)
-    {
-        @foreach (var file in processedFiles)
+    <h5 class="mb-3"><span class="fluentUiGlyph mr-1">&#xEA1E;</span>  @Localizer["VerificationPageLead1Text"]:</h5>
+    <div id="queueQuickPreview">
+        @if (processedFiles != null && templates != null)
         {
-            <div class="quickPreviewItem mr-3">
-                <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" id="@file.ID" class="quickPreviewImage figure-img img-fluid rounded" draggable="false" />
-                @if (file.TemplateID != null)
-                {
-                    <span class="verificationIdResult rounded">@templates.Single(i => i.ID.Equals(file.TemplateID)).Name</span>
-                }
-                else
-                {
-                    <span class="verificationIdResult rounded">Unidentified</span>
-                }
-            </div>
+            @foreach (var file in processedFiles)
+            {
+                <div class="quickPreviewItem mr-3">
+                    <img src="data:{@file.ContentType};base64,@Convert.ToBase64String(file.Content)" alt="@file.Name" id="@file.ID" class="quickPreviewImage figure-img img-fluid rounded" draggable="false" />
+                    @if (file.TemplateID != null)
+                    {
+                        <span class="verificationIdResult rounded p-2">@templates.Single(i => i.ID.Equals(file.TemplateID)).Name</span>
+                    }
+                    else
+                    {
+                        <span class="verificationIdResult rounded p-2">Unidentified</span>
+                    }
+                </div>
+            }
         }
-    }
+    </div>
     <hr class="my-4" />
 
     <!--Recognition results-->
-    <p class="lead"><span class="fluentUiGlyph mr-1">&#xEB4E;</span>  @Localizer["VerificationPageLead2Text"]:</p>
+    <h5 class="mb-3"><span class="fluentUiGlyph mr-1">&#xEB4E;</span>  @Localizer["VerificationPageLead2Text"]:</h5>
+    <p>@Localizer["VerificationPageRecognitionResultsDescription"]</p>
+    @if (fieldValues != null && processedFiles != null && fields != null)
+    {
+        @foreach (var file in processedFiles)
+        {
+            <p class="mb-0"><span class="fluentUiGlyph buttonFluentGlyph mr-2">&#xEB3A;</span>  <strong>@file.Name</strong></p>
+            @foreach (var value in fieldValues.Where(i => i.FileID.Equals(file.ID)))
+            {
+                <label for="@value.ID" class="mt-2">@fields.Single(i => i.ID.Equals(value.FieldID)).Name</label>
+                <input placeholder="@Localizer["VerificationPageEnterNewValuePlaceholder"]..." @bind-value="value.Value" id="@value.ID" type="text" class="form-control" />
+            }
+        }
+    }
     <hr class="my-4" />
 
     <!--Custom tasks display-->
@@ -61,7 +77,7 @@
             <hr class="my-4" />
             <p class="lead mt-3">@Localizer["VerificationPageLead4Text"].</p>
             <hr class="my-4" />
-            <button class="btn btn-outline-primary btn-lg btn-block" data-toggle="tooltip" role="button" title="@Localizer["VerificationPageLaunchTaskButtonText"]">
+            <button class="btn btn-outline-primary btn-lg btn-block" data-toggle="tooltip" role="button" title="@Localizer["VerificationPageLaunchTaskButtonText"]" @onclick="Submit">
                 <span class="oi oi-play-circle mr-2"></span> @Localizer["VerificationPageLaunchTaskButtonText"]
             </button>
         }
@@ -129,6 +145,18 @@
     /// Private filed for seting and geting value of a CSS class for displaying/hiding fullpage loading screen.
     /// </summary>
     private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
+
+    /// <summary>
+    /// Event handler for submit button on this page.
+    /// </summary>
+    private async Task Submit()
+    {
+        await Task.Delay(10);
+        foreach (var value in fieldValues)
+        {
+            Console.WriteLine($"{fields.Single(i => i.ID.Equals(value.FieldID)).Name} - {value.Value}");
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
