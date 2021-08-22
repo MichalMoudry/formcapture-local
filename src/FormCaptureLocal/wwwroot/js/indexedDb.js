@@ -48,33 +48,8 @@ $(document).ready(function () {
     }
 });
 
-async function addItem(item, objectstore) {
-    res = await addItemPromise(item, objectstore);
-    return res;
-}
-
-async function getItem(id, objectstore) {
-    res = await getItemPromise(id, objectstore);
-    return res;
-}
-
-async function getAllItems(objectstore) {
-    res = await getAllItemsPromise(objectstore);
-    return res;
-}
-
-async function putItem(object, objectstore) {
-    res = await putItemPromise(object, objectstore);
-    return res;
-}
-
-async function deleteItem(object, objectstore) {
-    res = await deleteItemPromise(object, objectstore);
-    return res;
-}
-
 //------------------------Promises------------------------
-function addItemPromise(item, objectstore) {
+function addItem(item, objectstore) {
     return new Promise(function (resolve) {
         transaction = db.transaction(objectstore, "readwrite");
         objStore = transaction.objectStore(objectstore);
@@ -88,7 +63,7 @@ function addItemPromise(item, objectstore) {
     });
 }
 
-function getItemPromise(id, objectstore) {
+function getItem(id, objectstore) {
     return new Promise(function (resolve) {
         transaction = db.transaction(objectstore, "readonly");
         objStore = transaction.objectStore(objectstore);
@@ -107,7 +82,7 @@ function getItemPromise(id, objectstore) {
     });
 }
 
-function getAllItemsPromise(objectstore) {
+function getAllItems(objectstore) {
     return new Promise(function (resolve) {
         transaction = db.transaction(objectstore, "readonly");
         objStore = transaction.objectStore(objectstore);
@@ -126,7 +101,7 @@ function getAllItemsPromise(objectstore) {
     });
 }
 
-function putItemPromise(object, objectstore) {
+function putItem(object, objectstore) {
     return new Promise(function (resolve) {
         transaction = db.transaction(objectstore, "readwrite");
         objStore = transaction.objectStore(objectstore);
@@ -140,7 +115,7 @@ function putItemPromise(object, objectstore) {
     });
 }
 
-function deleteItemPromise(object, objectstore) {
+function deleteItem(object, objectstore) {
     return new Promise(function (resolve) {
         transaction = db.transaction(objectstore, "readwrite");
         objStore = transaction.objectStore(objectstore);

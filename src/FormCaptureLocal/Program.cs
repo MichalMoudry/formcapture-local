@@ -20,7 +20,8 @@ namespace FormCaptureLocal
                 .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
                 .AddSingleton<DataAccess>()
                 .AddSingleton<AlertService>()
-                .AddSingleton<TesseractService>();
+                .AddSingleton<TesseractService>()
+                .AddSingleton<JsImportService>();
 
             await builder.Build().RunAsync();
         }

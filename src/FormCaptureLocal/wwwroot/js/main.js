@@ -32,7 +32,7 @@ function confirmDialog(message) {
     return res;
 }
 
-function closeAlert(alertID) {
+function hideToast(alertID) {
     $("#" + alertID).hide();
 }
 
