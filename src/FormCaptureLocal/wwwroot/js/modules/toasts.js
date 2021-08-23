@@ -1,8 +1,8 @@
-﻿export function hideToast(alertID) {
+﻿function hideToast(alertID) {
     $("#" + alertID).hide();
 }
 
-export function displayToast(toastID) {
+function displayToast(toastID) {
     document.getElementById(toastID).classList.remove("d-none");
     $("#" + toastID).show();
     var alerts = document.getElementsByClassName("alert");

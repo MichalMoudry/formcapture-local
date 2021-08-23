@@ -13,29 +13,16 @@ namespace FormCaptureLocal.Services
         /// </summary>
         private readonly IJSRuntime _jSRuntime;
 
-        private readonly JsImportService _jsImportService;
-
-        private IJSObjectReference _toastModule;
-
-        public AlertService(IJSRuntime jSRuntime, JsImportService jsImportService)
+        public AlertService(IJSRuntime jSRuntime)
         {
             _jSRuntime = jSRuntime;
-            _jsImportService = jsImportService;
         }
 
         /// <summary>
         /// Method for displaying confirm dialogs.
         /// </summary>
         /// <param name="message">Message that will be displayed on the dialog.</param>
-        public async Task<bool> DisplayConfirmDialog(string message)
-        {
-            if (_toastModule == null)
-            {
-                _toastModule = await _jsImportService.ImportModule("./js/modules/toasts.js");
-            }
-            return await _toastModule.InvokeAsync<bool>("confirmDialog", message);
-            //return await _jSRuntime.InvokeAsync<bool>("confirmDialog", message);
-        }
+        public async Task<bool> DisplayConfirmDialog(string message) => await _jSRuntime.InvokeAsync<bool>("confirmDialog", message);
 
         /// <summary>
         /// Method for displaying toast alerts.
