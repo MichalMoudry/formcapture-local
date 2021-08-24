@@ -1,10 +1,4 @@
-﻿$.getScript("js/modules/toasts.js");
-$.getScript("js/modules/fields.js");
-$.getScript("js/modules/recognition.js");
-$.getScript("js/modules/images.js");
-$.getScript("js/modules/dialogs.js");
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
     var theme = localStorage.getItem("ApplicationTheme");
     if (theme === '"Light"') {
@@ -29,6 +23,10 @@ function uncheckCheckboxes(checkboxIdArray) {
     for (var i = 0; i < checkboxIdArray.length; i++) {
         document.getElementById(checkboxIdArray[i]).checked = false;
     }
+}
+
+function displayFullPageLoadingScreen() {
+    document.body.classList.add("noScrollbar");
 }
 
 function executeJS(code) {

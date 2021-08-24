@@ -122,12 +122,17 @@
     private async Task Submit()
     {
         isFullPageLoadingScreenDisplayed = true;
+        await Task.Delay(10);
+
         //Process files
         await IdentifyDocuments();
+
         //Execute tasks
         await ExecuteCustomTasks();
+
         //Update files
         await UpdateEntities();
+
         isFullPageLoadingScreenDisplayed = false;
         NavigationManager.NavigateTo($"/formcapture/queues/{QueueID}/recognition");
     }

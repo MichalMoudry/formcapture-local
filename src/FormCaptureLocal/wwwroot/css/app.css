@@ -226,6 +226,10 @@ a, .btn-link {
     width: 10% !important;
 }
 
+.noScrollbar {
+    overflow: hidden;
+}
+
 /*Glyph styles*/
 .fluentUiGlyph {
     font-family: "Fluent UI Glyphs";
