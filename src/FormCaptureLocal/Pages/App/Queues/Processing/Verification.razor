@@ -26,7 +26,7 @@
                     }
                     else
                     {
-                        <span class="verificationIdResult rounded p-2 pointer hoverElement" data-toggle="modal" data-target="#manualIdentificationModal">
+                        <span class="verificationIdResult rounded p-2 pointer hoverElement" data-toggle="modal" data-target="#manualIdentificationModal" @onclick="@(e => SelectUnidentifiedFile(file))">
                             Unidentified
                         </span>
                     }
@@ -99,35 +99,39 @@
 </div>
 
 <!--Full page loading screen-->
-<div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
-    <div class="d-flex justify-content-center main-loading-div">
-        @Localizer["Loading"]...
-        <div class="spinner-border mt-4" role="status">
-            <span class="sr-only">@Localizer["Loading"]...</span>
-        </div>
-    </div>
-</div>
+<FullpageLoadingScreen IsDisplayed="isFullPageLoadingScreenDisplayed" />
 
 <!--Manual identification modal-->
 <div class="modal" tabindex="-1" role="dialog" id="manualIdentificationModal" aria-hidden="true" aria-labelledby="manualIdentificationModal">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Manual document identification</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="@Localizer["Close"]">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" title="@Localizer["Close"]" disabled="@isManualIdentificationButtonDisabled">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body">
-
+                <select class="form-control" @bind="manualTemplateId" title="Select a template">
+                    <option value="">Select a template</option>
+                    @if (templates != null)
+                    {
+                        @foreach (var template in templates)
+                        {
+                            <option value="@template.ID">@template.Name</option>
+                        }
+                    }
+                </select>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">
-                    <span class="oi oi-check"></span> Save changes
+                <button type="button" class="btn btn-success" disabled="@isManualIdentificationButtonDisabled" @onclick="ManuallyIdentifyDocument">
+                    <span class="oi oi-check"></span> Manually identify
                 </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" title="@Localizer["Close"]">@Localizer["Close"]</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" title="@Localizer["Close"]" disabled="@isManualIdentificationButtonDisabled">
+                    @Localizer["Close"]
+                </button>
             </div>
         </div>
     </div>
@@ -177,9 +181,19 @@
     private bool isFullPageLoadingScreenDisplayed;
 
     /// <summary>
-    /// Private filed for seting and geting value of a CSS class for displaying/hiding fullpage loading screen.
+    /// Field with value for disabling button for manual identification.
     /// </summary>
-    private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
+    private bool isManualIdentificationButtonDisabled = false;
+
+    /// <summary>
+    /// ID of the manually selected template.
+    /// </summary>
+    private string manualTemplateId;
+
+    /// <summary>
+    /// File that has been selected by the user and is unidentified.
+    /// </summary>
+    private ProcessedFile unidentifiedFile;
 
     /// <summary>
     /// Event handler for submit button on this page.
@@ -205,6 +219,57 @@
         if (isDisplayed)
         {
             await IJSRuntime.InvokeVoidAsync("displayFullPageLoadingScreen");
+        }
+        else
+        {
+            await IJSRuntime.InvokeVoidAsync("hideFullPageLoadingScreen");
+        }
+    }
+
+    /// <summary>
+    /// Method for setting an unidentified file for manual identification.
+    /// </summary>
+    /// <param name="file">File that is unidentified.</param>
+    private void SelectUnidentifiedFile(ProcessedFile file)
+    {
+        if (file.TemplateID == null)
+        {
+            unidentifiedFile = file;
+        }
+    }
+
+    /// <summary>
+    /// Method for manual fix of unidentified document.
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing any asynchronous operation.</returns>
+    private async Task ManuallyIdentifyDocument()
+    {
+        if (!string.IsNullOrEmpty(manualTemplateId) && unidentifiedFile != null)
+        {
+            isManualIdentificationButtonDisabled = true;
+            //Identify document
+            unidentifiedFile.TemplateID = manualTemplateId;
+            await Task.Delay(100);
+            _ = await DataAccess.UpdateItem(unidentifiedFile, ObjectStores.ProcessedFiles.ToString());
+            //Run recognition
+            var results = await TesseractService.SingleFileMultipleFieldsRecognition(fields.Where(i => i.TemplateID.Equals(manualTemplateId) && !i.IsIdentifying).ToList(), unidentifiedFile.BlackAndWhiteContent, queue.Locale, unidentifiedFile.ContentType);
+            FieldValue value;
+            foreach (var res in results)
+            {
+                value = new FieldValue()
+                {
+                    ID = Guid.NewGuid().ToString(),
+                    FileID = unidentifiedFile.ID,
+                    FieldID = res[1],
+                    Value = res[0],
+                    Added = DateTime.Now,
+                    Updated = DateTime.Now
+                };
+                _ = await DataAccess.AddItem(value, ObjectStores.FieldValues.ToString());
+                fieldValues.Add(value);
+            }
+            isManualIdentificationButtonDisabled = false;
+            await IJSRuntime.InvokeVoidAsync("hideModal");
         }
     }
 
@@ -256,6 +321,6 @@
         {
             NavigationManager.NavigateTo("/NotFound");
         }
-        isFullPageLoadingScreenDisplayed = false;
+        await ToggleFullPageLoadingScreen(false);
     }
 }

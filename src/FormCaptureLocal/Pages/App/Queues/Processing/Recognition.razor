@@ -45,14 +45,7 @@
 </div>
 
 <!--Full page loading screen-->
-<div id="fullPageLoadingScreen" class="@FullPageLoadingScreenCssClass">
-    <div class="d-flex justify-content-center main-loading-div">
-        @Localizer["Loading"]...
-        <div class="spinner-border mt-4" role="status">
-            <span class="sr-only">@Localizer["Loading"]...</span>
-        </div>
-    </div>
-</div>
+<FullpageLoadingScreen IsDisplayed="isFullPageLoadingScreenDisplayed" />
 
 @code
 {
@@ -91,11 +84,6 @@
     /// Private field indicating if full page loading screen is displayed.
     /// </summary>
     private bool isFullPageLoadingScreenDisplayed;
-
-    /// <summary>
-    /// Private filed for seting and geting value of a CSS class for displaying/hiding fullpage loading screen.
-    /// </summary>
-    private string FullPageLoadingScreenCssClass => isFullPageLoadingScreenDisplayed ? "d-block" : "d-none";
 
     /// <summary>
     /// Method for executing custom tasks written in JS.
@@ -156,7 +144,7 @@
             //Run recognition for identified files
             if (file.TemplateID != null)
             {
-                results = await TesseractService.SingleFileMultipleFieldsRecognition(fields.Where(i => i.TemplateID.Equals(file.TemplateID) && !i.IsIdentifying).ToList(), file.Content, queue.Locale, file.ContentType);
+                results = await TesseractService.SingleFileMultipleFieldsRecognition(fields.Where(i => i.TemplateID.Equals(file.TemplateID) && !i.IsIdentifying).ToList(), file.BlackAndWhiteContent, queue.Locale, file.ContentType);
                 foreach (var res in results)
                 {
                     fieldValues.Add(new FieldValue()

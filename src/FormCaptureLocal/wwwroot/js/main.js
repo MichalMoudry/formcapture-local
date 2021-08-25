@@ -29,6 +29,10 @@ function displayFullPageLoadingScreen() {
     document.body.classList.add("noScrollbar");
 }
 
+function hideFullPageLoadingScreen() {
+    document.body.classList.remove("noScrollbar");
+}
+
 function executeJS(code) {
     try {
         eval(code);
