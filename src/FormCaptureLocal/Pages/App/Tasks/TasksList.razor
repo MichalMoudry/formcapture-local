@@ -75,7 +75,7 @@ else
         <strong class="mr-auto">@Localizer["TasksListPageTaskDeletedMessageTitle"]</strong>
         <hr />
         <p>@Localizer["TasksListPageTaskDeletedMessage"].</p>
-        <button type="button" class="close" onclick="closeAlert('task-deleted-toast');" aria-label="Close">
+        <button type="button" class="close" onclick="hideToast('task-deleted-toast');" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -84,7 +84,7 @@ else
         <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p class="errorMessage">@errorMessage</p>
-        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

@@ -30,110 +30,104 @@ else
     }
 </div>
 
-<div class="row mt-3">
-    <div class="col-md">
-        <div class="card">
-            <div class="card-header">
-                <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xEA83;</span> @Localizer["TemplateImageHeader"]</h4>
-            </div>
+<!--Template image card-->
+<div class="card mt-3">
+    <div class="card-header">
+        <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xEA83;</span> @Localizer["TemplateImageHeader"]</h4>
+    </div>
 
-            <div class="card-body">
-                <div id="template-canvas">
-                    @if (!string.IsNullOrEmpty(fileContent))
-                    {
-                        <img id="template-preview-image" draggable="false" src="@fileContent" alt="@Localizer["TemplateImageHeader"]" />
-                    }
-                    else
-                    {
-                        <p>@Localizer["Loading"]</p>
-                    }
-                </div>
-            </div>
+    <div class="card-body">
+        <div id="template-canvas">
+            @if (!string.IsNullOrEmpty(fileContent))
+            {
+                <img id="template-preview-image" draggable="false" src="@fileContent" alt="@Localizer["TemplateImageHeader"]" />
+            }
+            else
+            {
+                <p>@Localizer["Loading"]...</p>
+            }
+        </div>
+    </div>
 
-            <div class="card-footer">
-                <InputFile OnChange="@FileSelected" title="@Localizer["InputFileSingleFilesTitle"]" />
+    <div class="card-footer">
+        <InputFile OnChange="@FileSelected" title="@Localizer["InputFileSingleFilesTitle"]" />
+    </div>
+</div>
+
+<!--Fields card-->
+<div class="card mt-3">
+    <div class="card-header">
+        <div class="row">
+            <div class="col">
+                <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xE914;</span> @Localizer["Fields"]</h4>
+            </div>
+            <div class="pointer hoverElement text-center rounded w-10" @onclick="AddNewField">
+                <span class="oi oi-plus pointer mt-2"></span>
             </div>
         </div>
     </div>
 
-    <div class="col-md">
+    <div class="card-body">
+        @if (fields != null)
+        {
+            @if (fields.Count > 0)
+            {
+                @foreach (Field field in fields)
+                {
+                    <div class="field-list-item mt-1 pr-3 pl-3 pt-2 pb-2">
+                        <div class="row">
+                            <div class="col">
+                                <input class="field-input" @bind-value="field.Name" placeholder="@Localizer["FieldInputPlaceholder"]..." />
+                            </div>
+
+                            <div class="pointer hoverElement text-center rounded w-10" @onclick="@(e => DrawField(field.ID))">
+                                <span class="fluentUiGlyph">&#xE9C3;</span>
+                            </div>
+
+                            <div class="pointer hoverElement text-center rounded w-10" @onclick="@(e => RemoveField(field))">
+                                <span class="fluentUiGlyph">&#xE9ED;</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="card-text">@Localizer["TemplatesAddPageNoFieldsMessage"].</p>
+            }
+        }
+    </div>
+</div>
+
+<!--Test field card-->
+<div class="card mt-3">
+    <div class="card-header">
+        <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xEB3B;</span> @Localizer["IdFieldHeader"]</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="col">
+            <select class="form-control" @bind="identifyingFieldId" title="@Localizer["SelectIdFieldMessage"]">
+                <option value="none">@Localizer["SelectIdFieldMessage"]</option>
+                @if (fields != null)
+                {
+                    @foreach (var field in fields)
+                    {
+                        <option value="@field.ID">@field.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
         <div>
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col">
-                            <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xE914;</span> @Localizer["Fields"]</h4>
-                        </div>
-                        <div class="pointer hoverElement text-center rounded w-10" @onclick="AddNewField">
-                            <span class="oi oi-plus pointer mt-2"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div id="field-list">
-                        @if (fields != null)
-                        {
-                            @if (fields.Count > 0)
-                            {
-                                @foreach (Field field in fields)
-                                {
-                                    <div class="field-list-item mt-1 pr-3 pl-3 pt-2 pb-2">
-                                        <div class="row">
-                                            <div class="col">
-                                                <input class="field-input" @bind-value="field.Name" placeholder="@Localizer["FieldInputPlaceholder"]..." />
-                                            </div>
-
-                                            <div class="pointer hoverElement text-center rounded w-10" @onclick="@(e => DrawField(field.ID))">
-                                                <span class="fluentUiGlyph">&#xE9C3;</span>
-                                            </div>
-
-                                            <div class="pointer hoverElement text-center rounded w-10" @onclick="@(e => RemoveField(field))">
-                                                <span class="fluentUiGlyph">&#xE9ED;</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <p class="card-text">@Localizer["TemplatesAddPageNoFieldsMessage"].</p>
-                            }
-                        }
-                    </div>
-                </div>
+            <div class="col mt-2">
+                <input @bind="expectedValue" name="expected-value" id="expected-value" type="text" placeholder="@Localizer["ExpectedValueInputPlaceholder"]..." class="form-control" />
             </div>
 
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h4><span class="fluentUiGlyph tableFluentGlyph h4FluentGlyph mr-2">&#xEB3B;</span> @Localizer["IdFieldHeader"]</h4>
-                </div>
-
-                <div class="card-body">
-                    <div class="col">
-                        <select class="form-control" @bind="identifyingFieldId" title="@Localizer["SelectIdFieldMessage"]">
-                            <option value="none">@Localizer["SelectIdFieldMessage"]</option>
-                            @if (fields != null)
-                            {
-                                @foreach (var field in fields)
-                                {
-                                    <option value="@field.ID">@field.Name</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div>
-                        <div class="col mt-2">
-                            <input @bind="expectedValue" name="expected-value" id="expected-value" type="text" placeholder="@Localizer["ExpectedValueInputPlaceholder"]..." class="form-control" />
-                        </div>
-
-                        <div class="col mt-2">
-                            <button class="btn btn-warning" disabled="@isTestButtonDisabled" @onclick="TestIdFieldRecognition" title="@Localizer["TestIdFieldButtonText"]">
-                                <span class="oi oi-beaker mr-1"></span> @Localizer["TestIdFieldButtonText"]
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div class="col mt-2">
+                <button class="btn btn-warning" disabled="@isTestButtonDisabled" @onclick="TestIdFieldRecognition" title="@Localizer["TestIdFieldButtonText"]">
+                    <span class="oi oi-beaker mr-1"></span> @Localizer["TestIdFieldButtonText"]
+                </button>
             </div>
         </div>
     </div>
@@ -154,7 +148,7 @@ else
         <strong class="mr-auto">@Localizer["TemplatesAddPageTemplateNameErrorTitle"]</strong>
         <hr />
         <p>@Localizer["TemplatesAddPageTemplateNameErrorText"].</p>
-        <button type="button" class="close" onclick="closeAlert('template-name-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('template-name-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -163,7 +157,7 @@ else
         <strong class="mr-auto">@Localizer["TemplatesAddPageFieldsErrorTitle"]</strong>
         <hr />
         <p>@Localizer["TemplatesAddPageFieldsErrorText"].</p>
-        <button type="button" class="close" onclick="closeAlert('fields-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('fields-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -172,7 +166,7 @@ else
         <strong class="mr-auto">@Localizer["TemplatesAddPageImageErrorTitle"]</strong>
         <hr />
         <p>@Localizer["TemplatesAddPageImageErrorText"].</p>
-        <button type="button" class="close" onclick="closeAlert('image-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('image-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -181,7 +175,7 @@ else
         <strong class="mr-auto">@Localizer["TemplatesAddPageIdFieldErrorTitle"]</strong>
         <hr />
         <p>@Localizer["TemplatesAddPageIdFieldErrorText"].</p>
-        <button type="button" class="close" onclick="closeAlert('id-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('id-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -190,7 +184,7 @@ else
         <strong class="mr-auto">@Localizer["TemplatesAddPageExpectedValueErrorTitle"]</strong>
         <hr />
         <p>@Localizer["TemplatesAddPageExpectedValueErrorText"].</p>
-        <button type="button" class="close" onclick="closeAlert('val-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('val-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

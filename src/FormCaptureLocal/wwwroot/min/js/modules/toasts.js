@@ -1,0 +1,1 @@
+﻿function hideToast(e) { $("#" + e).hide() } function displayToast(e) { document.getElementById(e).classList.remove("d-none"), $("#" + e).show(); var t = document.getElementsByClassName("alert"); (t = Array.from(t)).forEach(t => { t.id != e && hideToast(t.id) }) }

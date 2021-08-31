@@ -124,11 +124,6 @@ a, .btn-link {
     font-weight: bold;
 }
 
-#field-list {
-    overflow: auto;
-    height: 30vh;
-}
-
 .second-level-block {
     margin-top: .6rem;
     margin-left: 15px;
@@ -150,7 +145,6 @@ a, .btn-link {
     */
     overflow: auto;
     position: relative;
-    height: 50vh;
 }
 
 #template-preview-image {

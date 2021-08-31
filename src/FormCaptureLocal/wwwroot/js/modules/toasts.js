@@ -9,7 +9,7 @@ function displayToast(toastID) {
     alerts = Array.from(alerts);
     alerts.forEach((element) => {
         if (element["id"] != toastID) {
-            closeAlert(element["id"]);
+            hideToast(element["id"]);
         }
     });
 }

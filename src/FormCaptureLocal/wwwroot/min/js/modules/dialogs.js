@@ -1,0 +1,1 @@
+﻿function confirmDialog(e) { return confirm(e) } function displayTemplateTestResult(e, n) { null != n && "" != n || (n = "none"); var i = "Identifying field test:\n\nRecognized value: " + e + "\nExpected value: " + n + "\n\nAre files going to be identified? "; i += n == e ? "Yes" : "No", alert(i) }

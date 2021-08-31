@@ -80,7 +80,7 @@
         <strong class="mr-auto">@Localizer["Error"]</strong>
         <hr />
         <p class="errorMessage">@errorMessage</p>
-        <button type="button" class="close" onclick="closeAlert('error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -91,7 +91,7 @@
         <p class="errorMessage">
             @Localizer["QueueStartPageNoTemplatesErrorMessage"]. <a href='/formcapture/templates/add' title="@Localizer["TemplatesListPageAddButtonText"]" class="alert-link">@Localizer["TemplatesListPageAddButtonText"]</a>.
         </p>
-        <button type="button" class="close" onclick="closeAlert('no-templates-error-toast');" aria-label="Close" title="@Localizer["Close"]">
+        <button type="button" class="close" onclick="hideToast('no-templates-error-toast');" aria-label="Close" title="@Localizer["Close"]">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
