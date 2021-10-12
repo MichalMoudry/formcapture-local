@@ -1,9 +1,6 @@
 ﻿using Bunit;
-using FormCaptureLocal;
-using FormCaptureLocal.Shared;
-using FormCaptureLocal.Services;
+using FormCaptureLocal.Shared.Components;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Xunit;
 
 namespace FormCaptureLocal.Tests

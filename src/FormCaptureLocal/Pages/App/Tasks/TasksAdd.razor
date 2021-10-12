@@ -37,14 +37,7 @@
 </div>
 
 <div class="toast-area">
-    <div class="alert alert-danger alert-dismissible fade show d-none" id="error-toast" role="alert">
-        <strong class="mr-auto">@Localizer["Error"]</strong>
-        <hr />
-        <p class="errorMessage">@errorMessage</p>
-        <button type="button" class="close" onclick="hideToast('error-toast');" aria-label="Close" title="@Localizer["Close"]">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    <Toast ID="error-toast" Type="alert-danger" TitleKey="Error" Content="@errorMessage" />
 </div>
 
 @code

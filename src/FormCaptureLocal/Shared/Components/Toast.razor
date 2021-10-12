@@ -1,0 +1,48 @@
+﻿@inject IStringLocalizer<App> Localizer
+
+<div class="alert @Type alert-dismissible fade show d-none" id="@ID" role="alert">
+    <strong class="mr-auto">@Localizer[TitleKey]</strong>
+    <hr />
+    @if (ContentKey != null)
+    {
+        <p>@Localizer[ContentKey].</p>
+    }
+    else
+    {
+        <p>@Content</p>
+    }
+    <ToastCloseButton ToastID="@ID" CloseButtonTitle="@Localizer["Close"]" />
+</div>
+
+@code
+{
+    /// <summary>
+    /// Parameter with a ID of the toast.
+    /// </summary>
+    [Parameter]
+    public string ID { get; set; }
+
+    /// <summary>
+    /// Parameter for setting what type the toast is.
+    /// </summary>
+    [Parameter]
+    public string Type { get; set; }
+
+    /// <summary>
+    /// Title of the toast.
+    /// </summary>
+    [Parameter]
+    public string TitleKey { get; set; }
+
+    /// <summary>
+    /// Content of the toast.
+    /// </summary>
+    [Parameter]
+    public string ContentKey { get; set; }
+
+    /// <summary>
+    /// Content of the toast.
+    /// </summary>
+    [Parameter]
+    public string Content { get; set; }
+}
