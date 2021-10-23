@@ -12,3 +12,6 @@
 /tests/FormCaptureLocal.Tests/obj
 /src/FormCaptureLocal/FormCaptureLocal.csproj.user
 /.vs
+/src/FormCaptureLocal.Core/bin/Debug/net5.0
+/src/FormCaptureLocal.Core/obj
+/src/FormCaptureLocal.Core/wwwroot/sample-data
