@@ -1,1 +1,0 @@
-﻿function showModal(o) { $("#" + o).modal("show") } function hideModal(o) { $("#" + o).modal("hide") }

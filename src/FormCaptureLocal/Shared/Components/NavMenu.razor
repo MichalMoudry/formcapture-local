@@ -1,68 +1,31 @@
-﻿@inject NavigationManager NavigationManager
-@inject IStringLocalizer<App> Localizer
-
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="formcapture/home" title="@Localizer["NavMenuHomeLinkTitle"]">
-        <img src="/formcapture-icon.svg" alt="Form Capture logo" height="33" class="d-inline-block align-text-top float-left" draggable="false">
-        <span class="float-right ml-2 mt-1">Form Capture</span>
-    </a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu" title="@Localizer["NavMenuToggleButtonTitle"]">
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">FormCaptureLocal.Core</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu" id="navList">
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/home" Match="NavLinkMatch.All" title="@Localizer["NavMenuHomeLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph" aria-hidden="true">&#xEA80;</span> @Localizer["NavMenuHomeLinkText"]
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/queues" title="@Localizer["NavMenuQueuesLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph" aria-hidden="true">&#xEB4E;</span> @Localizer["Queues"]
+            <NavLink class="nav-link" href="counter">
+                <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/templates" title="@Localizer["NavMenuTemplatesLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph" aria-hidden="true">&#xEA83;</span> @Localizer["NavMenuTemplatesLinkText"]
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/workflows" title="@Localizer["NavMenuWorkflowLinkTitle"]">
-                <span class="oi oi-project"></span> @Localizer["WorkflowsListPageTitle"]
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/formcapture/tasks" title="@Localizer["NavMenuTasksLinkTitle"]">
-                <span class="oi oi-code"></span> @Localizer["TasksListPageTitle"]
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/profile" title="@Localizer["NavMenuAccountLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph">&#xEAFD;</span> @Localizer["NavMenuAccountLinkText"]
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/settings" title="@Localizer["NavMenuSettingsLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph">&#xEB5D;</span> @Localizer["NavMenuSettingsLinkText"]
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/guide" title="@Localizer["NavMenuUserGuideLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph">&#xE961;</span> @Localizer["NavMenuUserGuideLinkText"]
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/about" title="@Localizer["NavMenuAboutLinkTitle"]">
-                <span class="fluentUiGlyph navMenuFluentUiGlyph">&#xEA8D;</span> @Localizer["NavMenuAboutLinkText"]
+            <NavLink class="nav-link" href="fetchdata">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </li>
     </ul>
 </div>
 
-@code
-{
+@code {
     private bool collapseNavMenu = true;
 
     private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;

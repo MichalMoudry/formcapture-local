@@ -1,5 +1,4 @@
 using Blazored.LocalStorage;
-using FormCaptureLocal.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -14,13 +13,7 @@ namespace FormCaptureLocal
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            _ = builder.Services.AddBlazoredLocalStorage()
-                .AddLocalization(options => options.ResourcesPath = "Resources")
-                .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
-                .AddSingleton<DataAccess>()
-                .AddSingleton<AlertService>()
-                .AddSingleton<TesseractService>();
+            _ = builder.Services.AddBlazoredLocalStorage();
 
             await builder.Build().RunAsync();
         }
