@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8" />
@@ -19,7 +19,14 @@
 </head>
 
 <body>
-    <div id="app">Loading...</div>
+    <div id="app">
+        <div class="d-flex justify-content-center loading-div">
+            <span class="h4" id="app-loading-indicatior-text">Loading...</span>
+            <div class="spinner-grow text-primary mt-4" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.

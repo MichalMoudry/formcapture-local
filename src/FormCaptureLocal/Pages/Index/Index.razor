@@ -1,12 +1,32 @@
 ﻿@layout IndexLayout
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<App> Localizer
 @page "/"
 
 <h1 class="mb-2">
-    <img src="/formcapture-icon.svg" alt="Form Capture logo" draggable="false" class="mb-3 mr-1" id="index-page-app-logo" />
+    <img src="/icon-512.png" alt="Form Capture logo" draggable="false" class="mb-3 mr-1" id="index-page-app-logo" />
     <span>Form Capture</span>
 </h1>
 
-@code {
+<p id="app-description">
+    <!--@Localizer["AppDescription"]-->
+</p>
 
+<div class="container mt-3">
+    <!--Login button-->
+    <button type="button" @onclick="@(e => Navigate("/login"))" class="btn btn-light mr-2" title="@Localizer["LogIn"]">
+        <span class="oi oi-account-login mr-1"></span> @Localizer["LogIn"]
+    </button>
+    <!--Register button-->
+    <button type="button" @onclick="@(e => Navigate("/register"))" class="btn btn-light ml-2" title="@Localizer["Register"]">
+        <span class="oi oi-person mr-1"></span> @Localizer["Register"]
+    </button>
+</div>
+
+@code
+{
+    private void Navigate(string page)
+    {
+        NavigationManager.NavigateTo(page);
+    }
 }

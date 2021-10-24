@@ -48,3 +48,50 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.loading-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+/*Loading*/
+#index-page-app-logo {
+    width: 5rem;
+}
+
+#app .loading-div .spinner-grow {
+    width: 4rem;
+    height: 4rem;
+}
+
+/*Index page*/
+.index-main {
+    flex: 1;
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 100%);
+    color: white;
+}
+
+    .index-main .content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+/*Dark mode*/
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: black;
+    }
+
+    #app-loading-indicatior-text {
+        color: white;
+    }
+}

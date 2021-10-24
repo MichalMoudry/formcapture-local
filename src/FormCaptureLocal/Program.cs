@@ -13,7 +13,9 @@ namespace FormCaptureLocal
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            _ = builder.Services.AddBlazoredLocalStorage();
+            _ = builder.Services.AddBlazoredLocalStorage()
+                .AddLocalization(options => options.ResourcesPath = "Resources")
+                .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>();
 
             await builder.Build().RunAsync();
         }
