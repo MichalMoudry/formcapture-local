@@ -1,4 +1,4 @@
-<button type="button" @onclick="() => OnClick.InvokeAsync(DestinationURI)" class="btn btn-light w-25" title="@Title">
+<button type="button" @onclick="() => OnClick.InvokeAsync(DestinationURI)" class="@Classes" title="@Title">
     @((MarkupString)Icon) @Content
 </button>
 
@@ -18,4 +18,7 @@
 
     [Parameter]
     public string DestinationURI { get; set; }
+
+    [Parameter]
+    public string Classes { get; set; }
 }

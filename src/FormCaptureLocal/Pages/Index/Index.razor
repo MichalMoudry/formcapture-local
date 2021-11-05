@@ -4,22 +4,23 @@
 @page "/"
 
 <h1 class="mb-2">
-    <img src="/formcapture-icon.svg" alt="Form Capture logo" draggable="false" class="mb-3 mr-1" id="index-page-app-logo" />
+    <span class="oi oi-aperture mr-1"></span>
+    <!--<img src="/formcapture-icon.svg" alt="Form Capture logo" draggable="false" class="mb-3 mr-1" id="index-page-app-logo" />-->
     <span>Form Capture</span>
 </h1>
 
-<p id="app-description">
-    <!--@Localizer["AppDescription"]-->
+<p id="app-description" class="mt-3">
+    @Localizer["AppDescription"]
 </p>
 
 <div class="container mt-3">
     <!--Login button-->
     <div>
-        <NavigateButton Icon='<span class="oi oi-account-login mr-1"></span>' Content=@Localizer["LogIn"] DestinationURI="/login" OnClick="Navigate" />
+        <NavigateButton Icon='<span class="oi oi-account-login mr-1"></span>' Content=@Localizer["LogIn"] DestinationURI="/login" OnClick="Navigate" Classes="btn btn-light w-25" />
     </div>
     <!--Register button-->
     <div class="mt-3">
-        <NavigateButton icon='<span class="oi oi-person mr-1"></span>' Content=@Localizer["Register"] DestinationURI="/register" OnClick="Navigate" />
+        <NavigateButton icon='<span class="oi oi-person mr-1"></span>' Content=@Localizer["Register"] DestinationURI="/register" OnClick="Navigate" Classes="btn btn-light w-25" />
     </div>
 </div>
 

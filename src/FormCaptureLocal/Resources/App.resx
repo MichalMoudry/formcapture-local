@@ -123,4 +123,25 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Form Capture is an app for creating complete digitalization workflow using OCR.</value>
+  </data>
+  <data name="RegisterPageTitle" xml:space="preserve">
+    <value>Create an account</value>
+  </data>
+  <data name="EmailInputPlaceholder" xml:space="preserve">
+    <value>Enter your email...</value>
+  </data>
+  <data name="PasswordInputPlaceholder" xml:space="preserve">
+    <value>Enter your password...</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="RegisterFormSubmitButtonTitle" xml:space="preserve">
+    <value>Submit registration form</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
 </root>

@@ -59,6 +59,16 @@ a, .btn-link {
     margin: 0 auto;
 }
 
+.form-card {
+    background: white;
+    color: black;
+    padding-left: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 25px;
+    border-radius: 10px;
+}
+
 /*Loading*/
 #index-page-app-logo {
     width: 5rem;

@@ -123,4 +123,31 @@
   <data name="Register" xml:space="preserve">
     <value>Registrace</value>
   </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>Form Capture je aplikace pro podporu digitalizace za pomoci OCR.</value>
+  </data>
+  <data name="RegisterPageTitle" xml:space="preserve">
+    <value>Registrace účtu</value>
+  </data>
+  <data name="EmailInputPlaceholder" xml:space="preserve">
+    <value>Napište svůj email...</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Heslo</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordInputPlaceholder" xml:space="preserve">
+    <value>Napište svoje heslo...</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Potvrďte heslo</value>
+  </data>
+  <data name="RegisterFormSubmitButtonTitle" xml:space="preserve">
+    <value>Potvrďte registrační formulář</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Potvrdit</value>
+  </data>
 </root>
