@@ -97,11 +97,21 @@ a, .btn-link {
 
 /*Dark mode*/
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: black;
+    body, .form-card {
+        background-color: #1c1f26;
     }
 
     #app-loading-indicatior-text {
+        color: white;
+    }
+
+    .form-card {
+        color: white;
+    }
+
+    .index-button {
+        background-color: #1c1f26;
+        border-color: #1c1f26;
         color: white;
     }
 }

@@ -1,5 +1,6 @@
 @layout IndexLayout
 @inject IStringLocalizer<App> Localizer
+@inject IDataAccess DataAccess
 @page "/register"
 
 <h3><span class="oi oi-person"></span> @Localizer["RegisterPageTitle"]</h3>
@@ -20,9 +21,11 @@
         <input type="password" @bind-value="_confirmationPassword" placeholder="@Localizer["ConfirmPasswordLabel"]..." class="form-control" id="confirm-password" name="confirm-password" />
     </div>
 
-    <button id="submitButton" class="btn btn-outline-primary" title="@Localizer["RegisterFormSubmitButtonTitle"]">
-        <span class="oi oi-check mr-2"></span>@Localizer["Submit"]
+    <button id="submitButton" class="btn btn-primary mt-2" title="@Localizer["RegisterFormSubmitButtonTitle"]">
+        <span class="oi oi-check mr-2"></span> @Localizer["Submit"]
     </button>
+
+    <LoadingButton Title=@Localizer["RegisterFormSubmitButtonTitle"] Content=@Localizer["Submit"] Classes="btn btn-primary mt-2" Icon='<span class="oi oi-check mr-2"></span>'  />
 
     <!--
         <div class="d-flex justify-content-center">

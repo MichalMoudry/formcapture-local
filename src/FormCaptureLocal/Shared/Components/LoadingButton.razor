@@ -1,0 +1,29 @@
+<button class="@Classes" title="@Title" @onclick="() => OnClick.InvokeAsync()">
+    @if (isLoadingIndicatorHidden)
+    {
+        @((MarkupString)Icon) 
+    }
+    @Content
+</button>
+
+@code
+{
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnClick { get; set; }
+
+    [Parameter]
+    public string Content { get; set; }
+    
+    [Parameter]
+    public string Icon { get; set; }
+
+    [Parameter]
+    public string Classes { get; set; }
+
+    private bool isLoadingIndicatorHidden = true;
+
+    private string LoadingIndicatorCssClass => isLoadingIndicatorHidden ? "d-none" : null;
+}
