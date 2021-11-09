@@ -135,9 +135,6 @@
   <data name="Password" xml:space="preserve">
     <value>Heslo</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
   <data name="PasswordInputPlaceholder" xml:space="preserve">
     <value>Napište svoje heslo...</value>
   </data>

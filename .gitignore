@@ -4,12 +4,8 @@
 
 /src/.vs
 /src/FormCaptureLocal/.vs/FormCaptureLocal
-/src/FormCaptureLocal/bin/Debug/net5.0
+/src/FormCaptureLocal/bin/Debug/*
 /src/FormCaptureLocal/obj
-/tests/FormCaptureLocal.Test/bin/Debug/net5.0
-/tests/FormCaptureLocal.Test/obj
-/tests/FormCaptureLocal.Tests/bin/Debug/net5.0
-/tests/FormCaptureLocal.Tests/obj
 /src/FormCaptureLocal/FormCaptureLocal.csproj.user
 /.vs
 /src/FormCaptureLocal.Core/bin/Debug/net5.0
