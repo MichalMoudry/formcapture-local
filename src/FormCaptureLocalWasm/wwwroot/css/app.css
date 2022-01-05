@@ -62,3 +62,49 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.loading-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+.form-card {
+    background: white;
+    color: black;
+    padding-left: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 25px;
+    border-radius: 10px;
+}
+
+/*Loading*/
+#app .loading-div .spinner-grow {
+    width: 4rem;
+    height: 4rem;
+}
+
+/*Index page*/
+.index-main {
+    flex: 1;
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 100%);
+    color: white;
+}
+
+    .index-main .content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+.btn:hover {
+    font-weight: bold;
+}

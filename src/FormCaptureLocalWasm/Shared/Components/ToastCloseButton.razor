@@ -1,0 +1,18 @@
+﻿<button type="button" class="close" onclick="hideToast('@ToastID');" aria-label="Close" title="@CloseButtonTitle">
+    <span aria-hidden="true">&times;</span>
+</button>
+
+@code
+{
+    /// <summary>
+    /// String with ID of a specific toast.
+    /// </summary>
+    [Parameter]
+    public string ToastID { get; set; }
+
+    /// <summary>
+    /// String with a title of the close button.
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonTitle { get; set; }
+}
