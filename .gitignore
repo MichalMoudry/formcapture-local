@@ -3,11 +3,8 @@
 ################################################################################
 
 /src/.vs
-/src/FormCaptureLocal/.vs/FormCaptureLocal
-/src/FormCaptureLocal/bin/Debug/*
-/src/FormCaptureLocal/obj
-/src/FormCaptureLocal/FormCaptureLocal.csproj.user
 /.vs
-/src/FormCaptureLocal.Core/bin/Debug/net5.0
-/src/FormCaptureLocal.Core/obj
-/src/FormCaptureLocal.Core/wwwroot/sample-data
+/src/FormCaptureLocalWasm/.vs/FormCaptureLocalWasm
+/src/FormCaptureLocalWasm/bin/Debug/net6.0
+/src/FormCaptureLocalWasm/obj/Debug/net6.0
+/src/FormCaptureLocalWasm/obj
