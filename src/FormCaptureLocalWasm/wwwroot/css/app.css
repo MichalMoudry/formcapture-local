@@ -18,3 +18,31 @@
         right: 0.75rem;
         top: 0.5rem;
     }
+
+#app-loading-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 420px;
+    height: 100%;
+}
+
+.index-main {
+    flex: 1;
+    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 100%);
+    color: white;
+}
+
+    .index-main .content {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+.font-color-white {
+    color: white;
+}

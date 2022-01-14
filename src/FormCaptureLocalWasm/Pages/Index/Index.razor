@@ -3,7 +3,7 @@
 @inject IStringLocalizer<App> Localizer
 @page "/"
 
-<h1 class="mb-2">
+<h1 class="mb-2 font-color-white">
     <span class="oi oi-aperture me-1"></span>
     <!--<img src="/formcapture-icon.svg" alt="Form Capture logo" draggable="false" class="mb-3 mr-1" id="index-page-app-logo" />-->
     <span>Form Capture</span>
@@ -21,7 +21,7 @@
     </div>
     <!--Register button-->
     <div class="mt-3">
-        <NavigateButton Icon='<span class="oi oi-person me-2"></span>' Content=@Localizer["Register"] DestinationURI="/register" OnClick="Navigate" />
+        <!--<NavigateButton Icon='<span class="oi oi-person me-2"></span>' Content=@Localizer["Register"] DestinationURI="/register" OnClick="Navigate" />-->
     </div>
 </div>
 
