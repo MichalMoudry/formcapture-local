@@ -30,7 +30,7 @@
 
 .index-main {
     flex: 1;
-    background: linear-gradient(90deg, rgba(114,144,223,1) 0%, rgba(59,94,186,1) 100%);
+    background: linear-gradient(120deg, rgb(169 88 54 / 84%) 0%, rgb(55 46 183) 100%);
     color: white;
 }
 
