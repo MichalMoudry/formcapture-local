@@ -6,40 +6,15 @@
 
 <PageTitle>@Localizer["RegisterPageTitle"]</PageTitle>
 
-<!--
-    <h3><span class="oi oi-person"></span> @Localizer["RegisterPageTitle"]</h3>
-
-<div class="mt-2">
-    <div class="mb-3">
-        <label for="email">Email:</label>
-        <input type="email" @bind-value="_email" placeholder="@Localizer["EmailInputPlaceholder"]" id="email" name="email" />
-    </div>
-
-    <div class="mb-3">
-        <label for="password">@Localizer["Password"]:</label>
-        <input type="password" @bind-value="_password" placeholder="@Localizer["PasswordInputPlaceholder"]" id="password" name="password" />
-    </div>
-
-    <div class="mb-3">
-        <label for="confirm-password">@Localizer["ConfirmPasswordLabel"]:</label>
-        <input type="password" @bind-value="_confirmationPassword" placeholder="@Localizer["ConfirmPasswordLabel"]..." id="confirm-password" name="confirm-password" />
-    </div>
-
-    <button id="submitButton" title="@Localizer["RegisterFormSubmitButtonTitle"]" @onclick="Submit">
-        <span class="oi oi-check me-2"></span> @Localizer["Submit"]
-    </button>
-</div>
--->
-
 <div class="card px-4 form-card">
     <h3 class="mt-4"><span class="oi oi-person me-1"></span> @Localizer["RegisterPageTitle"]</h3>
-    <Form Model="@_user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
+    <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit" @ref="form">
         <FormItem Label="Email">
-            <Input @bind-Value="@_user.Email" />
+            <Input @bind-Value="@user.Email" />
         </FormItem>
 
         <FormItem Label="@Localizer["Password"]">
-            <InputPassword @bind-Value="@_password" />
+            <InputPassword @bind-Value="@user.Password" />
         </FormItem>
 
         <FormItem>
@@ -48,20 +23,58 @@
             </Button>
         </FormItem>
     </Form>
+    <div class="mb-4 @SuccessAlertDisplayCssClass">
+        <Alert Type="@AlertType.Success" Message="@Localizer["Success"]" Closable>
+            Úspìšnì jste se registrovaly. Pro pøihlášení pøejdìte na tuto stránku: <a href="/login" title="Login page">stránka pro pøihlášení</a>.
+        </Alert>
+    </div>
+    <div class="mb-4 @ErrorAlertDisplayCssClass">
+        <Alert Type="@AlertType.Error" Message="@Localizer["Error"]" Closable>
+            Bìhem vytváøení emailu došlo k chybì.
+        </Alert>
+    </div>
 </div>
 
 @code
 {
-    private User _user = new User();
+    /// <summary>
+    /// Private field with refrence to User model.
+    /// </summary>
+    private User user = new User();
 
-    [Required]
-    private string? _password;
+    /// <summary>
+    /// Refrence to registration form.
+    /// </summary>
+    private Form<User>? form;
 
+    private bool isSuccessAlertDisplayed = false;
+
+    private string SuccessAlertDisplayCssClass => isSuccessAlertDisplayed ? "" : "display-none";
+
+    private bool isErrorAlertDisplayed = false;
+
+    private string ErrorAlertDisplayCssClass => isErrorAlertDisplayed ? "" : "display-none";
+
+    /// <summary>
+    /// Event handler for submitting complete registration form.
+    /// </summary>
     private async Task Submit()
     {
-        _user.PasswordSalt = Guid.NewGuid().ToString();
-        _user.PasswordHash = await JSRuntime.InvokeAsync<string>("hashString", _password, _user.PasswordSalt);
-        Console.WriteLine($"Password before hash: {_password}");
-        Console.WriteLine($"Email: {_user.Email}, Password hash: {_user.PasswordHash}");
+        user.PasswordSalt = Guid.NewGuid().ToString();
+        user.PasswordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, user.PasswordSalt);
+        user.Password = null;
+        var registrationResult = await DataAccess.AddItemAsync(user, ObjectStores.Users.ToString());
+        if (registrationResult)
+        {
+            isSuccessAlertDisplayed = true;
+        }
+        else
+        {
+            isErrorAlertDisplayed = true;
+        }
+        if (form != null)
+        {
+            form.Reset();
+        }
     }
 }

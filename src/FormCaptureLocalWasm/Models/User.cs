@@ -7,7 +7,10 @@ namespace FormCaptureLocalWasm.Models
         [Required, EmailAddress]
         public string? Email { get; set; }
 
-        public DateTime LastLogin { get; set; }
+        public DateTime? LastLogin { get; set; }
+
+        [Required]
+        public string? Password { get; set; }
 
         public string? PasswordHash { get; set; }
 

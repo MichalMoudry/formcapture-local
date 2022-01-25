@@ -11,7 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 _ = builder.Services.AddBlazoredLocalStorage()
     .AddLocalization(options => options.ResourcesPath = "Resources")
     .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
-    .AddScoped<IDataAccess, IndexedDbDataAccess>()
+    .AddTransient<IDataAccess, IndexedDbDataAccess>()
     .AddAntDesign();
 
 await builder.Build().RunAsync();
