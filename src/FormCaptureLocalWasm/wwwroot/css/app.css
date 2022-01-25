@@ -46,3 +46,10 @@
 .font-color-white {
     color: white;
 }
+
+.card {
+    border-radius: .3rem;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    background-color: white;
+    color: #000;
+}

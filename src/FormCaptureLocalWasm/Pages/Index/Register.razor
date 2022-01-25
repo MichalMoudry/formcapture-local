@@ -1,6 +1,7 @@
 @layout IndexLayout
 @inject IStringLocalizer<App> Localizer
 @inject IDataAccess DataAccess
+@inject IJSRuntime JSRuntime
 @page "/register"
 
 <PageTitle>@Localizer["RegisterPageTitle"]</PageTitle>
@@ -30,8 +31,9 @@
 </div>
 -->
 
-<div class="card">
-    <Form Model="@_user">
+<div class="card px-4 form-card">
+    <h3 class="mt-4"><span class="oi oi-person me-1"></span> @Localizer["RegisterPageTitle"]</h3>
+    <Form Model="@_user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
         <FormItem Label="Email">
             <Input @bind-Value="@_user.Email" />
         </FormItem>
@@ -54,4 +56,12 @@
 
     [Required]
     private string? _password;
+
+    private async Task Submit()
+    {
+        _user.PasswordSalt = Guid.NewGuid().ToString();
+        _user.PasswordHash = await JSRuntime.InvokeAsync<string>("hashString", _password, _user.PasswordSalt);
+        Console.WriteLine($"Password before hash: {_password}");
+        Console.WriteLine($"Email: {_user.Email}, Password hash: {_user.PasswordHash}");
+    }
 }
