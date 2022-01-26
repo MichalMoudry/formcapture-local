@@ -65,3 +65,16 @@ a:hover {
 label {
     font-weight: bold;
 }
+
+.text-center {
+    text-align: center;
+}
+
+.text-primary-color {
+    color: #5C6BC0;
+}
+
+.primary-color-background {
+    background-color: #5C6BC0;
+    color: white;
+}
