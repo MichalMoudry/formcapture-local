@@ -57,3 +57,11 @@
 .display-none {
     display: none;
 }
+
+a:hover {
+    text-decoration: underline;
+}
+
+label {
+    font-weight: bold;
+}

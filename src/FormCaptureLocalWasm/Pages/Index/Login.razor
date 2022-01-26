@@ -1,0 +1,83 @@
+@layout IndexLayout
+@inject IDataAccess DataAccess
+@inject IJSRuntime JSRuntime
+@inject IStringLocalizer<App> Localizer
+@inject NavigationManager NavigationManager
+@page "/login"
+
+<PageTitle>@Localizer["LoginPageTitle"]</PageTitle>
+
+<div class="card px-4 form-card">
+    <h3 class="mt-4">
+        <span class="oi oi-account-login me-2"></span> @Localizer["LoginPageTitle"]
+    </h3>
+    <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
+        <FormItem Label="Email:">
+            <Input @bind-Value="@user.Email" Placeholder="@Localizer["EmailInputPlaceholder"]" />
+        </FormItem>
+
+        <FormItem Label="@Localizer["Password"]">
+            <InputPassword @bind-Value="@user.Password" Placeholder="@Localizer["PasswordInputPlaceholder"]" />
+        </FormItem>
+
+        <FormItem>
+            <Button Type="@ButtonType.Primary" HtmlType="submit">
+                <span class="oi oi-check me-2"></span>@Localizer["Submit"]
+            </Button>
+        </FormItem>
+    </Form>
+    <div class="mb-4 @ErrorAlertDisplayCssClass">
+        <Alert Type="@AlertType.Error" Message="@Localizer["Error"]">
+            @Localizer["LoginErrorText"]
+        </Alert>
+    </div>
+</div>
+
+@code
+{
+    /// <summary>
+    /// Private field with refrence to User model.
+    /// </summary>
+    private User user = new User();
+
+    /// <summary>
+    /// Private field with a value indicating if error alert is displayed.
+    /// </summary>
+    private bool isErrorAlertDisplayed = false;
+
+    /// <summary>
+    /// Private field with a CSS class for displaying error alert.
+    /// </summary>
+    private string ErrorAlertDisplayCssClass => isErrorAlertDisplayed ? "" : "display-none";
+
+    /// <summary>
+    /// Event handler for submitting complete registration form.
+    /// </summary>
+    private async Task Submit()
+    {
+        if (!string.IsNullOrEmpty(user.Email) && !string.IsNullOrEmpty(user.Password))
+        {
+            var userFromDb = await DataAccess.GetItemAsync<User>(user.Email, ObjectStores.Users.ToString());
+            if (userFromDb != null)
+            {
+                var passwordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, userFromDb.PasswordSalt);
+                if (passwordHash.Equals(userFromDb.PasswordHash))
+                {
+                    userFromDb.LastLogin = DateTime.Now;
+                    await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
+                    NavigationManager.NavigateTo("/formcapture/home");
+                }
+                else
+                {
+                    isErrorAlertDisplayed = true;
+                }
+            }
+            else {
+                isErrorAlertDisplayed = true;
+            }
+        }
+        else {
+            isErrorAlertDisplayed = true;
+        }
+    }
+}

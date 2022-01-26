@@ -7,9 +7,11 @@
 <PageTitle>@Localizer["RegisterPageTitle"]</PageTitle>
 
 <div class="card px-4 form-card">
-    <h3 class="mt-4"><span class="oi oi-person me-1"></span> @Localizer["RegisterPageTitle"]</h3>
+    <h3 class="mt-4">
+        <span class="oi oi-person me-1"></span> @Localizer["RegisterPageTitle"]
+    </h3>
     <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit" @ref="form">
-        <FormItem Label="Email">
+        <FormItem Label="Email:">
             <Input @bind-Value="@user.Email" />
         </FormItem>
 
@@ -25,12 +27,12 @@
     </Form>
     <div class="mb-4 @SuccessAlertDisplayCssClass">
         <Alert Type="@AlertType.Success" Message="@Localizer["Success"]" Closable>
-            Úspìšnì jste se registrovaly. Pro pøihlášení pøejdìte na tuto stránku: <a href="/login" title="Login page">stránka pro pøihlášení</a>.
+            @Localizer["RegistrationSuccessTextPart1"]: <a href="/login" title="Login page">@Localizer["LoginPageTitle"]</a>.
         </Alert>
     </div>
     <div class="mb-4 @ErrorAlertDisplayCssClass">
         <Alert Type="@AlertType.Error" Message="@Localizer["Error"]" Closable>
-            Bìhem vytváøení emailu došlo k chybì.
+            @Localizer["RegistrationErrorText"].
         </Alert>
     </div>
 </div>
@@ -47,12 +49,24 @@
     /// </summary>
     private Form<User>? form;
 
+    /// <summary>
+    /// Private field with a value indicating if success alert is displayed.
+    /// </summary>
     private bool isSuccessAlertDisplayed = false;
 
+    /// <summary>
+    /// Private field with a CSS class for displaying success alert.
+    /// </summary>
     private string SuccessAlertDisplayCssClass => isSuccessAlertDisplayed ? "" : "display-none";
 
+    /// <summary>
+    /// Private field with a value indicating if error alert is displayed.
+    /// </summary>
     private bool isErrorAlertDisplayed = false;
 
+    /// <summary>
+    /// Private field with a CSS class for displaying error alert.
+    /// </summary>
     private string ErrorAlertDisplayCssClass => isErrorAlertDisplayed ? "" : "display-none";
 
     /// <summary>
@@ -67,6 +81,7 @@
         if (registrationResult)
         {
             isSuccessAlertDisplayed = true;
+            isErrorAlertDisplayed = false;
         }
         else
         {
