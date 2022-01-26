@@ -9,6 +9,13 @@
 
 .navbar-brand {
     font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+}
+
+.nav {
+    list-style-type: none !important;
+    padding-inline-start: 0px !important;
 }
 
 .oi {
@@ -16,6 +23,10 @@
     font-size: 1.1rem;
     vertical-align: text-top;
     top: -2px;
+}
+
+.nav-link {
+    padding-left: 0.5rem;
 }
 
 .nav-item {
