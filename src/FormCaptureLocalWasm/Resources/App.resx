@@ -181,4 +181,32 @@
     <value>An error occured during login. Please check the values in the form.</value>
     <comment/>
   </data>
+  <data name="Queues" xml:space="preserve">
+    <value>Queues</value>
+    <comment/>
+  </data>
+  <data name="NavMenuHomeLinkText" xml:space="preserve">
+    <value>Home</value>
+    <comment/>
+  </data>
+  <data name="NavMenuTemplatesLinkText" xml:space="preserve">
+    <value>Templates</value>
+    <comment/>
+  </data>
+  <data name="NavMenuAccountLinkText" xml:space="preserve">
+    <value>Account</value>
+    <comment/>
+  </data>
+  <data name="NavMenuSettingsLinkText" xml:space="preserve">
+    <value>Settings</value>
+    <comment/>
+  </data>
+  <data name="NavMenuUserGuideLinkText" xml:space="preserve">
+    <value>User guide</value>
+    <comment/>
+  </data>
+  <data name="NavMenuAboutLinkText" xml:space="preserve">
+    <value>About</value>
+    <comment/>
+  </data>
 </root>

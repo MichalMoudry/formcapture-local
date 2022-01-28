@@ -181,4 +181,32 @@
     <value>Během přihlašování došlo k chybě. Prosím zkontrolujte hodnoty ve formuláři.</value>
     <comment/>
   </data>
+  <data name="Queues" xml:space="preserve">
+    <value>Zpracování dokumentů</value>
+    <comment/>
+  </data>
+  <data name="NavMenuHomeLinkText" xml:space="preserve">
+    <value>Domů</value>
+    <comment/>
+  </data>
+  <data name="NavMenuTemplatesLinkText" xml:space="preserve">
+    <value>Předlohy</value>
+    <comment/>
+  </data>
+  <data name="NavMenuAccountLinkText" xml:space="preserve">
+    <value>Účet</value>
+    <comment/>
+  </data>
+  <data name="NavMenuSettingsLinkText" xml:space="preserve">
+    <value>Nastavení</value>
+    <comment/>
+  </data>
+  <data name="NavMenuUserGuideLinkText" xml:space="preserve">
+    <value>Dokumentace</value>
+    <comment/>
+  </data>
+  <data name="NavMenuAboutLinkText" xml:space="preserve">
+    <value>O aplikaci</value>
+    <comment/>
+  </data>
 </root>

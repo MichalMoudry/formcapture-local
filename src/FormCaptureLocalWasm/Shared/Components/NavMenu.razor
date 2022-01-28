@@ -1,8 +1,10 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand mt-1" href="">
-        Form Capture
+﻿@inject IStringLocalizer<App> Localizer
+
+<div class="top-row pl-4 navbar navbar-dark px-4">
+    <a class="navbar-brand" href="/formcapture/home" title="Home">
+        <span class="oi oi-aperture mt-1"></span>Form Capture
     </a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+    <button class="navbar-toggler pointer py-2" @onclick="ToggleNavMenu">
         <span class="oi oi-menu navbar-toggler-icon"></span>
     </button>
 </div>
@@ -10,18 +12,38 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+            <NavLink class="nav-link" href="/formcapture/home" Match="NavLinkMatch.All">
+                <span class="oi oi-home mt-1" aria-hidden="true"></span> @Localizer["NavMenuHomeLinkText"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="formcapture/queues">
+                <span class="oi oi-list-rich mt-1" aria-hidden="true"></span> @Localizer["Queues"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="formcapture/templates">
+                <span class="oi oi-document mt-1" aria-hidden="true"></span> @Localizer["NavMenuTemplatesLinkText"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/profile">
+                <span class="oi oi-person mt-1" aria-hidden="true"></span> @Localizer["NavMenuAccountLinkText"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/settings">
+                <span class="oi oi-cog mt-1" aria-hidden="true"></span> @Localizer["NavMenuSettingsLinkText"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/guide">
+                <span class="oi oi-book mt-1" aria-hidden="true"></span> @Localizer["NavMenuUserGuideLinkText"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/about">
+                <span class="oi oi-question-mark mt-1" aria-hidden="true"></span> @Localizer["NavMenuAboutLinkText"]
             </NavLink>
         </li>
     </ul>
@@ -30,7 +52,7 @@
 @code {
     private bool collapseNavMenu = false;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => collapseNavMenu ? null : "collapse";
 
     /// <summary>
     /// 
