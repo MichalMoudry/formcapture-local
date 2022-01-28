@@ -1,0 +1,30 @@
+@layout AppLayout
+@inject IStringLocalizer<App> Localizer
+@inject IDataAccess DataAccess
+@page "/formcapture/templates/add"
+
+<h1>
+    <span class="oi oi-document mt-1 me-2" aria-hidden="true"></span> Add a template
+</h1>
+
+<Divider />
+
+<div>
+    <Row>
+        <!--Image upload column-->
+        <Col Span="12">
+            <h2>Image</h2>
+            <Empty />
+            <Upload Accept=".jpg,.png,.pdf,.jpeg">
+                <Button>
+                    <span class="oi oi-data-transfer-upload me-2"></span> Click to upload
+                </Button>
+            </Upload>
+        </Col>
+
+        <!--Fields column-->
+        <Col Span="12">
+            <h2>Fields</h2>
+        </Col>
+    </Row>
+</div>

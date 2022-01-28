@@ -6,10 +6,7 @@
     <NotFound>
         <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">
-            <div class="mt-4 text-center">
-                <h1 role="alert">Sorry, there's nothing at this address.</h1>
-                <h2><span class="oi oi-circle-x text-primary-color"></span></h2>
-            </div>
+            <Result Status="404" Title="4O4" SubTitle="Sorry, the page you visited does not exist." />
         </LayoutView>
     </NotFound>
 </Router>
