@@ -1,6 +1,7 @@
 @layout AppLayout
 @inject IStringLocalizer<App> Localizer
 @inject IDataAccess DataAccess
+@inject IJSRuntime JSRuntime
 @page "/formcapture/templates/add"
 
 <h1>
@@ -10,21 +11,95 @@
 <Divider />
 
 <div>
-    <Row>
+    <Row Gutter="(16,8)">
         <!--Image upload column-->
         <Col Span="12">
-            <h2>Image</h2>
-            <Empty />
-            <Upload Accept=".jpg,.png,.pdf,.jpeg">
-                <Button>
-                    <span class="oi oi-data-transfer-upload me-2"></span> Click to upload
-                </Button>
-            </Upload>
+            <h2><span class="oi oi-image me-2"></span>Image</h2>
+            <div>
+                @if (!string.IsNullOrEmpty(fileContent))
+                {
+                    <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
+                }
+                else
+                {
+                    <Empty />
+                }
+            </div>
+            <InputFile OnChange="@FileSelected" class="mt-3" />
         </Col>
 
         <!--Fields column-->
         <Col Span="12">
-            <h2>Fields</h2>
+            <h2><span class="oi oi-list me-2"></span>Fields</h2>
+            <div>
+                <Card>
+                    <Body>
+                        @if (fields.Count == 0)
+                        {
+                            <Empty />
+                        }
+                        else
+                        {
+                            @foreach (var field in fields)
+                            {
+                                <p>@field.Name</p>
+                            }
+                        }
+                    </Body>
+                    <ActionTemplate>
+                        <CardAction>
+                            <span @onclick="AddNewField">
+                                <span class="oi oi-plus me-2"></span>Add a new field
+                            </span>
+                        </CardAction>
+                    </ActionTemplate>
+                </Card>
+            </div>
         </Col>
     </Row>
 </div>
+
+@code
+{
+    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template() { ID = Guid.NewGuid().ToString() };
+
+    private string? fileContent;
+
+    private List<Field> fields = new List<Field>();
+
+    private Field? identifyingField;
+
+    private bool isTestButtonDisabled = false;
+
+    private async Task FileSelected(InputFileChangeEventArgs e)
+    {
+        if (e.FileCount > 1)
+        {
+            return;
+        }
+        fileContent = $"data:{e.File.ContentType};base64,";
+        var buffer = new byte[e.File.Size];
+        await e.File.OpenReadStream().ReadAsync(buffer);
+        template.Image = buffer;
+        template.ContentType = e.File.ContentType;
+        fileContent += Convert.ToBase64String(buffer);
+    }
+
+    private async Task DrawField(string fieldID)
+    {
+        await JSRuntime.InvokeVoidAsync("drawField", fieldID);
+    }
+
+     private void AddNewField()
+    {
+        fields.Add(new Field()
+        {
+            ID = Guid.NewGuid().ToString(),
+            Name = "New field",
+            Added = DateTime.Now,
+            Updated = DateTime.Now,
+            IsIdentifying = false,
+            TemplateID = template.ID
+        });
+    }
+}
