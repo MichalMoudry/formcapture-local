@@ -1,4 +1,4 @@
-using FormCaptureLocalWasm.Models.Enums;
+﻿using FormCaptureLocalWasm.Models.Enums;
 
 namespace FormCaptureLocalWasm.Models.DbModels
 {

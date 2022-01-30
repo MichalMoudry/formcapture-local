@@ -1,4 +1,4 @@
-namespace FormCaptureLocalWasm.Models.DbModels
+﻿namespace FormCaptureLocalWasm.Models.DbModels
 {
     /// <summary>
     /// Represents a recognized value on a single processed document.

@@ -1,4 +1,4 @@
-namespace FormCaptureLocalWasm.Models.DbModels
+﻿namespace FormCaptureLocalWasm.Models.DbModels
 {
     /// <summary>
     /// An abstract class that is a parent class of entity classes.

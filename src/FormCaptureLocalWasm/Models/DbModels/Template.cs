@@ -1,4 +1,4 @@
-namespace FormCaptureLocalWasm.Models.DbModels
+﻿namespace FormCaptureLocalWasm.Models.DbModels
 {
     /// <summary>
     /// Represents a template of a file that will be processed.

@@ -1,4 +1,4 @@
-namespace FormCaptureLocalWasm.Models.DbModels
+﻿namespace FormCaptureLocalWasm.Models.DbModels
 {
     /// <summary>
     /// Class that represents a single file that is processed by the system.

@@ -1,4 +1,4 @@
-namespace FormCaptureLocalWasm.Models.Enums
+﻿namespace FormCaptureLocalWasm.Models.Enums
 {
     public enum QueueTask
     {

@@ -3,6 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> Localizer
 @inject NavigationManager NavigationManager
+@inject IUserService UserService
 @page "/login"
 
 <PageTitle>@Localizer["LoginPageTitle"]</PageTitle>
@@ -65,6 +66,7 @@
                 {
                     userFromDb.LastLogin = DateTime.Now;
                     await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
+                    await UserService.Login(userFromDb);
                     NavigationManager.NavigateTo("/formcapture/home");
                 }
                 else

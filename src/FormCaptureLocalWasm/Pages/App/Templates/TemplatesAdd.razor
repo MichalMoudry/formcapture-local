@@ -138,6 +138,7 @@
     /// <summary>
     /// Method for starting the process of drawing a field on the image.
     /// </summary>
+    /// <param name="fieldID">ID of a specific field.</param>
     private async Task DrawField(string? fieldID)
     {
         if (!string.IsNullOrEmpty(fieldID))
@@ -149,7 +150,7 @@
     /// <summary>
     /// Method for adding a new item to fields list.
     /// </summary>
-     private void AddNewField()
+    private void AddNewField()
     {
         fields.Add(new Field()
         {
