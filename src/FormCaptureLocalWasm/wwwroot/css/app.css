@@ -30,7 +30,7 @@
 
 .index-main {
     flex: 1;
-    background: linear-gradient(120deg, rgb(169 88 54 / 84%) 0%, rgb(55 46 183) 100%);
+    background: linear-gradient(120deg, rgb(169, 89, 54) 0%, rgb(55 46 183) 100%);
     color: white;
 }
 
@@ -86,4 +86,21 @@ label {
 #template-preview-image {
     max-width: 100%;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+#template-canvas {
+    /*
+        overflow: auto;
+    position: relative;
+    height: 50vh;
+    */
+    overflow: auto;
+    position: relative;
+}
+
+.template-field {
+    border: 1px solid #28a745;
+    position: absolute;
+    background: #2c844052;
+    border-radius: 3px;
 }
