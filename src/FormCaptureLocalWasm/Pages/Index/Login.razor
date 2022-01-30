@@ -3,7 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> Localizer
 @inject NavigationManager NavigationManager
-@inject IUserService UserService
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 @page "/login"
 
 <PageTitle>@Localizer["LoginPageTitle"]</PageTitle>
@@ -65,8 +65,10 @@
                 if (passwordHash.Equals(userFromDb.PasswordHash))
                 {
                     userFromDb.LastLogin = DateTime.Now;
+                    UserService.Instance.Login(userFromDb);
                     await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
-                    await UserService.Login(userFromDb);
+                    await localStorage.SetItemAsStringAsync("user", userFromDb.Email);
+                    await localStorage.SetItemAsync<DateTime>("duration", DateTime.Now.AddDays(1));
                     NavigationManager.NavigateTo("/formcapture/home");
                 }
                 else
