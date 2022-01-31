@@ -4,22 +4,22 @@ async function recogSingleField(field, image, lang, contentType) {
     // Initialize variables
     const worker = createWorker();
     await worker.load();
-    await worker.loadLanguage(lang);
-    await worker.initialize(lang);
+    await worker.loadLanguage("eng");
+    await worker.initialize("eng");
     var results = [];
 
     // Iterate for each input image
     const {
         data: { text }
     } = await worker.recognize("data:" + contentType + ";base64," + image,
-        {
-            rectangle: {
-                top: field["xposition"],
-                left: field["yposition"],
-                width: field["width"],
-                height: field["height"]
-            }
-        });
+    {
+        rectangle: {
+            top: field["xposition"],
+            left: field["yposition"],
+            width: field["width"],
+            height: field["height"]
+        }
+    });
     // Push recognition result to array in this format:
     // [result] / [fieldID]
     results.push(text.replace(/\s/g, "") + "/" + field["id"]);

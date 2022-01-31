@@ -2,6 +2,7 @@
 @inject IStringLocalizer<App> Localizer
 @inject IDataAccess DataAccess
 @inject IJSRuntime JSRuntime
+@inject IRecognitionService Recognition
 @page "/formcapture/templates/add"
 
 <h1>
@@ -45,7 +46,11 @@
                     <Body>
                         @if (fields.Count == 0)
                         {
-                            <Empty />
+                            <Empty>
+                                <DescriptionTemplate>
+                                    <span>No fields added</span>
+                                </DescriptionTemplate>
+                            </Empty>
                         }
                         else
                         {
@@ -80,22 +85,30 @@
                     <Body>
                         @if (identifyingField == null)
                         {
-                            <Empty />
+                            <Empty>
+                                <DescriptionTemplate>
+                                    <span>No Identifying field selected</span>
+                                </DescriptionTemplate>
+                            </Empty>
                         }
                         else
                         {
-                            <p class="mb-0">@identifyingField.Name</p>
+                            <h2 class="mb-0">@identifyingField.Name</h2>
+                            <Divider />
                         }
+                        <label for="expected-value"><b>Expected value</b>:</label>
+                        <div class="mt-2">
+                            <Input Placeholder="Enter expected value of the field..." name="expected-value" id="expected-value" class="" @bind-Value="expectedValue"  />
+                        </div>
                     </Body>
                     <ActionTemplate>
-                        @if (!isTestButtonVisible)
-                        {
-                            <CardAction>
-                                <div @onclick="AddNewField">
+                        <CardAction>
+                            <div class="px-3">
+                                <Button @onclick="TestIdFieldRecognition" Block Loading="@isTestButtonLoading" class="disable-select">
                                     <span class="oi oi-beaker me-2"></span>Test identification
-                                </div>
-                            </CardAction>
-                        }
+                                </Button>
+                            </div>
+                        </CardAction>
                     </ActionTemplate>
                 </Card>
             </div>
@@ -112,7 +125,10 @@
     /// <summary>
     /// Private field with a <see cref="Models.DbModels.Template"/> class instance.
     /// </summary>
-    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template() { ID = Guid.NewGuid().ToString() };
+    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template()
+    {
+        ID = Guid.NewGuid().ToString()
+    };
 
     /// <summary>
     /// Private field with content (encoded as base64) of the template image.
@@ -129,7 +145,9 @@
     /// <summary>
     /// Private field wtih value representing if test button is visible or not.
     /// </summary>
-    private bool isTestButtonVisible = false;
+    private bool isTestButtonLoading = false;
+
+    private string? expectedValue;
 
     private async Task FileSelected(InputFileChangeEventArgs e)
     {
@@ -198,5 +216,27 @@
             field.IsIdentifying = true;
         }
         identifyingField = field;
+    }
+
+    private async Task TestIdFieldRecognition()
+    {
+        //SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
+        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue))
+        {
+            isTestButtonLoading = true;
+            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
+            if (!string.IsNullOrEmpty(fieldProperties))
+            {
+                var fieldPropertiesSplit = fieldProperties.Split(",");
+                identifyingField.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
+                identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
+                identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
+                identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
+                identifyingField.ExpectedValue = expectedValue;
+                var response = await Recognition.SinglefieldRecognition(identifyingField, template.Image, "eng", template.ContentType);
+                Console.WriteLine(response);
+            }
+            isTestButtonLoading = false;
+        }
     }
 }

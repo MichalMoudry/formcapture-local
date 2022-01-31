@@ -1,7 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject ILocalStorageService localStorage
-@inject NavigationManager NavigationManager
-@inject IDataAccess DataAccess
 @layout MainLayout
 
 <div class="page">
@@ -15,25 +12,3 @@
         </div>
     </div>
 </div>
-
-@code
-{
-    protected override async Task OnInitializedAsync()
-    {
-        Console.WriteLine("Initialized...");
-        if (UserService.Instance.User == null)
-        {
-            var lastUserEmail = await localStorage.GetItemAsStringAsync("user");
-            var expirationDate = await localStorage.GetItemAsync<DateTime>("duration");
-            if (DateTime.Compare(DateTime.Now, expirationDate) > 0)
-            {
-                NavigationManager.NavigateTo("/login");
-            }
-            else
-            {
-                var user = await DataAccess.GetItemAsync<User>(lastUserEmail, ObjectStores.Users.ToString());
-                UserService.Instance.Login(user);
-            }
-        }
-    }
-}

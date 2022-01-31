@@ -104,3 +104,10 @@ label {
     background: #2c844052;
     border-radius: 3px;
 }
+
+.disable-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
