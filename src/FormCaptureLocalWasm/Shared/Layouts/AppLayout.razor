@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject ILocalStorageService localStorage
 @inject NavigationManager NavigationManager
+@inject IDataAccess DataAccess
 @layout MainLayout
 
 <div class="page">
@@ -27,6 +28,11 @@
             if (DateTime.Compare(DateTime.Now, expirationDate) > 0)
             {
                 NavigationManager.NavigateTo("/login");
+            }
+            else
+            {
+                var user = await DataAccess.GetItemAsync<User>(lastUserEmail, ObjectStores.Users.ToString());
+                UserService.Instance.Login(user);
             }
         }
     }

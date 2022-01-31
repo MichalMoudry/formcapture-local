@@ -94,7 +94,7 @@ label {
     position: relative;
     height: 50vh;
     */
-    overflow: auto;
+    /*overflow: auto;*/
     position: relative;
 }
 

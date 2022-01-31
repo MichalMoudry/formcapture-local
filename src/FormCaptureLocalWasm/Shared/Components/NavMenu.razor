@@ -12,38 +12,43 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/home" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="formcapture/home" Match="NavLinkMatch.All" title="@Localizer["NavMenuHomeLinkText"]">
                 <span class="oi oi-home mt-1" aria-hidden="true"></span> @Localizer["NavMenuHomeLinkText"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/queues">
+            <NavLink class="nav-link" href="formcapture/queues" title="@Localizer["Queues"]">
                 <span class="oi oi-list-rich mt-1" aria-hidden="true"></span> @Localizer["Queues"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/templates">
+            <NavLink class="nav-link" href="formcapture/templates" title="@Localizer["NavMenuTemplatesLinkText"]">
                 <span class="oi oi-document mt-1" aria-hidden="true"></span> @Localizer["NavMenuTemplatesLinkText"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/profile">
+            <NavLink class="nav-link" href="formcapture/profile" title="@Localizer["NavMenuAccountLinkText"]">
                 <span class="oi oi-person mt-1" aria-hidden="true"></span> @Localizer["NavMenuAccountLinkText"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/settings">
+            <NavLink class="nav-link" href="formcapture/settings" title="@Localizer["NavMenuSettingsLinkText"]">
                 <span class="oi oi-cog mt-1" aria-hidden="true"></span> @Localizer["NavMenuSettingsLinkText"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/guide">
+            <NavLink class="nav-link" href="formcapture/guide" title="@Localizer["NavMenuUserGuideLinkText"]">
                 <span class="oi oi-book mt-1" aria-hidden="true"></span> @Localizer["NavMenuUserGuideLinkText"]
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="formcapture/about">
+            <NavLink class="nav-link" href="formcapture/about" title="@Localizer["NavMenuAboutLinkText"]">
                 <span class="oi oi-question-mark mt-1" aria-hidden="true"></span> @Localizer["NavMenuAboutLinkText"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="formcapture/logout">
+                <span class="oi oi-account-logout mt-1" aria-hidden="true"></span> Logout
             </NavLink>
         </li>
     </ul>
