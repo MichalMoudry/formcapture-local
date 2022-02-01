@@ -5,7 +5,7 @@
     /// </summary>
     public enum AppTheme
     {
-        System,
+        Default,
         HighContrastLight,
         HighContrastDark
     }
