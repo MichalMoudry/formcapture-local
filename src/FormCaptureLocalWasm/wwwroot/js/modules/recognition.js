@@ -4,8 +4,8 @@ async function recogSingleField(field, image, lang, contentType) {
     // Initialize variables
     const worker = createWorker();
     await worker.load();
-    await worker.loadLanguage("eng");
-    await worker.initialize("eng");
+    await worker.loadLanguage(lang);
+    await worker.initialize(lang);
     var results = [];
 
     // Iterate for each input image

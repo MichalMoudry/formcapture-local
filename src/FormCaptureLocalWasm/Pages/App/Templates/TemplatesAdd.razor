@@ -4,6 +4,7 @@
 @inject IJSRuntime JSRuntime
 @inject IRecognitionService Recognition
 @inject NavigationManager NavigationManager
+@inject MessageService MessageService
 @page "/formcapture/templates/add"
 
 <h1>
@@ -148,10 +149,13 @@
     private Field? identifyingField;
 
     /// <summary>
-    /// Private field wtih value representing if test button is visible or not.
+    /// Private field wtih value representing if test button is loading or not.
     /// </summary>
     private bool isTestButtonLoading = false;
 
+    /// <summary>
+    /// Private field wtih value representing if submit button is loading or not.
+    /// </summary>
     private bool isSubmitButtonLoading = false;
 
     /// <summary>
@@ -247,7 +251,7 @@
                 identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
                 identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
                 identifyingField.ExpectedValue = expectedValue;
-                var response = await Recognition.SinglefieldRecognition(identifyingField, template.Image, "eng", template.ContentType);
+                var response = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
             }
             isTestButtonLoading = false;
         }
@@ -290,6 +294,26 @@
             }
             _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
             NavigationManager.NavigateTo("/formcapture/templates");
+        }
+        else if (string.IsNullOrEmpty(template.Name))
+        {
+            await MessageService.Error("Template's name has not been set.");
+        }
+        else if (template.Image == null)
+        {
+            await MessageService.Error("No template image has been uploaded.");
+        }
+        else if (fields.Count == 0)
+        {
+            await MessageService.Error("No fields has been added.");
+        }
+        else if (identifyingField == null)
+        {
+            await MessageService.Error("Identifying field has not been set.");
+        }
+        else if (string.IsNullOrEmpty(expectedValue))
+        {
+            await MessageService.Error("Expected value has not been set.");
         }
     }
 }
