@@ -209,4 +209,8 @@
     <value>O aplikaci</value>
     <comment/>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Nastavení</value>
+    <comment/>
+  </data>
 </root>
