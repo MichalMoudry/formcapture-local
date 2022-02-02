@@ -1,0 +1,64 @@
+@inject IJSRuntime JSRuntime
+
+<AntList DataSource="@Fields">
+    <ChildContent Context="field">
+        <ListItem>
+            <Input Placeholder="Enter field name..." @bind-Value="@field.Name" />
+            <Button @onclick="@(e => DrawField(field.ID))">
+                <span class="oi oi-pencil me-2"></span> <span class="field-list-button-text">Draw</span>
+            </Button>
+            <Button @onclick="@(e => RemoveField(field))">
+                <span class="oi oi-trash me-2"></span> <span>Delete</span>
+            </Button>
+            <Button @onclick="() => SetFieldToIdentifying(field)">
+                <span class="oi oi-star"></span>
+            </Button>
+        </ListItem>
+    </ChildContent>
+</AntList>
+
+@code
+{
+    /// <summary>
+    /// Property with a list of fields connected to the template.
+    /// </summary>
+    [Parameter]
+    public List<Field>? Fields { get; set; }
+
+    /// <summary>
+    /// Event callback for setting a new identifying field.
+    /// </summary>
+    [Parameter]
+    public EventCallback<Field> OnSetFieldToIdentifyingClick { get; set; }
+
+    /// <summary>
+    /// Method for invoking event callback to set identifying field.
+    /// </summary>
+    /// <param name="field">Instance of a <see cref="Field"/> class.</param>
+    protected async Task SetFieldToIdentifying(Field field)
+    {
+        await OnSetFieldToIdentifyingClick.InvokeAsync(field);
+    }
+
+    /// <summary>
+    /// Method for starting the process of drawing a field on the image.
+    /// </summary>
+    /// <param name="fieldID">ID of a specific field.</param>
+    private async Task DrawField(string? fieldID)
+    {
+        if (!string.IsNullOrEmpty(fieldID))
+        {
+            await JSRuntime.InvokeVoidAsync("drawField", fieldID);
+        }
+    }
+
+    /// <summary>
+    /// Method for removing a specific field from fields list and from local db.
+    /// </summary>
+    /// <param name="field">Instance of a <see cref="Field"/> class.</param>
+    private async Task RemoveField(Field field)
+    {
+        await JSRuntime.InvokeVoidAsync("removeField", field.ID);
+        Fields?.Remove(field);
+    }
+}
