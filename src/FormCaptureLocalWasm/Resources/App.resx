@@ -213,4 +213,12 @@
     <value>Settings</value>
     <comment/>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment/>
+  </data>
+  <data name="Draw" xml:space="preserve">
+    <value>Draw</value>
+    <comment/>
+  </data>
 </root>

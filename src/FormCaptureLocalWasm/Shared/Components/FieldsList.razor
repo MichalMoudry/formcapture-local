@@ -1,14 +1,15 @@
 @inject IJSRuntime JSRuntime
+@inject IStringLocalizer<App> Localizer
 
 <AntList DataSource="@Fields">
     <ChildContent Context="field">
         <ListItem>
             <Input Placeholder="Enter field name..." @bind-Value="@field.Name" />
             <Button @onclick="@(e => DrawField(field.ID))">
-                <span class="oi oi-pencil me-2"></span> <span class="field-list-button-text">Draw</span>
+                <span class="oi oi-pencil me-2"></span> <span class="field-list-button-text">@Localizer["Draw"]</span>
             </Button>
             <Button @onclick="@(e => RemoveField(field))">
-                <span class="oi oi-trash me-2"></span> <span>Delete</span>
+                <span class="oi oi-trash me-2"></span> <span>@Localizer["Delete"]</span>
             </Button>
             <Button @onclick="() => SetFieldToIdentifying(field)">
                 <span class="oi oi-star"></span>

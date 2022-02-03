@@ -213,4 +213,12 @@
     <value>Nastavení</value>
     <comment/>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Smazat</value>
+    <comment/>
+  </data>
+  <data name="Draw" xml:space="preserve">
+    <value>Nakreslit</value>
+    <comment/>
+  </data>
 </root>
