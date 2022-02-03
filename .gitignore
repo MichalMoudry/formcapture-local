@@ -2,10 +2,10 @@
 # Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
-/FormCaptureLocalWasm/.vs/FormCaptureLocalWasm
-/FormCaptureLocalWasm/bin/Debug/net6.0
-/FormCaptureLocalWasm/obj/Debug/net6.0
-/FormCaptureLocalWasm/obj
+/src/.vs
+/src/FormCaptureLocalWasm/.vs/FormCaptureLocalWasm
+/src/FormCaptureLocalWasm/bin/Debug/net6.0
+/src/FormCaptureLocalWasm/obj/Debug/net6.0
+/src/FormCaptureLocalWasm/obj
 /test/FormCaptureLocalWasmTests/bin/Debug/net6.0
 /test/FormCaptureLocalWasmTests/obj

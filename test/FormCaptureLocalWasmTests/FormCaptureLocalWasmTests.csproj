@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FormCaptureLocalWasm\FormCaptureLocalWasm.csproj" />
+    <ProjectReference Include="..\..\src\FormCaptureLocalWasm\FormCaptureLocalWasm.csproj" />
   </ItemGroup>
 
 </Project>
