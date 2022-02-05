@@ -221,4 +221,52 @@
     <value>Draw</value>
     <comment/>
   </data>
+  <data name="AddTemplatePageTitle" xml:space="preserve">
+    <value>Create a template</value>
+    <comment/>
+  </data>
+  <data name="TemplateNameInputLabel" xml:space="preserve">
+    <value>Template name</value>
+    <comment/>
+  </data>
+  <data name="TemplateNameInputPlaceholder" xml:space="preserve">
+    <value>Enter template name...</value>
+    <comment/>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+    <comment/>
+  </data>
+  <data name="FileUpload" xml:space="preserve">
+    <value>File upload</value>
+    <comment/>
+  </data>
+  <data name="NoFieldsAddedMessage" xml:space="preserve">
+    <value>No fields added</value>
+    <comment/>
+  </data>
+  <data name="SaveTemplateButtonText" xml:space="preserve">
+    <value>Save template</value>
+    <comment/>
+  </data>
+  <data name="AddNewFieldButtonText" xml:space="preserve">
+    <value>Add a new field</value>
+    <comment/>
+  </data>
+  <data name="NoIdFieldSelectedMessage" xml:space="preserve">
+    <value>No field has been selected for identification</value>
+    <comment/>
+  </data>
+  <data name="TestIdentificationButtonText" xml:space="preserve">
+    <value>Test identification</value>
+    <comment/>
+  </data>
+  <data name="ExpectedValueInputLabel" xml:space="preserve">
+    <value>Expected value</value>
+    <comment/>
+  </data>
+  <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
+    <value>Enter expected value of the field...</value>
+    <comment/>
+  </data>
 </root>

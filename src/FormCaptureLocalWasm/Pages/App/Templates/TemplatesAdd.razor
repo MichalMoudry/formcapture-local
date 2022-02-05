@@ -8,21 +8,21 @@
 @page "/formcapture/templates/add"
 
 <Breadcrumb>
-    <BreadcrumbItem Href="/formcapture/home">Home</BreadcrumbItem>
-    <BreadcrumbItem Href="/formcapture/templates">Templates</BreadcrumbItem>
-    <BreadcrumbItem>Add a template</BreadcrumbItem>
+    <BreadcrumbItem Href="/formcapture/home">@Localizer["NavMenuHomeLinkText"]</BreadcrumbItem>
+    <BreadcrumbItem Href="/formcapture/templates">@Localizer["NavMenuTemplatesLinkText"]</BreadcrumbItem>
+    <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
 </Breadcrumb>
 
 <h1 class="mt-3">
-    <span class="oi oi-document mt-1 me-2" aria-hidden="true"></span> Add a template
+    <span class="oi oi-document mt-1 me-2" aria-hidden="true"></span> @Localizer["AddTemplatePageTitle"]
 </h1>
 
 <Divider />
 
 <div class="mb-3">
-    <label for="template-name"><b>Template name</b>:</label>
+    <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
     <div class="mt-2">
-        <Input Placeholder="Enter template name..." name="template-name" id="template-name" class="" @bind-Value="template.Name"  />
+        <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name"  />
     </div>
 
     <Divider />
@@ -30,7 +30,7 @@
     <Row Gutter="(32,16)">
         <!--Image upload column-->
         <Col Xs="24" Sm="24" Lg="24" Xl="12">
-            <h2><span class="oi oi-image me-2"></span>Image</h2>
+            <h2><span class="oi oi-image me-2"></span>@Localizer["Image"]</h2>
             <div>
                 @if (!string.IsNullOrEmpty(fileContent))
                 {
@@ -43,7 +43,7 @@
                     <Empty />
                 }
             </div>
-            <Divider class="mb-0"><span class="oi oi-data-transfer-upload me-2"></span> File upload</Divider>
+            <Divider class="mb-0"><span class="oi oi-data-transfer-upload me-2"></span> @Localizer["FileUpload"]</Divider>
             <InputFile OnChange="@FileSelected" class="mt-3 pointer" />
         </Col>
 
@@ -56,7 +56,7 @@
                         {
                             <Empty>
                                 <DescriptionTemplate>
-                                    <span>No fields added</span>
+                                    <span>@Localizer["NoFieldsAddedMessage"]</span>
                                 </DescriptionTemplate>
                             </Empty>
                         }
@@ -68,7 +68,7 @@
                     <ActionTemplate>
                         <CardAction>
                             <div @onclick="AddNewField" class="disable-select">
-                                <span class="oi oi-plus me-2"></span>Add a new field
+                                <span class="oi oi-plus me-2"></span>@Localizer["AddNewFieldButtonText"]
                             </div>
                         </CardAction>
                     </ActionTemplate>
@@ -80,7 +80,7 @@
                         {
                             <Empty>
                                 <DescriptionTemplate>
-                                    <span>No Identifying field selected</span>
+                                    <span>@Localizer["NoIdFieldSelectedMessage"]</span>
                                 </DescriptionTemplate>
                             </Empty>
                         }
@@ -89,16 +89,16 @@
                             <h2 class="mb-0">@identifyingField.Name</h2>
                             <Divider />
                         }
-                        <label for="expected-value"><b>Expected value</b>:</label>
+                        <label for="expected-value"><b>@Localizer["ExpectedValueInputLabel"]</b>:</label>
                         <div class="mt-2">
-                            <Input Placeholder="Enter expected value of the field..." name="expected-value" id="expected-value" class="" @bind-Value="expectedValue"  />
+                            <Input Placeholder="@Localizer["ExpectedValueInputPlaceholder"]" name="expected-value" id="expected-value" class="" @bind-Value="expectedValue"  />
                         </div>
                     </Body>
                     <ActionTemplate>
                         <CardAction>
                             <div class="px-3">
                                 <Button @onclick="TestIdFieldRecognition" Block Loading="@isTestButtonLoading" class="disable-select">
-                                    <span class="oi oi-beaker me-2"></span>Test identification
+                                    <span class="oi oi-beaker me-2"></span>@Localizer["TestIdentificationButtonText"]
                                 </Button>
                             </div>
                         </CardAction>
@@ -109,7 +109,7 @@
     </Row>
 
     <Button Type="@ButtonType.Primary" Block class="mt-3" @onclick="Submit" Loading="@isSubmitButtonLoading" Size="@ButtonSize.Large">
-        <span class="oi oi-check me-2"></span>Save template
+        <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
     </Button>
 </div>
 
@@ -168,6 +168,10 @@
         fileContent += Convert.ToBase64String(buffer);
     }
 
+    /// <summary>
+    /// Event handler for handling id field set.
+    /// </summary>
+    /// <param name="field">New id field.</param>
     private void OnSetIdentifyingField(Field field)
     {
         if (identifyingField != null)

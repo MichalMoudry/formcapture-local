@@ -221,4 +221,52 @@
     <value>Nakreslit</value>
     <comment/>
   </data>
+  <data name="AddTemplatePageTitle" xml:space="preserve">
+    <value>Vytvořit předlohu</value>
+    <comment/>
+  </data>
+  <data name="TemplateNameInputLabel" xml:space="preserve">
+    <value>Jméno předlohy</value>
+    <comment/>
+  </data>
+  <data name="TemplateNameInputPlaceholder" xml:space="preserve">
+    <value>Napiště název předlohy...</value>
+    <comment/>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Obrázek</value>
+    <comment/>
+  </data>
+  <data name="FileUpload" xml:space="preserve">
+    <value>Nahrání souboru</value>
+    <comment/>
+  </data>
+  <data name="NoFieldsAddedMessage" xml:space="preserve">
+    <value>Nebyly přidané žádné pole</value>
+    <comment/>
+  </data>
+  <data name="SaveTemplateButtonText" xml:space="preserve">
+    <value>Uložit předlohu</value>
+    <comment/>
+  </data>
+  <data name="AddNewFieldButtonText" xml:space="preserve">
+    <value>Přidat nové pole</value>
+    <comment/>
+  </data>
+  <data name="NoIdFieldSelectedMessage" xml:space="preserve">
+    <value>Nebylo zvoleno žádné pole pro identifikaci</value>
+    <comment/>
+  </data>
+  <data name="TestIdentificationButtonText" xml:space="preserve">
+    <value>Otestovat identifikaci</value>
+    <comment/>
+  </data>
+  <data name="ExpectedValueInputLabel" xml:space="preserve">
+    <value>Očekávaná hodnota</value>
+    <comment/>
+  </data>
+  <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
+    <value>Napiště očekávanou hodnotu pole...</value>
+    <comment/>
+  </data>
 </root>
