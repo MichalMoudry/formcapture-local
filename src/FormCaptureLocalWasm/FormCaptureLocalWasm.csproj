@@ -27,4 +27,12 @@
     <Folder Include="Pages\App\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\moudr\source\repos\formcapture-local\src\FormCaptureLocalWasm\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\moudr\source\repos\formcapture-local\src\FormCaptureLocalWasm\.editorconfig" />
+  </ItemGroup>
+
 </Project>

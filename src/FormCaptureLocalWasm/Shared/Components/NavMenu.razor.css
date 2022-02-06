@@ -1,5 +1,16 @@
 .navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: transparent;
+    color: white;
+    border: 0px;
+    border-radius: .3rem;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 18%) !important;
+}
+
+.navbar-toggler-icon {
+    margin-top: .2rem;
 }
 
 .top-row {
@@ -9,6 +20,19 @@
 
 .navbar-brand {
     font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    list-style-type: none !important;
+    padding-inline-start: 0px !important;
 }
 
 .oi {
@@ -16,6 +40,10 @@
     font-size: 1.1rem;
     vertical-align: text-top;
     top: -2px;
+}
+
+.nav-link {
+    padding-left: 0.5rem;
 }
 
 .nav-item {
@@ -38,7 +66,16 @@
         display: flex;
         align-items: center;
         line-height: 3rem;
+        padding-left: 0.7rem;
     }
+
+    .nav-item ::deep a:hover {
+        text-decoration: none;
+    }
+
+.collapse {
+    display: none;
+}
 
 .nav-item ::deep a.active {
     background-color: rgba(255,255,255,0.25);

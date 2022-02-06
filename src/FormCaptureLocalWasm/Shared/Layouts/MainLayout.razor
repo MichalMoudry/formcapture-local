@@ -1,4 +1,46 @@
 ﻿@inherits LayoutComponentBase
+@inject ILocalStorageService localStorage
 @inject NavigationManager NavigationManager
 
 @Body
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        //Try retrieve UserID of last logged in user
+        if (string.IsNullOrEmpty(UserHelper.UserID))
+        {
+            UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
+        }
+        var lastLoginDate = await localStorage.GetItemAsync<DateTime>("LastLoginDate");
+        //Get application theme setting
+        var appTheme = await localStorage.GetItemAsStringAsync(Settings.ApplicationTheme.ToString());
+        //If there is no setting set one
+        if (string.IsNullOrEmpty(appTheme))
+        {
+            await localStorage.SetItemAsync(Settings.ApplicationTheme.ToString(), AppTheme.Default.ToString());
+        }
+        //Get default locale setting
+        var defaultLocale = await localStorage.GetItemAsStringAsync(Settings.DefaultLocale.ToString());
+        if (string.IsNullOrEmpty(defaultLocale))
+        {
+            await localStorage.SetItemAsync(Settings.DefaultLocale.ToString(), Locale.eng.ToString());
+        }
+        //Try silent login
+        if (lastLoginDate != DateTime.MinValue && !string.IsNullOrEmpty(UserHelper.UserID))
+        {
+            Console.WriteLine($"Compare '{lastLoginDate}' with '{DateTime.Now.AddDays(1)}' - Result: {lastLoginDate.CompareTo(DateTime.Now.AddDays(1))}");
+            if (lastLoginDate.CompareTo(DateTime.Now.AddDays(1)) < 0)
+            {
+                Console.WriteLine($"'{lastLoginDate}' is earlier than '{DateTime.Now.AddDays(1)}'");
+                //NavigationManager.NavigateTo("/formcapture/home");
+            }
+            else
+            {
+                Console.WriteLine($"'{lastLoginDate}' isnt earlier than '{DateTime.Now.AddDays(1)}'");
+                NavigationManager.NavigateTo("/login");
+            }
+        }
+    }
+}

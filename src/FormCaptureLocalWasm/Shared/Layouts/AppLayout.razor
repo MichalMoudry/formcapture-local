@@ -1,5 +1,14 @@
-﻿<h3>AppLayout</h3>
+﻿@inherits LayoutComponentBase
+@layout MainLayout
 
-@code {
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
 
-}
+    <div class="main">
+        <div class="content px-4 mt-4">
+            @Body
+        </div>
+    </div>
+</div>

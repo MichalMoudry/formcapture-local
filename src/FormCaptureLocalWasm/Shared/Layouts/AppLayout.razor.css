@@ -1,0 +1,34 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+}
+
+.sidebar {
+    background: linear-gradient(120deg, rgb(169 88 54 / 84%) 0%, rgb(55 46 183) 100%);
+}
+
+@media (min-width: 641px) {
+    .page {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        box-shadow: -5px -1px 8px 0px rgb(0 0 0 / 0.13) inset;
+        -webkit-box-shadow: -5px -1px 8px 0px rgb(0 0 0 / 0.13) inset;
+        -moz-box-shadow: -5px -1px 8px 0px rgb(0 0 0 / 0.13) inset;
+    }
+
+    .main > div {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}

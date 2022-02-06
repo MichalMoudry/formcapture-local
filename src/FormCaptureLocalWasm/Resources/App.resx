@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,79 +26,79 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -119,38 +119,174 @@
   </resheader>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
+    <comment/>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+    <comment/>
   </data>
   <data name="AppDescription" xml:space="preserve">
     <value>Form Capture is an app for creating complete digitalization workflow using OCR.</value>
+    <comment/>
   </data>
   <data name="RegisterPageTitle" xml:space="preserve">
     <value>Create an account</value>
+    <comment/>
   </data>
   <data name="EmailInputPlaceholder" xml:space="preserve">
     <value>Enter your email...</value>
+    <comment/>
   </data>
   <data name="PasswordInputPlaceholder" xml:space="preserve">
     <value>Enter your password...</value>
+    <comment/>
   </data>
   <data name="ConfirmPasswordLabel" xml:space="preserve">
     <value>Confirm password</value>
+    <comment/>
   </data>
   <data name="RegisterFormSubmitButtonTitle" xml:space="preserve">
     <value>Submit registration form</value>
+    <comment/>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+    <comment/>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+    <comment/>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+    <comment/>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
+    <comment/>
+  </data>
+  <data name="RegistrationErrorText" xml:space="preserve">
+    <value>An error occured during registration</value>
+    <comment/>
+  </data>
+  <data name="RegistrationSuccessTextPart1" xml:space="preserve">
+    <value>You have successfuly completed registration. To login go to this page</value>
+    <comment/>
+  </data>
+  <data name="LoginPageTitle" xml:space="preserve">
+    <value>Login</value>
+    <comment/>
+  </data>
+  <data name="LoginErrorText" xml:space="preserve">
+    <value>An error occured during login. Please check the values in the form.</value>
+    <comment/>
+  </data>
+  <data name="Queues" xml:space="preserve">
+    <value>Queues</value>
+    <comment/>
+  </data>
+  <data name="NavMenuHomeLinkText" xml:space="preserve">
+    <value>Home</value>
+    <comment/>
+  </data>
+  <data name="NavMenuTemplatesLinkText" xml:space="preserve">
+    <value>Templates</value>
+    <comment/>
+  </data>
+  <data name="NavMenuAccountLinkText" xml:space="preserve">
+    <value>Account</value>
+    <comment/>
+  </data>
+  <data name="NavMenuSettingsLinkText" xml:space="preserve">
+    <value>Settings</value>
+    <comment/>
+  </data>
+  <data name="NavMenuUserGuideLinkText" xml:space="preserve">
+    <value>User guide</value>
+    <comment/>
+  </data>
+  <data name="NavMenuAboutLinkText" xml:space="preserve">
+    <value>About</value>
+    <comment/>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+    <comment/>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+    <comment/>
+  </data>
+  <data name="Draw" xml:space="preserve">
+    <value>Draw</value>
+    <comment/>
+  </data>
+  <data name="AddTemplatePageTitle" xml:space="preserve">
+    <value>Create a template</value>
+    <comment/>
+  </data>
+  <data name="TemplateNameInputLabel" xml:space="preserve">
+    <value>Template name</value>
+    <comment/>
+  </data>
+  <data name="TemplateNameInputPlaceholder" xml:space="preserve">
+    <value>Enter template name...</value>
+    <comment/>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+    <comment/>
+  </data>
+  <data name="FileUpload" xml:space="preserve">
+    <value>File upload</value>
+    <comment/>
+  </data>
+  <data name="NoFieldsAddedMessage" xml:space="preserve">
+    <value>No fields has been added</value>
+    <comment/>
+  </data>
+  <data name="SaveTemplateButtonText" xml:space="preserve">
+    <value>Save template</value>
+    <comment/>
+  </data>
+  <data name="AddNewFieldButtonText" xml:space="preserve">
+    <value>Add a new field</value>
+    <comment/>
+  </data>
+  <data name="NoIdFieldSelectedMessage" xml:space="preserve">
+    <value>No field has been selected for identification</value>
+    <comment/>
+  </data>
+  <data name="TestIdentificationButtonText" xml:space="preserve">
+    <value>Test identification</value>
+    <comment/>
+  </data>
+  <data name="ExpectedValueInputLabel" xml:space="preserve">
+    <value>Expected value</value>
+    <comment/>
+  </data>
+  <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
+    <value>Enter expected value of the field...</value>
+    <comment/>
+  </data>
+  <data name="NoTemplateNameErrorMessage" xml:space="preserve">
+    <value>Template's name has not been set.</value>
+    <comment/>
+  </data>
+  <data name="NoTemplateImageErrorMessage" xml:space="preserve">
+    <value>No template image has been uploaded</value>
+    <comment/>
+  </data>
+  <data name="NoExpectedValueErrorMessage" xml:space="preserve">
+    <value>Expected value has not been set</value>
+    <comment/>
+  </data>
+  <data name="IdField" xml:space="preserve">
+    <value>Identifying field</value>
+    <comment/>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Fields</value>
+    <comment/>
   </data>
 </root>
