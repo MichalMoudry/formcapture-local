@@ -50,7 +50,7 @@
         <!--Fields column-->
         <Col Xs="24" Sm="24" Lg="24" Xl="12">
             <div>
-                <Card Title="Fields">
+                <Card Title="@Localizer["Fields"]">
                     <Body>
                         @if (fields.Count == 0)
                         {
@@ -74,7 +74,7 @@
                     </ActionTemplate>
                 </Card>
 
-                <Card title="Identifying field" class="mt-3">
+                <Card title="@Localizer["IdField"]" class="mt-3">
                     <Body>
                         @if (identifyingField == null)
                         {
@@ -108,9 +108,12 @@
         </Col>
     </Row>
 
-    <Button Type="@ButtonType.Primary" Block class="mt-3" @onclick="Submit" Loading="@isSubmitButtonLoading" Size="@ButtonSize.Large">
-        <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
-    </Button>
+    <div id="submit-button-div" class="py-3">
+        <Divider class="mt-0 mb-3" />
+        <Button Type="@ButtonType.Primary" Block @onclick="Submit" Loading="@isSubmitButtonLoading">
+            <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
+        </Button>
+    </div>
 </div>
 
 @code
@@ -266,23 +269,23 @@
         }
         else if (string.IsNullOrEmpty(template.Name))
         {
-            await MessageService.Error("Template's name has not been set.");
+            await MessageService.Error($"{Localizer["NoTemplateNameErrorMessage"]}");
         }
         else if (template.Image == null)
         {
-            await MessageService.Error("No template image has been uploaded.");
+            await MessageService.Error($"{Localizer["NoTemplateImageErrorMessage"]}");
         }
         else if (fields.Count == 0)
         {
-            await MessageService.Error("No fields has been added.");
+            await MessageService.Error($"{Localizer["NoFieldsAddedMessage"]}");
         }
         else if (identifyingField == null)
         {
-            await MessageService.Error("Identifying field has not been set.");
+            await MessageService.Error($"{Localizer["NoIdFieldSelectedMessage"]}");
         }
         else if (string.IsNullOrEmpty(expectedValue))
         {
-            await MessageService.Error("Expected value has not been set.");
+            await MessageService.Error($"{Localizer["NoExpectedValueErrorMessage"]}");
         }
     }
 }

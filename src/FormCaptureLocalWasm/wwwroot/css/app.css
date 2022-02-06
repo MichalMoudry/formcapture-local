@@ -111,3 +111,9 @@ label {
     -ms-user-select: none;
     user-select: none;
 }
+
+#submit-button-div {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+}

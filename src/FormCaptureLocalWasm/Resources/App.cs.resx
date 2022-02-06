@@ -269,4 +269,24 @@
     <value>Napiště očekávanou hodnotu pole...</value>
     <comment/>
   </data>
+  <data name="NoTemplateNameErrorMessage" xml:space="preserve">
+    <value>Nebyl uveden název předlohy</value>
+    <comment/>
+  </data>
+  <data name="NoTemplateImageErrorMessage" xml:space="preserve">
+    <value>Nebyl nahrán žádný obrázek předlohy</value>
+    <comment/>
+  </data>
+  <data name="NoExpectedValueErrorMessage" xml:space="preserve">
+    <value>Očekávaná hodnota nebyla nastavena</value>
+    <comment/>
+  </data>
+  <data name="IdField" xml:space="preserve">
+    <value>Identifikační pole</value>
+    <comment/>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Pole</value>
+    <comment/>
+  </data>
 </root>

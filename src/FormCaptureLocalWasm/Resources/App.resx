@@ -242,7 +242,7 @@
     <comment/>
   </data>
   <data name="NoFieldsAddedMessage" xml:space="preserve">
-    <value>No fields added</value>
+    <value>No fields has been added</value>
     <comment/>
   </data>
   <data name="SaveTemplateButtonText" xml:space="preserve">
@@ -267,6 +267,26 @@
   </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
     <value>Enter expected value of the field...</value>
+    <comment/>
+  </data>
+  <data name="NoTemplateNameErrorMessage" xml:space="preserve">
+    <value>Template's name has not been set.</value>
+    <comment/>
+  </data>
+  <data name="NoTemplateImageErrorMessage" xml:space="preserve">
+    <value>No template image has been uploaded</value>
+    <comment/>
+  </data>
+  <data name="NoExpectedValueErrorMessage" xml:space="preserve">
+    <value>Expected value has not been set</value>
+    <comment/>
+  </data>
+  <data name="IdField" xml:space="preserve">
+    <value>Identifying field</value>
+    <comment/>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Fields</value>
     <comment/>
   </data>
 </root>
