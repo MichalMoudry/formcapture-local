@@ -1,0 +1,70 @@
+@layout AppLayout
+@inject IStringLocalizer<App> Localizer
+@inject IDataAccess DataAccess
+@inject NavigationManager NavigationManager
+@page "/formcapture/templates"
+
+<IconHeader Title="Templates" Icon="document" Class="mt-3" />
+
+<Divider />
+
+<Button Type="@ButtonType.Primary" class="mb-4" OnClick="OnAddNewTemplateButtonClick">
+    <span class="oi oi-plus me-2"></span> Add a new template
+</Button>
+
+<div class="table-responsive">
+    @if (Templates != null)
+    {
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Added</td>
+                    <td>Updated</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var template in Templates)
+                {
+                    <tr class="hoverable-row pointer">
+                        <td @onclick="@(e => OnTemplateListItemClick(template.ID))">@template.Name</td>
+                        <td @onclick="@(e => OnTemplateListItemClick(template.ID))">@template.Added</td>
+                        <td @onclick="@(e => OnTemplateListItemClick(template.ID))">@template.Updated</td>
+                        <td>
+                            <Button Danger>Delete</Button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <Spin Size="large" />
+    }
+</div>
+
+@code
+{
+    public List<FormCaptureLocalWasm.Models.DbModels.Template>? Templates { get; set; }
+
+    private void OnTemplateListItemClick(string? templateId)
+    {
+        NavigationManager.NavigateTo($"/formcapture/templates/{templateId}");
+    }
+
+    private void OnAddNewTemplateButtonClick()
+    {
+        NavigationManager.NavigateTo("/formcapture/templates/add");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var templates = await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString());
+        if (templates != null)
+        {
+            Templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
+    }
+}
