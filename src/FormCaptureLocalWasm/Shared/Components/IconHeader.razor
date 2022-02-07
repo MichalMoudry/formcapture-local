@@ -1,0 +1,24 @@
+<h1 class="@Class">
+    <span class="oi oi-@Icon mt-1 me-2" aria-hidden="true"></span> @Title
+</h1>
+
+@code
+{
+    /// <summary>
+    /// Icon displayed next to the title.
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// Title of the header.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// CSS classes for h1 element.
+    /// </summary>
+    [Parameter]
+    public string? Class { get; set; }
+}

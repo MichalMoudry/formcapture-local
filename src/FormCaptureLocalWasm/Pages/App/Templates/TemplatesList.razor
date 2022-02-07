@@ -1,0 +1,72 @@
+@layout AppLayout
+@inject IStringLocalizer<App> Localizer
+@inject IDataAccess DataAccess
+@inject NavigationManager NavigationManager
+@page "/formcapture/templates"
+
+<IconHeader Title="@Localizer["Templates"]" Icon="document" Class="mt-3" />
+
+<Divider />
+
+<Button Type="@ButtonType.Primary" class="mb-4" OnClick="@(e => Navigate("/formcapture/templates/add"))">
+    <span class="oi oi-plus me-2"></span> @Localizer["AddNewTemplateButtonText"]
+</Button>
+
+<div class="table-responsive">
+    @if (Templates != null)
+    {
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <td>@Localizer["Name"]</td>
+                    <td>@Localizer["Added"]</td>
+                    <td>@Localizer["Updated"]</td>
+                    <td>@Localizer["Options"]</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var template in Templates)
+                {
+                    <tr class="hoverable-row pointer">
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Updated</td>
+                        <td>
+                            <Button Danger>@Localizer["Delete"]</Button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <Spin Size="large" />
+    }
+</div>
+
+@code
+{
+    /// <summary>
+    /// List of templates that will be displayed on this page.
+    /// </summary>
+    public List<FormCaptureLocalWasm.Models.DbModels.Template>? Templates { get; set; }
+
+    /// <summary>
+    /// Method for navigating to a specific URL.
+    /// </summary>
+    /// <param name="url">URL.</param>
+    private void Navigate(string url)
+    {
+        NavigationManager.NavigateTo(url);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var templates = await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString());
+        if (templates != null)
+        {
+            Templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
+    }
+}

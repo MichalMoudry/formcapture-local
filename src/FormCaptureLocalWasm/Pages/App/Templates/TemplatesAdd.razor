@@ -13,9 +13,7 @@
     <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
 </Breadcrumb>
 
-<h1 class="mt-3">
-    <span class="oi oi-document mt-1 me-2" aria-hidden="true"></span> @Localizer["AddTemplatePageTitle"]
-</h1>
+<IconHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" Class="mt-3" />
 
 <Divider />
 
@@ -116,6 +114,23 @@
     </div>
 </div>
 
+<Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
+    <p>@Localizer["ExpectedValueInputLabel"]: <b>@expectedValue</b></p>
+    <p>@Localizer["RecognizedValue"]: <b>@recognizedValue</b></p>
+    <Divider />
+    @if (!string.IsNullOrEmpty(expectedValue))
+    {
+        @if (expectedValue.Equals(recognizedValue))
+        {
+            <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
+        }
+        else
+        {
+            <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
+        }
+    }
+</Modal>
+
 @code
 {
     /// <summary>
@@ -131,6 +146,11 @@
     /// Private field with content (encoded as base64) of the template image.
     /// </summary>
     private string? fileContent;
+
+    /// <summary>
+    /// Private field wtih value representing if modal for testing identification is visible or not.
+    /// </summary>
+    private bool isTestModalVisible = false;
 
     /// <summary>
     /// Private field with a list of fields connected to the template.
@@ -156,6 +176,11 @@
     /// Private field that is bound to expected value input.
     /// </summary>
     private string? expectedValue;
+
+    /// <summary>
+    /// Private field that contains recognized value of identification field.
+    /// </summary>
+    private string? recognizedValue;
 
     private async Task FileSelected(InputFileChangeEventArgs e)
     {
@@ -223,7 +248,8 @@
                 identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
                 identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
                 identifyingField.ExpectedValue = expectedValue;
-                var response = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
+                recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
+                isTestModalVisible = true;
             }
             isTestButtonLoading = false;
         }
