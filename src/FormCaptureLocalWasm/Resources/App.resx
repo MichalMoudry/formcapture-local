@@ -313,4 +313,20 @@
     <value>Options</value>
     <comment/>
   </data>
+  <data name="IdentificationTestModalTitle" xml:space="preserve">
+    <value>Identification result</value>
+    <comment/>
+  </data>
+  <data name="RecognizedValue" xml:space="preserve">
+    <value>Recognized value</value>
+    <comment/>
+  </data>
+  <data name="IdentificationTestFailedMessage" xml:space="preserve">
+    <value>Template will not be recognized</value>
+    <comment/>
+  </data>
+  <data name="IdentificationTestSuccessMessage" xml:space="preserve">
+    <value>Template will be recognized</value>
+    <comment/>
+  </data>
 </root>

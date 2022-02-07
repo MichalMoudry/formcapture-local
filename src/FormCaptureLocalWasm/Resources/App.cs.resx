@@ -313,4 +313,20 @@
     <value>Možnosti</value>
     <comment/>
   </data>
+  <data name="IdentificationTestModalTitle" xml:space="preserve">
+    <value>Výsledky identifikace</value>
+    <comment/>
+  </data>
+  <data name="RecognizedValue" xml:space="preserve">
+    <value>Rozpoznaná hodnota</value>
+    <comment/>
+  </data>
+  <data name="IdentificationTestFailedMessage" xml:space="preserve">
+    <value>Předloha nebude rozpoznána</value>
+    <comment/>
+  </data>
+  <data name="IdentificationTestSuccessMessage" xml:space="preserve">
+    <value>Předloha bude rozpoznána</value>
+    <comment/>
+  </data>
 </root>

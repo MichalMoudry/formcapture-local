@@ -18,10 +18,17 @@ namespace FormCaptureLocalWasm.Services
             throw new NotImplementedException();
         }
 
-        public async Task<JsonElement> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale)
+        public async Task<string?> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale)
         {
             var res = await _jSRuntime.InvokeAsync<JsonElement>("recogSingleField", field, Convert.ToBase64String(content), locale, contentType);
-            return res;
+            if (!string.IsNullOrEmpty(res[0].GetString()))
+            {
+                return res[0].GetString().Split("/")[0];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public Task<List<string[]>> SingleFileMultipleFieldsRecognition(List<Field> fields, byte[] content, string locale, string contentType)

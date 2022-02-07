@@ -1,5 +1,4 @@
 using FormCaptureLocalWasm.Models.DbModels;
-using System.Text.Json;
 
 namespace FormCaptureLocalWasm.Services
 {
@@ -26,7 +25,7 @@ namespace FormCaptureLocalWasm.Services
         /// <param name="locale">Locale of recognition.</param>
         /// <param name="contentType">Content type of inserted content.</param>
         /// <returns>Json element with recognition result.</returns>
-        Task<JsonElement> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale);
+        Task<string?> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale);
 
         /// <summary>
         /// Method for executing recognition on single file and with multiple fields.
