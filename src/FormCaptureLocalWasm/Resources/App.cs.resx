@@ -289,4 +289,28 @@
     <value>Pole</value>
     <comment/>
   </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Předlohy</value>
+    <comment/>
+  </data>
+  <data name="AddNewTemplateButtonText" xml:space="preserve">
+    <value>Přidat novou předlohu</value>
+    <comment/>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Název</value>
+    <comment/>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Přidáno</value>
+    <comment/>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Aktualizováno</value>
+    <comment/>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Možnosti</value>
+    <comment/>
+  </data>
 </root>

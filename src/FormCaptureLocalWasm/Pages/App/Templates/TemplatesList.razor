@@ -4,12 +4,12 @@
 @inject NavigationManager NavigationManager
 @page "/formcapture/templates"
 
-<IconHeader Title="Templates" Icon="document" Class="mt-3" />
+<IconHeader Title="@Localizer["Templates"]" Icon="document" Class="mt-3" />
 
 <Divider />
 
-<Button Type="@ButtonType.Primary" class="mb-4" OnClick="OnAddNewTemplateButtonClick">
-    <span class="oi oi-plus me-2"></span> Add a new template
+<Button Type="@ButtonType.Primary" class="mb-4" OnClick="@(e => Navigate("/formcapture/templates/add"))">
+    <span class="oi oi-plus me-2"></span> @Localizer["AddNewTemplateButtonText"]
 </Button>
 
 <div class="table-responsive">
@@ -18,21 +18,21 @@
         <table class="custom-table">
             <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>Added</td>
-                    <td>Updated</td>
-                    <td>Actions</td>
+                    <td>@Localizer["Name"]</td>
+                    <td>@Localizer["Added"]</td>
+                    <td>@Localizer["Updated"]</td>
+                    <td>@Localizer["Options"]</td>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var template in Templates)
                 {
                     <tr class="hoverable-row pointer">
-                        <td @onclick="@(e => OnTemplateListItemClick(template.ID))">@template.Name</td>
-                        <td @onclick="@(e => OnTemplateListItemClick(template.ID))">@template.Added</td>
-                        <td @onclick="@(e => OnTemplateListItemClick(template.ID))">@template.Updated</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Name</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Added</td>
+                        <td @onclick="@(e => Navigate($"/formcapture/templates/{template.ID}"))">@template.Updated</td>
                         <td>
-                            <Button Danger>Delete</Button>
+                            <Button Danger>@Localizer["Delete"]</Button>
                         </td>
                     </tr>
                 }
@@ -47,16 +47,18 @@
 
 @code
 {
+    /// <summary>
+    /// List of templates that will be displayed on this page.
+    /// </summary>
     public List<FormCaptureLocalWasm.Models.DbModels.Template>? Templates { get; set; }
 
-    private void OnTemplateListItemClick(string? templateId)
+    /// <summary>
+    /// Method for navigating to a specific URL.
+    /// </summary>
+    /// <param name="url">URL.</param>
+    private void Navigate(string url)
     {
-        NavigationManager.NavigateTo($"/formcapture/templates/{templateId}");
-    }
-
-    private void OnAddNewTemplateButtonClick()
-    {
-        NavigationManager.NavigateTo("/formcapture/templates/add");
+        NavigationManager.NavigateTo(url);
     }
 
     protected override async Task OnInitializedAsync()

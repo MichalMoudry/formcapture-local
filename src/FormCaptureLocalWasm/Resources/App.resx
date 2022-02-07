@@ -289,4 +289,28 @@
     <value>Fields</value>
     <comment/>
   </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Templates</value>
+    <comment/>
+  </data>
+  <data name="AddNewTemplateButtonText" xml:space="preserve">
+    <value>Add a new template</value>
+    <comment/>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+    <comment/>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Added</value>
+    <comment/>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Updated</value>
+    <comment/>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+    <comment/>
+  </data>
 </root>
