@@ -204,12 +204,9 @@
     {
         if (identifyingField != null)
         {
-            identifyingField.IsIdentifying = false;
+            fields.Single(i => i.IsIdentifying).IsIdentifying = false;
         }
-        else
-        {
-            field.IsIdentifying = true;
-        }
+        field.IsIdentifying = true;
         identifyingField = field;
     }
 
@@ -222,8 +219,6 @@
         {
             ID = Guid.NewGuid().ToString(),
             Name = "New field",
-            Added = DateTime.Now,
-            Updated = DateTime.Now,
             IsIdentifying = false,
             TemplateID = template.ID,
             UserID = UserHelper.UserID
@@ -243,10 +238,8 @@
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");
-                identifyingField.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
-                identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
-                identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
-                identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
+                identifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                identifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
                 identifyingField.ExpectedValue = expectedValue;
                 recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
                 isTestModalVisible = true;
@@ -264,9 +257,9 @@
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
             isSubmitButtonLoading = true;
-            template.Added = DateTime.Now;
-            template.Updated = template.Added;
+            template.SetDateAdded();
             fields.Single(i => i.IsIdentifying).ExpectedValue = expectedValue;
+            fields.Single(i => !i.IsIdentifying).ExpectedValue = string.Empty;
             var imageDimensions = await JSRuntime.InvokeAsync<string>("getImageProperties", "template-preview-image");
             var imageDimensionsSplit = imageDimensions.Split("|");
             template.Xdimension = Convert.ToInt32(imageDimensionsSplit[0]);
@@ -283,11 +276,10 @@
                 if (!string.IsNullOrEmpty(fieldProperties))
                 {
                     fieldPropertiesSplit = fieldProperties.Split(",");
-                    field.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
-                    field.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
-                    field.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
-                    field.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
+                    field.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                    field.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
                 }
+                field.SetDateAdded();
                 _ = await DataAccess.AddItemAsync(field, ObjectStores.Fields.ToString());
             }
             _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());

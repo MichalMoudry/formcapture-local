@@ -19,5 +19,14 @@
         /// Date of last update.
         /// </summary>
         public DateTime Updated { get; set; }
+
+        /// <summary>
+        /// Method for setting date information during creation of an entity.
+        /// </summary>
+        public void SetDateAdded()
+        {
+            Added = DateTime.Now;
+            Updated = Added;
+        }
     }
 }
