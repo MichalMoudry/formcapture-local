@@ -1,0 +1,301 @@
+@layout AppLayout
+@inject IStringLocalizer<App> Localizer
+@inject IDataAccess DataAccess
+@inject IJSRuntime JSRuntime
+@inject IRecognitionService Recognition
+@inject MessageService MessageService
+@inject NavigationManager NavigationManager
+@page "/formcapture/templates/edit/{TemplateID}"
+
+<Breadcrumb>
+    <BreadcrumbItem Href="/formcapture/home">@Localizer["NavMenuHomeLinkText"]</BreadcrumbItem>
+    <BreadcrumbItem Href="/formcapture/templates">@Localizer["NavMenuTemplatesLinkText"]</BreadcrumbItem>
+    <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
+</Breadcrumb>
+
+@if (template != null)
+{
+    <IconHeader Icon="document" Title="@template.Name" class="mt-3" />
+}
+else
+{
+    <Spin />
+}
+
+<Divider />
+
+<div class="mb-3">
+    <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
+    <div class="mt-2">
+        @if (template != null)
+        {
+            <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name"  />
+        }
+    </div>
+
+    <Divider />
+
+    <Row Gutter="(32,16)">
+        <!--Image upload column-->
+        <Col Xs="24" Sm="24" Lg="24" Xl="12">
+            <IconSubheader Icon="image" Title="@Localizer["Image"]" />
+            @if (!string.IsNullOrEmpty(fileContent))
+            {
+                <div id="template-canvas">
+                    <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
+                </div>
+            }
+            else
+            {
+                <p>Loading...</p>
+            }
+            <Divider class="mb-0"><span class="oi oi-data-transfer-upload me-2"></span> @Localizer["FileUpload"]</Divider>
+            <InputFile OnChange="@FileSelected" class="mt-3 pointer" />
+        </Col>
+
+        <!--Fields column-->
+        <Col Xs="24" Sm="24" Lg="24" Xl="12">
+            <Card Title="@Localizer["Fields"]">
+                <Body>
+                    @if (fields != null)
+                    {
+                        @if (fields.Count == 0)
+                        {
+                            <Empty>
+                                <DescriptionTemplate>
+                                    <span>@Localizer["NoFieldsAddedMessage"]</span>
+                                </DescriptionTemplate>
+                            </Empty>
+                        }
+                        else
+                        {
+                            <FieldsList Fields="@fields" OnSetFieldToIdentifyingClick="@OnSetIdentifyingField" />
+                        }
+                    }
+                </Body>
+                <ActionTemplate>
+                    <CardAction>
+                        <div @onclick="AddNewField" class="disable-select">
+                            <span class="oi oi-plus me-2"></span>@Localizer["AddNewFieldButtonText"]
+                        </div>
+                    </CardAction>
+                </ActionTemplate>
+            </Card>
+
+            <Card title="@Localizer["IdField"]" class="mt-3">
+                <Body>
+                    @if (identifyingField == null)
+                    {
+                        <Empty>
+                            <DescriptionTemplate>
+                                <span>@Localizer["NoIdFieldSelectedMessage"]</span>
+                            </DescriptionTemplate>
+                        </Empty>
+                    }
+                    else
+                    {
+                        <h2 class="mb-0">@identifyingField.Name</h2>
+                        <Divider />
+                    }
+                    <label for="expected-value"><b>@Localizer["ExpectedValueInputLabel"]</b>:</label>
+                    <div class="mt-2">
+                        <Input Placeholder="@Localizer["ExpectedValueInputPlaceholder"]" name="expected-value" id="expected-value" class="" @bind-Value="expectedValue"  />
+                    </div>
+                </Body>
+                <ActionTemplate>
+                    <CardAction>
+                        <div class="px-3">
+                            <Button @onclick="TestIdFieldRecognition" Block Loading="@isTestButtonLoading" class="disable-select">
+                                <span class="oi oi-beaker me-2"></span>@Localizer["TestIdentificationButtonText"]
+                            </Button>
+                        </div>
+                    </CardAction>
+                </ActionTemplate>
+            </Card>
+        </Col>
+    </Row>
+
+    <div id="submit-button-div" class="py-3">
+        <Divider class="mt-0 mb-3" />
+        <Button Type="@ButtonType.Primary" Block Loading="@isSubmitButtonLoading">
+            <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
+        </Button>
+    </div>
+</div>
+
+<Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
+    <p>@Localizer["ExpectedValueInputLabel"]: <b>@expectedValue</b></p>
+    <p>@Localizer["RecognizedValue"]: <b>@recognizedValue</b></p>
+    <Divider />
+    @if (!string.IsNullOrEmpty(expectedValue))
+    {
+        @if (expectedValue.Equals(recognizedValue))
+        {
+            <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
+        }
+        else
+        {
+            <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
+        }
+    }
+</Modal>
+
+@code
+{
+    /// <summary>
+    /// Property containing ID of a template, that was passed as a parameter.
+    /// </summary>
+    [Parameter]
+    public string? TemplateID { get; set; }
+
+    /// <summary>
+    /// Field containing instance of <see cref="Template"/> class with matching ID.
+    /// </summary>
+    private FormCaptureLocalWasm.Models.DbModels.Template? template;
+
+    /// <summary>
+    /// Private field with content (encoded as base64) of the template image.
+    /// </summary>
+    private string? fileContent;
+
+    /// <summary>
+    /// Private field wtih value representing if modal for testing identification is visible or not.
+    /// </summary>
+    private bool isTestModalVisible = false;
+
+    /// <summary>
+    /// Private field with a list of fields connected to the template.
+    /// </summary>
+    private List<Field> fields = new List<Field>();
+
+    /// <summary>
+    /// Private field with instance of <see cref="Field"/> class.
+    /// </summary>
+    private Field? identifyingField;
+
+    /// <summary>
+    /// Private field wtih value representing if test button is loading or not.
+    /// </summary>
+    private bool isTestButtonLoading = false;
+
+    /// <summary>
+    /// Private field wtih value representing if submit button is loading or not.
+    /// </summary>
+    private bool isSubmitButtonLoading = false;
+
+    /// <summary>
+    /// Private field that is bound to expected value input.
+    /// </summary>
+    private string? expectedValue;
+
+    /// <summary>
+    /// Private field that contains recognized value of identification field.
+    /// </summary>
+    private string? recognizedValue;
+
+    /// <summary>
+    /// Event handler for handling id field set.
+    /// </summary>
+    /// <param name="field">New id field.</param>
+    private void OnSetIdentifyingField(Field field)
+    {
+        if (identifyingField != null)
+        {
+            fields.Single(i => i.IsIdentifying).IsIdentifying = false;
+        }
+        field.IsIdentifying = true;
+        identifyingField = field;
+    }
+
+    /// <summary>
+    /// Method for adding a new item to fields list.
+    /// </summary>
+    private void AddNewField()
+    {
+        if (template != null)
+        {
+            fields.Add(new Field()
+            {
+                ID = Guid.NewGuid().ToString(),
+                Name = "New field",
+                IsIdentifying = false,
+                TemplateID = template.ID,
+                UserID = UserHelper.UserID
+            });
+        }
+    }
+
+    /// <summary>
+    /// Event handler for file upload.
+    /// </summary>
+    /// <param name="e">File upload event arguments.</param>
+    private async Task FileSelected(InputFileChangeEventArgs e)
+    {
+        if (template != null)
+        {
+            if (e.FileCount > 1)
+            {
+                return;
+            }
+            fileContent = $"data:{e.File.ContentType};base64,";
+            var buffer = new byte[e.File.Size];
+            await e.File.OpenReadStream().ReadAsync(buffer);
+            template.Image = buffer;
+            template.ContentType = e.File.ContentType;
+            fileContent += Convert.ToBase64String(buffer);
+        }
+    }
+
+    /// <summary>
+    /// Method for launching a test if document will be recognized.
+    /// </summary>
+    private async Task TestIdFieldRecognition()
+    {
+        if (template != null)
+        {
+            if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
+            {
+                isTestButtonLoading = true;
+                var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
+                if (!string.IsNullOrEmpty(fieldProperties))
+                {
+                    var fieldPropertiesSplit = fieldProperties.Split(",");
+                    identifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                    identifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
+                    identifyingField.ExpectedValue = expectedValue;
+                    recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
+                    isTestModalVisible = true;
+                }
+                isTestButtonLoading = false;
+            }
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!string.IsNullOrEmpty(TemplateID))
+        {
+            template = await DataAccess.GetItemAsync<FormCaptureLocalWasm.Models.DbModels.Template>(TemplateID, ObjectStores.Templates.ToString());
+            if (template != null)
+            {
+                fields = await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
+                if (fields != null && template.Image != null)
+                {
+                    fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
+                    fileContent = $"data:{template.ContentType};base64,{Convert.ToBase64String(template.Image)}";
+                    identifyingField = fields.Single(i => i.IsIdentifying);
+                    expectedValue = identifyingField.ExpectedValue;
+                    await JSRuntime.InvokeVoidAsync("drawFields", fields, "template-canvas");
+                }
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/formcapture/notfound");
+            }
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/formcapture/notfound");
+        }
+    }
+}

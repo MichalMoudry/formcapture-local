@@ -19,6 +19,7 @@ function drawFields(fields, targetID) {
     var height;
     var fieldRectangle;
     var canvas = document.getElementById(targetID);
+    console.log("draw fields ", canvas, ".");
     if (canvas != null) {
         for (var i = 0; i < fields.length; i++) {
             fieldRectangle = document.createElement("div");
