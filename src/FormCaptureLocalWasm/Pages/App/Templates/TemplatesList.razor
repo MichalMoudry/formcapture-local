@@ -76,24 +76,21 @@
     /// <param name="template">Template that will be deleted.</param>
     private async Task DeleteTemplate(FormCaptureLocalWasm.Models.DbModels.Template template)
     {
-        if (!string.IsNullOrEmpty(template.ID))
+        var deleteTemplateResult = await DataAccess.DeleteItemAsync(template.ID, ObjectStores.Templates.ToString());
+        var fields =  await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
+        fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
+        bool deleteFieldsResult = false;
+        foreach (var field in fields)
         {
-            var deleteTemplateResult = await DataAccess.DeleteItemAsync(template.ID, ObjectStores.Templates.ToString());
-            var fields =  await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
-            fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
-            bool deleteFieldsResult = false;
-            foreach (var field in fields)
-            {
-                deleteFieldsResult = await DataAccess.DeleteItemAsync(field.ID, ObjectStores.Fields.ToString());
-            }
-            if (deleteTemplateResult && deleteFieldsResult)
-            {
-                Templates?.Remove(template);
-            }
-            else
-            {
-                await MessageService.Error("Error occured during template deletion.");
-            }
+            deleteFieldsResult = await DataAccess.DeleteItemAsync(field.ID, ObjectStores.Fields.ToString());
+        }
+        if (deleteTemplateResult && deleteFieldsResult)
+        {
+            Templates?.Remove(template);
+        }
+        else
+        {
+            await MessageService.Error("Error occured during template deletion.");
         }
     }
 

@@ -2,38 +2,37 @@ using System.Text.Json;
 using FormCaptureLocalWasm.Models.DbModels;
 using Microsoft.JSInterop;
 
-namespace FormCaptureLocalWasm.Services
+namespace FormCaptureLocalWasm.Services;
+
+public class TesseractService : IRecognitionService
 {
-    public class TesseractService : IRecognitionService
+    /// <summary>
+    /// Field for JSRuntime class instance.
+    /// </summary>
+    private readonly IJSRuntime _jSRuntime;
+
+    public TesseractService(IJSRuntime jSRuntime) => _jSRuntime = jSRuntime;
+
+    public Task<List<string[]>> MultifieldRecognition(List<Field> fields, List<ProcessedFile> files, List<string> contentTypes, string locale)
     {
-        /// <summary>
-        /// Field for JSRuntime class instance.
-        /// </summary>
-        private readonly IJSRuntime _jSRuntime;
+        throw new NotImplementedException();
+    }
 
-        public TesseractService(IJSRuntime jSRuntime) => _jSRuntime = jSRuntime;
-
-        public Task<List<string[]>> MultifieldRecognition(List<Field> fields, List<ProcessedFile> files, List<string> contentTypes, string locale)
+    public async Task<string?> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale)
+    {
+        var res = await _jSRuntime.InvokeAsync<JsonElement>("recogSingleField", field, Convert.ToBase64String(content), locale, contentType);
+        if (!string.IsNullOrEmpty(res[0].GetString()))
         {
-            throw new NotImplementedException();
+            return res[0].GetString().Split("/")[0];
         }
-
-        public async Task<string?> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale)
+        else
         {
-            var res = await _jSRuntime.InvokeAsync<JsonElement>("recogSingleField", field, Convert.ToBase64String(content), locale, contentType);
-            if (!string.IsNullOrEmpty(res[0].GetString()))
-            {
-                return res[0].GetString().Split("/")[0];
-            }
-            else
-            {
-                return null;
-            }
+            return null;
         }
+    }
 
-        public Task<List<string[]>> SingleFileMultipleFieldsRecognition(List<Field> fields, byte[] content, string locale, string contentType)
-        {
-            throw new NotImplementedException();
-        }
+    public Task<List<string[]>> SingleFileMultipleFieldsRecognition(List<Field> fields, byte[] content, string locale, string contentType)
+    {
+        throw new NotImplementedException();
     }
 }

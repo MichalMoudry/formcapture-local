@@ -1,6 +1,6 @@
 ﻿namespace FormCaptureLocalWasm.Models.Enums
 {
-    public enum QueueTask
+    public enum QueueStatus
     {
         Start,
         Scan,
@@ -8,9 +8,6 @@
         Recognition,
         Verification,
         Export,
-        VerificationError,
-        IdentificationError,
-        Finished,
-        Deprecated
+        Finished
     }
 }
