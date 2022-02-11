@@ -13,7 +13,7 @@ public class Field : Entity
     /// <summary>
     /// Height of the field (in px).
     /// </summary>
-    public int Height { get; private set; }
+    public int Height { get; set; }
 
     /// <summary>
     /// Identfier if field is used for document identification.
@@ -38,17 +38,17 @@ public class Field : Entity
     /// <summary>
     /// Width of the field (in px).
     /// </summary>
-    public int Width { get; private set; }
+    public int Width { get; set; }
 
     /// <summary>
     /// X position of the field on a specific document template.
     /// </summary>
-    public int Xposition { get; private set; }
+    public int Xposition { get; set; }
 
     /// <summary>
     /// Y position of the field on a specific document template.
     /// </summary>
-    public int Yposition { get; private set; }
+    public int Yposition { get; set; }
 
     /// <summary>
     /// Method for setting width and height of a field.

@@ -19,13 +19,12 @@ function drawFields(fields, targetID) {
     var height;
     var fieldRectangle;
     var canvas = document.getElementById(targetID);
-    console.log("draw fields ", canvas, ".");
     if (canvas != null) {
         for (var i = 0; i < fields.length; i++) {
             fieldRectangle = document.createElement("div");
             fieldRectangle.classList.add("template-field");
             fieldRectangle.id = fields[i]["id"];
-            fieldRectangle.title = fieldRectangle.id;
+            fieldRectangle.title = fields[i]["name"];
             xposition = fields[i]["xposition"] + "px";
             yposition = fields[i]["yposition"] + "px";
             width = fields[i]["width"] + "px";
