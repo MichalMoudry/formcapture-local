@@ -329,4 +329,8 @@
     <value>Template will be recognized</value>
     <comment/>
   </data>
+  <data name="EditTemplatePageTitle" xml:space="preserve">
+    <value>Edit a template</value>
+    <comment/>
+  </data>
 </root>

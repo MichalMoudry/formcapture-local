@@ -112,12 +112,6 @@ label {
     user-select: none;
 }
 
-#submit-button-div {
-    position: sticky;
-    bottom: 0;
-    background-color: white;
-}
-
 .table-responsive {
     overflow-x: auto;
 }

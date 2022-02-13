@@ -34,4 +34,15 @@ public class Template : Entity
     /// Y dimension of the uploaded file.
     /// </summary>
     public int Ydimension { get; set; }
+
+    /// <summary>
+    /// Method for setting dimensions of a template.
+    /// </summary>
+    /// <param name="x">Width of the template.</param>
+    /// <param name="y">Height of the template.</param>
+    public void SetDimensions(int x, int y)
+    {
+        Xdimension = x;
+        Ydimension = y;
+    }
 }

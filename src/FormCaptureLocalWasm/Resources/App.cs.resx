@@ -329,4 +329,8 @@
     <value>Předloha bude rozpoznána</value>
     <comment/>
   </data>
+  <data name="EditTemplatePageTitle" xml:space="preserve">
+    <value>Upravit předlohu</value>
+    <comment/>
+  </data>
 </root>
