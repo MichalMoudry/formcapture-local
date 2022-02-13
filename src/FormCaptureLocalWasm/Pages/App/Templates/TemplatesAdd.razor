@@ -115,21 +115,10 @@
 </div>
 
 <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
-    <p>@Localizer["ExpectedValueInputLabel"]: <b>@expectedValue</b></p>
-    <p>@Localizer["RecognizedValue"]: <b>@recognizedValue</b></p>
-    <Divider />
-    @if (!string.IsNullOrEmpty(expectedValue))
-    {
-        @if (expectedValue.Equals(recognizedValue))
-        {
-            <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
-        }
-        else
-        {
-            <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
-        }
-    }
+    <TestIdentificationResultModal ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />
 </Modal>
+
+<!--<TestIdentificationResultModal IsTestModalVisible="@isTestModalVisible" ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />-->
 
 @code
 {
@@ -138,8 +127,7 @@
     /// </summary>
     private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template()
     {
-        ID = Guid.NewGuid().ToString(),
-        UserID = UserHelper.UserID
+        ID = Guid.NewGuid().ToString()
     };
 
     /// <summary>
@@ -263,7 +251,6 @@
             isSubmitButtonLoading = true;
             template.SetDateAdded();
             fields.Single(i => i.IsIdentifying).ExpectedValue = expectedValue;
-            fields.Single(i => !i.IsIdentifying).ExpectedValue = string.Empty;
             var imageDimensions = await JSRuntime.InvokeAsync<string>("getImageProperties", "template-preview-image");
             var imageDimensionsSplit = imageDimensions.Split("|");
             template.Xdimension = Convert.ToInt32(imageDimensionsSplit[0]);

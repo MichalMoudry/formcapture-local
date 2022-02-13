@@ -1,0 +1,31 @@
+@inject IStringLocalizer<App> Localizer
+
+<p>@Localizer["ExpectedValueInputLabel"]: <b>@ExpectedValue</b></p>
+<p>@Localizer["RecognizedValue"]: <b>@RecognizedValue</b></p>
+<Divider />
+@if (!string.IsNullOrEmpty(ExpectedValue))
+{
+    @if (ExpectedValue.Equals(RecognizedValue))
+    {
+        <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
+    }
+    else
+    {
+        <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
+    }
+}
+
+@code
+{
+    /// <summary>
+    /// Expected value of an identification field.
+    /// </summary>
+    [Parameter]
+    public string? ExpectedValue { get; set; }
+
+    /// <summary>
+    /// Recognized value of an identification field.
+    /// </summary>
+    [Parameter]
+    public string? RecognizedValue { get; set; }
+}

@@ -100,6 +100,10 @@
         if (templates != null)
         {
             Templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+            foreach (var template in Templates)
+            {
+                Console.WriteLine($"{template.Name}, {template.Added}, {template.Updated}");
+            }
         }
     }
 }

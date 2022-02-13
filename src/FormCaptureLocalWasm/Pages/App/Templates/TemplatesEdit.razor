@@ -120,20 +120,7 @@ else
 </div>
 
 <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
-    <p>@Localizer["ExpectedValueInputLabel"]: <b>@expectedValue</b></p>
-    <p>@Localizer["RecognizedValue"]: <b>@recognizedValue</b></p>
-    <Divider />
-    @if (!string.IsNullOrEmpty(expectedValue))
-    {
-        @if (expectedValue.Equals(recognizedValue))
-        {
-            <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
-        }
-        else
-        {
-            <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
-        }
-    }
+    <TestIdentificationResultModal ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />
 </Modal>
 
 @code
