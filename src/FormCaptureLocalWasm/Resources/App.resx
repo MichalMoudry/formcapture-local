@@ -333,4 +333,36 @@
     <value>Edit a template</value>
     <comment/>
   </data>
+  <data name="ApplicationTheme" xml:space="preserve">
+    <value>Application theme</value>
+    <comment/>
+  </data>
+  <data name="SaveSettingButtonText" xml:space="preserve">
+    <value>Save setting</value>
+    <comment/>
+  </data>
+  <data name="LocaleSettingTitle" xml:space="preserve">
+    <value>Locale for recognition</value>
+    <comment/>
+  </data>
+  <data name="LocaleSettingDescription" xml:space="preserve">
+    <value>-</value>
+    <comment/>
+  </data>
+  <data name="NavMenuLogoutLinkText" xml:space="preserve">
+    <value>Logout</value>
+    <comment/>
+  </data>
+  <data name="DefaultThemeRadioButtonText" xml:space="preserve">
+    <value>Default</value>
+    <comment/>
+  </data>
+  <data name="HighContrastLightThemeRadioButtonText" xml:space="preserve">
+    <value>High contrast light theme</value>
+    <comment/>
+  </data>
+  <data name="HighContrastDarkThemeRadioButtonText" xml:space="preserve">
+    <value>High contrast dark theme</value>
+    <comment/>
+  </data>
 </root>

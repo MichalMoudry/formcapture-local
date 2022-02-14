@@ -140,6 +140,7 @@ select {
     width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.2);
     height: 2rem;
+    padding-left: 0.4rem;
 }
 
     select:hover {
