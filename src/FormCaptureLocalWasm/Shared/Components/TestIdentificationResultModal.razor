@@ -7,11 +7,13 @@
 {
     @if (ExpectedValue.Equals(RecognizedValue))
     {
-        <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
+        <!--<p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>-->
+        <Alert Type="@AlertType.Success" Message="@Localizer["IdentificationTestSuccessMessage"]" ShowIcon="true" />
     }
     else
     {
-        <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
+        <!--<p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>-->
+        <Alert Type="@AlertType.Error" Message="@Localizer["IdentificationTestFailedMessage"]" ShowIcon="true" />
     }
 }
 

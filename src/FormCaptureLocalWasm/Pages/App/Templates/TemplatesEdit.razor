@@ -242,7 +242,7 @@ else
         {
             if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
             {
-                isTestButtonLoading = true;
+                ToggleButtons();
                 var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
                 if (!string.IsNullOrEmpty(fieldProperties))
                 {
@@ -252,7 +252,7 @@ else
                     recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
                     isTestModalVisible = true;
                 }
-                isTestButtonLoading = false;
+                ToggleButtons();
             }
         }
     }
@@ -267,6 +267,7 @@ else
             var idField = fields.SingleOrDefault(i => i.IsIdentifying);
             if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && idField != null && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
             {
+                ToggleButtons();
                 template.Updated = DateTime.Now;
                 fields.Single(i => i.IsIdentifying).ExpectedValue = expectedValue;
                 var imageDimensions = await JSRuntime.InvokeAsync<string>("getImageProperties", "template-preview-image");
@@ -314,6 +315,15 @@ else
                 await MessageService.Error($"{Localizer["NoExpectedValueErrorMessage"]}");
             }
         }
+    }
+
+    /// <summary>
+    /// Method for toggling all important buttons on the page.
+    /// </summary>
+    private void ToggleButtons()
+    {
+        isTestButtonLoading = !isSubmitButtonLoading;
+        isSubmitButtonLoading = !isSubmitButtonLoading;
     }
 
     protected override async Task OnInitializedAsync()

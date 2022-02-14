@@ -223,7 +223,7 @@
         //SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
-            isTestButtonLoading = true;
+            ToggleButtons();
             var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
             if (!string.IsNullOrEmpty(fieldProperties))
             {
@@ -233,8 +233,17 @@
                 recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
                 isTestModalVisible = true;
             }
-            isTestButtonLoading = false;
+            ToggleButtons();
         }
+    }
+
+    /// <summary>
+    /// Method for toggling all important buttons on the page.
+    /// </summary>
+    private void ToggleButtons()
+    {
+        isTestButtonLoading = !isSubmitButtonLoading;
+        isSubmitButtonLoading = !isSubmitButtonLoading;
     }
 
     /// <summary>
@@ -242,16 +251,18 @@
     /// </summary>
     private async Task Submit()
     {
-        template.UserID = UserHelper.UserID;
+        if (UserHelper.UserID != null)
+        {
+            template.UserID = UserHelper.UserID;
+        }
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
-            isSubmitButtonLoading = true;
+            ToggleButtons();
             template.SetDateAdded();
             fields.Single(i => i.IsIdentifying).ExpectedValue = expectedValue;
             var imageDimensions = await JSRuntime.InvokeAsync<string>("getImageProperties", "template-preview-image");
             var imageDimensionsSplit = imageDimensions.Split("|");
-            template.Xdimension = Convert.ToInt32(imageDimensionsSplit[0]);
-            template.Ydimension = Convert.ToInt32(imageDimensionsSplit[1]);
+            template.SetDimensions(Convert.ToInt32(imageDimensionsSplit[0]), Convert.ToInt32(imageDimensionsSplit[1]));
             string fieldProperties;
             string[] fieldPropertiesSplit;
             foreach (var field in fields)
