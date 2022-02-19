@@ -1,4 +1,12 @@
-﻿async function hashString(string, salt) {
+﻿$(document).ready(function () {
+    var theme = localStorage.getItem("ApplicationTheme");
+    console.log(theme);
+    if (theme === '"HighContrastDark"') {
+        $('head').append('<link rel="stylesheet" href="css/app-high-contrast-dark.css">');
+    }
+});
+
+async function hashString(string, salt) {
     const encoder = new TextEncoder();
     string = string + salt;
     const hash = await crypto.subtle.digest("SHA-256", encoder.encode(string));

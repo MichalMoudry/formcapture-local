@@ -1,0 +1,55 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+h1, h2 {
+    color: white;
+}
+
+.custom-table, .custom-table td {
+    border-color: white;
+}
+
+.ant-divider {
+    border-color: white;
+}
+
+.custom-table .hoverable-row:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.card {
+    background: black;
+    color: white;
+    border: 1px solid white;
+}
+
+select {
+    color: black;
+}
+
+.ant-radio-wrapper {
+    color: white;
+}
+
+.main {
+    border-width: 1px;
+    border-left-style: solid;
+    border-color: white;
+}
+
+.sidebar {
+    background: black !important;
+}
+
+.nav-item .active {
+    background-color: yellow;
+    color: black;
+}
+
+.nav-link:hover {
+    background-color: yellow !important;
+    color: black !important;
+}
