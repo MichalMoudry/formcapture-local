@@ -1,4 +1,4 @@
-using FormCaptureLocalWasm.Models.DbModels;
+﻿using FormCaptureLocalWasm.Models.DbModels;
 
 namespace FormCaptureLocalWasm.Services;
 

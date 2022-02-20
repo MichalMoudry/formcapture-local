@@ -44,12 +44,52 @@ select {
     background: black !important;
 }
 
-.nav-item .active {
-    background-color: yellow;
-    color: black;
-}
-
 .nav-link:hover {
     background-color: yellow !important;
     color: black !important;
+}
+
+.ant-spin-dot-item {
+    background-color: yellow;
+}
+
+.ant-btn-dangerous {
+    background: transparent;
+}
+
+.ant-popover-message-title {
+    color: white;
+}
+
+.ant-popover-inner {
+    background-color: black;
+    border: 1px solid white;
+}
+
+.ant-card {
+    background: black;
+}
+
+.ant-card-head {
+    color: white;
+}
+
+.ant-card-actions {
+    background: black;
+}
+
+.ant-card-actions li {
+    color: white;
+}
+
+.ant-card-actions li span:hover {
+    color: yellow;
+}
+
+.ant-result-title {
+    color: white;
+}
+
+.ant-result-subtitle {
+    color: white;
 }

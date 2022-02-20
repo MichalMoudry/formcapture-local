@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using FormCaptureLocalWasm.Models.DbModels;
 using Microsoft.JSInterop;
 
@@ -21,14 +21,7 @@ public class TesseractService : IRecognitionService
     public async Task<string?> SinglefieldRecognition(Field field, byte[] content, string contentType, string locale)
     {
         var res = await _jSRuntime.InvokeAsync<JsonElement>("recogSingleField", field, Convert.ToBase64String(content), locale, contentType);
-        if (!string.IsNullOrEmpty(res[0].GetString()))
-        {
-            return res[0].GetString().Split("/")[0];
-        }
-        else
-        {
-            return null;
-        }
+        return res[0].GetString().Split("/")[0];
     }
 
     public Task<List<string[]>> SingleFileMultipleFieldsRecognition(List<Field> fields, byte[] content, string locale, string contentType)

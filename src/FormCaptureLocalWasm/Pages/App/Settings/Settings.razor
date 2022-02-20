@@ -21,7 +21,7 @@
 
     <div class="card px-3 py-3 mt-4">
         <IconSubheader Icon="contrast" Title="@Localizer["ApplicationTheme"]" />
-        <p>Změny se projeví až po restartování aplikace.</p>
+        <p>@Localizer["AppThemeSettingDescription"].</p>
         <div>
             <RadioGroup @bind-Value="@appTheme" class="w-100">
                 <Radio Value="@("Default")" class="disable-select radio">@Localizer["DefaultThemeRadioButtonText"]</Radio>
@@ -46,8 +46,14 @@
     /// </summary>
     private string? appTheme;
 
+    /// <summary>
+    /// Private field with value representing if button for saving loacle setting is loading or not.
+    /// </summary>
     private bool isSaveLocaleButtonLoading = false;
 
+    /// <summary>
+    /// Private field with value representing if button for saving app theme setting is loading or not.
+    /// </summary>
     private bool isSaveThemeButtonLoading = false;
 
     /// <summary>
@@ -59,8 +65,8 @@
         {
             isSaveLocaleButtonLoading = true;
             await localStorage.SetItemAsync(FormCaptureLocalWasm.Models.Enums.Settings.DefaultLocale.ToString(), defaultLocale);
-            await MessageService.Success("Locale has been successfuly saved");
             isSaveLocaleButtonLoading = false;
+            await MessageService.Success("Locale has been successfuly saved");
         }
         catch (System.Exception)
         {

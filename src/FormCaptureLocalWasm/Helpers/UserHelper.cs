@@ -1,4 +1,4 @@
-namespace FormCaptureLocalWasm.Helpers;
+﻿namespace FormCaptureLocalWasm.Helpers;
 
 public class UserHelper
 {

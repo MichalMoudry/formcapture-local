@@ -23,7 +23,7 @@ public class Template : Entity
     /// <summary>
     /// ID of the user that created a specific instance.
     /// </summary>
-    public string UserID { get; set; }
+    public string? UserID { get; set; }
 
     /// <summary>
     /// X dimension of the uploaded file.

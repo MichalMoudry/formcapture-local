@@ -365,4 +365,12 @@
     <value>Vysoce kontrastní tmavý motiv</value>
     <comment/>
   </data>
+  <data name="AppThemeSettingDescription" xml:space="preserve">
+    <value>Změny se projeví až po restartování aplikace</value>
+    <comment/>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Hlavní stránka</value>
+    <comment/>
+  </data>
 </root>

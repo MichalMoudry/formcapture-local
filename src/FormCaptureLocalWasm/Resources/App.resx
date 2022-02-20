@@ -365,4 +365,12 @@
     <value>High contrast dark theme</value>
     <comment/>
   </data>
+  <data name="AppThemeSettingDescription" xml:space="preserve">
+    <value>Changes will be applied after application restart</value>
+    <comment/>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Home</value>
+    <comment/>
+  </data>
 </root>
