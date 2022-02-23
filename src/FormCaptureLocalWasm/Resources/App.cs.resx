@@ -329,4 +329,48 @@
     <value>Předloha bude rozpoznána</value>
     <comment/>
   </data>
+  <data name="EditTemplatePageTitle" xml:space="preserve">
+    <value>Upravit předlohu</value>
+    <comment/>
+  </data>
+  <data name="ApplicationTheme" xml:space="preserve">
+    <value>Motiv aplikace</value>
+    <comment/>
+  </data>
+  <data name="SaveSettingButtonText" xml:space="preserve">
+    <value>Uložit nastavení</value>
+    <comment/>
+  </data>
+  <data name="LocaleSettingTitle" xml:space="preserve">
+    <value>Jazyk pro rozpoznávání</value>
+    <comment/>
+  </data>
+  <data name="LocaleSettingDescription" xml:space="preserve">
+    <value>-</value>
+    <comment/>
+  </data>
+  <data name="NavMenuLogoutLinkText" xml:space="preserve">
+    <value>Odhlásit se</value>
+    <comment/>
+  </data>
+  <data name="DefaultThemeRadioButtonText" xml:space="preserve">
+    <value>Základní</value>
+    <comment/>
+  </data>
+  <data name="HighContrastLightThemeRadioButtonText" xml:space="preserve">
+    <value>Vysoce kontrastní světlý motiv</value>
+    <comment/>
+  </data>
+  <data name="HighContrastDarkThemeRadioButtonText" xml:space="preserve">
+    <value>Vysoce kontrastní tmavý motiv</value>
+    <comment/>
+  </data>
+  <data name="AppThemeSettingDescription" xml:space="preserve">
+    <value>Změny se projeví až po restartování aplikace</value>
+    <comment/>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Hlavní stránka</value>
+    <comment/>
+  </data>
 </root>

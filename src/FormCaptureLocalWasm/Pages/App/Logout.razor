@@ -1,0 +1,10 @@
+@page "/formcapture/logout"
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(10);
+        Console.WriteLine("Logged out");
+    }
+}

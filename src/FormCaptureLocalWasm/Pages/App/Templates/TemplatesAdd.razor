@@ -13,7 +13,7 @@
     <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
 </Breadcrumb>
 
-<IconHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" Class="mt-3" />
+<IconHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" class="mt-3" />
 
 <Divider />
 
@@ -28,7 +28,7 @@
     <Row Gutter="(32,16)">
         <!--Image upload column-->
         <Col Xs="24" Sm="24" Lg="24" Xl="12">
-            <h2><span class="oi oi-image me-2"></span>@Localizer["Image"]</h2>
+            <IconSubheader Icon="image" Title="@Localizer["Image"]" />
             <div>
                 @if (!string.IsNullOrEmpty(fileContent))
                 {
@@ -42,7 +42,7 @@
                 }
             </div>
             <Divider class="mb-0"><span class="oi oi-data-transfer-upload me-2"></span> @Localizer["FileUpload"]</Divider>
-            <InputFile OnChange="@FileSelected" class="mt-3 pointer" />
+            <InputFile OnChange="@FileSelected" class="mt-3 mb-2 pointer" />
         </Col>
 
         <!--Fields column-->
@@ -106,30 +106,17 @@
         </Col>
     </Row>
 
-    <div id="submit-button-div" class="py-3">
-        <Divider class="mt-0 mb-3" />
-        <Button Type="@ButtonType.Primary" Block @onclick="Submit" Loading="@isSubmitButtonLoading">
-            <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
-        </Button>
-    </div>
+    <Divider class="mt-0 mb-3" />
+    <Button Type="@ButtonType.Primary" Block @onclick="Submit" Loading="@isSubmitButtonLoading">
+        <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
+    </Button>
 </div>
 
 <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
-    <p>@Localizer["ExpectedValueInputLabel"]: <b>@expectedValue</b></p>
-    <p>@Localizer["RecognizedValue"]: <b>@recognizedValue</b></p>
-    <Divider />
-    @if (!string.IsNullOrEmpty(expectedValue))
-    {
-        @if (expectedValue.Equals(recognizedValue))
-        {
-            <p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>
-        }
-        else
-        {
-            <p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>
-        }
-    }
+    <TestIdentificationResultModal ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />
 </Modal>
+
+<!--<TestIdentificationResultModal IsTestModalVisible="@isTestModalVisible" ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />-->
 
 @code
 {
@@ -138,8 +125,7 @@
     /// </summary>
     private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template()
     {
-        ID = Guid.NewGuid().ToString(),
-        UserID = UserHelper.UserID
+        ID = Guid.NewGuid().ToString()
     };
 
     /// <summary>
@@ -163,12 +149,12 @@
     private Field? identifyingField;
 
     /// <summary>
-    /// Private field wtih value representing if test button is loading or not.
+    /// Private field with value representing if test button is loading or not.
     /// </summary>
     private bool isTestButtonLoading = false;
 
     /// <summary>
-    /// Private field wtih value representing if submit button is loading or not.
+    /// Private field with value representing if submit button is loading or not.
     /// </summary>
     private bool isSubmitButtonLoading = false;
 
@@ -182,6 +168,10 @@
     /// </summary>
     private string? recognizedValue;
 
+    /// <summary>
+    /// Event handler for file upload.
+    /// </summary>
+    /// <param name="e">File upload event arguments.</param>
     private async Task FileSelected(InputFileChangeEventArgs e)
     {
         if (e.FileCount > 1)
@@ -204,12 +194,9 @@
     {
         if (identifyingField != null)
         {
-            identifyingField.IsIdentifying = false;
+            fields.Single(i => i.IsIdentifying).IsIdentifying = false;
         }
-        else
-        {
-            field.IsIdentifying = true;
-        }
+        field.IsIdentifying = true;
         identifyingField = field;
     }
 
@@ -222,8 +209,6 @@
         {
             ID = Guid.NewGuid().ToString(),
             Name = "New field",
-            Added = DateTime.Now,
-            Updated = DateTime.Now,
             IsIdentifying = false,
             TemplateID = template.ID,
             UserID = UserHelper.UserID
@@ -238,21 +223,27 @@
         //SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
-            isTestButtonLoading = true;
+            ToggleButtons();
             var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");
-                identifyingField.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
-                identifyingField.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
-                identifyingField.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
-                identifyingField.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
-                identifyingField.ExpectedValue = expectedValue;
+                identifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                identifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
                 recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
                 isTestModalVisible = true;
             }
-            isTestButtonLoading = false;
+            ToggleButtons();
         }
+    }
+
+    /// <summary>
+    /// Method for toggling all important buttons on the page.
+    /// </summary>
+    private void ToggleButtons()
+    {
+        isTestButtonLoading = !isSubmitButtonLoading;
+        isSubmitButtonLoading = !isSubmitButtonLoading;
     }
 
     /// <summary>
@@ -260,17 +251,18 @@
     /// </summary>
     private async Task Submit()
     {
-        template.UserID = UserHelper.UserID;
+        if (UserHelper.UserID != null)
+        {
+            template.UserID = UserHelper.UserID;
+        }
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
-            isSubmitButtonLoading = true;
-            template.Added = DateTime.Now;
-            template.Updated = template.Added;
+            ToggleButtons();
+            template.SetDateAdded();
             fields.Single(i => i.IsIdentifying).ExpectedValue = expectedValue;
             var imageDimensions = await JSRuntime.InvokeAsync<string>("getImageProperties", "template-preview-image");
             var imageDimensionsSplit = imageDimensions.Split("|");
-            template.Xdimension = Convert.ToInt32(imageDimensionsSplit[0]);
-            template.Ydimension = Convert.ToInt32(imageDimensionsSplit[1]);
+            template.SetDimensions(Convert.ToInt32(imageDimensionsSplit[0]), Convert.ToInt32(imageDimensionsSplit[1]));
             string fieldProperties;
             string[] fieldPropertiesSplit;
             foreach (var field in fields)
@@ -283,11 +275,10 @@
                 if (!string.IsNullOrEmpty(fieldProperties))
                 {
                     fieldPropertiesSplit = fieldProperties.Split(",");
-                    field.Width = Convert.ToInt32(fieldPropertiesSplit[0]);
-                    field.Height = Convert.ToInt32(fieldPropertiesSplit[1]);
-                    field.Xposition = Convert.ToInt32(fieldPropertiesSplit[2]);
-                    field.Yposition = Convert.ToInt32(fieldPropertiesSplit[3]);
+                    field.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                    field.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
                 }
+                field.SetDateAdded();
                 _ = await DataAccess.AddItemAsync(field, ObjectStores.Fields.ToString());
             }
             _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());

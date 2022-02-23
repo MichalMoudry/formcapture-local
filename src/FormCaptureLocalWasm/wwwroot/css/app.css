@@ -112,12 +112,6 @@ label {
     user-select: none;
 }
 
-#submit-button-div {
-    position: sticky;
-    bottom: 0;
-    background-color: white;
-}
-
 .table-responsive {
     overflow-x: auto;
 }
@@ -127,7 +121,7 @@ label {
 }
 
     .custom-table, .custom-table td {
-        border: 1px solid rgba(0,0,0,.06);
+        border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
     .custom-table thead td {
@@ -141,3 +135,29 @@ label {
     .custom-table .hoverable-row:hover {
         background-color: #0000000a;
     }
+
+select {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    height: 2rem;
+    padding-left: 0.4rem;
+}
+
+    select:hover {
+        cursor: pointer;
+    }
+
+.radio {
+    display: block;
+    height: 2.2rem;
+    border-radius: .3rem;
+    font-weight: normal;
+}
+
+    .radio:hover {
+        background-color: #0000000a;
+    }
+
+.w-100 {
+    width: 100%;
+}

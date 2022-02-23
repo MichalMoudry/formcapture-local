@@ -1,7 +1,6 @@
-namespace FormCaptureLocalWasm.Helpers
+﻿namespace FormCaptureLocalWasm.Helpers;
+
+public class UserHelper
 {
-    public class UserHelper
-    {
-        public static string? UserID { get; set; }
-    }
+    public static string? UserID { get; set; }
 }

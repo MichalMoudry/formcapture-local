@@ -1,11 +1,10 @@
-namespace FormCaptureLocalWasm.Models.Enums
+﻿namespace FormCaptureLocalWasm.Models.Enums;
+
+/// <summary>
+/// Enum for application settings.
+/// </summary>
+public enum Settings
 {
-    /// <summary>
-    /// Enum for application settings.
-    /// </summary>
-    public enum Settings
-    {
-        ApplicationTheme,
-        DefaultLocale
-    }
+    ApplicationTheme,
+    DefaultLocale
 }
