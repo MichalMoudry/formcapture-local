@@ -1,0 +1,107 @@
+.sidebar {
+    background: white !important;
+}
+
+.top-row {
+    background-color: white !important;
+    border-bottom-style: solid;
+    border-width: 1px;
+}
+
+.ant-divider {
+    border-color: black;
+}
+
+.custom-table, .custom-table td {
+    border-color: black;
+}
+
+.custom-table .hoverable-row:hover {
+    background-color: yellow;
+    color: black;
+}
+
+.navbar-brand {
+    color: black !important;
+}
+
+.navbar-toggler-icon, .ant-card-actions .disable-select, .ant-result-subtitle {
+    color: black;
+}
+
+.card {
+    border: 1px solid black;
+}
+
+.ant-card-bordered, .ant-modal-header, .ant-modal-footer, .ant-card-actions, .ant-card-head, .ant-list-item {
+    border-color: black !important;
+}
+
+.ant-card-actions .disable-select:hover {
+    background-color: yellow;
+}
+
+.ant-modal-close {
+    color: black;
+}
+
+select, input[type="text"], #template-preview-image {
+    border: 1px solid black !important;
+}
+
+.nav-link {
+    color: black !important;
+}
+
+    .nav-link:hover {
+        background-color: yellow !important;
+        color: black !important;
+    }
+
+.ant-btn-default {
+    border: 1px solid;
+}
+
+.ant-popover-inner {
+    border: 1px solid black;
+}
+
+.ant-popover-arrow-content {
+    border: 1px solid black;
+}
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+@media (min-width: 1281px) {
+    .main {
+        border-width: 1px;
+        border-left-style: solid;
+        border-color: black;
+    }
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .main {
+        border-width: 1px;
+        border-left-style: solid;
+        border-color: black;
+    }
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 641px) and (max-width: 1024px) {
+    .main {
+        border-width: 1px;
+        border-left-style: solid;
+        border-color: black;
+    }
+}

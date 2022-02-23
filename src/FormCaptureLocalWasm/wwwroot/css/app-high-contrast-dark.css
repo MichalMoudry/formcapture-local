@@ -93,3 +93,7 @@ select {
 .ant-result-subtitle {
     color: white;
 }
+
+.radio:hover {
+    background-color: gray;
+}
