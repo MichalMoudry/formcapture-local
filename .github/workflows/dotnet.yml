@@ -17,6 +17,8 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.101
+    - name: Instal wasm tools
+      run: dotnet workload install wasm-tools
     - name: Restore dependencies
       run: dotnet restore ./src/FormCaptureLocalWasm/FormCaptureLocalWasm.sln
     - name: Build
