@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.101
     - name: Restore dependencies
-      run: dotnet restore ../../src/FormCaptureLocalWasm/FormCaptureLocalWasm.csproj
+      run: dotnet restore ./src/FormCaptureLocalWasm/FormCaptureLocalWasm.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ./src/FormCaptureLocalWasm/FormCaptureLocalWasm.sln --no-restore
     - name: Test
-      run: dotnet test ../../src/FormCaptureLocalWasm/FormCaptureLocalWasm.sln --no-build --verbosity normal
+      run: dotnet test ./src/FormCaptureLocalWasm/FormCaptureLocalWasm.sln --no-build --verbosity normal
