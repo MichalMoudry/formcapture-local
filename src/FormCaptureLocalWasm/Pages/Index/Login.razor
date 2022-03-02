@@ -64,7 +64,7 @@
                 var passwordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, userFromDb.PasswordSalt);
                 if (passwordHash.Equals(userFromDb.PasswordHash))
                 {
-                    UserHelper.UserID = userFromDb.Email;
+                    UserHelper.UserID = userFromDb.Email ?? "";
                     userFromDb.LastLogin = DateTime.Now;
                     await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
                     await localStorage.SetItemAsStringAsync("LastLoginID", userFromDb.Email);

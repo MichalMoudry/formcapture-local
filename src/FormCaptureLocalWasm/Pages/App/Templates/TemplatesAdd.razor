@@ -251,10 +251,7 @@
     /// </summary>
     private async Task Submit()
     {
-        if (UserHelper.UserID != null)
-        {
-            template.UserID = UserHelper.UserID;
-        }
+        template.UserID = UserHelper.UserID;
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
             ToggleButtons();
