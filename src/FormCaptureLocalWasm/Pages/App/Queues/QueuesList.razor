@@ -26,4 +26,13 @@
     {
         NavigationManager.NavigateTo(url);
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var queues = await DataAccess.GetItemsAsListAsync<Queue>(ObjectStores.Queues.ToString());
+        if (queues != null)
+        {
+            Queues = queues.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
+        }
+    }
 }

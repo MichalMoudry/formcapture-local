@@ -25,7 +25,7 @@ public class Queue : Entity
     /// <summary>
     /// ID of the user that created a specific instance.
     /// </summary>
-    public string? UserID { get; set; }
+    public string UserID { get; set; }
 
     /// <summary>
     /// Optional ID of the workflow.
