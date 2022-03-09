@@ -28,12 +28,12 @@ public class ProcessedFile : Entity
     /// <summary>
     /// ID of the queue that this file belongs to.
     /// </summary>
-    public string? QueueID { get; set; }
+    public int QueueID { get; set; }
 
     /// <summary>
     /// ID of the template that this file belongs to.
     /// </summary>
-    public string? TemplateID { get; set; }
+    public int TemplateID { get; set; }
 
     /// <summary>
     /// File type of the processed file.

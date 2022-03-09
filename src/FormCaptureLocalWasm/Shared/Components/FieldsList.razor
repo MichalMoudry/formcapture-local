@@ -45,12 +45,9 @@
     /// Method for starting the process of drawing a field on the image.
     /// </summary>
     /// <param name="fieldID">ID of a specific field.</param>
-    private async Task DrawField(string? fieldID)
+    private async Task DrawField(int fieldID)
     {
-        if (!string.IsNullOrEmpty(fieldID))
-        {
-            await JSRuntime.InvokeVoidAsync("drawField", fieldID);
-        }
+        await JSRuntime.InvokeVoidAsync("drawField", fieldID);
     }
 
     /// <summary>

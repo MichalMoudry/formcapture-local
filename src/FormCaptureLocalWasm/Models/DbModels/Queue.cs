@@ -25,12 +25,12 @@ public class Queue : Entity
     /// <summary>
     /// ID of the user that created a specific instance.
     /// </summary>
-    public string UserID { get; set; }
+    public int UserID { get; set; }
 
     /// <summary>
     /// Optional ID of the workflow.
     /// </summary>
-    public string? WorkflowID { get; set; }
+    public int WorkflowID { get; set; }
 
     /// <summary>
     /// Value indicating if queue is supposed to be processed automaticly or with user intervention.

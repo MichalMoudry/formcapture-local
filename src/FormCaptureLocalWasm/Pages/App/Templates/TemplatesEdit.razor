@@ -207,7 +207,6 @@ else
         {
             fields.Add(new Field()
             {
-                ID = Guid.NewGuid().ToString(),
                 Name = "New field",
                 IsIdentifying = false,
                 TemplateID = template.ID,
@@ -334,7 +333,7 @@ else
     {
         if (!string.IsNullOrEmpty(TemplateID))
         {
-            template = await DataAccess.GetItemAsync<FormCaptureLocalWasm.Models.DbModels.Template>(TemplateID, ObjectStores.Templates.ToString());
+            //template = await DataAccess.GetItemAsync<FormCaptureLocalWasm.Models.DbModels.Template>(TemplateID, ObjectStores.Templates.ToString());
             if (template != null)
             {
                 fields = await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());

@@ -74,16 +74,13 @@
     /// <param name="template">Template that will be deleted.</param>
     private async Task DeleteTemplate(FormCaptureLocalWasm.Models.DbModels.Template template)
     {
-        var deleteTemplateResult = await DataAccess.DeleteItemAsync(template.ID ?? "", ObjectStores.Templates.ToString());
+        var deleteTemplateResult = await DataAccess.DeleteItemAsync(template.ID, ObjectStores.Templates.ToString());
         var fields =  await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
         fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
         bool deleteFieldsResult = false;
         foreach (var field in fields)
         {
-            if (field.ID != null)
-            {
-                deleteFieldsResult = await DataAccess.DeleteItemAsync(field.ID, ObjectStores.Fields.ToString());
-            }
+            deleteFieldsResult = await DataAccess.DeleteItemAsync(field.ID, ObjectStores.Fields.ToString());
         }
         if (deleteTemplateResult && deleteFieldsResult)
         {

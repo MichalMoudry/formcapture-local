@@ -2,5 +2,5 @@
 
 public class UserHelper
 {
-    public static string UserID { get; set; }
+    public static int UserID { get; set; }
 }

@@ -9,10 +9,7 @@
     protected override async Task OnInitializedAsync()
     {
         //Try retrieve UserID of last logged in user
-        if (string.IsNullOrEmpty(UserHelper.UserID))
-        {
-            UserHelper.UserID = await localStorage.GetItemAsStringAsync("LastLoginID");
-        }
+        UserHelper.UserID = await localStorage.GetItemAsync<int>("LastLoginID");
         var lastLoginDate = await localStorage.GetItemAsync<DateTime>("LastLoginDate");
         //Get application theme setting
         var appTheme = await localStorage.GetItemAsStringAsync(Settings.ApplicationTheme.ToString());
@@ -28,7 +25,7 @@
             await localStorage.SetItemAsync(Settings.DefaultLocale.ToString(), Locale.eng.ToString());
         }
         //Try silent login
-        if (lastLoginDate != DateTime.MinValue && !string.IsNullOrEmpty(UserHelper.UserID))
+        if (lastLoginDate != DateTime.MinValue)
         {
             Console.WriteLine($"Compare '{lastLoginDate}' with '{DateTime.Now.AddDays(1)}' - Result: {lastLoginDate.CompareTo(DateTime.Now.AddDays(1))}");
             if (lastLoginDate.CompareTo(DateTime.Now.AddDays(1)) < 0)

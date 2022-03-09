@@ -123,10 +123,7 @@
     /// <summary>
     /// Private field with a <see cref="Models.DbModels.Template"/> class instance.
     /// </summary>
-    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template()
-    {
-        ID = Guid.NewGuid().ToString()
-    };
+    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template();
 
     /// <summary>
     /// Private field with content (encoded as base64) of the template image.
@@ -207,7 +204,6 @@
     {
         fields.Add(new Field()
         {
-            ID = Guid.NewGuid().ToString(),
             Name = "New field",
             IsIdentifying = false,
             TemplateID = template.ID,

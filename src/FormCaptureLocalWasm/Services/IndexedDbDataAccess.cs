@@ -16,9 +16,9 @@ public class IndexedDbDataAccess : IDataAccess
 
     public async Task<bool> AddItemAsync(object entity, string tableName) => await _jSRuntime.InvokeAsync<bool>("addItem", entity, tableName);
 
-    public async Task<bool> DeleteItemAsync(string id, string tableName) => await _jSRuntime.InvokeAsync<bool>("deleteItem", id, tableName);
+    public async Task<bool> DeleteItemAsync(int id, string tableName) => await _jSRuntime.InvokeAsync<bool>("deleteItem", id, tableName);
 
-    public async Task<T> GetItemAsync<T>(string id, string tableName) => await _jSRuntime.InvokeAsync<T>("getItem", id, tableName);
+    public async Task<T> GetItemAsync<T>(int id, string tableName) => await _jSRuntime.InvokeAsync<T>("getItem", id, tableName);
 
     public async Task<List<T>> GetItemsAsListAsync<T>(string tableName) => await _jSRuntime.InvokeAsync<List<T>>("getAllItems", tableName);
 

@@ -19,7 +19,7 @@ public interface IDataAccess
     /// <param name="id">ID of an entity.</param>
     /// <param name="tableName">Name of the database table.</param>
     /// <returns>True if delete was successful, false if not.</returns>
-    Task<bool> DeleteItemAsync(string id, string tableName);
+    Task<bool> DeleteItemAsync(int id, string tableName);
 
     /// <summary>
     /// Asynchronous method for obtaining instance of a specified class.
@@ -27,7 +27,7 @@ public interface IDataAccess
     /// <param name="id">ID of an entity.</param>
     /// <param name="tableName">Name of the database table.</param>
     /// <returns>Instance of a specified class.</returns>
-    Task<T> GetItemAsync<T>(string id, string tableName);
+    Task<T> GetItemAsync<T>(int id, string tableName);
 
     /// <summary>
     /// Asynchronous method for obtaining list of instances of a specified class.

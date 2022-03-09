@@ -11,6 +11,45 @@
 
 <IconButton OnClickCallback="@(e => Navigate("/formcapture/queues/start"))" Icon="plus" Text="@Localizer["AddNewTemplateButtonText"]" Type="primary" Class="mb4" />
 
+<div class="table-responsive">
+    @if (Queues != null)
+    {
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <td>@Localizer["Name"]</td>
+                    <td>Status</td>
+                    <td>@Localizer["Added"]</td>
+                    <td>@Localizer["Options"]</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var queue in Queues)
+                {
+                    <tr class="hoverable-row pointer">
+                        <td>@queue.Name</td>
+                        <td>@queue.QueueStatus</td>
+                        <td>@queue.Added</td>
+                        <td>
+                            <Popconfirm Title="Do you want to delete this template?" OkText="Yes" CancelText="No">
+                                <Button Danger>@Localizer["Delete"]</Button>
+                            </Popconfirm>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (Queues.Count == 0)
+        {
+            <Empty class="mt-4" />
+        }
+    }
+    else
+    {
+        <Spin Size="large" />
+    }
+</div>
+
 @code
 {
     /// <summary>
