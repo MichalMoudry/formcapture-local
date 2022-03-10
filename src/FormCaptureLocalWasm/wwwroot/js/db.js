@@ -39,7 +39,7 @@ $(document).ready(function () {
         }
         if (!db.objectStoreNames.contains("Users")) {
             var users = db.createObjectStore("Users", { keyPath: "id", autoIncrement: true });
-            users.createIndex("email", "email", { unique: true });
+            //users.createIndex("email", "email", { unique: true });
         }
     }
     openRequest.onsuccess = function () {
@@ -55,7 +55,9 @@ async function addItem(item, objectstore) {
 }
 
 async function getItem(id, objectstore) {
+    id = 1;
     res = await getItemPromise(id, objectstore);
+    console.log("Res: ", res, id);
     return res;
 }
 
@@ -85,7 +87,6 @@ function addItemPromise(item, objectstore) {
             return resolve(true);
         }
         request.onerror = function (e) {
-            console.log("--Output:", item, e);
             return resolve(false);
         }
     });
