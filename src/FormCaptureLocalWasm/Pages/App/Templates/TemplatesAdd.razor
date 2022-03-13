@@ -207,7 +207,8 @@
             Name = "New field",
             IsIdentifying = false,
             TemplateID = template.ID,
-            UserID = UserHelper.UserID
+            UserID = UserHelper.UserID,
+            Added = DateTime.Now
         });
     }
 
@@ -220,7 +221,7 @@
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
             ToggleButtons();
-            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
+            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.Added);
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");

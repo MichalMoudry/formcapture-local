@@ -64,13 +64,13 @@
             if (userFromDb != null)
             {
                 var passwordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, userFromDb.PasswordSalt);
-                Console.WriteLine($"{passwordHash}, {userFromDb.PasswordHash}");
                 if (passwordHash.Equals(userFromDb.PasswordHash))
                 {
                     //UserHelper.UserID = userFromDb.Email ?? "";
+                    UserHelper.UserID = userFromDb.ID;
                     userFromDb.LastLogin = DateTime.Now;
                     await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
-                    await localStorage.SetItemAsStringAsync("LastLoginID", userFromDb.Email);
+                    await localStorage.SetItemAsync<int>("LastLoginID", userFromDb.ID);
                     await localStorage.SetItemAsync<DateTime>("LastLoginDate", userFromDb.LastLogin);
                     NavigationManager.NavigateTo("/formcapture/home");
                 }

@@ -23,7 +23,7 @@ function drawFields(fields, targetID) {
         for (var i = 0; i < fields.length; i++) {
             fieldRectangle = document.createElement("div");
             fieldRectangle.classList.add("template-field");
-            fieldRectangle.id = fields[i]["id"];
+            fieldRectangle.id = fields[i]["name"];
             fieldRectangle.title = fields[i]["name"];
             xposition = fields[i]["xposition"] + "px";
             yposition = fields[i]["yposition"] + "px";
@@ -59,6 +59,7 @@ function drawField(fieldID) {
                     fieldRectangle = document.createElement("div");
                     fieldRectangle.classList.add("template-field");
                     fieldRectangle.id = fieldID;
+                    fieldRectangle.title = fieldID;
                     canvas.style.cursor = "crosshair";
 
                     startX = e.offsetX;

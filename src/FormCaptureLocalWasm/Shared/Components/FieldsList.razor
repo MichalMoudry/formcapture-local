@@ -5,7 +5,7 @@
     <ChildContent Context="field">
         <ListItem>
             <Input Placeholder="Enter field name..." @bind-Value="@field.Name" />
-            <Button @onclick="@(e => DrawField(field.ID))">
+            <Button @onclick="@(e => DrawField(field.Added))">
                 <span class="oi oi-pencil me-2"></span> <span class="field-list-button-text">@Localizer["Draw"]</span>
             </Button>
             <Button @onclick="@(e => RemoveField(field))">
@@ -44,8 +44,8 @@
     /// <summary>
     /// Method for starting the process of drawing a field on the image.
     /// </summary>
-    /// <param name="fieldID">ID of a specific field.</param>
-    private async Task DrawField(int fieldID)
+    /// <param name="fieldID">Name of a specific field.</param>
+    private async Task DrawField(DateTime fieldID)
     {
         await JSRuntime.InvokeVoidAsync("drawField", fieldID);
     }
@@ -56,7 +56,7 @@
     /// <param name="field">Instance of a <see cref="Field"/> class.</param>
     private async Task RemoveField(Field field)
     {
-        await JSRuntime.InvokeVoidAsync("removeField", field.ID);
+        await JSRuntime.InvokeVoidAsync("removeField", field.Added);
         Fields?.Remove(field);
     }
 }
