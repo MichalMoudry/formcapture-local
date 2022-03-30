@@ -107,7 +107,7 @@
     </Row>
 
     <Divider class="mt-3 mb-3" />
-    <IconButton Type="primary" OnClickCallback="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
+    <IconButton Type="primary" IsBlock=true OnClickCallback="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
 </div>
 
 <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
