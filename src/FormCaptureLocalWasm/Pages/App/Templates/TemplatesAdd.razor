@@ -257,6 +257,7 @@
             template.SetDimensions(Convert.ToInt32(imageDimensionsSplit[0]), Convert.ToInt32(imageDimensionsSplit[1]));
             string fieldProperties;
             string[] fieldPropertiesSplit;
+            _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
             // Get last template for field TemplateIDs.
             var lastTemplate = (
                 await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString())
@@ -283,7 +284,6 @@
                 field.SetDateAdded();
                 _ = await DataAccess.AddItemAsync(field, ObjectStores.Fields.ToString());
             }
-            _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
             NavigationManager.NavigateTo("/formcapture/templates");
         }
         else if (string.IsNullOrEmpty(template.Name))

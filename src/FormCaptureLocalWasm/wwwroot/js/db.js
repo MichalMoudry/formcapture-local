@@ -55,9 +55,7 @@ async function addItem(item, objectstore) {
 }
 
 async function getItem(id, objectstore) {
-    id = 1;
     res = await getItemPromise(id, objectstore);
-    console.log("Res: ", res, id);
     return res;
 }
 
