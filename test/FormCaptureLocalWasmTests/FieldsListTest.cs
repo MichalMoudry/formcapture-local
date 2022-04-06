@@ -28,6 +28,5 @@ public class FieldsListTests
         //Add services to context
         _ = context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
         var fieldsList = context.RenderComponent<FieldsList>();
-        fieldsList.Instance.Fields = data;
     }
 }

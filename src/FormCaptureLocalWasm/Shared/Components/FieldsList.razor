@@ -11,7 +11,7 @@
             <Button @onclick="@(e => RemoveField(field))">
                 <span class="oi oi-trash me-2"></span> <span>@Localizer["Delete"]</span>
             </Button>
-            <Button @onclick="() => SetFieldToIdentifying(field)">
+            <Button @onclick="() => SetFieldToIdentifying(field)" Disabled="field.IsIdentifying">
                 <span class="oi oi-star"></span>
             </Button>
         </ListItem>

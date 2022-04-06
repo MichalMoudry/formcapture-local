@@ -13,14 +13,12 @@
     <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
 </Breadcrumb>
 
-<IconHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" class="mt-3" />
-
-<Divider />
+<AppPageHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" />
 
 <div class="mb-3">
     <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
     <div class="mt-2">
-        <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name"  />
+        <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name" />
     </div>
 
     <Divider />

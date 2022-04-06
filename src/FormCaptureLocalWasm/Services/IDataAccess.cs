@@ -11,7 +11,7 @@ public interface IDataAccess
     /// <param name="entity">Entity with data.</param>
     /// <param name="tableName">Name of the database table.</param>
     /// <returns>True if addition was successful, false if not.</returns>
-    Task<bool> AddItemAsync(object entity, string tableName);
+    Task<bool> AddItemAsync<T>(T entity, string tableName);
 
     /// <summary>
     /// Asynchronous method for deleting item from a database.
@@ -42,5 +42,5 @@ public interface IDataAccess
     /// <param name="entity">Entity with new data.</param>
     /// <param name="tableName">Name of the database table.</param>
     /// <returns>True if update was successful, false if not.</returns>
-    Task<bool> UpdateItemAsync(object entity, string tableName);
+    Task<bool> UpdateItemAsync<T>(T entity, string tableName);
 }

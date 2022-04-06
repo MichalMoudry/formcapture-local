@@ -1,0 +1,18 @@
+<IconHeader Title="@Title" Icon="@Icon" Class="mt-3" />
+
+<Divider />
+
+@code
+{
+    /// <summary>
+    /// Title of the page.
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Icon that is displayed next to the title.
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+}

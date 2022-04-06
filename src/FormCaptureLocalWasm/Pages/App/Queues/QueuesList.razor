@@ -5,11 +5,9 @@
 @inject IJSRuntime JSRuntime
 @page "/formcapture/queues"
 
-<IconHeader Icon="list-rich" Title="@Localizer["Queues"]" />
+<AppPageHeader Icon="list-rich" Title="@Localizer["Queues"]" />
 
-<Divider />
-
-<IconButton OnClickCallback="@(e => Navigate("/formcapture/queues/start"))" Icon="plus" Text="@Localizer["AddNewTemplateButtonText"]" Type="primary" Class="mb4" />
+<IconButton OnClickCallback="@(e => Navigate("/formcapture/queues/start"))" Icon="play-circle" Text="@Localizer["QueueStartPageTitle"]" Type="primary" Class="mb4" />
 
 <div class="table-responsive mt-4">
     @if (Queues != null)
