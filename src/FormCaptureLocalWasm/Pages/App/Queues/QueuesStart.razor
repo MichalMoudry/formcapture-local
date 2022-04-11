@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject IDataAccess DataAccess
 @inject IStringLocalizer<App> Localizer
+@inject ILocalStorageService localStorage
 @page "/formcapture/queues/start"
 
 <AppPageHeader Icon="play-circle" Title="@Localizer["QueueStartPageTitle"]" />
@@ -36,4 +37,74 @@
     /// Queue that will be processed.
     /// </summary>
     private Queue queue = new Queue();
+
+    /// <summary>
+    /// Default locale of document processing.
+    /// </summary>
+    private string defaultLocale;
+
+    /// <summary>
+    /// Field for displaying/hiding file loading indicator.
+    /// </summary>
+    private bool isFileLoadingIndicatorDisplayed = false;
+
+    /// <summary>
+    /// Field containing CSS class for hiding/displaying file loading indicator.
+    /// </summary>
+    private string FileLoadingIndicatorCssClass => isFileLoadingIndicatorDisplayed ? "d-block" : "d-none";
+
+    /// <summary>
+    /// List of processed files (see: <see cref="ProcessedFile"/> class).
+    /// </summary>
+    private List<ProcessedFile> processedFiles = new List<ProcessedFile>();
+
+    /// <summary>
+    /// Event handler for @onchange event of InputFile component.
+    /// </summary>
+    /// <param name="e">InputFile @onchange event parameters.</param>
+    /// <returns>Task.</returns>
+    private async Task FileSelected(InputFileChangeEventArgs e)
+    {
+        // If no files are selected, then end selection.
+        if (e.FileCount == 0)
+        {
+            return;
+        }
+        isFileLoadingIndicatorDisplayed = true;
+        ProcessedFile tempFile;
+        byte[] buffer;
+        foreach (var file in e.GetMultipleFiles())
+        {
+            // Read each image content, into a buffer.
+            buffer = new byte[file.Size];
+            await file.OpenReadStream().ReadAsync(buffer);
+            tempFile = new ProcessedFile()
+            {
+                QueueID = queue.ID,
+                Content = buffer,
+                ContentType = file.ContentType,
+                Type = file.ContentType,
+                Name = file.Name,
+                Added = DateTime.Now,
+                Updated = DateTime.Now
+            };
+            processedFiles.Add(tempFile);
+        }
+        isFileLoadingIndicatorDisplayed = false;
+    }
+
+    /// <summary>
+    /// Event handler for button, that is used to remove file from queue.
+    /// </summary>
+    /// <param name="file">File that will be removed.</param>
+    private void RemoveFile(ProcessedFile file)
+    {
+        processedFiles.Remove(file);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        defaultLocale = await localStorage.GetItemAsStringAsync(Settings.DefaultLocale.ToString());
+        defaultLocale = defaultLocale.Replace("\"", "");
+    }
 }
