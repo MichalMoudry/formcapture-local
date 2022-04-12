@@ -373,4 +373,28 @@
     <value>Hlavní stránka</value>
     <comment/>
   </data>
+  <data name="QueueStartPageTitle" xml:space="preserve">
+    <value>Spustit zpracování</value>
+    <comment/>
+  </data>
+  <data name="QueueNameInputLabel" xml:space="preserve">
+    <value>Název zpracování dokumentů</value>
+    <comment/>
+  </data>
+  <data name="QueueNameInputPlaceholder" xml:space="preserve">
+    <value>Napište název zpracování (např. objednávky 1)...</value>
+    <comment/>
+  </data>
+  <data name="QueueStartSelectLocaleTitle" xml:space="preserve">
+    <value>Vyberte jazyk pro zpracování dokumentů</value>
+    <comment/>
+  </data>
+  <data name="QueueStartPageSubmitButtonText" xml:space="preserve">
+    <value>Spustit zpracování</value>
+    <comment/>
+  </data>
+  <data name="FilesUpload" xml:space="preserve">
+    <value>Nahrání souborů</value>
+    <comment/>
+  </data>
 </root>

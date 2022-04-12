@@ -5,13 +5,13 @@
     <ChildContent Context="field">
         <ListItem>
             <Input Placeholder="Enter field name..." @bind-Value="@field.Name" />
-            <Button @onclick="@(e => DrawField(field.ID))">
+            <Button @onclick="@(e => DrawField(field.Added))">
                 <span class="oi oi-pencil me-2"></span> <span class="field-list-button-text">@Localizer["Draw"]</span>
             </Button>
             <Button @onclick="@(e => RemoveField(field))">
                 <span class="oi oi-trash me-2"></span> <span>@Localizer["Delete"]</span>
             </Button>
-            <Button @onclick="() => SetFieldToIdentifying(field)">
+            <Button @onclick="() => SetFieldToIdentifying(field)" Disabled="field.IsIdentifying">
                 <span class="oi oi-star"></span>
             </Button>
         </ListItem>
@@ -44,13 +44,10 @@
     /// <summary>
     /// Method for starting the process of drawing a field on the image.
     /// </summary>
-    /// <param name="fieldID">ID of a specific field.</param>
-    private async Task DrawField(string? fieldID)
+    /// <param name="fieldID">Name of a specific field.</param>
+    private async Task DrawField(DateTime fieldID)
     {
-        if (!string.IsNullOrEmpty(fieldID))
-        {
-            await JSRuntime.InvokeVoidAsync("drawField", fieldID);
-        }
+        await JSRuntime.InvokeVoidAsync("drawField", fieldID);
     }
 
     /// <summary>
@@ -59,7 +56,7 @@
     /// <param name="field">Instance of a <see cref="Field"/> class.</param>
     private async Task RemoveField(Field field)
     {
-        await JSRuntime.InvokeVoidAsync("removeField", field.ID);
+        await JSRuntime.InvokeVoidAsync("removeField", field.Added);
         Fields?.Remove(field);
     }
 }

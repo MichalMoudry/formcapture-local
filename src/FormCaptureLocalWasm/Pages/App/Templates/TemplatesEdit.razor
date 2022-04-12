@@ -207,7 +207,6 @@ else
         {
             fields.Add(new Field()
             {
-                ID = Guid.NewGuid().ToString(),
                 Name = "New field",
                 IsIdentifying = false,
                 TemplateID = template.ID,
@@ -332,24 +331,23 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (!string.IsNullOrEmpty(TemplateID))
+        int templateId;
+        bool conversionResult = Int32.TryParse(TemplateID, out templateId);
+        if (!conversionResult)
         {
-            template = await DataAccess.GetItemAsync<FormCaptureLocalWasm.Models.DbModels.Template>(TemplateID, ObjectStores.Templates.ToString());
-            if (template != null)
+            NavigationManager.NavigateTo("/formcapture/notfound");
+        }
+        template = await DataAccess.GetItemAsync<FormCaptureLocalWasm.Models.DbModels.Template>(templateId, ObjectStores.Templates.ToString());
+        if (template != null)
+        {
+            fields = await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
+            if (fields != null && template.Image != null)
             {
-                fields = await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
-                if (fields != null && template.Image != null)
-                {
-                    fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
-                    fileContent = $"data:{template.ContentType};base64,{Convert.ToBase64String(template.Image)}";
-                    identifyingField = fields.Single(i => i.IsIdentifying);
-                    expectedValue = identifyingField.ExpectedValue;
-                    await JSRuntime.InvokeVoidAsync("drawFields", fields, "template-canvas");
-                }
-            }
-            else
-            {
-                NavigationManager.NavigateTo("/formcapture/notfound");
+                fields = fields.Where(i => i.TemplateID.Equals(template.ID)).ToList();
+                fileContent = $"data:{template.ContentType};base64,{Convert.ToBase64String(template.Image)}";
+                identifyingField = fields.Single(i => i.IsIdentifying);
+                expectedValue = identifyingField.ExpectedValue;
+                await JSRuntime.InvokeVoidAsync("drawFields", fields, "template-canvas");
             }
         }
         else

@@ -4,6 +4,8 @@ namespace FormCaptureLocalWasm.Models;
 
 public class User
 {
+    public int ID { get; set; }
+
     [Required, EmailAddress]
     public string? Email { get; set; }
 

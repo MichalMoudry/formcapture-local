@@ -5,15 +5,11 @@
 @inject MessageService MessageService
 @page "/formcapture/templates"
 
-<IconHeader Title="@Localizer["Templates"]" Icon="document" Class="mt-3" />
+<AppPageHeader Title="@Localizer["Templates"]" Icon="document" />
 
-<Divider />
+<IconButton OnClickCallback="@(e => Navigate("/formcapture/templates/add"))" Icon="plus" Class="mb4" Text="@Localizer["AddNewTemplateButtonText"]" Type="primary" />
 
-<Button Type="@ButtonType.Primary" class="mb-4" OnClick="@(e => Navigate("/formcapture/templates/add"))">
-    <span class="oi oi-plus me-2"></span> @Localizer["AddNewTemplateButtonText"]
-</Button>
-
-<div>
+<div class="mt-4">
     @if (Templates != null)
     {
         <div class="table-responsive">

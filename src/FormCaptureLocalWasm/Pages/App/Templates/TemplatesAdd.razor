@@ -13,14 +13,12 @@
     <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
 </Breadcrumb>
 
-<IconHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" class="mt-3" />
-
-<Divider />
+<AppPageHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" />
 
 <div class="mb-3">
     <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
     <div class="mt-2">
-        <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name"  />
+        <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name" />
     </div>
 
     <Divider />
@@ -106,10 +104,8 @@
         </Col>
     </Row>
 
-    <Divider class="mt-0 mb-3" />
-    <Button Type="@ButtonType.Primary" Block @onclick="Submit" Loading="@isSubmitButtonLoading">
-        <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
-    </Button>
+    <Divider class="mt-3 mb-3" />
+    <IconButton Type="primary" IsBlock=true OnClickCallback="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
 </div>
 
 <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
@@ -123,10 +119,7 @@
     /// <summary>
     /// Private field with a <see cref="Models.DbModels.Template"/> class instance.
     /// </summary>
-    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template()
-    {
-        ID = Guid.NewGuid().ToString()
-    };
+    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template();
 
     /// <summary>
     /// Private field with content (encoded as base64) of the template image.
@@ -207,11 +200,10 @@
     {
         fields.Add(new Field()
         {
-            ID = Guid.NewGuid().ToString(),
             Name = "New field",
             IsIdentifying = false,
-            TemplateID = template.ID,
-            UserID = UserHelper.UserID
+            UserID = UserHelper.UserID,
+            Added = DateTime.Now
         });
     }
 
@@ -224,7 +216,7 @@
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
             ToggleButtons();
-            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.ID);
+            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.Added);
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");
@@ -251,37 +243,45 @@
     /// </summary>
     private async Task Submit()
     {
-        if (UserHelper.UserID != null)
-        {
-            template.UserID = UserHelper.UserID;
-        }
+        template.UserID = UserHelper.UserID;
         if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
             ToggleButtons();
             template.SetDateAdded();
             fields.Single(i => i.IsIdentifying).ExpectedValue = expectedValue;
+            // Get and set dimensions of the template, then save template to DB.
             var imageDimensions = await JSRuntime.InvokeAsync<string>("getImageProperties", "template-preview-image");
             var imageDimensionsSplit = imageDimensions.Split("|");
             template.SetDimensions(Convert.ToInt32(imageDimensionsSplit[0]), Convert.ToInt32(imageDimensionsSplit[1]));
             string fieldProperties;
             string[] fieldPropertiesSplit;
+            _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
+            // Get last template for field TemplateIDs.
+            var lastTemplate = (
+                await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString())
+            ).LastOrDefault();
+            // Set properties of every field, and then save them to DB.
             foreach (var field in fields)
             {
                 if (string.IsNullOrEmpty(field.Name))
                 {
                     return;
                 }
-                fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", field.ID);
+                // Get properties.
+                fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", field.Added);
                 if (!string.IsNullOrEmpty(fieldProperties))
                 {
                     fieldPropertiesSplit = fieldProperties.Split(",");
                     field.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
                     field.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
+                    if (lastTemplate != null)
+                    {
+                        field.TemplateID = lastTemplate.ID;
+                    }
                 }
                 field.SetDateAdded();
                 _ = await DataAccess.AddItemAsync(field, ObjectStores.Fields.ToString());
             }
-            _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
             NavigationManager.NavigateTo("/formcapture/templates");
         }
         else if (string.IsNullOrEmpty(template.Name))

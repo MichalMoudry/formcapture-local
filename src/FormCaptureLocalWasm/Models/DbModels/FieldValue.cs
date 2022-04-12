@@ -8,12 +8,12 @@ public class FieldValue : Entity
     /// <summary>
     /// ID of the field that this value is connected to.
     /// </summary>
-    public string? FieldID { get; set; }
+    public int FieldID { get; set; }
 
     /// <summary>
     /// ID of the file that this value is recognized on.
     /// </summary>
-    public string? FileID { get; set; }
+    public int FileID { get; set; }
 
     /// <summary>
     /// Recognized value.
