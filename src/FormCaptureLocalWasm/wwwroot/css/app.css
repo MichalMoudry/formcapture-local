@@ -161,3 +161,8 @@ select {
 .w-100 {
     width: 100%;
 }
+
+.divider {
+    color: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}

@@ -2,18 +2,24 @@
 
 <p>@Localizer["ExpectedValueInputLabel"]: <b>@ExpectedValue</b></p>
 <p>@Localizer["RecognizedValue"]: <b>@RecognizedValue</b></p>
+
 <Divider />
+
 @if (!string.IsNullOrEmpty(ExpectedValue))
 {
     @if (ExpectedValue.Equals(RecognizedValue))
     {
-        <!--<p><u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u></p>-->
-        <Alert Type="@AlertType.Success" Message="@Localizer["IdentificationTestSuccessMessage"]" ShowIcon="true" />
+        <p>
+            <u><b>@Localizer["IdentificationTestSuccessMessage"].</b></u>
+        </p>
+        <!--<Alert Type="@AlertType.Success" Message="@Localizer["IdentificationTestSuccessMessage"]" ShowIcon="true" />-->
     }
     else
     {
-        <!--<p><u><b>@Localizer["IdentificationTestFailedMessage"].</b></u></p>-->
-        <Alert Type="@AlertType.Error" Message="@Localizer["IdentificationTestFailedMessage"]" ShowIcon="true" />
+        <p>
+            <u><b>@Localizer["IdentificationTestFailedMessage"].</b></u>
+        </p>
+        <!--<Alert Type="@AlertType.Error" Message="@Localizer["IdentificationTestFailedMessage"]" ShowIcon="true" />-->
     }
 }
 

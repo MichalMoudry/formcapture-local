@@ -2,7 +2,6 @@
 @inject IStringLocalizer<App> Localizer
 @inject IDataAccess DataAccess
 @inject NavigationManager NavigationManager
-@inject MessageService MessageService
 @page "/formcapture/templates"
 
 <AppPageHeader Title="@Localizer["Templates"]" Icon="document" />
@@ -30,9 +29,9 @@
                             <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Added</td>
                             <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Updated</td>
                             <td>
-                                <Popconfirm Title="Do you want to delete this template?" OnConfirm="@(e => DeleteTemplate(template))" OkText="Yes" CancelText="No">
+                                <!--<Popconfirm Title="Do you want to delete this template?" OnConfirm="@(e => DeleteTemplate(template))" OkText="Yes" CancelText="No">
                                     <Button Danger>@Localizer["Delete"]</Button>
-                                </Popconfirm>
+                                </Popconfirm>-->
                             </td>
                         </tr>
                     }
@@ -41,12 +40,12 @@
         </div>
         @if (Templates.Count == 0)
         {
-            <Empty class="mt-4" />
+            <!--<Empty class="mt-4" />-->
         }
     }
     else
     {
-        <Spin Size="large" />
+        <!--<Spin Size="large" />-->
     }
 </div>
 
@@ -86,7 +85,7 @@
         }
         else
         {
-            await MessageService.Error("Error occured during template deletion.");
+            //await MessageService.Error("Error occured during template deletion.");
         }
     }
 

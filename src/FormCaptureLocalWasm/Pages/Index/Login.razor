@@ -3,7 +3,7 @@
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> Localizer
 @inject NavigationManager NavigationManager
-@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ILocalStorageService LocalStorage
 @page "/login"
 
 <PageTitle>@Localizer["LoginPageTitle"]</PageTitle>
@@ -12,25 +12,29 @@
     <h3 class="mt-4">
         <span class="oi oi-account-login me-2"></span> @Localizer["LoginPageTitle"]
     </h3>
-    <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
-        <FormItem Label="Email:">
-            <Input @bind-Value="@user.Email" Placeholder="@Localizer["EmailInputPlaceholder"]" />
-        </FormItem>
+    <!--
+        <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
+            <FormItem Label="Email:">
+                <Input @bind-Value="@user.Email" Placeholder="@Localizer["EmailInputPlaceholder"]" />
+            </FormItem>
 
-        <FormItem Label="@Localizer["Password"]">
-            <InputPassword @bind-Value="@user.Password" Placeholder="@Localizer["PasswordInputPlaceholder"]" />
-        </FormItem>
+            <FormItem Label="@Localizer["Password"]">
+                <InputPassword @bind-Value="@user.Password" Placeholder="@Localizer["PasswordInputPlaceholder"]" />
+            </FormItem>
 
-        <FormItem>
-            <Button Type="@ButtonType.Primary" HtmlType="submit">
-                <span class="oi oi-check me-2"></span>@Localizer["Submit"]
-            </Button>
-        </FormItem>
-    </Form>
+            <FormItem>
+                <Button Type="@ButtonType.Primary" HtmlType="submit">
+                    <span class="oi oi-check me-2"></span>@Localizer["Submit"]
+                </Button>
+            </FormItem>
+        </Form>
+    -->
     <div class="mb-4 @ErrorAlertDisplayCssClass">
-        <Alert Type="@AlertType.Error" Message="@Localizer["Error"]">
-            @Localizer["LoginErrorText"]
-        </Alert>
+        <!--
+            <Alert Type="@AlertType.Error" Message="@Localizer["Error"]">
+                @Localizer["LoginErrorText"]
+            </Alert>
+        -->
     </div>
 </div>
 
@@ -70,8 +74,8 @@
                     UserHelper.UserID = userFromDb.ID;
                     userFromDb.LastLogin = DateTime.Now;
                     await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
-                    await localStorage.SetItemAsync<int>("LastLoginID", userFromDb.ID);
-                    await localStorage.SetItemAsync<DateTime>("LastLoginDate", userFromDb.LastLogin);
+                    await LocalStorage.SetItemAsync<int>("LastLoginID", userFromDb.ID);
+                    await LocalStorage.SetItemAsync<DateTime>("LastLoginDate", userFromDb.LastLogin);
                     NavigationManager.NavigateTo("/formcapture/home");
                 }
                 else

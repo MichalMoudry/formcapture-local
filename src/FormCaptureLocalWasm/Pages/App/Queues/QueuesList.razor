@@ -29,9 +29,11 @@
                         <td>@queue.QueueStatus</td>
                         <td>@queue.Added</td>
                         <td>
-                            <Popconfirm Title="Do you want to delete this template?" OkText="Yes" CancelText="No">
-                                <Button Danger>@Localizer["Delete"]</Button>
-                            </Popconfirm>
+                            <!--
+                                <Popconfirm Title="Do you want to delete this template?" OkText="Yes" CancelText="No">
+                                    <Button Danger>@Localizer["Delete"]</Button>
+                                </Popconfirm>
+                            -->
                         </td>
                     </tr>
                 }
@@ -39,12 +41,12 @@
         </table>
         @if (Queues.Count == 0)
         {
-            <Empty class="mt-4" />
+            <!--<Empty class="mt-4" />-->
         }
     }
     else
     {
-        <Spin Size="large" />
+        <!--<Spin Size="large" />-->
     }
 </div>
 

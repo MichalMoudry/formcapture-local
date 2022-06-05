@@ -3,15 +3,16 @@
 @inject IDataAccess DataAccess
 @inject IJSRuntime JSRuntime
 @inject IRecognitionService Recognition
-@inject MessageService MessageService
 @inject NavigationManager NavigationManager
 @page "/formcapture/templates/edit/{TemplateID}"
 
-<Breadcrumb>
-    <BreadcrumbItem Href="/formcapture/home">@Localizer["NavMenuHomeLinkText"]</BreadcrumbItem>
-    <BreadcrumbItem Href="/formcapture/templates">@Localizer["NavMenuTemplatesLinkText"]</BreadcrumbItem>
-    <BreadcrumbItem>@Localizer["EditTemplatePageTitle"]</BreadcrumbItem>
-</Breadcrumb>
+<!--
+    <Breadcrumb>
+        <BreadcrumbItem Href="/formcapture/home">@Localizer["NavMenuHomeLinkText"]</BreadcrumbItem>
+        <BreadcrumbItem Href="/formcapture/templates">@Localizer["NavMenuTemplatesLinkText"]</BreadcrumbItem>
+        <BreadcrumbItem>@Localizer["EditTemplatePageTitle"]</BreadcrumbItem>
+    </Breadcrumb>
+-->
 
 @if (template != null)
 {
@@ -19,7 +20,7 @@
 }
 else
 {
-    <Spin class="mt-3" />
+    <!--<Spin class="mt-3" />-->
 }
 
 <Divider />
@@ -29,14 +30,14 @@ else
     <div class="mt-2">
         @if (template != null)
         {
-            <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name"  />
+            <input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" />
         }
     </div>
 
     <Divider />
 
-    <Row Gutter="(32,16)">
-        <!--Image upload column-->
+    <!--
+        <Row Gutter="(32,16)">
         <Col Xs="24" Sm="24" Lg="24" Xl="12">
             <IconSubheader Icon="image" Title="@Localizer["Image"]" />
             <div id="template-canvas">
@@ -53,7 +54,6 @@ else
             <InputFile OnChange="@FileSelected" class="mt-3 mb-2 pointer" />
         </Col>
 
-        <!--Fields column-->
         <Col Xs="24" Sm="24" Lg="24" Xl="12">
             <Card Title="@Localizer["Fields"]">
                 <Body>
@@ -114,18 +114,22 @@ else
             </Card>
         </Col>
     </Row>
+    -->
 
     <div id="submit-button-div" class="py-3">
         <Divider class="mt-0 mb-3" />
-        <Button Type="@ButtonType.Primary" Block Loading="@isSubmitButtonLoading" @onclick="Submit">
+        <!--Loading="@isSubmitButtonLoading"-->
+        <button type="button" @onclick="Submit">
             <span class="oi oi-check me-2"></span>@Localizer["SaveTemplateButtonText"]
-        </Button>
+        </button>
     </div>
 </div>
 
-<Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
+<!--
+    <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
     <TestIdentificationResultModal ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />
 </Modal>
+-->
 
 @code
 {
@@ -138,7 +142,7 @@ else
     /// <summary>
     /// Field containing instance of <see cref="Template"/> class with matching ID.
     /// </summary>
-    private FormCaptureLocalWasm.Models.DbModels.Template? template;
+    private Template? template;
 
     /// <summary>
     /// Private field with content (encoded as base64) of the template image.
@@ -296,26 +300,6 @@ else
                 }
                 _ = await DataAccess.UpdateItemAsync(template, ObjectStores.Templates.ToString());
                 NavigationManager.NavigateTo("/formcapture/templates");
-            }
-            else if (string.IsNullOrEmpty(template.Name))
-            {
-                await MessageService.Error($"{Localizer["NoTemplateNameErrorMessage"]}");
-            }
-            else if (template.Image == null)
-            {
-                await MessageService.Error($"{Localizer["NoTemplateImageErrorMessage"]}");
-            }
-            else if (fields.Count == 0)
-            {
-                await MessageService.Error($"{Localizer["NoFieldsAddedMessage"]}");
-            }
-            else if (identifyingField == null || idField == null)
-            {
-                await MessageService.Error($"{Localizer["NoIdFieldSelectedMessage"]}");
-            }
-            else if (string.IsNullOrEmpty(expectedValue))
-            {
-                await MessageService.Error($"{Localizer["NoExpectedValueErrorMessage"]}");
             }
         }
     }

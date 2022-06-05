@@ -11,11 +11,13 @@
     <!--Queue name-->
     <div class="card px-3 py-3">
         <label for="queue-name"><b>@Localizer["QueueNameInputLabel"]</b>:</label>
-        <Input Placeholder="@Localizer["QueueNameInputPlaceholder"]" name="queue-name" id="queue-name" @bind-Value="queue.Name" />
+        <input Placeholder="@Localizer["QueueNameInputPlaceholder"]" name="queue-name" id="queue-name" />
         <Divider />
-        <Checkbox @bind-Checked="queue.IsAutomatic">
-            Process queue automatically (without user intervention)
-        </Checkbox>
+        <!--
+            <Checkbox @bind-Checked="queue.IsAutomatic">
+                Process queue automatically (without user intervention)
+            </Checkbox>
+        -->
     </div>
 
     <!--File upload-->
