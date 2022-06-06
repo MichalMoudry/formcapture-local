@@ -1,4 +1,4 @@
-<button class="@Class" Loading="IsLoading" @onclick="OnClickCallback">
+<button class="@Class" type="button" Loading="IsLoading" @onclick="OnClick">
     @if (!IsLoading)
     {
         <span class="oi oi-@Icon me-2"></span>
@@ -24,5 +24,5 @@
     public string? Icon { get; set; }
 
     [Parameter]
-    public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
 }

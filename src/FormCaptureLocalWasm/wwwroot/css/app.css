@@ -15,10 +15,6 @@ body {
 }
 /* ------------------ */
 
-.round {
-    border-radius: 4px;
-}
-
 button {
     padding: 8px 16px;
     cursor: pointer;
@@ -97,6 +93,10 @@ button:hover {
 
 a:hover {
     text-decoration: underline;
+}
+
+#navList a {
+    text-decoration: none;
 }
 
 label {
@@ -209,3 +209,14 @@ form {
     display: flex;
     flex-direction: column;
 }
+
+/* Message boxes */
+.error-alert {
+    border: 1px solid #d32f2f;
+    border-radius: .3rem;
+    background-color: #ef5350;
+    color: white;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+/* ------------------ */
