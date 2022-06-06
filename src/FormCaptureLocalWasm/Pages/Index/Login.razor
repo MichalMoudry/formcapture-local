@@ -8,10 +8,24 @@
 
 <PageTitle>@Localizer["LoginPageTitle"]</PageTitle>
 
-<div class="card px-4 form-card">
-    <h3 class="mt-4">
+<div class="card px-4 form-card py-4">
+    <h1 class="mt-0 mb-0">
         <span class="oi oi-account-login me-2"></span> @Localizer["LoginPageTitle"]
-    </h3>
+    </h1>
+
+    <Divider />
+
+    <form class="mb-3 py-2">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="@Localizer["EmailInputPlaceholder"]" />
+
+        <label for="password" class="mt-4">@Localizer["Password"]:</label>
+        <input type="password" id="password" placeholder="@Localizer["PasswordInputPlaceholder"]" />
+    </form>
+
+    <Divider />
+
+    <IconButton Icon="check" Text="@Localizer["Submit"]" Class="mt-3" />
     <!--
         <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
             <FormItem Label="Email:">
@@ -83,11 +97,13 @@
                     isErrorAlertDisplayed = true;
                 }
             }
-            else {
+            else
+            {
                 isErrorAlertDisplayed = true;
             }
         }
-        else {
+        else
+        {
             isErrorAlertDisplayed = true;
         }
     }

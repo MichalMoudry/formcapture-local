@@ -14,11 +14,11 @@
         @Localizer["AppDescription"]
     </p>
 
-    <div class="mt-3 mb-3">
-        <button @onclick="@(e => Navigate("/login"))">
+    <div class="mt-4 mb-3">
+        <button @onclick="@(e => Navigate("/login"))" class="me-2">
             <span class="oi oi-account-login me-2"></span>@Localizer["LogIn"]
         </button>
-        <button @onclick="@(e => Navigate("/register"))">
+        <button @onclick="@(e => Navigate("/register"))" class="ms-2">
             <span class="oi oi-plus me-2"></span>@Localizer["Register"]
         </button>
     </div>

@@ -1,5 +1,42 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    margin: 0px;
+}
+
+/* Primary color stuff */
+.primary-color-border {
+    border-color: #5C6BC0 !important;
+}
+
+.text-primary-color {
+    color: #5C6BC0;
+}
+/* ------------------ */
+
+.round {
+    border-radius: 4px;
+}
+
+button {
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #5C6BC0;
+    border-color: #5C6BC0 !important;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid;
+    font: inherit;
+    margin: 0;
+}
+
+button:hover {
+    background-color: #5C6BC0;
+    color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -64,19 +101,17 @@ a:hover {
 
 label {
     font-weight: bold;
+    margin-bottom: 4px;
+}
+
+input {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: .25rem;
 }
 
 .text-center {
     text-align: center;
-}
-
-.text-primary-color {
-    color: #5C6BC0;
-}
-
-.primary-color-background {
-    background-color: #5C6BC0;
-    color: white;
 }
 
 .pointer {
@@ -163,6 +198,14 @@ select {
 }
 
 .divider {
+    /*
     color: rgba(0, 0, 0, 0.85);
     border-top: 1px solid rgba(0, 0, 0, 0.06);
+    */
+    border: 0.25px solid lightgray;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
