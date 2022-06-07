@@ -219,4 +219,13 @@ form {
     padding-left: .5rem;
     padding-right: .5rem;
 }
+
+.success-alert {
+    border: 1px solid #388e3c;
+    border-radius: .3rem;
+    background-color: #4caf50;
+    color: white;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
 /* ------------------ */
