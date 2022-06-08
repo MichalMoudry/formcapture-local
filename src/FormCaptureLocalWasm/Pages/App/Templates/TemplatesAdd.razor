@@ -6,116 +6,46 @@
 @inject NavigationManager NavigationManager
 @page "/formcapture/templates/add"
 
-<!--
-    <Breadcrumb>
-        <BreadcrumbItem Href="/formcapture/home">@Localizer["NavMenuHomeLinkText"]</BreadcrumbItem>
-        <BreadcrumbItem Href="/formcapture/templates">@Localizer["NavMenuTemplatesLinkText"]</BreadcrumbItem>
-        <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
-    </Breadcrumb>
--->
-
 <AppPageHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" />
 
 <div class="mb-3">
     <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
     <div class="mt-2">
-        <input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" />
+        <input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" type="text" name="template-name" id="template-name" />
     </div>
 
     <Divider />
 
-    <!--
-        <Row Gutter="(32,16)">
-        <Col Xs="24" Sm="24" Lg="24" Xl="12">
-            <IconSubheader Icon="image" Title="@Localizer["Image"]" />
-            <div>
-                @if (!string.IsNullOrEmpty(fileContent))
-                {
-                    <div id="template-canvas">
-                        <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
-                    </div>
-                }
-                else
-                {
-                    <Empty />
-                }
-            </div>
-            <Divider class="mb-0"><span class="oi oi-data-transfer-upload me-2"></span> @Localizer["FileUpload"]</Divider>
-            <InputFile OnChange="@FileSelected" class="mt-3 mb-2 pointer" />
-        </Col>
+    <IconSubheader Icon="image" Title="@Localizer["Image"]" />
+    @if (!string.IsNullOrEmpty(fileContent))
+    {
+        <div id="template-canvas">
+            <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
+        </div>
+    }
+    else
+    {
+        <p>Nahrajte obrázek.</p>
+    }
+    <InputFile OnChange="@FileSelected" class="mt-3 pointer" title="@Localizer["FileUpload"]" />
 
-        <Col Xs="24" Sm="24" Lg="24" Xl="12">
-            <div>
-                <Card Title="@Localizer["Fields"]">
-                    <Body>
-                        @if (fields.Count == 0)
-                        {
-                            <Empty>
-                                <DescriptionTemplate>
-                                    <span>@Localizer["NoFieldsAddedMessage"]</span>
-                                </DescriptionTemplate>
-                            </Empty>
-                        }
-                        else
-                        {
-                            <FieldsList Fields="@fields" OnSetFieldToIdentifyingClick="@OnSetIdentifyingField" />
-                        }
-                    </Body>
-                    <ActionTemplate>
-                        <CardAction>
-                            <div @onclick="AddNewField" class="disable-select">
-                                <span class="oi oi-plus me-2"></span>@Localizer["AddNewFieldButtonText"]
-                            </div>
-                        </CardAction>
-                    </ActionTemplate>
-                </Card>
+    <Divider />
+    <p>@Localizer["Fields"]</p>
+    @if (fields.Count == 0)
+    {
+        <p>@Localizer["NoFieldsAddedMessage"]</p>
+    }
+    else
+    {
+        <FieldsList Fields="@fields" OnSetFieldToIdentifyingClick="@OnSetIdentifyingField" />
+    }
 
-                <Card title="@Localizer["IdField"]" class="mt-3">
-                    <Body>
-                        @if (identifyingField == null)
-                        {
-                            <Empty>
-                                <DescriptionTemplate>
-                                    <span>@Localizer["NoIdFieldSelectedMessage"]</span>
-                                </DescriptionTemplate>
-                            </Empty>
-                        }
-                        else
-                        {
-                            <h2 class="mb-0">@identifyingField.Name</h2>
-                            <Divider />
-                        }
-                        <label for="expected-value"><b>@Localizer["ExpectedValueInputLabel"]</b>:</label>
-                        <div class="mt-2">
-                            <Input Placeholder="@Localizer["ExpectedValueInputPlaceholder"]" name="expected-value" id="expected-value" class="" @bind-Value="expectedValue"  />
-                        </div>
-                    </Body>
-                    <ActionTemplate>
-                        <CardAction>
-                            <div class="px-3">
-                                <Button @onclick="TestIdFieldRecognition" Block Loading="@isTestButtonLoading" class="disable-select">
-                                    <span class="oi oi-beaker me-2"></span>@Localizer["TestIdentificationButtonText"]
-                                </Button>
-                            </div>
-                        </CardAction>
-                    </ActionTemplate>
-                </Card>
-            </div>
-        </Col>
-    </Row>
-    -->
+    <IconButton IsLoading="isSubmitButtonLoading" Text="@Localizer["AddNewFieldButtonText"]" Icon="plus" />
 
-    <Divider class="mt-3 mb-3" />
-    <IconButton Type="primary" IsBlock=true OnClickCallback="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
+    <Divider />
+
+    <IconButton OnClick="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
 </div>
-
-<!--
-    <Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
-    <TestIdentificationResultModal ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />
-</Modal>
--->
-
-<!--<TestIdentificationResultModal IsTestModalVisible="@isTestModalVisible" ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />-->
 
 @code
 {
