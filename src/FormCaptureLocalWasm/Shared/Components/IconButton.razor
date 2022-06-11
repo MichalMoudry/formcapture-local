@@ -1,4 +1,4 @@
-<button class="@Class" type="button" Loading="IsLoading" @onclick="OnClick">
+<button class="@Class @Type" type="button" Loading="IsLoading" @onclick="OnClick">
     @if (!IsLoading)
     {
         <span class="oi oi-@Icon me-2"></span>
@@ -8,18 +8,39 @@
 
 @code
 {
+    /// <summary>
+    /// Text content of the button.
+    /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
+    /// <summary>
+    /// Additional CSS classes of the button.
+    /// </summary>
     [Parameter]
     public string? Class { get; set; }
 
+    /// <summary>
+    /// Value indicating if button is in a loading state.
+    /// </summary>
     [Parameter]
     public bool IsLoading { get; set; }
 
+    /// <summary>
+    /// Name of an icon that will be displayed next to the text content.
+    /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
+    /// <summary>
+    /// Type of the button.
+    /// </summary>
+    [Parameter]
+    public string Type { get; set; } = "default-button";
+
+    /// <summary>
+    /// OnClick event.
+    /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 }

@@ -15,7 +15,7 @@ body {
 }
 /* ------------------ */
 
-button {
+.default-button {
     padding: 8px 16px;
     cursor: pointer;
     color: #5C6BC0;
@@ -27,7 +27,7 @@ button {
     margin: 0;
 }
 
-button:hover {
+.default-button:hover {
     background-color: #5C6BC0;
     color: white;
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
