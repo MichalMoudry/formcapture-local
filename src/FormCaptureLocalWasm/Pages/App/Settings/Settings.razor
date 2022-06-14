@@ -15,7 +15,7 @@
             <option value="eng" class="pointer">en-US</option>
             <option value="ces">cz-CS</option>
         </select>
-        <IconButton Type="primary" class="mt-3" OnClickCallback="@SaveLocale" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveLocaleButtonLoading" />
+        <IconButton class="mt-3" OnClick="@SaveLocale" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveLocaleButtonLoading" />
     </div>
 
     <div class="card px-3 py-3 mt-4">
@@ -30,7 +30,7 @@
                 </RadioGroup>
             -->
         </div>
-        <IconButton Type="primary" class="mt-3" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveThemeButtonLoading" OnClickCallback="@SaveTheme" />
+        <IconButton class="mt-3" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveThemeButtonLoading" OnClick="@SaveTheme" />
     </div>
 </div>
 

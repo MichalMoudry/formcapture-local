@@ -19,13 +19,27 @@
     </ChildContent>
 </AntList>
 -->
+@if (Fields != null)
+{
+    if (Fields.Count > 0)
+    {
+        @foreach (var field in Fields)
+        {
+            <p>@field.Name</p>
+        }
+    }
+    else
+    {
+        <p>@Localizer["NoFieldsAddedMessage"]</p>
+    }
+}
 
 @code
 {
     /// <summary>
     /// Property with a list of fields connected to the template.
     /// </summary>
-    [Parameter]
+    [Parameter, EditorRequired]
     public List<Field>? Fields { get; set; }
 
     /// <summary>

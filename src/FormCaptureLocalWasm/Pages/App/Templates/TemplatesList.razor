@@ -29,9 +29,7 @@
                             <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Added</td>
                             <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Updated</td>
                             <td>
-                                <!--<Popconfirm Title="Do you want to delete this template?" OnConfirm="@(e => DeleteTemplate(template))" OkText="Yes" CancelText="No">
-                                    <Button Danger>@Localizer["Delete"]</Button>
-                                </Popconfirm>-->
+                                <IconButton Text="@Localizer["Delete"]" Icon="trash" Type="red-button" OnClick="@(e => DeleteTemplate(template))" />
                             </td>
                         </tr>
                     }

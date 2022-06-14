@@ -30,21 +30,8 @@
     <InputFile OnChange="@FileSelected" class="mt-3 pointer" title="@Localizer["FileUpload"]" />
 
     <Divider />
-    <p>@Localizer["Fields"]</p>
-    @if (fields.Count == 0)
-    {
-        <p>@Localizer["NoFieldsAddedMessage"]</p>
-    }
-    else
-    {
-        <FieldsList Fields="@fields" OnSetFieldToIdentifyingClick="@OnSetIdentifyingField" />
-    }
 
-    <IconButton IsLoading="isSubmitButtonLoading" Text="@Localizer["AddNewFieldButtonText"]" Icon="plus" />
-
-    <Divider />
-
-    <IconButton OnClick="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
+    <IconButton OnClick="Submit" IsLoading="isSubmitButtonLoading" Class="w-100 mb-2" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
 </div>
 
 @code
@@ -138,6 +125,7 @@
             UserID = UserHelper.UserID,
             Added = DateTime.Now
         });
+        Console.WriteLine("Test");
     }
 
     /// <summary>

@@ -15,10 +15,10 @@
     </p>
 
     <div class="mt-4 mb-3">
-        <button @onclick="@(e => Navigate("/login"))" class="me-2">
+        <button @onclick="@(e => Navigate("/login"))" class="me-2 default-button">
             <span class="oi oi-account-login me-2"></span>@Localizer["LogIn"]
         </button>
-        <button @onclick="@(e => Navigate("/register"))" class="ms-2">
+        <button @onclick="@(e => Navigate("/register"))" class="ms-2 default-button">
             <span class="oi oi-plus me-2"></span>@Localizer["Register"]
         </button>
     </div>

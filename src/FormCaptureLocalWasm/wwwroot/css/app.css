@@ -15,20 +15,35 @@ body {
 }
 /* ------------------ */
 
-.default-button {
+button {
     padding: 8px 16px;
     cursor: pointer;
-    color: #5C6BC0;
-    border-color: #5C6BC0 !important;
     border-radius: 4px;
-    background-color: white;
     border: 1px solid;
     font: inherit;
     margin: 0;
 }
 
+.default-button {
+    color: #5C6BC0;
+    border-color: #5C6BC0 !important;
+    background-color: white;
+}
+
 .default-button:hover {
     background-color: #5C6BC0;
+    color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+
+.red-button {
+    color: #c05c5c;
+    border-color: #c05c5c !important;
+    background-color: white;
+}
+
+.red-button:hover {
+    background-color: #c05c5c;
     color: white;
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
 }
@@ -205,7 +220,12 @@ select {
     color: rgba(0, 0, 0, 0.85);
     border-top: 1px solid rgba(0, 0, 0, 0.06);
     */
-    border: 0.25px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    display: block;
+    margin: 1.25rem 0;
+    height: 2px;
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.06);
 }
 
 form {
