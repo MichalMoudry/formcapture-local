@@ -1,10 +1,10 @@
 ﻿@inject IStringLocalizer<App> Localizer
 
 <div class="top-row pl-4 navbar navbar-dark px-4">
-    <a class="navbar-brand" href="/formcapture/home" title="Home">
+    <a class="navbar-brand py-3" href="/formcapture/home" title="Home">
         <span class="oi oi-aperture mt-1"></span>Form Capture
     </a>
-    <button class="navbar-toggler pointer py-2" @onclick="ToggleNavMenu">
+    <button class="navbar-toggler pointer py-2" @onclick="ToggleNavMenu" type="button">
         <span class="oi oi-menu navbar-toggler-icon"></span>
     </button>
 </div>
@@ -60,7 +60,7 @@
     private string? NavMenuCssClass => collapseNavMenu ? null : "collapse";
 
     /// <summary>
-    /// 
+    /// Method for displaying or closing navigation menu.
     /// </summary>
     private void ToggleNavMenu()
     {

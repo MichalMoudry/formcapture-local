@@ -1,0 +1,30 @@
+@inject IStringLocalizer<App> Localizer
+
+<div class="fields-viewer">
+    <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
+        <span class="oi oi-list"></span>
+    </button>
+
+    <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
+        <IconSubheader Icon="list" Title="@Localizer["Fields"]" />
+        <p>Field name 1</p>
+        <p>Field name 1</p>
+        <p>Field name 1</p>
+        <p>Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1</p>
+    </div>
+</div>
+
+@code
+{
+    private bool collapseList = false;
+
+    private string? ListCssClass => collapseList ? null : "display-none";
+
+    /// <summary>
+    /// Method for displaying or closing navigation menu.
+    /// </summary>
+    private void ToggleFieldsList()
+    {
+        collapseList = !collapseList;
+    }
+}
