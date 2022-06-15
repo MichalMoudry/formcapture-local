@@ -1,16 +1,27 @@
 @inject IStringLocalizer<App> Localizer
+@using FormCaptureLocalWasm.Shared.Components.FieldsViewerComponents
 
 <div class="fields-viewer">
-    <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
+    <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList"
+            class="round-button">
         <span class="oi oi-list"></span>
     </button>
 
     <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
-        <IconSubheader Icon="list" Title="@Localizer["Fields"]" />
-        <p>Field name 1</p>
-        <p>Field name 1</p>
-        <p>Field name 1</p>
-        <p>Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1 Field name 1</p>
+        <div class="display-flex">
+            <IconSubheader Icon="list" Title="@Localizer["Fields"]" />
+            <IconButton Icon="plus" Text="@Localizer["AddNewFieldButtonText"]" />
+        </div>
+        <Divider />
+
+        <FieldListItem Name="Field name 1" />
+        <Divider />
+        <FieldListItem Name="Field name 2" />
+        <Divider />
+        <FieldListItem Name="Field name 3" />
+        <Divider />
+        <FieldListItem Name="Field name 4 Field name 4 Field name 4 Field name 4 Field name 4 Field name 4 Field name 4" />
+        <Divider />
     </div>
 </div>
 

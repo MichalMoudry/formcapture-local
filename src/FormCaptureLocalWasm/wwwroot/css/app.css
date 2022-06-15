@@ -16,6 +16,7 @@ body {
 /* ------------------ */
 
 button {
+    background-color: white;
     padding: 8px 16px;
     cursor: pointer;
     border-radius: 4px;
@@ -24,10 +25,17 @@ button {
     margin: 0;
 }
 
+.round-button {
+    border-radius: 2rem;
+    height: 3rem;
+    width: 3rem;
+    min-height: 3rem;
+    min-width: 3rem;
+}
+
 .default-button {
     color: #5C6BC0;
     border-color: #5C6BC0 !important;
-    background-color: white;
 }
 
 .default-button:hover {
@@ -98,9 +106,15 @@ button {
     color: #000;
 }
 
+/* Display classes */
 .display-none {
     display: none;
 }
+
+.display-flex {
+    display: flex;
+}
+/* ------------------ */
 
 a:hover {
     text-decoration: underline;
@@ -268,12 +282,14 @@ form {
     background-color: white;
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
     border-width: 0px;
-    border-radius: 2rem;
-    height: 3rem;
-    width: 3rem;
 }
 
 #fields-viewer-display-button:hover {
     background-color: #f9f9f9 !important;
+}
+
+.fields-list .display-flex {
+    justify-content: space-between;
+    align-items: center;
 }
 /* ------------------ */

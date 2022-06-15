@@ -1,0 +1,25 @@
+@inject IStringLocalizer<App> Localizer
+
+<div class="display-flex field-list-item">
+    <input type="text" @bind-value="Name" />
+    <div class="ms-3">
+        <button type="button" title="Draw the field" class="round-button default-button me-2">
+            <span class="oi oi-pencil"></span>
+        </button>
+        <button type="button" title="Set as identification field" class="round-button default-button me-2">
+            <span class="oi oi-badge"></span>
+        </button>
+        <button type="button" title="@Localizer["Delete"]" class="round-button red-button">
+            <span class="oi oi-trash"></span>
+        </button>
+    </div>
+</div>
+
+@code
+{
+    /// <summary>
+    /// Name of the field.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string? Name { get; set; }
+}
