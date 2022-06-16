@@ -270,9 +270,9 @@ form {
 /* Fields viewer styles */
 .fields-viewer {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    left: 5px;
+    top: 10px;
+    right: 10px;
+    left: 10px;
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -282,6 +282,7 @@ form {
     background-color: white;
     box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
     border-width: 0px;
+    height: 3rem;
 }
 
 #fields-viewer-display-button:hover {
@@ -291,5 +292,10 @@ form {
 .fields-list .display-flex {
     justify-content: space-between;
     align-items: center;
+}
+
+.fields-list {
+    max-height: 20rem;
+    overflow: auto;
 }
 /* ------------------ */

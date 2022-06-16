@@ -2,26 +2,31 @@
 @using FormCaptureLocalWasm.Shared.Components.FieldsViewerComponents
 
 <div class="fields-viewer">
-    <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList"
-            class="round-button">
-        <span class="oi oi-list"></span>
+    <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
+        <span class="oi oi-list me-2"></span> @Localizer["Fields"]
     </button>
 
     <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
         <div class="display-flex">
-            <IconSubheader Icon="list" Title="@Localizer["Fields"]" />
-            <IconButton Icon="plus" Text="@Localizer["AddNewFieldButtonText"]" />
+            <IconSubheader Icon="list" Title="@Localizer["Fields"]" Class="me-4" />
+            <IconButton Icon="plus" Text="@Localizer["AddNewFieldButtonText"]" OnClick="AddField" />
         </div>
         <Divider />
-
-        <FieldListItem Name="Field name 1" />
-        <Divider />
-        <FieldListItem Name="Field name 2" />
-        <Divider />
-        <FieldListItem Name="Field name 3" />
-        <Divider />
-        <FieldListItem Name="Field name 4 Field name 4 Field name 4 Field name 4 Field name 4 Field name 4 Field name 4" />
-        <Divider />
+        @if (Fields != null)
+        {
+            @if (Fields.Count > 0)
+            {
+                @foreach (var field in Fields)
+                {
+                    <FieldListItem Name="@field.Name" />
+                    <Divider />
+                }
+            }
+            else
+            {
+                <p>There are no fields</p>
+            }
+        }
     </div>
 </div>
 
@@ -32,10 +37,34 @@
     private string? ListCssClass => collapseList ? null : "display-none";
 
     /// <summary>
+    /// ID of a template.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public List<Field>? Fields { get; set; }
+
+    /// <summary>
+    /// ID field.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public Field? IdField { get; set; }
+
+    /// <summary>
     /// Method for displaying or closing navigation menu.
     /// </summary>
     private void ToggleFieldsList()
     {
         collapseList = !collapseList;
+    }
+
+    /// <summary>
+    /// Method for adding a new template field.
+    /// </summary>
+    private void AddField()
+    {
+        Fields?.Add(new Field() {
+            Name = "New field",
+            IsIdentifying = false,
+            UserID = UserHelper.UserID
+        });
     }
 }

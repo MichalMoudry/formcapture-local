@@ -21,7 +21,7 @@
     {
         <div id="template-canvas">
             <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
-            <FieldsViewer />
+            <FieldsViewer Fields="fields" IdField="identifyingField" />
         </div>
     }
     else
@@ -101,35 +101,6 @@
     }
 
     /// <summary>
-    /// Event handler for handling id field set.
-    /// </summary>
-    /// <param name="field">New id field.</param>
-    private void OnSetIdentifyingField(Field field)
-    {
-        if (identifyingField != null)
-        {
-            fields.Single(i => i.IsIdentifying).IsIdentifying = false;
-        }
-        field.IsIdentifying = true;
-        identifyingField = field;
-    }
-
-    /// <summary>
-    /// Method for adding a new item to fields list.
-    /// </summary>
-    private void AddNewField()
-    {
-        fields.Add(new Field()
-        {
-            Name = "New field",
-            IsIdentifying = false,
-            UserID = UserHelper.UserID,
-            Added = DateTime.Now
-        });
-        Console.WriteLine("Test");
-    }
-
-    /// <summary>
     /// Method for launching a test if document will be recognized.
     /// </summary>
     private async Task TestIdFieldRecognition()
@@ -180,7 +151,7 @@
             _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
             // Get last template for field TemplateIDs.
             var lastTemplate = (
-                await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString())
+                await DataAccess.GetItemsAsListAsync<Template>(ObjectStores.Templates.ToString())
             ).LastOrDefault();
             // Set properties of every field, and then save them to DB.
             foreach (var field in fields)
