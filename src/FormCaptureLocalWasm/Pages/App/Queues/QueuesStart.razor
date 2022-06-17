@@ -10,8 +10,9 @@
 <div class="mb-3">
     <!--Queue name-->
     <div class="card px-3 py-3">
-        <label for="queue-name"><b>@Localizer["QueueNameInputLabel"]</b>:</label>
-        <input Placeholder="@Localizer["QueueNameInputPlaceholder"]" name="queue-name" id="queue-name" />
+        <IconSubheader Icon="cog" Title="Batch settings" />
+        <label for="queue-name"><b>@Localizer["QueueNameInputLabel"]</b>:</label><br>
+        <input type="text" Placeholder="@Localizer["QueueNameInputPlaceholder"]" name="queue-name" id="queue-name" class="mt-2" />
         <Divider />
         <!--
             <Checkbox @bind-Checked="queue.IsAutomatic">
@@ -30,7 +31,7 @@
         <IconSubheader Icon="globe" Title="@Localizer["QueueStartSelectLocaleTitle"]" />
     </div>
 
-    <IconButton Type="primary" IsBlock=true Class="mt-4" Text="@Localizer["QueueStartPageSubmitButtonText"]" Icon="check" />
+    <IconButton Class="mt-4 w-100" Text="@Localizer["QueueStartPageSubmitButtonText"]" Icon="check" />
 </div>
 
 @code
