@@ -18,7 +18,7 @@
             {
                 @foreach (var field in Fields)
                 {
-                    <FieldListItem Name="@field.Name" />
+                    <FieldListItem Field="field" OnDeleteItem="DeleteField" />
                     <Divider />
                 }
             }
@@ -66,5 +66,14 @@
             IsIdentifying = false,
             UserID = UserHelper.UserID
         });
+    }
+
+    /// <summary>
+    /// Method for deleting existing template field.
+    /// </summary>
+    /// <param name="field">Field that will be deleted.</param>
+    private void DeleteField(Field field)
+    {
+        Fields?.Remove(field);
     }
 }
