@@ -20,7 +20,7 @@
 
 @code
 {
-    [Parameter]
+    [Parameter, EditorRequired]
     /// <summary>
     /// Field that will be displayed.
     /// </summary>
@@ -29,8 +29,20 @@
     /// <summary>
     /// OnDeleteItem event.
     /// </summary>
-    [Parameter]
+    [Parameter, EditorRequired]
     public EventCallback<Field> OnDeleteItem { get; set; }
+
+    /// <summary>
+    /// OnFieldDraw event.
+    /// </summary>
+    [Parameter]
+    public EventCallback<Field> OnFieldDraw { get; set; }
+
+    /// <summary>
+    /// OnSetFieldAsId event.
+    /// </summary>
+    [Parameter]
+    public EventCallback<Field> OnSetFieldAsId { get; set; }
 
     /// <summary>
     /// Method for invoking OnDeleteItem event.

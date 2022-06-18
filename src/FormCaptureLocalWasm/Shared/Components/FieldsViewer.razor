@@ -34,10 +34,14 @@
 {
     private bool collapseList = false;
 
+    private bool isDisplayButtonTransparent = false;
+
     private string? ListCssClass => collapseList ? null : "display-none";
 
+    private string? DispBttnTransparentCssClass => isDisplayButtonTransparent ? null : "transparent-button";
+
     /// <summary>
-    /// ID of a template.
+    /// List of fields.
     /// </summary>
     [Parameter, EditorRequired]
     public List<Field>? Fields { get; set; }

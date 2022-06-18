@@ -38,7 +38,9 @@
         </div>
         @if (Templates.Count == 0)
         {
-            <!--<Empty class="mt-4" />-->
+            <h2>
+                @Localizer["Empty"]
+            </h2>
         }
     }
     else
@@ -52,7 +54,7 @@
     /// <summary>
     /// List of templates that will be displayed on this page.
     /// </summary>
-    public List<FormCaptureLocalWasm.Models.DbModels.Template>? Templates { get; set; }
+    public List<Template>? Templates { get; set; }
 
     /// <summary>
     /// Method for navigating to a specific URL.
@@ -67,7 +69,7 @@
     /// Method for deleting a specific template.
     /// </summary>
     /// <param name="template">Template that will be deleted.</param>
-    private async Task DeleteTemplate(FormCaptureLocalWasm.Models.DbModels.Template template)
+    private async Task DeleteTemplate(Template template)
     {
         var deleteTemplateResult = await DataAccess.DeleteItemAsync(template.ID, ObjectStores.Templates.ToString());
         var fields =  await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
@@ -89,7 +91,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var templates = await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString());
+        var templates = await DataAccess.GetItemsAsListAsync<Template>(ObjectStores.Templates.ToString());
         if (templates != null)
         {
             Templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();

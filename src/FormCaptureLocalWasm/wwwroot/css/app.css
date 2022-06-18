@@ -120,13 +120,16 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Navbar classes */
 #navList a {
     text-decoration: none;
 }
 
 .navbar-brand {
     width: 80%;
+    text-decoration: none;
 }
+/* ------------------ */
 
 label {
     font-weight: bold;
