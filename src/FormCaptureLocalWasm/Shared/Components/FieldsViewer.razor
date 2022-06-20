@@ -1,7 +1,8 @@
 @inject IStringLocalizer<App> Localizer
+@inject IJSRuntime JSRuntime
 @using FormCaptureLocalWasm.Shared.Components.FieldsViewerComponents
 
-<div class="fields-viewer">
+<div class="fields-viewer" id="fields-viewer">
     <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
         <span class="oi oi-list me-2"></span> @Localizer["Fields"]
     </button>
@@ -18,7 +19,7 @@
             {
                 @foreach (var field in Fields)
                 {
-                    <FieldListItem Field="field" OnDeleteItem="DeleteField" OnSetFieldAsId="SetFieldAsId" />
+                    <FieldListItem Field="field" OnDeleteItem="DeleteField" OnSetFieldAsId="SetFieldAsId" OnFieldDraw="DrawField" />
                     <Divider />
                 }
             }
@@ -34,11 +35,7 @@
 {
     private bool collapseList = false;
 
-    private bool isDisplayButtonTransparent = false;
-
     private string? ListCssClass => collapseList ? null : "display-none";
-
-    private string? DispBttnTransparentCssClass => isDisplayButtonTransparent ? null : "transparent-button";
 
     /// <summary>
     /// List of fields.
@@ -68,7 +65,8 @@
         Fields?.Add(new Field() {
             Name = "New field",
             IsIdentifying = false,
-            UserID = UserHelper.UserID
+            UserID = UserHelper.UserID,
+            Added = DateTime.Now
         });
     }
 
@@ -97,5 +95,14 @@
         }
         field.IsIdentifying = true;
         IdField = field;
+    }
+
+    /// <summary>
+    /// Event handler for handling template field drawing.
+    /// </summary>
+    /// <param name="field">Field that will be drawn on the template.</param>
+    private async Task DrawField(Field field)
+    {
+        await JSRuntime.InvokeVoidAsync("drawField", $"{field.Name} - {field.Added}", true);
     }
 }
