@@ -8,7 +8,7 @@
 
     <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
         <div class="display-flex">
-            <IconSubheader Icon="list" Title="@Localizer["Fields"]" Class="me-4" />
+            <IconSubheader Icon="list" Title="@Localizer["Fields"]" Class="me-5" />
             <IconButton Icon="plus" Text="@Localizer["AddNewFieldButtonText"]" OnClick="AddField" />
         </div>
         <Divider />
@@ -18,7 +18,7 @@
             {
                 @foreach (var field in Fields)
                 {
-                    <FieldListItem Field="field" OnDeleteItem="DeleteField" />
+                    <FieldListItem Field="field" OnDeleteItem="DeleteField" OnSetFieldAsId="SetFieldAsId" />
                     <Divider />
                 }
             }
@@ -79,5 +79,23 @@
     private void DeleteField(Field field)
     {
         Fields?.Remove(field);
+    }
+
+    /// <summary>
+    /// Event handler for handling id field set.
+    /// </summary>
+    /// <param name="field">New id field.</param>
+    private void SetFieldAsId(Field field)
+    {
+        if (IdField != null && Fields != null)
+        {
+            var idField = Fields.SingleOrDefault(i => i.IsIdentifying);
+            if (idField != null)
+            {
+                idField.IsIdentifying = false;
+            }
+        }
+        field.IsIdentifying = true;
+        IdField = field;
     }
 }
