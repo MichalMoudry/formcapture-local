@@ -47,8 +47,10 @@ function drawField(fieldID, hideFieldViewer) {
         existingField.remove();
     }
     var viewer = document.getElementById("fields-viewer");
+    var drawingStatus = document.getElementById("field-drawing-status");
     if (hideFieldViewer) {
         viewer.classList.add("display-none");
+        drawingStatus.classList.remove("display-none");
     }
     var canvas = document.getElementById("template-canvas");
     if (canvas != null) {
@@ -80,7 +82,10 @@ function drawField(fieldID, hideFieldViewer) {
                     canvas.style.cursor = "auto";
                     canvas.onclick = null;
                     canvas.onmousemove = null;
-                    viewer.classList.remove("display-none");
+                    if (hideFieldViewer) {
+                        viewer.classList.remove("display-none");
+                        drawingStatus.classList.add("display-none");
+                    }
                 }
             }
         }

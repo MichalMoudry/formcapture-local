@@ -2,32 +2,38 @@
 @inject IJSRuntime JSRuntime
 @using FormCaptureLocalWasm.Shared.Components.FieldsViewerComponents
 
-<div class="fields-viewer" id="fields-viewer">
-    <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
-        <span class="oi oi-list me-2"></span> @Localizer["Fields"]
-    </button>
+<div class="fields-viewer-container">
+    <div class="card py-1 px-2 display-none" id="field-drawing-status">
+        <span class="oi oi-question-mark me-1"></span> Field is currently being drawn.
+    </div>
 
-    <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
-        <div class="display-flex">
-            <IconSubheader Icon="list" Title="@Localizer["Fields"]" Class="me-5" />
-            <IconButton Icon="plus" Text="@Localizer["AddNewFieldButtonText"]" OnClick="AddField" />
-        </div>
-        <Divider />
-        @if (Fields != null)
-        {
-            @if (Fields.Count > 0)
+    <div class="fields-viewer display-flex" id="fields-viewer">
+        <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
+            <span class="oi oi-list me-2"></span> @Localizer["Fields"]
+        </button>
+
+        <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
+            <div class="display-flex">
+                <IconSubheader Icon="list" Title="@Localizer["Fields"]" Class="me-5" />
+                <IconButton Icon="plus" Text="@Localizer["AddNewFieldButtonText"]" OnClick="AddField" />
+            </div>
+            <Divider />
+            @if (Fields != null)
             {
-                @foreach (var field in Fields)
+                @if (Fields.Count > 0)
                 {
-                    <FieldListItem Field="field" OnDeleteItem="DeleteField" OnSetFieldAsId="SetFieldAsId" OnFieldDraw="DrawField" />
-                    <Divider />
+                    @foreach (var field in Fields)
+                    {
+                        <FieldListItem Field="field" OnDeleteItem="DeleteField" OnSetFieldAsId="SetFieldAsId" OnFieldDraw="DrawField" />
+                        <Divider />
+                    }
+                }
+                else
+                {
+                    <p>@Localizer["NoFieldsAddedMessage"]</p>
                 }
             }
-            else
-            {
-                <p>@Localizer["NoFieldsAddedMessage"]</p>
-            }
-        }
+        </div>
     </div>
 </div>
 

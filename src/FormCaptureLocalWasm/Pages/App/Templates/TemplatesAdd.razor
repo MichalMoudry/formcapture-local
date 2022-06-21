@@ -32,6 +32,11 @@
 
     <Divider />
 
+    <IconButton Text="@Localizer["TestIdentificationButtonText"]" Icon="beaker" Class="w-100" Type="orange-button"
+                OnClick="TestIdFieldRecognition" />
+
+    <Divider />
+
     <IconButton OnClick="Submit" IsLoading="isSubmitButtonLoading" Class="w-100 mb-2" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
 </div>
 
@@ -143,10 +148,6 @@
             string fieldProperties;
             string[] fieldPropertiesSplit;
             _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
-            // Get last template for field TemplateIDs.
-            var lastTemplate = (
-                await DataAccess.GetItemsAsListAsync<Template>(ObjectStores.Templates.ToString())
-            ).LastOrDefault();
             // Set properties of every field, and then save them to DB.
             foreach (var field in fields)
             {
@@ -161,10 +162,7 @@
                     fieldPropertiesSplit = fieldProperties.Split(",");
                     field.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
                     field.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
-                    if (lastTemplate != null)
-                    {
-                        field.TemplateID = lastTemplate.ID;
-                    }
+                    field.TemplateID = template.ID;
                 }
                 field.SetDateAdded();
                 _ = await DataAccess.AddItemAsync(field, ObjectStores.Fields.ToString());
@@ -172,4 +170,21 @@
             NavigationManager.NavigateTo("/formcapture/templates");
         }
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var lastTemplate = (
+            await DataAccess.GetItemsAsListAsync<Template>(ObjectStores.Templates.ToString())
+        ).LastOrDefault();
+        if (lastTemplate != null)
+        {
+            template.ID = lastTemplate.ID + 1;
+            Console.WriteLine(lastTemplate.ID);
+        }
+        else
+        {
+            template.ID = 0;
+        }
+    }
 }
+
