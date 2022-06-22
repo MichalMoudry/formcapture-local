@@ -270,7 +270,7 @@
     <comment/>
   </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
-    <value>Enter expected value of the field...</value>
+    <value>Enter expected value of the identification field...</value>
     <comment/>
   </data>
   <data name="NoTemplateNameErrorMessage" xml:space="preserve">

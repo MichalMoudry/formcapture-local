@@ -11,7 +11,7 @@
 <div class="mb-3">
     <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
     <div class="mt-2">
-        <input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" type="text" name="template-name" id="template-name" />
+        <input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" type="text" id="template-name" class="text-input" />
     </div>
 
     <Divider />
@@ -32,6 +32,10 @@
 
     <Divider />
 
+    <label for="expected-value">@Localizer["ExpectedValueInputLabel"]:</label>
+    <div class="mt-2 mb-3">
+        <input type="text" id="expected-value" placeholder="@Localizer["ExpectedValueInputPlaceholder"]" class="text-input" @bind="expectedValue" />
+    </div>
     <IconButton Text="@Localizer["TestIdentificationButtonText"]" Icon="beaker" Class="w-100" Type="orange-button"
                 OnClick="TestIdFieldRecognition" />
 

@@ -270,7 +270,7 @@
     <comment/>
   </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
-    <value>Napiště očekávanou hodnotu pole...</value>
+    <value>Napiště očekávanou hodnotu identificakčního pole...</value>
     <comment/>
   </data>
   <data name="NoTemplateNameErrorMessage" xml:space="preserve">

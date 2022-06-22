@@ -148,6 +148,7 @@ a:hover {
 label {
     font-weight: bold;
     margin-bottom: 4px;
+    cursor: pointer;
 }
 
 input[type=text], input[type=password], input[type=email] {
