@@ -37,7 +37,7 @@
         <input type="text" id="expected-value" placeholder="@Localizer["ExpectedValueInputPlaceholder"]" class="text-input" @bind="expectedValue" />
     </div>
     <IconButton Text="@Localizer["TestIdentificationButtonText"]" Icon="beaker" Class="w-100" Type="orange-button"
-                OnClick="TestIdFieldRecognition" />
+                OnClick="TestIdFieldRecognition" IsLoading="true" />
 
     <Divider />
 
@@ -109,19 +109,35 @@
     /// </summary>
     private async Task TestIdFieldRecognition()
     {
-        //SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
-        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
+        var idField = fields.SingleOrDefault(i => i.IsIdentifying);
+        if (idField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
             ToggleButtons();
-            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.Added);
+            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", $"{idField.Name} - {idField.Added}");
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");
-                identifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
-                identifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
-                recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
+                idField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                idField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
+                recognizedValue = await Recognition.SinglefieldRecognition(idField, template.Image, template.ContentType, "ces");
             }
             ToggleButtons();
+        }
+        else if (identifyingField == null)
+        {
+            Console.WriteLine("ID field is null");
+        }
+        else if (string.IsNullOrEmpty(expectedValue))
+        {
+            Console.WriteLine("Expected value is null");
+        }
+        else if (template.Image == null)
+        {
+            Console.WriteLine("Template image is null");
+        }
+        else if (string.IsNullOrEmpty(template.ContentType))
+        {
+            Console.WriteLine("Template content type is null");
         }
     }
 
