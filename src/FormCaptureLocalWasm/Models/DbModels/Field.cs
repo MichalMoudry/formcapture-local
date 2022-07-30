@@ -76,7 +76,7 @@ public class Field : Entity
     /// Method for obtaining relative postition of a field.
     /// </summary>
     /// <param name="template">Field's parent template.</param>
-    public (int x, int y) GetRelativePosition(Template template)
+    public (double x, double y) GetRelativePosition(Template template)
     {
         return (Xposition, Yposition);
     }

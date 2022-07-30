@@ -21,7 +21,7 @@
     {
         <div id="template-canvas">
             <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
-            <FieldsViewer Fields="fields" IdField="identifyingField" />
+            <FieldsViewer Fields="fields" IdField="IdentifyingField" />
         </div>
     }
     else
@@ -37,7 +37,7 @@
         <input type="text" id="expected-value" placeholder="@Localizer["ExpectedValueInputPlaceholder"]" class="text-input" @bind="expectedValue" />
     </div>
     <IconButton Text="@Localizer["TestIdentificationButtonText"]" Icon="beaker" Class="w-100" Type="orange-button"
-                OnClick="TestIdFieldRecognition" IsLoading="true" />
+                OnClick="TestIdFieldRecognition" />
 
     <Divider />
 
@@ -62,9 +62,9 @@
     private List<Field> fields = new List<Field>();
 
     /// <summary>
-    /// Private field with instance of <see cref="Field"/> class.
+    /// Private property with instance of <see cref="Field"/> class.
     /// </summary>
-    private Field? identifyingField;
+    private Field? IdentifyingField => fields.SingleOrDefault(i => i.IsIdentifying);
 
     /// <summary>
     /// Private field with value representing if test button is loading or not.
@@ -109,21 +109,20 @@
     /// </summary>
     private async Task TestIdFieldRecognition()
     {
-        var idField = fields.SingleOrDefault(i => i.IsIdentifying);
-        if (idField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
+        if (IdentifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
             ToggleButtons();
-            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", $"{idField.Name} - {idField.Added}");
+            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", $"{IdentifyingField.Name} - {IdentifyingField.Added}");
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");
-                idField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
-                idField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
-                recognizedValue = await Recognition.SinglefieldRecognition(idField, template.Image, template.ContentType, "ces");
+                IdentifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                IdentifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
+                recognizedValue = await Recognition.SinglefieldRecognition(IdentifyingField, template.Image, template.ContentType, "ces");
             }
             ToggleButtons();
         }
-        else if (identifyingField == null)
+        else if (IdentifyingField == null)
         {
             Console.WriteLine("ID field is null");
         }
@@ -156,7 +155,7 @@
     private async Task Submit()
     {
         template.UserID = UserHelper.UserID;
-        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
+        if (IdentifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
             ToggleButtons();
             template.SetDateAdded();
@@ -199,7 +198,6 @@
         if (lastTemplate != null)
         {
             template.ID = lastTemplate.ID + 1;
-            Console.WriteLine(lastTemplate.ID);
         }
         else
         {

@@ -10,6 +10,10 @@
     <div class="fields-viewer display-flex" id="fields-viewer">
         <button type="button" title="Display fields" id="fields-viewer-display-button" @onclick="ToggleFieldsList">
             <span class="oi oi-list me-2"></span> @Localizer["Fields"]
+            @if (Fields != null)
+            {
+                <span> (@Fields.Count)</span>
+            }
         </button>
 
         <div class="fields-list card py-1 px-3 mt-2 @ListCssClass">
