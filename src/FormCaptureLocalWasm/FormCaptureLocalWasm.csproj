@@ -34,4 +34,8 @@
     <None Include="C:\Users\moudr\source\repos\formcapture-local\src\FormCaptureLocalWasm\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MoumComponents\MoumComponents.csproj" />
+  </ItemGroup>
+
 </Project>
