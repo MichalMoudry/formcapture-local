@@ -1,0 +1,36 @@
+.notification-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: #000000c7;
+}
+
+.notifications-list-container {
+    position: inherit;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+.notifications-list-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.notifications-list-header-actions {
+    display: flex;
+}
+
+.notifications-list-content {
+    overflow-y: auto;
+    max-height: 25rem;
+}
