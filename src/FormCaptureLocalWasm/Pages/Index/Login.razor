@@ -53,7 +53,7 @@
         if (!string.IsNullOrEmpty(user.Email) && !string.IsNullOrEmpty(user.Password))
         {
             var users = await DataAccess.GetItemsAsListAsync<User>(ObjectStores.Users.ToString());
-            var userFromDb = users.SingleOrDefault(i => i.Email.Equals(user.Email));
+            var userFromDb = users.SingleOrDefault(i => i.Email != null && i.Email.Equals(user.Email));
             if (userFromDb != null)
             {
                 var passwordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, userFromDb.PasswordSalt);
