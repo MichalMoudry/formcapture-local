@@ -6,34 +6,28 @@
 
 <PageTitle>@Localizer["RegisterPageTitle"]</PageTitle>
 
-<div class="card px-4 form-card">
-    <h3 class="mt-4">
+<div class="card px-4 form-card py-4">
+    <h1 class="mt-0 mb-0">
         <span class="oi oi-person me-1"></span> @Localizer["RegisterPageTitle"]
-    </h3>
-    <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit" @ref="form">
-        <FormItem Label="Email:">
-            <Input @bind-Value="@user.Email" />
-        </FormItem>
+    </h1>
 
-        <FormItem Label="@Localizer["Password"]">
-            <InputPassword @bind-Value="@user.Password" />
-        </FormItem>
+    <form class="mb-0 py-4">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="@Localizer["EmailInputPlaceholder"]" @bind="@user.Email" />
 
-        <FormItem>
-            <Button Type="@ButtonType.Primary" HtmlType="submit">
-                <span class="oi oi-check me-2"></span>@Localizer["Submit"]
-            </Button>
-        </FormItem>
-    </Form>
-    <div class="mb-4 @SuccessAlertDisplayCssClass">
-        <Alert Type="@AlertType.Success" Message="@Localizer["Success"]" Closable>
+        <label for="password" class="mt-4">@Localizer["Password"]:</label>
+        <input type="password" id="password" placeholder="@Localizer["PasswordInputPlaceholder"]" @bind="user.Password" />
+    </form>
+
+    <IconButton Icon="check" Text="@Localizer["Submit"]" OnClick="Submit" />
+
+    <div class="success-alert mt-3 @SuccessAlertDisplayCssClass">
+        <p>
             @Localizer["RegistrationSuccessTextPart1"]: <a href="/login" title="Login page">@Localizer["LoginPageTitle"]</a>.
-        </Alert>
+        </p>
     </div>
-    <div class="mb-4 @ErrorAlertDisplayCssClass">
-        <Alert Type="@AlertType.Error" Message="@Localizer["Error"]" Closable>
-            @Localizer["RegistrationErrorText"].
-        </Alert>
+    <div class="error-alert mt-3 @ErrorAlertDisplayCssClass">
+        <p>@Localizer["RegistrationErrorText"]</p>
     </div>
 </div>
 
@@ -42,12 +36,7 @@
     /// <summary>
     /// Private field with refrence to User model.
     /// </summary>
-    private User user = new User();
-
-    /// <summary>
-    /// Refrence to registration form.
-    /// </summary>
-    private Form<User>? form;
+    private User user = new User() { PasswordSalt = Guid.NewGuid().ToString() };
 
     /// <summary>
     /// Private field with a value indicating if success alert is displayed.
@@ -70,26 +59,40 @@
     private string ErrorAlertDisplayCssClass => isErrorAlertDisplayed ? "" : "display-none";
 
     /// <summary>
+    /// Method for displaying an error alert.
+    /// </summary>
+    private void DisplayErrorAlert()
+    {
+        isErrorAlertDisplayed = true;
+        if (isSuccessAlertDisplayed)
+        {
+            isSuccessAlertDisplayed = false;
+        }
+    }
+
+    /// <summary>
     /// Event handler for submitting complete registration form.
     /// </summary>
     private async Task Submit()
     {
-        user.PasswordSalt = Guid.NewGuid().ToString();
-        user.PasswordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, user.PasswordSalt);
-        user.Password = null;
-        var registrationResult = await DataAccess.AddItemAsync(user, ObjectStores.Users.ToString());
-        if (registrationResult)
+        if (!string.IsNullOrEmpty(user.Email) && !string.IsNullOrEmpty(user.Password))
         {
-            isSuccessAlertDisplayed = true;
-            isErrorAlertDisplayed = false;
+            user.PasswordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, user.PasswordSalt);
+            user.Password = null;
+            var registrationResult = await DataAccess.AddItemAsync(user, ObjectStores.Users.ToString());
+            if (registrationResult)
+            {
+                isSuccessAlertDisplayed = true;
+                isErrorAlertDisplayed = false;
+            }
+            else
+            {
+                DisplayErrorAlert();
+            }
         }
         else
         {
-            isErrorAlertDisplayed = true;
-        }
-        if (form != null)
-        {
-            form.Reset();
+            DisplayErrorAlert();
         }
     }
 }

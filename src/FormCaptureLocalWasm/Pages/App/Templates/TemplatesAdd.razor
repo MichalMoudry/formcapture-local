@@ -4,122 +4,52 @@
 @inject IJSRuntime JSRuntime
 @inject IRecognitionService Recognition
 @inject NavigationManager NavigationManager
-@inject MessageService MessageService
 @page "/formcapture/templates/add"
-
-<Breadcrumb>
-    <BreadcrumbItem Href="/formcapture/home">@Localizer["NavMenuHomeLinkText"]</BreadcrumbItem>
-    <BreadcrumbItem Href="/formcapture/templates">@Localizer["NavMenuTemplatesLinkText"]</BreadcrumbItem>
-    <BreadcrumbItem>@Localizer["AddTemplatePageTitle"]</BreadcrumbItem>
-</Breadcrumb>
 
 <AppPageHeader Title="@Localizer["AddTemplatePageTitle"]" Icon="document" />
 
 <div class="mb-3">
     <label for="template-name"><b>@Localizer["TemplateNameInputLabel"]</b>:</label>
     <div class="mt-2">
-        <Input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" name="template-name" id="template-name" class="" @bind-Value="template.Name" />
+        <input Placeholder="@Localizer["TemplateNameInputPlaceholder"]" type="text" id="template-name" class="text-input" />
     </div>
 
     <Divider />
 
-    <Row Gutter="(32,16)">
-        <!--Image upload column-->
-        <Col Xs="24" Sm="24" Lg="24" Xl="12">
-            <IconSubheader Icon="image" Title="@Localizer["Image"]" />
-            <div>
-                @if (!string.IsNullOrEmpty(fileContent))
-                {
-                    <div id="template-canvas">
-                        <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
-                    </div>
-                }
-                else
-                {
-                    <Empty />
-                }
-            </div>
-            <Divider class="mb-0"><span class="oi oi-data-transfer-upload me-2"></span> @Localizer["FileUpload"]</Divider>
-            <InputFile OnChange="@FileSelected" class="mt-3 mb-2 pointer" />
-        </Col>
+    <IconSubheader Icon="image" Title="@Localizer["Image"]" />
+    @if (!string.IsNullOrEmpty(fileContent))
+    {
+        <div id="template-canvas">
+            <img id="template-preview-image" draggable="false" src="@fileContent" alt="Template" />
+            <FieldsViewer Fields="fields" IdField="IdentifyingField" />
+        </div>
+    }
+    else
+    {
+        <p>Nahrajte obrázek.</p>
+    }
+    <InputFile OnChange="@FileSelected" class="mt-3 pointer" title="@Localizer["FileUpload"]" />
 
-        <!--Fields column-->
-        <Col Xs="24" Sm="24" Lg="24" Xl="12">
-            <div>
-                <Card Title="@Localizer["Fields"]">
-                    <Body>
-                        @if (fields.Count == 0)
-                        {
-                            <Empty>
-                                <DescriptionTemplate>
-                                    <span>@Localizer["NoFieldsAddedMessage"]</span>
-                                </DescriptionTemplate>
-                            </Empty>
-                        }
-                        else
-                        {
-                            <FieldsList Fields="@fields" OnSetFieldToIdentifyingClick="@OnSetIdentifyingField" />
-                        }
-                    </Body>
-                    <ActionTemplate>
-                        <CardAction>
-                            <div @onclick="AddNewField" class="disable-select">
-                                <span class="oi oi-plus me-2"></span>@Localizer["AddNewFieldButtonText"]
-                            </div>
-                        </CardAction>
-                    </ActionTemplate>
-                </Card>
+    <Divider />
 
-                <Card title="@Localizer["IdField"]" class="mt-3">
-                    <Body>
-                        @if (identifyingField == null)
-                        {
-                            <Empty>
-                                <DescriptionTemplate>
-                                    <span>@Localizer["NoIdFieldSelectedMessage"]</span>
-                                </DescriptionTemplate>
-                            </Empty>
-                        }
-                        else
-                        {
-                            <h2 class="mb-0">@identifyingField.Name</h2>
-                            <Divider />
-                        }
-                        <label for="expected-value"><b>@Localizer["ExpectedValueInputLabel"]</b>:</label>
-                        <div class="mt-2">
-                            <Input Placeholder="@Localizer["ExpectedValueInputPlaceholder"]" name="expected-value" id="expected-value" class="" @bind-Value="expectedValue"  />
-                        </div>
-                    </Body>
-                    <ActionTemplate>
-                        <CardAction>
-                            <div class="px-3">
-                                <Button @onclick="TestIdFieldRecognition" Block Loading="@isTestButtonLoading" class="disable-select">
-                                    <span class="oi oi-beaker me-2"></span>@Localizer["TestIdentificationButtonText"]
-                                </Button>
-                            </div>
-                        </CardAction>
-                    </ActionTemplate>
-                </Card>
-            </div>
-        </Col>
-    </Row>
+    <label for="expected-value">@Localizer["ExpectedValueInputLabel"]:</label>
+    <div class="mt-2 mb-3">
+        <input type="text" id="expected-value" placeholder="@Localizer["ExpectedValueInputPlaceholder"]" class="text-input" @bind="expectedValue" />
+    </div>
+    <IconButton Text="@Localizer["TestIdentificationButtonText"]" Icon="beaker" Class="w-100" Type="orange-button"
+                OnClick="TestIdFieldRecognition" />
 
-    <Divider class="mt-3 mb-3" />
-    <IconButton Type="primary" IsBlock=true OnClickCallback="Submit" IsLoading="isSubmitButtonLoading" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
+    <Divider />
+
+    <IconButton OnClick="Submit" IsLoading="isSubmitButtonLoading" Class="w-100 mb-2" Text="@Localizer["SaveTemplateButtonText"]" Icon="check" />
 </div>
-
-<Modal Title="@Localizer["IdentificationTestModalTitle"]" Visible="@isTestModalVisible" OnOk="@(() => { isTestModalVisible = false; })" OnCancel="@(() => { isTestModalVisible = false; })">
-    <TestIdentificationResultModal ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />
-</Modal>
-
-<!--<TestIdentificationResultModal IsTestModalVisible="@isTestModalVisible" ExpectedValue="@expectedValue" RecognizedValue="@recognizedValue" />-->
 
 @code
 {
     /// <summary>
-    /// Private field with a <see cref="Models.DbModels.Template"/> class instance.
+    /// Private field with a <see cref="Template"/> class instance.
     /// </summary>
-    private FormCaptureLocalWasm.Models.DbModels.Template template = new FormCaptureLocalWasm.Models.DbModels.Template();
+    private Template template = new Template();
 
     /// <summary>
     /// Private field with content (encoded as base64) of the template image.
@@ -127,19 +57,14 @@
     private string? fileContent;
 
     /// <summary>
-    /// Private field wtih value representing if modal for testing identification is visible or not.
-    /// </summary>
-    private bool isTestModalVisible = false;
-
-    /// <summary>
     /// Private field with a list of fields connected to the template.
     /// </summary>
     private List<Field> fields = new List<Field>();
 
     /// <summary>
-    /// Private field with instance of <see cref="Field"/> class.
+    /// Private property with instance of <see cref="Field"/> class.
     /// </summary>
-    private Field? identifyingField;
+    private Field? IdentifyingField => fields.SingleOrDefault(i => i.IsIdentifying);
 
     /// <summary>
     /// Private field with value representing if test button is loading or not.
@@ -180,52 +105,38 @@
     }
 
     /// <summary>
-    /// Event handler for handling id field set.
-    /// </summary>
-    /// <param name="field">New id field.</param>
-    private void OnSetIdentifyingField(Field field)
-    {
-        if (identifyingField != null)
-        {
-            fields.Single(i => i.IsIdentifying).IsIdentifying = false;
-        }
-        field.IsIdentifying = true;
-        identifyingField = field;
-    }
-
-    /// <summary>
-    /// Method for adding a new item to fields list.
-    /// </summary>
-    private void AddNewField()
-    {
-        fields.Add(new Field()
-        {
-            Name = "New field",
-            IsIdentifying = false,
-            UserID = UserHelper.UserID,
-            Added = DateTime.Now
-        });
-    }
-
-    /// <summary>
     /// Method for launching a test if document will be recognized.
     /// </summary>
     private async Task TestIdFieldRecognition()
     {
-        //SetFieldToIdentifying(fields.Single(i => i.ID.Equals(identifyingFieldId)));
-        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
+        if (IdentifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.ContentType))
         {
             ToggleButtons();
-            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", identifyingField.Added);
+            var fieldProperties = await JSRuntime.InvokeAsync<string>("getFieldProperties", $"{IdentifyingField.Name} - {IdentifyingField.Added}");
             if (!string.IsNullOrEmpty(fieldProperties))
             {
                 var fieldPropertiesSplit = fieldProperties.Split(",");
-                identifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
-                identifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
-                recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
-                isTestModalVisible = true;
+                IdentifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
+                IdentifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
+                recognizedValue = await Recognition.SinglefieldRecognition(IdentifyingField, template.Image, template.ContentType, "ces");
             }
             ToggleButtons();
+        }
+        else if (IdentifyingField == null)
+        {
+            Console.WriteLine("ID field is null");
+        }
+        else if (string.IsNullOrEmpty(expectedValue))
+        {
+            Console.WriteLine("Expected value is null");
+        }
+        else if (template.Image == null)
+        {
+            Console.WriteLine("Template image is null");
+        }
+        else if (string.IsNullOrEmpty(template.ContentType))
+        {
+            Console.WriteLine("Template content type is null");
         }
     }
 
@@ -244,7 +155,7 @@
     private async Task Submit()
     {
         template.UserID = UserHelper.UserID;
-        if (identifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
+        if (IdentifyingField != null && !string.IsNullOrEmpty(expectedValue) && template.Image != null && !string.IsNullOrEmpty(template.Name) && fields.Count > 0)
         {
             ToggleButtons();
             template.SetDateAdded();
@@ -256,10 +167,6 @@
             string fieldProperties;
             string[] fieldPropertiesSplit;
             _ = await DataAccess.AddItemAsync(template, ObjectStores.Templates.ToString());
-            // Get last template for field TemplateIDs.
-            var lastTemplate = (
-                await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString())
-            ).LastOrDefault();
             // Set properties of every field, and then save them to DB.
             foreach (var field in fields)
             {
@@ -274,35 +181,28 @@
                     fieldPropertiesSplit = fieldProperties.Split(",");
                     field.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
                     field.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
-                    if (lastTemplate != null)
-                    {
-                        field.TemplateID = lastTemplate.ID;
-                    }
+                    field.TemplateID = template.ID;
                 }
                 field.SetDateAdded();
                 _ = await DataAccess.AddItemAsync(field, ObjectStores.Fields.ToString());
             }
             NavigationManager.NavigateTo("/formcapture/templates");
         }
-        else if (string.IsNullOrEmpty(template.Name))
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var lastTemplate = (
+            await DataAccess.GetItemsAsListAsync<Template>(ObjectStores.Templates.ToString())
+        ).LastOrDefault();
+        if (lastTemplate != null)
         {
-            await MessageService.Error($"{Localizer["NoTemplateNameErrorMessage"]}");
+            template.ID = lastTemplate.ID + 1;
         }
-        else if (template.Image == null)
+        else
         {
-            await MessageService.Error($"{Localizer["NoTemplateImageErrorMessage"]}");
-        }
-        else if (fields.Count == 0)
-        {
-            await MessageService.Error($"{Localizer["NoFieldsAddedMessage"]}");
-        }
-        else if (identifyingField == null)
-        {
-            await MessageService.Error($"{Localizer["NoIdFieldSelectedMessage"]}");
-        }
-        else if (string.IsNullOrEmpty(expectedValue))
-        {
-            await MessageService.Error($"{Localizer["NoExpectedValueErrorMessage"]}");
+            template.ID = 0;
         }
     }
 }
+

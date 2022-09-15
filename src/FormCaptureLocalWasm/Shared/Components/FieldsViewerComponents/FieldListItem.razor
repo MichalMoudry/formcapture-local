@@ -1,0 +1,78 @@
+@inject IStringLocalizer<App> Localizer
+
+<div class="display-flex field-list-item">
+    @if (Field != null)
+    {
+        @if (Field.IsIdentifying)
+        {
+            <span class="oi oi-badge me-3" title="This field is identifying"></span>
+        }
+        <input type="text" @bind-value="Field.Name" placeholder="" title="Template field" />
+    }
+    <div class="ms-3">
+        <button type="button" title="Draw the field" class="round-button default-button me-2"
+                @onclick="DrawField">
+            <span class="oi oi-pencil"></span>
+        </button>
+        <button type="button" title="Set as identification field" class="round-button default-button me-2 @IdButtonCssClass"
+                @onclick="SetFieldAsId">
+            <span class="oi oi-badge"></span>
+        </button>
+        <button type="button" title="@Localizer["Delete"]" class="round-button red-button" @onclick="DeleteItem">
+            <span class="oi oi-trash"></span>
+        </button>
+    </div>
+</div>
+
+@code
+{
+    [Parameter, EditorRequired]
+    /// <summary>
+    /// Field that will be displayed.
+    /// </summary>
+    public Field? Field { get; set; }
+
+    /// <summary>
+    /// OnDeleteItem event.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public EventCallback<Field> OnDeleteItem { get; set; }
+
+    /// <summary>
+    /// OnFieldDraw event.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public EventCallback<Field> OnFieldDraw { get; set; }
+
+    /// <summary>
+    /// OnSetFieldAsId event.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public EventCallback<Field> OnSetFieldAsId { get; set; }
+
+    private string? IdButtonCssClass = null;
+
+    /// <summary>
+    /// Method for invoking OnDeleteItem event.
+    /// </summary>
+    private async Task DeleteItem()
+    {
+        await OnDeleteItem.InvokeAsync(Field);
+    }
+
+    /// <summary>
+    /// Method for invoking OnSetFieldAsId event.
+    /// </summary>
+    private async Task SetFieldAsId()
+    {
+        await OnSetFieldAsId.InvokeAsync(Field);
+    }
+
+    /// <summary>
+    /// Method for invoking DrawField event.
+    /// </summary>
+    private async Task DrawField()
+    {
+        await OnFieldDraw.InvokeAsync(Field);
+    }
+}

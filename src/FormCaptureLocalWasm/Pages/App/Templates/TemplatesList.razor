@@ -2,12 +2,11 @@
 @inject IStringLocalizer<App> Localizer
 @inject IDataAccess DataAccess
 @inject NavigationManager NavigationManager
-@inject MessageService MessageService
 @page "/formcapture/templates"
 
 <AppPageHeader Title="@Localizer["Templates"]" Icon="document" />
 
-<IconButton OnClickCallback="@(e => Navigate("/formcapture/templates/add"))" Icon="plus" Class="mb4" Text="@Localizer["AddNewTemplateButtonText"]" Type="primary" />
+<IconButton OnClick="@(e => Navigate("/formcapture/templates/add"))" Icon="plus" Class="mb4" Text="@Localizer["AddNewTemplateButtonText"]" />
 
 <div class="mt-4">
     @if (Templates != null)
@@ -30,9 +29,7 @@
                             <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Added</td>
                             <td @onclick="@(e => Navigate($"/formcapture/templates/edit/{template.ID}"))">@template.Updated</td>
                             <td>
-                                <Popconfirm Title="Do you want to delete this template?" OnConfirm="@(e => DeleteTemplate(template))" OkText="Yes" CancelText="No">
-                                    <Button Danger>@Localizer["Delete"]</Button>
-                                </Popconfirm>
+                                <IconButton Text="@Localizer["Delete"]" Icon="trash" Type="red-button" OnClick="@(e => DeleteTemplate(template))" />
                             </td>
                         </tr>
                     }
@@ -41,12 +38,14 @@
         </div>
         @if (Templates.Count == 0)
         {
-            <Empty class="mt-4" />
+            <h2>
+                @Localizer["Empty"]
+            </h2>
         }
     }
     else
     {
-        <Spin Size="large" />
+        <Loading />
     }
 </div>
 
@@ -55,7 +54,7 @@
     /// <summary>
     /// List of templates that will be displayed on this page.
     /// </summary>
-    public List<FormCaptureLocalWasm.Models.DbModels.Template>? Templates { get; set; }
+    public List<Template>? Templates { get; set; }
 
     /// <summary>
     /// Method for navigating to a specific URL.
@@ -70,7 +69,7 @@
     /// Method for deleting a specific template.
     /// </summary>
     /// <param name="template">Template that will be deleted.</param>
-    private async Task DeleteTemplate(FormCaptureLocalWasm.Models.DbModels.Template template)
+    private async Task DeleteTemplate(Template template)
     {
         var deleteTemplateResult = await DataAccess.DeleteItemAsync(template.ID, ObjectStores.Templates.ToString());
         var fields =  await DataAccess.GetItemsAsListAsync<Field>(ObjectStores.Fields.ToString());
@@ -86,13 +85,13 @@
         }
         else
         {
-            await MessageService.Error("Error occured during template deletion.");
+            //await MessageService.Error("Error occured during template deletion.");
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
-        var templates = await DataAccess.GetItemsAsListAsync<FormCaptureLocalWasm.Models.DbModels.Template>(ObjectStores.Templates.ToString());
+        var templates = await DataAccess.GetItemsAsListAsync<Template>(ObjectStores.Templates.ToString());
         if (templates != null)
         {
             Templates = templates.Where(i => i.UserID.Equals(UserHelper.UserID)).ToList();
