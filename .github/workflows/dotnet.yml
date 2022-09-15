@@ -1,12 +1,10 @@
-name: Tests
+name: .NET
 
 on:
-#  push:
-#    branches: [ main ]
+  push:
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-      - dev
+    branches: [ main ]
 
 jobs:
   build:

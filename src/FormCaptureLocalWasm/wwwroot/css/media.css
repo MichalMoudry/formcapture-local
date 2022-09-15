@@ -4,11 +4,7 @@
 */
 @media (min-width: 1281px) {
     .form-card {
-      width: 25rem;
-    }
-
-    .text-input {
-      width: 25%;
+        width: 25rem;
     }
 }
 
@@ -18,11 +14,7 @@
 */
 @media (min-width: 1025px) and (max-width: 1280px) {
     .form-card {
-      width: 25rem;
-    }
-
-    .text-input {
-      width: 50%;
+        width: 25rem;
     }
 }
 
@@ -32,16 +24,7 @@
 */
 @media (min-width: 768px) and (max-width: 1024px) {
     .form-card {
-      width: 25rem;
-    }
-
-    .text-input {
-      width: 99%;
-    }
-
-    #navList {
-      overflow: auto;
-      max-height: 88vh;
+        width: 25rem;
     }
 }
 
@@ -58,11 +41,7 @@
 */
 @media (min-width: 481px) and (max-width: 767px) {
     .form-card {
-      width: 90%;
-    }
-
-    .text-input {
-      width: 98%;
+        width: 90%;
     }
 }
 
@@ -72,10 +51,6 @@
 */
 @media (min-width: 320px) and (max-width: 480px) {
     .form-card {
-      width: 100%;
-    }
-
-    .text-input {
-      width: 98%;
+        width: 100%;
     }
 }

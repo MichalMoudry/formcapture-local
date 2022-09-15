@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Empty" xml:space="preserve">
-    <value>No Data</value>
-    <comment/>
-  </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
     <comment/>
@@ -270,7 +266,7 @@
     <comment/>
   </data>
   <data name="ExpectedValueInputPlaceholder" xml:space="preserve">
-    <value>Enter expected value of the identification field...</value>
+    <value>Enter expected value of the field...</value>
     <comment/>
   </data>
   <data name="NoTemplateNameErrorMessage" xml:space="preserve">

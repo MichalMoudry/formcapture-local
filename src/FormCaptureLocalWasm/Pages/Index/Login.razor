@@ -3,28 +3,34 @@
 @inject IJSRuntime JSRuntime
 @inject IStringLocalizer<App> Localizer
 @inject NavigationManager NavigationManager
-@inject ILocalStorageService LocalStorage
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 @page "/login"
 
 <PageTitle>@Localizer["LoginPageTitle"]</PageTitle>
 
-<div class="card px-4 form-card py-4">
-    <h1 class="mt-0 mb-0">
+<div class="card px-4 form-card">
+    <h3 class="mt-4">
         <span class="oi oi-account-login me-2"></span> @Localizer["LoginPageTitle"]
-    </h1>
+    </h3>
+    <Form Model="@user" Layout="@FormLayout.Vertical" OnFinish="@Submit">
+        <FormItem Label="Email:">
+            <Input @bind-Value="@user.Email" Placeholder="@Localizer["EmailInputPlaceholder"]" />
+        </FormItem>
 
-    <form class="mb-0 py-4">
-        <label for="email">Email:</label>
-        <input type="email" id="email" placeholder="@Localizer["EmailInputPlaceholder"]" @bind="@user.Email" />
+        <FormItem Label="@Localizer["Password"]">
+            <InputPassword @bind-Value="@user.Password" Placeholder="@Localizer["PasswordInputPlaceholder"]" />
+        </FormItem>
 
-        <label for="password" class="mt-4">@Localizer["Password"]:</label>
-        <input type="password" id="password" placeholder="@Localizer["PasswordInputPlaceholder"]" @bind="user.Password" />
-    </form>
-
-    <IconButton Icon="check" Text="@Localizer["Submit"]" OnClick="Submit" />
-
-    <div class="error-alert mt-3 @ErrorAlertDisplayCssClass">
-        <p>@Localizer["LoginErrorText"]</p>
+        <FormItem>
+            <Button Type="@ButtonType.Primary" HtmlType="submit">
+                <span class="oi oi-check me-2"></span>@Localizer["Submit"]
+            </Button>
+        </FormItem>
+    </Form>
+    <div class="mb-4 @ErrorAlertDisplayCssClass">
+        <Alert Type="@AlertType.Error" Message="@Localizer["Error"]">
+            @Localizer["LoginErrorText"]
+        </Alert>
     </div>
 </div>
 
@@ -53,17 +59,19 @@
         if (!string.IsNullOrEmpty(user.Email) && !string.IsNullOrEmpty(user.Password))
         {
             var users = await DataAccess.GetItemsAsListAsync<User>(ObjectStores.Users.ToString());
-            var userFromDb = users.SingleOrDefault(i => i.Email != null && i.Email.Equals(user.Email));
+            //var userFromDb = await DataAccess.GetItemAsync<User>(user.Email, ObjectStores.Users.ToString());
+            var userFromDb = users.SingleOrDefault(i => i.Email.Equals(user.Email));
             if (userFromDb != null)
             {
                 var passwordHash = await JSRuntime.InvokeAsync<string>("hashString", user.Password, userFromDb.PasswordSalt);
                 if (passwordHash.Equals(userFromDb.PasswordHash))
                 {
+                    //UserHelper.UserID = userFromDb.Email ?? "";
                     UserHelper.UserID = userFromDb.ID;
                     userFromDb.LastLogin = DateTime.Now;
                     await DataAccess.UpdateItemAsync(userFromDb, ObjectStores.Users.ToString());
-                    await LocalStorage.SetItemAsync<int>("LastLoginID", userFromDb.ID);
-                    await LocalStorage.SetItemAsync<DateTime>("LastLoginDate", userFromDb.LastLogin);
+                    await localStorage.SetItemAsync<int>("LastLoginID", userFromDb.ID);
+                    await localStorage.SetItemAsync<DateTime>("LastLoginDate", userFromDb.LastLogin);
                     NavigationManager.NavigateTo("/formcapture/home");
                 }
                 else
@@ -71,13 +79,11 @@
                     isErrorAlertDisplayed = true;
                 }
             }
-            else
-            {
+            else {
                 isErrorAlertDisplayed = true;
             }
         }
-        else
-        {
+        else {
             isErrorAlertDisplayed = true;
         }
     }

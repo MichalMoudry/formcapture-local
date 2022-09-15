@@ -5,9 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormCaptureLocalWasm", "FormCaptureLocalWasm.csproj", "{7BCDD1A1-CAC5-4167-821B-3182F113BAF2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FormCaptureLocalWasmTests", "..\..\test\FormCaptureLocalWasmTests\FormCaptureLocalWasmTests.csproj", "{33A11401-4387-47F5-BABA-5A4BDBBAAB18}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoumComponents", "..\MoumComponents\MoumComponents.csproj", "{013BF59C-67B3-4A55-876A-68427E160C0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormCaptureLocalWasmTests", "..\..\test\FormCaptureLocalWasmTests\FormCaptureLocalWasmTests.csproj", "{33A11401-4387-47F5-BABA-5A4BDBBAAB18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{33A11401-4387-47F5-BABA-5A4BDBBAAB18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33A11401-4387-47F5-BABA-5A4BDBBAAB18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33A11401-4387-47F5-BABA-5A4BDBBAAB18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{013BF59C-67B3-4A55-876A-68427E160C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{013BF59C-67B3-4A55-876A-68427E160C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{013BF59C-67B3-4A55-876A-68427E160C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{013BF59C-67B3-4A55-876A-68427E160C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

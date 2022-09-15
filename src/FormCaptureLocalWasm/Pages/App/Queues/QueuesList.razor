@@ -7,7 +7,7 @@
 
 <AppPageHeader Icon="list-rich" Title="@Localizer["Queues"]" />
 
-<IconButton OnClick="@(e => Navigate("/formcapture/queues/start"))" Icon="play-circle" Text="@Localizer["QueueStartPageTitle"]" Class="mb4" />
+<IconButton OnClickCallback="@(e => Navigate("/formcapture/queues/start"))" Icon="play-circle" Text="@Localizer["QueueStartPageTitle"]" Type="primary" Class="mb4" />
 
 <div class="table-responsive mt-4">
     @if (Queues != null)
@@ -29,6 +29,9 @@
                         <td>@queue.QueueStatus</td>
                         <td>@queue.Added</td>
                         <td>
+                            <Popconfirm Title="Do you want to delete this template?" OkText="Yes" CancelText="No">
+                                <Button Danger>@Localizer["Delete"]</Button>
+                            </Popconfirm>
                         </td>
                     </tr>
                 }
@@ -36,12 +39,12 @@
         </table>
         @if (Queues.Count == 0)
         {
-            <!--<Empty class="mt-4" />-->
+            <Empty class="mt-4" />
         }
     }
     else
     {
-        <!--<Spin Size="large" />-->
+        <Spin Size="large" />
     }
 </div>
 

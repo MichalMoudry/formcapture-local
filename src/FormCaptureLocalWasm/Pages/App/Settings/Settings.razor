@@ -1,6 +1,7 @@
 @layout AppLayout
 @inject ILocalStorageService localStorage
 @inject IStringLocalizer<App> Localizer
+@inject MessageService MessageService
 @page "/formcapture/settings"
 
 <IconHeader Icon="cog" Title="@Localizer["Settings"]" />
@@ -15,22 +16,20 @@
             <option value="eng" class="pointer">en-US</option>
             <option value="ces">cz-CS</option>
         </select>
-        <IconButton class="mt-3" OnClick="@SaveLocale" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveLocaleButtonLoading" />
+        <IconButton Type="primary" class="mt-3" OnClickCallback="@SaveLocale" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveLocaleButtonLoading" />
     </div>
 
     <div class="card px-3 py-3 mt-4">
         <IconSubheader Icon="contrast" Title="@Localizer["ApplicationTheme"]" />
         <p>@Localizer["AppThemeSettingDescription"].</p>
         <div>
-            <!--
-                <RadioGroup @bind-Value="@appTheme" class="w-100">
-                    <Radio Value="@("Default")" class="disable-select radio">@Localizer["DefaultThemeRadioButtonText"]</Radio>
-                    <Radio Value="@("HighContrastLight")" class="disable-select radio">@Localizer["HighContrastLightThemeRadioButtonText"]</Radio>
-                    <Radio Value="@("HighContrastDark")" class="disable-select radio">@Localizer["HighContrastDarkThemeRadioButtonText"]</Radio>
-                </RadioGroup>
-            -->
+            <RadioGroup @bind-Value="@appTheme" class="w-100">
+                <Radio Value="@("Default")" class="disable-select radio">@Localizer["DefaultThemeRadioButtonText"]</Radio>
+                <Radio Value="@("HighContrastLight")" class="disable-select radio">@Localizer["HighContrastLightThemeRadioButtonText"]</Radio>
+                <Radio Value="@("HighContrastDark")" class="disable-select radio">@Localizer["HighContrastDarkThemeRadioButtonText"]</Radio>
+            </RadioGroup>
         </div>
-        <IconButton class="mt-3" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveThemeButtonLoading" OnClick="@SaveTheme" />
+        <IconButton Type="primary" class="mt-3" Icon="check" Text="@Localizer["SaveSettingButtonText"]" IsLoading="@isSaveThemeButtonLoading" OnClickCallback="@SaveTheme" />
     </div>
 </div>
 
@@ -67,11 +66,11 @@
             isSaveLocaleButtonLoading = true;
             await localStorage.SetItemAsync(FormCaptureLocalWasm.Models.Enums.Settings.DefaultLocale.ToString(), defaultLocale);
             isSaveLocaleButtonLoading = false;
-            //await MessageService.Success("Locale has been successfuly saved");
+            await MessageService.Success("Locale has been successfuly saved");
         }
         catch (System.Exception)
         {
-            //await MessageService.Success("During saving an error occurred");
+            await MessageService.Success("During saving an error occurred");
         }
     }
 
@@ -85,11 +84,11 @@
             isSaveThemeButtonLoading = true;
             await localStorage.SetItemAsync(FormCaptureLocalWasm.Models.Enums.Settings.ApplicationTheme.ToString(), appTheme);
             isSaveThemeButtonLoading = false;
-            //await MessageService.Success("Locale has been successfuly saved");
+            await MessageService.Success("Locale has been successfuly saved");
         }
         catch (System.Exception)
         {
-            //await MessageService.Success("During saving an error occurred");
+            await MessageService.Success("During saving an error occurred");
         }
     }
 

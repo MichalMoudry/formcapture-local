@@ -10,15 +10,12 @@
 <div class="mb-3">
     <!--Queue name-->
     <div class="card px-3 py-3">
-        <IconSubheader Icon="cog" Title="Batch settings" />
-        <label for="queue-name"><b>@Localizer["QueueNameInputLabel"]</b>:</label><br>
-        <input type="text" Placeholder="@Localizer["QueueNameInputPlaceholder"]" name="queue-name" id="queue-name" class="mt-2" />
+        <label for="queue-name"><b>@Localizer["QueueNameInputLabel"]</b>:</label>
+        <Input Placeholder="@Localizer["QueueNameInputPlaceholder"]" name="queue-name" id="queue-name" @bind-Value="queue.Name" />
         <Divider />
-        <!--
-            <Checkbox @bind-Checked="queue.IsAutomatic">
-                Process queue automatically (without user intervention)
-            </Checkbox>
-        -->
+        <Checkbox @bind-Checked="queue.IsAutomatic">
+            Process queue automatically (without user intervention)
+        </Checkbox>
     </div>
 
     <!--File upload-->
@@ -31,7 +28,7 @@
         <IconSubheader Icon="globe" Title="@Localizer["QueueStartSelectLocaleTitle"]" />
     </div>
 
-    <IconButton Class="mt-4 w-100" Text="@Localizer["QueueStartPageSubmitButtonText"]" Icon="check" />
+    <IconButton Type="primary" IsBlock=true Class="mt-4" Text="@Localizer["QueueStartPageSubmitButtonText"]" Icon="check" />
 </div>
 
 @code
@@ -44,7 +41,7 @@
     /// <summary>
     /// Default locale of document processing.
     /// </summary>
-    private string? defaultLocale;
+    private string defaultLocale;
 
     /// <summary>
     /// Field for displaying/hiding file loading indicator.

@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <RunAOTCompilation>False</RunAOTCompilation>
+    <RunAOTCompilation>True</RunAOTCompilation>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -15,6 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.10.3.1" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.1" PrivateAssets="all" />
@@ -32,10 +33,6 @@
 
   <ItemGroup>
     <None Include="C:\Users\moudr\source\repos\formcapture-local\src\FormCaptureLocalWasm\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MoumComponents\MoumComponents.csproj" />
   </ItemGroup>
 
 </Project>

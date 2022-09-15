@@ -1,0 +1,31 @@
+<Button class="@Class" Type="@Type" Loading="IsLoading" @onclick="OnClickCallback" Block="IsBlock">
+    @if (!IsLoading)
+    {
+        <span class="oi oi-@Icon me-2"></span>
+    }
+    @Text
+</Button>
+
+@code
+{
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Type { get; set; }
+
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public bool IsBlock { get; set; } = false;
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickCallback { get; set; }
+}

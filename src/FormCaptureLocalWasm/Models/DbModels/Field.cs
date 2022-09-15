@@ -71,13 +71,4 @@ public class Field : Entity
         Xposition = x;
         Yposition = y;
     }
-
-    /// <summary>
-    /// Method for obtaining relative postition of a field.
-    /// </summary>
-    /// <param name="template">Field's parent template.</param>
-    public (double x, double y) GetRelativePosition(Template template)
-    {
-        return (Xposition, Yposition);
-    }
 }
