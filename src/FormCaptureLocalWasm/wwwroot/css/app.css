@@ -1,5 +1,75 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    margin: 0px;
+}
+
+/* Primary color stuff */
+.primary-color-border {
+    border-color: #5C6BC0 !important;
+}
+
+.text-primary-color {
+    color: #5C6BC0;
+}
+/* ------------------ */
+
+/* Buttons */
+button {
+    background-color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid;
+    font: inherit;
+    margin: 0;
+}
+
+.round-button {
+    border-radius: 2rem;
+    height: 3rem;
+    width: 3rem;
+    min-height: 3rem;
+    min-width: 3rem;
+}
+
+.default-button {
+    color: #5C6BC0;
+    border-color: #5C6BC0 !important;
+}
+
+.default-button:hover {
+    background-color: #5C6BC0;
+    color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+
+.red-button {
+    color: #c05c5c;
+    border-color: #c05c5c !important;
+    background-color: white;
+}
+
+.red-button:hover {
+    background-color: #c05c5c;
+    color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+
+.orange-button {
+    color: #ef6c00;
+    border-color: #ef6c00 !important;
+    background-color: white;
+}
+
+.orange-button:hover {
+    background-color: #ef6c00;
+    color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+}
+/* ------------------ */
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -43,10 +113,6 @@
         text-align: center;
     }
 
-.font-color-white {
-    color: white;
-}
-
 .card {
     border-radius: .3rem;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
@@ -54,29 +120,47 @@
     color: #000;
 }
 
+/* Display classes */
 .display-none {
-    display: none;
+    display: none !important;
 }
+
+.display-flex {
+    display: flex;
+}
+/* ------------------ */
 
 a:hover {
     text-decoration: underline;
 }
 
+/* Navbar classes */
+#navList a {
+    text-decoration: none;
+}
+
+.navbar-brand {
+    width: 80%;
+    text-decoration: none;
+}
+/* ------------------ */
+
 label {
     font-weight: bold;
+    margin-bottom: 4px;
+    cursor: pointer;
+}
+
+input[type=text], input[type=password], input[type=email] {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    padding-left: .25rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: .25rem;
 }
 
 .text-center {
     text-align: center;
-}
-
-.text-primary-color {
-    color: #5C6BC0;
-}
-
-.primary-color-background {
-    background-color: #5C6BC0;
-    color: white;
 }
 
 .pointer {
@@ -118,6 +202,7 @@ label {
 
 .custom-table {
     width: 100%;
+    border-collapse: collapse;
 }
 
     .custom-table, .custom-table td {
@@ -161,3 +246,80 @@ select {
 .w-100 {
     width: 100%;
 }
+
+.divider {
+    /*
+    color: rgba(0, 0, 0, 0.85);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    */
+    width: 100%;
+    display: block;
+    margin: 1.25rem 0;
+    height: 2px;
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Message boxes */
+.error-alert {
+    border: 1px solid #d32f2f;
+    border-radius: .3rem;
+    background-color: #ef5350;
+    color: white;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.success-alert {
+    border: 1px solid #388e3c;
+    border-radius: .3rem;
+    background-color: #4caf50;
+    color: white;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+/* ------------------ */
+
+/* Fields viewer styles */
+.fields-viewer {
+    flex-direction: column;
+    align-items: end;
+}
+
+.fields-viewer-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    z-index: 1;
+}
+
+#fields-viewer-display-button {
+    background-color: white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+    border-width: 0px;
+    height: 3rem;
+}
+
+#fields-viewer-display-button:hover {
+    background-color: #f9f9f9 !important;
+}
+
+.fields-list .display-flex {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fields-list {
+    max-height: 20rem;
+    overflow: auto;
+}
+/* ------------------ */

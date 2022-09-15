@@ -12,7 +12,6 @@ _ = builder.Services.AddBlazoredLocalStorage()
     .AddLocalization(options => options.ResourcesPath = "Resources")
     .AddSingleton<IStringLocalizer<App>, StringLocalizer<App>>()
     .AddTransient<IDataAccess, IndexedDbDataAccess>()
-    .AddTransient<IRecognitionService, TesseractService>()
-    .AddAntDesign();
+    .AddTransient<IRecognitionService, TesseractService>();
 
 await builder.Build().RunAsync();

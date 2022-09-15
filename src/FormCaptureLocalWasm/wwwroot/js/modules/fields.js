@@ -41,10 +41,16 @@ function drawFields(fields, targetID) {
 }
 
 //TODO: fix field drawing
-function drawField(fieldID) {
+function drawField(fieldID, hideFieldViewer) {
     var existingField = document.getElementById(fieldID);
     if (existingField != null) {
         existingField.remove();
+    }
+    var viewer = document.getElementById("fields-viewer");
+    var drawingStatus = document.getElementById("field-drawing-status");
+    if (hideFieldViewer) {
+        viewer.classList.add("display-none");
+        drawingStatus.classList.remove("display-none");
     }
     var canvas = document.getElementById("template-canvas");
     if (canvas != null) {
@@ -53,6 +59,7 @@ function drawField(fieldID) {
         var startY = 0;
         var x = 0;
         var y = 0;
+        canvas.style.cursor = "pointer";
         if (canvas.onclick == null) {
             canvas.onclick = function (e) {
                 if (fieldRectangle == null) {
@@ -75,6 +82,10 @@ function drawField(fieldID) {
                     canvas.style.cursor = "auto";
                     canvas.onclick = null;
                     canvas.onmousemove = null;
+                    if (hideFieldViewer) {
+                        viewer.classList.remove("display-none");
+                        drawingStatus.classList.add("display-none");
+                    }
                 }
             }
         }
