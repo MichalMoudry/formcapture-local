@@ -53,11 +53,6 @@ else
     private string? fileContent;
 
     /// <summary>
-    /// Private field wtih value representing if modal for testing identification is visible or not.
-    /// </summary>
-    private bool isTestModalVisible = false;
-
-    /// <summary>
     /// Private field with a list of fields connected to the template.
     /// </summary>
     private List<Field> fields = new List<Field>();
@@ -160,7 +155,6 @@ else
                     identifyingField.SetDimensions(Convert.ToInt32(fieldPropertiesSplit[0]), Convert.ToInt32(fieldPropertiesSplit[1]));
                     identifyingField.SetPosition(Convert.ToInt32(fieldPropertiesSplit[2]), Convert.ToInt32(fieldPropertiesSplit[3]));
                     recognizedValue = await Recognition.SinglefieldRecognition(identifyingField, template.Image, template.ContentType, "ces");
-                    isTestModalVisible = true;
                 }
                 ToggleButtons();
             }

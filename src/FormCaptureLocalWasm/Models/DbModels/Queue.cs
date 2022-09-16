@@ -5,7 +5,7 @@ namespace FormCaptureLocalWasm.Models.DbModels;
 /// <summary>
 /// Queue class represents queue of processed batches.
 /// </summary>
-public class Queue : Entity
+public sealed class Queue : Entity
 {
     /// <summary>
     /// Locale used for processing documents in a queue.

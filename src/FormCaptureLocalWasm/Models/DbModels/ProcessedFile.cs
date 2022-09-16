@@ -3,7 +3,7 @@
 /// <summary>
 /// Class that represents a single file that is processed by the system.
 /// </summary>
-public class ProcessedFile : Entity
+public sealed class ProcessedFile : Entity
 {
     /// <summary>
     /// Content of the file, but converted to black and white for better recognition results.

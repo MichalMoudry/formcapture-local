@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a field created on a document template.
 /// </summary>
-public class Field : Entity
+public sealed class Field : Entity
 {
     /// <summary>
     /// Expected value of a field. Only used if field is used for document identification.

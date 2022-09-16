@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a template of a file that will be processed.
 /// </summary>
-public class Template : Entity
+public sealed class Template : Entity
 {
     /// <summary>
     /// Type of the uploaded content.

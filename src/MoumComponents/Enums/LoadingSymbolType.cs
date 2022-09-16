@@ -1,8 +1,7 @@
-﻿namespace MoumComponents.Enums
+﻿namespace MoumComponents.Enums;
+
+public enum LoadingSymbolType
 {
-    public enum LoadingSymbolType
-    {
-        Line,
-        Circle,
-    }
+    Line,
+    Circle,
 }

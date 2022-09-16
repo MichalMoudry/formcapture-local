@@ -8,7 +8,7 @@ namespace FormCaptureLocalWasmTests;
 /// <summary>
 /// Navigation menu tests.
 /// </summary>
-public class NavMenuTests
+public sealed class NavMenuTests
 {
     /// <summary>
     /// Test if navigation menu toggles correctly.
@@ -18,7 +18,7 @@ public class NavMenuTests
     {
         using var context = new TestContext();
         //Add services to context
-        _ = context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+        context.Services.AddLocalization(options => options.ResourcesPath = "Resources");
         var navMenu = context.RenderComponent<NavMenu>();
         var beforeToggle = navMenu.Find("#navList").ClassList.Contains("collapse");
         navMenu.Find(".navbar-toggler").Click();

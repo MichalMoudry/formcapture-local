@@ -2,7 +2,7 @@
 
 namespace FormCaptureLocalWasm.Models;
 
-public class User
+public sealed class User
 {
     public int ID { get; set; }
 
