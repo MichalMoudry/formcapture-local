@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 
 namespace FormCaptureLocalWasm.Services;
 
-public class TesseractService : IRecognitionService
+public sealed class TesseractService : IRecognitionService
 {
     /// <summary>
     /// Field for JSRuntime class instance.

@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a recognized value on a single processed document.
 /// </summary>
-public sealed class FieldValue : Entity
+public sealed class FieldValue : EntityBase
 {
     /// <summary>
     /// ID of the field that this value is connected to.

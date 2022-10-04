@@ -3,7 +3,7 @@
 /// <summary>
 /// An abstract class that is a parent class of entity classes.
 /// </summary>
-public abstract class Entity
+public abstract class EntityBase
 {
     /// <summary>
     /// Date of row creation.

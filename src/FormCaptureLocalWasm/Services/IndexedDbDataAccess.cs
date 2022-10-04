@@ -5,7 +5,7 @@ namespace FormCaptureLocalWasm.Services;
 /// <summary>
 /// Service class for accessing browser indexed Db.
 /// </summary>
-public class IndexedDbDataAccess : IDataAccess
+public sealed class IndexedDbDataAccess : IDataAccess
 {
     /// <summary>
     /// Field for JSRuntime class instance.
